@@ -1,0 +1,45 @@
+{
+  "ProjectName": "RankingBall Live",
+  "ProjectGuid": "cad777a8-89f1-4c32-a3a0-84bfdab3d6bd",
+  "projectVersion": 1,
+  "AppIdentifier": "com.telerik.RankingBallLive",
+  "DisplayName": "RankingBall Live",
+  "Author": "",
+  "Description": "RankingBall Live",
+  "BundleVersion": "1.0",
+  "AndroidVersionCode": "1",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "iOSBackgroundMode": [],
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "FrameworkVersion": "3.7.0",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "AndroidHardwareAcceleration": "false",
+  "iOSStatusBarStyle": "Default",
+  "Framework": "Cordova",
+  "WP8TileTitle": "",
+  "WP8Publisher": "",
+  "WP8Capabilities": [
+    "ID_CAP_NETWORKING",
+    "ID_CAP_WEBBROWSERCOMPONENT"
+  ],
+  "WP8Requirements": [],
+  "WP8PublisherID": "{9e680c99-ef54-40e8-8186-97d0a72a1340}",
+  "WP8ProductID": "{0788343e-77f8-473e-8a0f-57103d54ebe8}",
+  "WPSdk": "8.0",
+  "WP8PackageIdentityName": "1234Telerik.RankingBallLive",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ]
+}
