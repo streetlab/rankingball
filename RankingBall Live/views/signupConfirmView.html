@@ -1,0 +1,41 @@
+<div id="signupConfirm" class="signup-view"
+     data-layout="main-layout" 
+     data-role="view"
+     data-model="app.Signup" 
+     data-transition="slide" 
+     data-after-show="afterShowTerms">
+    
+    <div data-role="header">
+        <div data-role="navbar">
+            서비스 이용 동의
+            <a class="nav-button nav-button-icon nav-button-back-d hide-text" data-align="left" data-role="backbutton" href="#landing" data-transition="slide:right">
+                <img src="assets/resource/btn_back.png">
+            </a>
+        </div>
+    </div>
+    <div class="termsDiv">
+        <div class="termsScroller" data-role="scroller">
+            <div id="termOfUse"></div>
+        </div>
+        <div class="termsCheck">
+            <input id="agreeUse" type="checkbox" class="km-checkbox" />
+            <label for="agreeUse" class="km-checkbox-label">동의합니다</label>
+        </div>
+    </div>
+    <div class="termsDiv">
+        <div class="termsScroller" data-role="scroller">
+            <div id="termOfPersonal"></div>
+        </div>
+        <div class="termsCheck">
+            <input id="agreePersonal" type="checkbox" class="km-checkbox" />
+            <label for="agreePersonal" class="km-checkbox-label">동의합니다</label>
+        </div>
+    </div>
+    <div class="termsDivLast">
+        <input id="agreeAll" type="checkbox" class="km-checkbox" data-bind="click: checkConfirmAll" />
+        <label for="keep-login" class="km-checkbox-label">동의합니다</label>
+    </div>
+    <div id="confirmBtnWrp" class="signup-btn-wrp disabled">
+        <a class="btn-signup" data-role="button" data-bind="click: signupConfirm">확인</a>
+    </div>
+</div>

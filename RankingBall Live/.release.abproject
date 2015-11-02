@@ -1,10 +1,8 @@
 {
   "CorePlugins": [
-    "org.apache.cordova.battery-status",
+    "com.phonegap.plugins.PushPlugin@2.5.8",
     "org.apache.cordova.camera",
-    "org.apache.cordova.contacts",
     "org.apache.cordova.device",
-    "org.apache.cordova.device-motion",
     "org.apache.cordova.device-orientation",
     "org.apache.cordova.dialogs",
     "org.apache.cordova.file",
@@ -12,11 +10,10 @@
     "org.apache.cordova.geolocation",
     "org.apache.cordova.globalization",
     "org.apache.cordova.inappbrowser",
-    "org.apache.cordova.media",
-    "org.apache.cordova.media-capture",
     "org.apache.cordova.network-information",
     "org.apache.cordova.splashscreen",
     "org.apache.cordova.statusbar",
-    "org.apache.cordova.vibration"
+    "org.apache.cordova.vibration",
+    "uk.co.whiteoctober.cordova.appversion@0.1.7"
   ]
 }
