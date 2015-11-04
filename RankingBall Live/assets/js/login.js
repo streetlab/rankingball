@@ -72,8 +72,10 @@ app.Login = (function () {
         // Authenticate to use Backend Services as a particular user
         var login = function () {
 
-            app.mobileApp.navigate('views/landingView.html', 'slide');
-            return false;
+            if(registType === 2) {
+                app.mobileApp.navigate('views/landingView.html');
+                return false;
+            }
             
             var useremail = $loginUsername.val();
             var password = $loginPassword.val();
@@ -202,6 +204,10 @@ app.Login = (function () {
                     console.log("not found");
                 }
              }
+        }
+        
+        var joinGame = function() {
+            app.mobileApp.navigate('views/simpleSignupView.html', 'slide');
         }
         
         // Authenticate using Facebook credentials
@@ -398,6 +404,7 @@ app.Login = (function () {
             show: show,
             getYear: app.getYear,
             login: login,
+            joinGame: joinGame,
             loginWithFacebook: loginWithFacebook,
             loginWithGoogle: loginWithGoogle,
             loginWithLiveID: loginWithLiveID,

@@ -18,6 +18,7 @@
         <script src="assets/js/login.js"></script>
         <script src="assets/js/signup.js"></script>
         <script src="assets/js/dfs.js"></script>
+        <script src="assets/js/objControl.js"></script>
         
         <script src="assets/js/push-registrar.js"></script>
 
@@ -27,8 +28,13 @@
         <!--Laning View -->
         <div data-role="view" id="landing" data-stretch="true" data-model="app.Login">
             <div class="landing-screen">
-                <div class="landing-bottom">
+                <div class="landing-point">
+                   <a data-click="app.Login.joinGame" data-role="button"><img src="./assets/resource/landing/ic_gamestart.png" id="ppiki" /></a>
+                    <span>게임시작하기</span>
+                </div>
+                <div class="landing-bottom">    
                     <div class="landing-btns">
+                        
                         <!--
                         <a class="btn" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
                             <img src="assets/resource/ic_facebook.png" align="absmiddle"><span class="button-content">Sign In With Facebook</span>
@@ -36,7 +42,7 @@
                         <a data-role="button" class="btn">
                             <img src="assets/resource/ic_twitter.png" align="absmiddle"><span class="button-content">Sign In With Twitter</span>
                         </a>
-                        //-->
+
                         <a data-role="button" href="views/signupConfirmView.html" class="btn" data-transition="slide">
                             <img src="assets/resource/ic_email.png" align="absmiddle"><span class="button-content">이메일 회원가입하기</span>
                         </a>
@@ -44,6 +50,7 @@
                         <a data-role="button" href="views/loginView.html" class="btn text-center none-icon" data-transition="slide">
                             <span class="button-content">랭킹볼 로그인하기</span>
                         </a>
+                        //-->
                     </div>
                 </div>
             </div>

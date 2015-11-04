@@ -116,6 +116,7 @@ app.Signup = (function () {
         
         
         var signupConfirm = function() {
+            
             var termService = $("input:checkbox[id='agreeUse']").is(":checked");
             var termPersonal = $("input:checkbox[id='agreePersonal']").is(":checked");
             
@@ -124,6 +125,8 @@ app.Signup = (function () {
             } else {
                 app.showAlert("먼저 약관을 확인하시고 동의해주세요.");
             }
+            
+            
         }
         
         var checkConfirmAll = function() {
@@ -132,7 +135,6 @@ app.Signup = (function () {
                 $("input:checkbox[id='agreeUse']").prop('checked', true); 
                 $("input:checkbox[id='agreePersonal']").prop('checked', true);
             } else {
-                console.log('unchecked');
                 $("input:checkbox[id='agreeUse']").prop('checked', false); 
                 $("input:checkbox[id='agreePersonal']").prop('checked', false);
             }

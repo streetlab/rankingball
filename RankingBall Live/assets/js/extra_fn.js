@@ -2,9 +2,7 @@ var init_data = {}, init_apps = {}, app_status = true;
 var temrsService, termsPersonal;
 var uu_data = {};
 var guest = false;
-var registType = 1;
-//var localStorageApp = new localStorageApp();
-
+var registType = 2; // member join type ( normal: 1, guest: 2, sns: 3 )
 
 var routine_version_check = function(device,version) {
     var returnValue = true;

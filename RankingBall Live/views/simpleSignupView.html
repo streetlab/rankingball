@@ -1,0 +1,34 @@
+<div id="signupConfirm" class="signup-view"
+     data-layout="main-layout" 
+     data-role="view"
+     data-model="app.Signup" 
+     data-transition="slide" 
+     data-after-show="afterShowTerms">
+    
+    <div data-role="header">
+        <div data-role="navbar">
+            서비스 이용 동의
+            <a class="nav-button nav-button-icon nav-button-back-d hide-text" data-align="left" data-role="backbutton" href="#landing" data-transition="slide:right">
+                <img src="assets/resource/btn_back.png">
+            </a>
+        </div>
+    </div>
+    <div class="termsDiv">
+        <div class="termsScroller" data-role="scroller">
+            <div id="termOfUse"></div>
+        </div>
+    </div>
+    <div class="termsDiv">
+        <div class="termsScroller" data-role="scroller">
+            <div id="termOfPersonal"></div>
+        </div>
+    </div>
+    <div class="termsDivLast">
+        <label>게임 내에서 사용할 닉네임을 입력해주세요.</label>
+        <input type="text" id="signupUsername" data-bind="value: Username" class="signup-field" placeholder="닉네임" required>
+    </div>
+    <div id="confirmBtnWrp" class="signup-btn-wrp disabled">
+        <div class="confirmTxt">약관에 동의하며 게임을 시작합니다.</div>
+        <a class="btn-signup" data-role="button" data-bind="click: signupConfirm">게임 시작하기</a>
+    </div>
+</div>
