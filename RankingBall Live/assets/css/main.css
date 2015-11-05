@@ -257,43 +257,43 @@ html, body
     color: #3c3c3c;    
 }
 
-#contest-bar .strip-group {
+.strip-group {
     display: table;
     width: 100%;
     min-height: 34px;
     background-color: #3c3c3c;
 }
-#contest-bar .strip-group .strip-box-padding {
+.strip-group .strip-box-padding {
     display: table-cell;
     vertical-align: middle;
     font-size: 0.9em;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz {
+.strip-group .strip-box-padding .strip-box-moz {
     padding-left: .8em;
     color: #9b9b9b;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw {
+.strip-group .strip-box-padding .strip-box-moz-vw {
     text-align:right;
     padding-right: .8em;
     color: #3180a4;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box {
+.strip-group .strip-box-padding .strip-box-moz-vw span.bg-box {
     display: inline-block;
     text-indent: -99999px;
     width: 12px;
     height: 8px;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n {
+.strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;   
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n-on
+.strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;
 }
 
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s {
+.strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;
     -webkit-transform: rotate(180deg);
@@ -301,7 +301,7 @@ html, body
     -ms-transform: rotate(180deg);
     -o-transform: rotate(180deg);
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s-on
+.strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;
@@ -860,12 +860,12 @@ html, body
     vertical-align: middle;
 }
 
-#contest-bar .tapstrip-group {
+.tapstrip-group {
     display: table;
     width: 100%;
     background: #3c3c3c;
 }
-#contest-bar .tapstrip-group .tabstrip-moz {
+.tapstrip-group .tabstrip-moz {
     display: table-cell;
     margin: 0;
     padding: 0;
@@ -874,9 +874,8 @@ html, body
     color: #9d969d;
     border-bottom: 3px solid #3c3c3c;
 }
-#contest-bar .tapstrip-group .tabstrip-moz a
+.tapstrip-group .tabstrip-moz a
 {
-    width: 100%;
     padding: .6em 0 .4em 0;
     text-decoration: none;
     font-size: .9em;
@@ -885,11 +884,11 @@ html, body
     text-align: center;
     vertical-align: middle;
 }
-#contest-bar .tapstrip-group .tabstrip-moz.ts
+.tapstrip-group .tabstrip-moz.ts
 {
     border-bottom: 3px solid #8ccc3e;
 }
-#contest-bar .tapstrip-group .tabstrip-moz.ts a {
+.tapstrip-group .tabstrip-moz.ts a {
     color: #fff;   
 }
 
@@ -936,8 +935,9 @@ html, body
 /* Contest Match List */
 .contest-match-list {
     position: relative;    
+    margin-top: .8em;
 }
-.contest-match-list ul.contest-inboxList {
+.contest-match-list ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -946,25 +946,141 @@ html, body
     padding: 0.8em .4em;
 }
 
-.contest-match-list a.btn-contest-lead
+.contest-match-list a.btn-match-lead
 {
     position: relative;
     width: 100%;
-    margin: 0 -1px;
+    margin: 0;
     padding: .8em 0;
-    border-radius: 3px;
+    border-radius: 0;
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
     background-color: #3180a4;
 }
-.contest-match-list a.btn-contest-lead.esp {
+.contest-match-list a.btn-match-lead.esp {
     background-color: #73b126;
+}
+.contest-match-list .collapse-btn {
+    position: fixed;
+    right: 1.2em;
+    text-indent: -9999px;
+    width: 20px;
+    height: 20px;
+    background: url(../resource/btn_plus.png) right center no-repeat;
+    background-size: 20px;
+}
+.contest-match-list a .collapse-btn.ico-open {
+    background: url(../resource/btn_minus.png) right center no-repeat;
+    background-size: 20px;
+}
+
+.contest-match-list ul.collapseInboxList li {
+    font-size: .9em;
+    color: #9b9b9b;
+    padding: .4em .1em 0 .1em;
+    line-height: 1.8em;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-face {
+    display: table;
+    width: 100%;
+    padding: .5em;
+    background-color: #fff;
+    border-radius: 0;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-face .collapseInboxList-group {
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-btn {
+    min-width: 49px;
+    padding: 1em .4em;
+    font-size: .9em;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #3180a4;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-off-btn {
+    min-width: 49px;
+    padding: 1em .4em;
+    font-size: .9em;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #9b9b9b;    
+}
+.contest-match-list ul.collapseInboxList .boxs {
+    padding: .2em 0 0 .2em;
+}
+.contest-match-list ul.collapseInboxList .btns {
+
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #3180a4;
+      word-break: break-all;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-50 {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 16px;
+    height: 20px;
+    background: url(../resource/ic_50.png) 0 center no-repeat;
+    background-size: 15px;
 }
 
 
+.contest-match-list ul.collapseInboxList .collapseInboxList-summ {
+    width: 100%;
+    display: table;
+}
+#contest-bar ul.collapseInboxList .collapseInboxList-summ span {
+    display: table-cell;
+    font-size: .9em;
+}
+.contest-match-list ul.collapseInboxList .collapseInboxList-summ b {
+    color: #3c3c3c;    
+}
 
-
+/* ICO */
+span.ic-guaranteed {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 16px;
+    height: 20px;
+    background: url(../resource/ic_guaranteed.png) 0 center no-repeat;
+    background-size: 15px;
+}
+span.ic-wait {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 26px;
+    height: 22px;
+    background: url(../resource/ic_featured_wait.png) 0 center no-repeat;
+    background-size: 26px;
+}
+span.ic-play {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 26px;
+    height: 22px;
+    background: url(../resource/ic_featured_play.png) 0 center no-repeat;
+    background-size: 26px;
+}
+span.ic-over {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 26px;
+    height: 22px;
+    background: url(../resource/ic_featured_over.png) 0 center no-repeat;
+    background-size: 26px;
+}
 
 #contest-search-var .km-icon
 {

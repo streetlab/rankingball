@@ -11,8 +11,8 @@ app.Contests = (function () {
         function init() {
             $('#tabstrip_live').removeClass('ts');
             $('#tabstrip_upcoming').addClass('ts');
-            $('#amount-ruby').html(uu_data.coin);
-            $('#amount-point').html(uu_data.points);
+            $('.amount_mini_ruby').html(uu_data.coin);
+            $('.amount_mini_point').html(uu_data.points);
             
             console.log("data init");
         }
