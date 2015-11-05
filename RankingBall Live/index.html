@@ -19,6 +19,7 @@
         <script src="assets/js/signup.js"></script>
         <script src="assets/js/dfs.js"></script>
         <script src="assets/js/objControl.js"></script>
+        <script src="assets/js/contests.js"></script>
         
         <script src="assets/js/push-registrar.js"></script>
 
@@ -28,13 +29,13 @@
         <!--Laning View -->
         <div data-role="view" id="landing" data-stretch="true" data-model="app.Login">
             <div class="landing-screen">
-                <div class="landing-point">
+                <div id="start-game" class="landing-point">
                    <a data-click="app.Login.joinGame" data-role="button"><img src="./assets/resource/landing/ic_gamestart.png" id="ppiki" /></a>
                     <span>게임시작하기</span>
                 </div>
                 <div class="landing-bottom">    
                     <div class="landing-btns">
-                        
+                        <div id="processing-message" class="hide">게임에 접속중입니다.</div>
                         <!--
                         <a class="btn" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
                             <img src="assets/resource/ic_facebook.png" align="absmiddle"><span class="button-content">Sign In With Facebook</span>
@@ -62,27 +63,13 @@
         <!-- Laning View Close //-->
         
         <div data-role="layout" data-id="main-landing-menu">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a href="#app-drawer" data-rel="drawer" data-role="button" class="drawer-btn" data-align="left">
-                        <img src="assets/resource/btn_menu.png">
-                    </a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
+
         </div>
         
         <!-- Landing Menu Close //-->
         
         <div data-role="layout" data-id="main">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a href="#app-drawer" data-rel="drawer" data-role="button" class="drawer-btn" data-align="left">
-                        <img src="assets/resource/btn_menu.png">
-                    </a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
+
 
             <!--View content will render here-->
         </div>

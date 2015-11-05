@@ -71,21 +71,6 @@ app.Signup = (function () {
                     app.mobileApp.hideLoading();
                 }
             });  
-            
-            /*
-            
-            Everlive.$.Users.register(
-                dataSource.Username,
-                dataSource.Password,
-                dataSource)
-                .then(function () {
-                    app.showAlert("Registration successful");
-                    app.mobileApp.navigate('views/loginView.html', 'slide');
-                },
-                      function (err) {
-                          app.showError(err.message);
-                      });
-           */
         };
 
         function validateEmail(mail)
@@ -97,35 +82,62 @@ app.Signup = (function () {
             alert("You have entered an invalid email address!")  
             return (false);
         }  
-        
-        var confirmis;
-        
-        var confirmStatus = function() {
-            $confirmAgree = $('#agreeAll');
-            $confirmUse = $('#agreeUse');
-            $confirmPersonal = $('#agreePersonal');
-            $confirmBtnWrp = $('#confirmBtnWrp');
-        }
-        var confirmShow = function () {
-            confirmis = kendo.observable({
-                
-                optional: false
-            });
-            kendo.bind($('#signupConfirm'), confirmis);
-        };
-        
-        
-        var signupConfirm = function() {
             
-            var termService = $("input:checkbox[id='agreeUse']").is(":checked");
-            var termPersonal = $("input:checkbox[id='agreePersonal']").is(":checked");
+        var simpleSignup = function() {
             
-            if (termService && termPersonal) {
-                app.mobileApp.navigate('views/signupView.html', 'slide');
-            } else {
-                app.showAlert("먼저 약관을 확인하시고 동의해주세요.");
+            var userNick = dataSource.Username;
+            if(userNick === "") {
+                app.showAlert("닉네임을 입력해주세요");
+                return false;
             }
             
+            var param = '{"osType":' + init_apps.osType + 
+                ',"version":"' + init_apps.version + 
+                '","name":"' + userNick + 
+                '","memUID":"' + init_apps.memUID + 
+                '","deviceID":"' + init_apps.deviceID + '"}';
+            
+            var url = init_data.auth + "?callback=?";
+            
+            app.mobileApp.showLoading();
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "memberLoginDevice",
+                    "param":param
+                },
+                success: function(response) {
+                    if(response.code === 0) {
+                        uu_data = response.data;
+                        uu_data.osType = init_apps.osType;
+                        uu_data.version = init_apps.version;
+                        uu_data.memUID = init_apps.memUID;
+                        uu_data.deviceID = init_apps.deviceID;
+                        
+                        setlocalStorage('appd',JSON.stringify(uu_data));
+                        setlocalStorage('doLogin',true);
+                        setlocalStorage('doStrip','');
+                        
+                        app.mobileApp.navigate('views/landingView.html', 'slide');
+                    }
+                    else
+                    {
+                        app.showAlert(response.message,"안내");
+                    }
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));  
+                },
+                complete: function() {
+                    app.mobileApp.hideLoading();
+                }
+            });  
             
         }
         
@@ -144,8 +156,8 @@ app.Signup = (function () {
         // init form validator
         var init = function () {
             $signUpForm = $('#signUp');
-            $formFields = $signUpForm.find('input, textarea, select');
-            $signupBtnWrp = $('#signupBtnWrp');
+            $formFields = $signUpForm.find('input');
+            $signupBtnWrp = $('#guestBtnWrp');
             validator = $signUpForm.kendoValidator({ validateOnBlur: false }).data('kendoValidator');
 
             $formFields.on('keyup keypress blur change input', function () {
@@ -160,20 +172,14 @@ app.Signup = (function () {
         // Executed after show of the Signup view
         var show = function () {
             dataSource = kendo.observable({
-                  Username: '',
-                  Password: '',
-                  Email: ''
+                  Username: ''
               });
-            kendo.bind($('#signup-form'), dataSource, kendo.mobile.ui);
+            kendo.bind($('#signUp'), dataSource, kendo.mobile.ui);
         };
 
         // Executed after hide of the Signup view
         // disable signup button
-        var hide = function () {
-            $("input:checkbox[id='agreeAll']").prop('checked', false); 
-            $("input:checkbox[id='agreeUse']").prop('checked', false); 
-            $("input:checkbox[id='agreePersonal']").prop('checked', false);
-            
+        var hide = function () {            
             $signupBtnWrp.addClass('disabled');
         };
 
@@ -186,11 +192,9 @@ app.Signup = (function () {
             init: init,
             show: show,
             hide: hide,
-            confirmStatus: confirmStatus,
-            confirmShow: confirmShow,
             onSelectChange: onSelectChange,
             signup: signup,
-            signupConfirm: signupConfirm,
+            simpleSignup: simpleSignup,
             checkConfirmAll: checkConfirmAll
         };
     }());

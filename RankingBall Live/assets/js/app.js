@@ -70,16 +70,18 @@ var app = (function (win) {
     var onDeviceReady = function() {
         
         navigator.splashscreen.show();
-        
+        initService();
+        /*
         var init_process = initService();
         if(!init_process) {
             showError('init Error');
         }
         
+
         setTimeout(function() {
             navigator.splashscreen.hide();    
         }, 2000);
-       
+        */
 
         // Handle "backbutton" event
         document.addEventListener('backbutton', onBackKeyDown, false);

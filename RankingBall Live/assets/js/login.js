@@ -7,7 +7,7 @@ var app = app || {};
 app.Login = (function () {
     'use strict';
 
-   var isNullOrEmpty = function (value) {
+    var isNullOrEmpty = function (value) {
         return typeof value === 'undefined' || value === null || value === '';
     };
 
@@ -17,7 +17,6 @@ app.Login = (function () {
     };       
     
     var loginViewModel = (function () {
-
         var isInMistSimulator = (location.host.indexOf('icenium.com') > -1);
 
         var $loginUsername;
@@ -27,10 +26,8 @@ app.Login = (function () {
         var isGoogleLogin = isKeySet(appSettings.google.clientId) && isKeySet(appSettings.google.redirectUri);
         var isLiveIdLogin = isKeySet(appSettings.liveId.clientId) && isKeySet(appSettings.liveId.redirectUri);
         var isAdfsLogin = isKeySet(appSettings.adfs.adfsRealm) && isKeySet(appSettings.adfs.adfsEndpoint);
-       
         
         var init = function () {
-
             if (!isKeySet(appSettings.everlive.apiKey)) {
                 app.mobileApp.navigate('views/noApiKey.html', 'fade');
             }
@@ -54,14 +51,12 @@ app.Login = (function () {
                 $('#loginWithADSF').addClass('disabled');
                 console.log('ADFS Realm and/or Endpoint not set. You cannot use ADFS login.');
             }
-           
         };
 
         var show = function () {
-            
             var userMail = "";
             var localData = $.parseJSON(getlocalStorage('appd'));
-            if(localData) {
+            if (localData) {
                 userMail = localData.email;
             }
             
@@ -71,8 +66,7 @@ app.Login = (function () {
         
         // Authenticate to use Backend Services as a particular user
         var login = function () {
-
-            if(registType === 2) {
+            if (registType === 2) {
                 app.mobileApp.navigate('views/landingView.html');
                 return false;
             }
@@ -85,125 +79,128 @@ app.Login = (function () {
             var autoLogin = $("input:checkbox[id='keep-login']").is(":checked");
             
             var param = '{"osType":' + init_apps.osType + 
-                ',"version":"' + init_apps.version + 
-                '","email":"' + useremail + 
-                '","memPwd":"' + password + 
-                '","registType":' + registType +
-                ',"memUID":"' + init_apps.memUID + 
-                '","deviceID":"' + init_apps.deviceID + '"}';
+                        ',"version":"' + init_apps.version + 
+                        '","email":"' + useremail + 
+                        '","memPwd":"' + password + 
+                        '","registType":' + registType +
+                        ',"memUID":"' + init_apps.memUID + 
+                        '","deviceID":"' + init_apps.deviceID + '"}';
             
             var url = init_data.auth + "?callback=?";
             
             $.ajax({
-                url: url,
-                type: "GET",
-                async: false,
-                dataType: "jsonp",
-                jsonpCallback: "jsonCallback",
-                data: {
+                       url: url,
+                       type: "GET",
+                       async: false,
+                       dataType: "jsonp",
+                       jsonpCallback: "jsonCallback",
+                       data: {
                     "type": "apps",
                     "id": "memberLogin",
                     "param":param
                 },
-                success: function(response) {
-                                        
-                    if(response.code === 0) {
-                        uu_data = response.data;
-                        uu_data.osType = init_apps.osType;
-                        uu_data.version = init_apps.version;
-                        uu_data.memUID = init_apps.memUID;
-                        uu_data.deviceID = init_apps.deviceID;                       
+                       success: function(response) {
+                           if (response.code === 0) {
+                               uu_data = response.data;
+                               uu_data.osType = init_apps.osType;
+                               uu_data.version = init_apps.version;
+                               uu_data.memUID = init_apps.memUID;
+                               uu_data.deviceID = init_apps.deviceID;                       
                         
-                        setlocalStorage('appd',JSON.stringify(uu_data));
-                        setlocalStorage('doLogin',autoLogin);
-                        setlocalStorage('doStrip',password);
+                               setlocalStorage('appd', JSON.stringify(uu_data));
+                               setlocalStorage('doLogin', autoLogin);
+                               setlocalStorage('doStrip', password);
                         
-                        app.mobileApp.navigate('views/landingView.html', 'slide');
-                    }
-                    else
-                    {
-                        uu_data = {
-                          status: 0
-                        };                        
-                        setlocalStorage('doLogin',false);
-                        app.showError(response.message);
-                    }
-                    
-                },
-                error: function(e) {
-                   console.log( JSON.stringify(e) ); 
-                },
-                complete: function() {
-                    app.mobileApp.hideLoading();
-                }
-            });
+                               app.mobileApp.navigate('views/landingView.html', 'slide');
+                           } else {
+                               uu_data = {
+                                   status: 0
+                               };                        
+                               setlocalStorage('doLogin', false);
+                               app.showError(response.message);
+                           }
+                       },
+                       error: function(e) {
+                           console.log(JSON.stringify(e)); 
+                       },
+                       complete: function() {
+                           app.mobileApp.hideLoading();
+                       }
+                   });
         };
 
         var loginAutoim = function (passw) {
-
             var localData = getlocalStorage('appd');
+            var storageObject;
             
-            if( localData ) {
-
-                var storageObject = $.parseJSON(localData);
+            if (localData) {
                 
-                if( storageObject.status === 1 ) {    
-                     
-                    app.mobileApp.showLoading();
+                storageObject = $.parseJSON(localData);
+            } else {
+                storageObject = uu_data;
+            }
+                if (storageObject.status === 1) {    
+                    var param, callerID;
                     
-                    var param = '{"osType":' + init_apps.osType + 
-                        ',"version":"' + init_apps.version + 
-                        '","email":"' + storageObject.email + 
-                        '","memPwd":"' + passw + 
-                        '","registType":' + registType +
-                        ',"memUID":"' + init_apps.memUID + 
-                        '","deviceID":"' + init_apps.deviceID + '"}';
+                    if (registType === 2) {
+                        callerID = "memberLoginDevice";
+                        
+                        param = '{"osType":' + init_apps.osType + 
+                                 ',"version":"' + init_apps.version + 
+                                 '","name":"' + uu_data.nick + 
+                                 '","memUID":"' + init_apps.memUID + 
+                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                    } else {
+                        callerID = "memberLogin";
+                        param = '{"osType":' + init_apps.osType + 
+                                 ',"version":"' + init_apps.version + 
+                                 '","email":"' + storageObject.email + 
+                                 '","memPwd":"' + passw + 
+                                 '","registType":' + registType +
+                                 ',"memUID":"' + init_apps.memUID + 
+                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                    }
                     
                     var url = init_data.auth + "?callback=?";
                     
+                    app.mobileApp.showLoading();
                     $.ajax({
-                        url: url,
-                        type: "GET",
-                        async: false,
-                        dataType: "jsonp",
-                        jsonpCallback: "jsonCallback",
-                        data: {
+                               url: url,
+                               type: "GET",
+                               async: false,
+                               dataType: "jsonp",
+                               jsonpCallback: "jsonCallback",
+                               data: {
                             "type": "apps",
-                            "id": "memberLogin",
+                            "id": callerID,
                             "param":param
                         },
-                        success: function(response) {
-                             
-                            if(response.code === 0) {
-                                uu_data = response.data;
-                                setlocalStorage('appd',JSON.stringify(uu_data));
-                                setlocalStorage('doLogin',true);
-                                
-                                app.mobileApp.navigate('views/landingView.html', 'slide');
-                            }
-                            else
-                            {
-                                uu_data = {
-                                  status: 0
-                                };
-                                clearStorage('appd');
-                                setlocalStorage('doLogin',false);
-                            }
-                            
-                        },
-                        error: function(e) {
+                       success: function(response) {
+                           if (response.code === 0) {
+                               uu_data = response.data;
+                               setlocalStorage('appd', JSON.stringify(uu_data));
+                               setlocalStorage('doLogin', true);
+                        
+                               app.mobileApp.navigate('views/landingView.html', 'slide');
+                           } else {
+                               uu_data = {
+                                   status: 0
+                               };
+                               clearStorage('appd');
+                               setlocalStorage('doLogin', false);
+                           }
+                       },
+                       error: function(e) {
                            console.log(e); 
-                        },
-                        complete: function() {
-                            app.mobileApp.hideLoading();
-                        }
-                    });
-                }
-                else
-                {
+                       },
+                       complete: function() {
+                           app.mobileApp.hideLoading();
+                       }
+                   });
+                } else {
                     console.log("not found");
                 }
-             }
+
         }
         
         var joinGame = function() {
@@ -212,7 +209,6 @@ app.Login = (function () {
         
         // Authenticate using Facebook credentials
         var loginWithFacebook = function() {
-
             if (!isFacebookLogin) {
                 return;
             }
@@ -236,30 +232,29 @@ app.Login = (function () {
 
             facebook.getAccessToken(function(token) {
                 app.everlive.Users.loginWithFacebook(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.Facebook');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/lobbyTabView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code === 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.Facebook');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/lobbyTabView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code === 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
         var loginWithGoogle = function () {
-
             if (!isGoogleLogin) {
                 return;
             }
@@ -283,30 +278,29 @@ app.Login = (function () {
 
             google.getAccessToken(function(token) {
                 app.everlive.Users.loginWithGoogle(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.Google');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code === 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.Google');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code === 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
         var loginWithLiveID = function () {
-
             if (!isLiveIdLogin) {
                 return;
             }
@@ -330,30 +324,29 @@ app.Login = (function () {
 
             liveId.getAccessToken(function(token) {
                 app.everlive.Users.loginWithLiveID(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.LiveID');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code === 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.LiveID');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code === 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
         var loginWithADSF = function () {
-
             if (!isAdfsLogin) {
                 return;
             }
@@ -373,25 +366,25 @@ app.Login = (function () {
 
             adfs.getAccessToken(function(token) {
                 app.everlive.Users.loginWithADFS(token)
-                .then(function () {
-                    // EQATEC analytics monitor - track login type
-                    if (isAnalytics) {
-                        analytics.TrackFeature('Login.ADFS');
-                    }
-                    return app.Users.load();
-                })
-                .then(function () {
-                    app.mobileApp.hideLoading();
-                    app.mobileApp.navigate('views/activitiesView.html');
-                })
-                .then(null, function (err) {
-                    app.mobileApp.hideLoading();
-                    if (err.code === 214) {
-                        app.showError('The specified identity provider is not enabled in the backend portal.');
-                    } else {
-                        app.showError(err.message);
-                    }
-                });
+                    .then(function () {
+                        // EQATEC analytics monitor - track login type
+                        if (isAnalytics) {
+                            analytics.TrackFeature('Login.ADFS');
+                        }
+                        return app.Users.load();
+                    })
+                    .then(function () {
+                        app.mobileApp.hideLoading();
+                        app.mobileApp.navigate('views/activitiesView.html');
+                    })
+                    .then(null, function (err) {
+                        app.mobileApp.hideLoading();
+                        if (err.code === 214) {
+                            app.showError('The specified identity provider is not enabled in the backend portal.');
+                        } else {
+                            app.showError(err.message);
+                        }
+                    });
             });
         };
 
@@ -411,9 +404,7 @@ app.Login = (function () {
             loginWithADSF: loginWithADSF,
             loginAutoim: loginAutoim,
         };
-
     }());
 
     return loginViewModel;
-
 }());

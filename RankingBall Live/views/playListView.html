@@ -1,0 +1,119 @@
+<div
+    id="mv_play_list"
+    data-role="view" 
+    data-title="featured"
+    data-layout="main"
+    data-model="app.Contests"
+    data-init="app.Contests.playInit"
+    data-transition="slide">
+    
+    <div data-role="header">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="assets/resource/btn_back.png"></a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="assets/resource/btn_help.png">
+            </a>
+            <span id="play-title" data-role="view-title"></span>
+        </div>
+    </div>
+
+    <div class="property-mini-info">
+        <div class="property-box-padding">
+            <div id="my-ruby" class="property-box bg-ruby">
+                <span id="amount-ruby">123,456,789</span>
+                <span class="proper-add-btn">
+                    <img src="assets/resource/btn_plus.png">
+                </span>    
+            </div>
+        </div>
+        <div class="property-box-padding">
+            <div id="my-point" class="property-box bg-point">   
+                <span id="amount-point">123,456,789</span>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contest-bar">
+        
+        <div class="strip-group">
+            <div class="strip-box-padding">
+                <div class="strip-box-moz">
+                    참여할 게임을 선택하세요  
+                </div>
+            </div>
+            <div class="strip-box-padding">
+                <div class="strip-box-moz">   
+                    <a data-click=""><span id="sort-label">이름</span> <span class="bg-box ic-triangle-n-on"></span></a>
+                </div>
+            </div>
+        </div>
+        
+        <ul class="inboxList">
+            <li>
+                <div class="inboxList-face">
+                    
+                    <div class="inboxList-group boxs">
+                        <div class="inboxList-title"><span class="ic-50">50</span> 내 바구니를 가득 채워보자</div>
+                        <div class="inboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
+                    </div>
+                    <div class="inboxList-group btns">
+                        <a data-role="button" class="inboxList-btn">JOIN</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+<script type="script/x-kendo-template" id="inboxItem">
+    <a class="reply km-primary km-button-right"
+    data-role="button"
+    data-rel="actionsheet"
+    href="\\#inboxActions"
+    data-actionsheet-context="#:ID#">Reply</a>
+    <h6>#: From # <span class="disabled">#: Time#</span></h6>
+    <h4>#: Subject#</h4>
+    <p>#: Text#</p>
+</script>
+
+<script>
+    var inbox = [
+        {
+            ID: 1,
+            From: "John Doe",
+            Subject: "Monday meeting",
+            Text: "Hi Tom, Since Monday I'll be out of office, I'm rescheduling the meeting for Tuesday.",
+            Time: "07:56"
+        },
+        {
+            ID: 2,
+            From: "Sarah Connor",
+            Subject: "Regarding org chart changes",
+            Text: "Tom, I checked the new org chart last night and I have some reservations about it...",
+            Time: "08:22"
+        },
+        {
+            ID: 3,
+            From: "Jane Parker",
+            Subject: "Your Costume is ready",
+            Text: "Hi mr. Sawyer, I'm sorry for the delay, your Halloween costume is ready. The bears...",
+            Time: "10:14"
+        },
+        {
+            ID: 4,
+            From: "Joe Harper",
+            Subject: "I'm sorry, Tom",
+            Text: "Hi Tom, my aunt comes for a visit this Saturday, so I can't come back to St. Pete...",
+            Time: "10:14"
+        },
+        {
+            ID: 5,
+            From: "Becky Thatcher",
+            Subject: "Out tonight?",
+            Text: "Honey, wanna go out tonight to grab some chicken? My weekly vouchers for cooking...",
+            Time: "10:14"
+        }
+    ];
+</script>

@@ -1,13 +1,14 @@
 <div 
     id="landing-menu" 
-    data-role="view" 
+    data-role="view"
+    data-model="app.ObjControl"
     data-init="app.ObjControl.init"
     data-layout="main-landing-menu" 
     data-stretch="true">
 
     <div class="box-menu-wrap">
         <div class="box-menu-grid">
-            <a href="views/playView.html">
+            <a data-role="button" href="views/playView.html">
                 <div id="m_play" rel="play" class="box-menu-tl animBlock notViewed" data-position="top-left">
                     <div class="box-face box-def touch-filter">
                         <img src="./assets/resource/ic_play.png">
@@ -22,7 +23,7 @@
                 <div id="m_ranking" rel="ranking" class="box-menu-tr animBlock notViewed" data-position="top-right">
                     <div class="box-face box-def touch-filter">
                         <img src="./assets/resource/ic_ranking.png">
-                        
+
                         <div class="box-label">RANKING</div>
                     </div>
                 </div>
@@ -31,35 +32,35 @@
 
         <div class="box-menu-grid">
             <a href="views/recordView.html">
-            <div id="m_record" rel="record" class="box-menu-bl animBlock notViewed" data-position="bottom-left">
-                <div class="box-face box-def touch-filter">
-                    <img src="./assets/resource/ic_record.png">
-                    
-                    <div class="box-label">RECORD</div>
+                <div id="m_record" rel="record" class="box-menu-bl animBlock notViewed" data-position="bottom-left">
+                    <div class="box-face box-def touch-filter">
+                        <img src="./assets/resource/ic_record.png">
+
+                        <div class="box-label">RECORD</div>
+                    </div>
                 </div>
-            </div>
             </a>
         </div>
 
         <div class="box-menu-grid">
             <div class="box-menu-br">
                 <a href="views/shopView.html">
-                <div id="m_shop" rel="shop" class="box-sm bt animBlock notViewed" data-position="right">
+                    <div id="m_shop" rel="shop" class="box-sm bt animBlock notViewed" data-position="right">
                         <div class="box-face-sm touch-filter">
                             <img src="./assets/resource/ic_shop.png">
-                        
+
                             <div class="box-label-sm">SHOP</div>
                         </div>
-                </div>
+                    </div>
                 </a>
                 <a href="views/profileView.html">
-                <div id="m_profile" rel="profile" class="box-sm bb  animBlock notViewed" data-position="bottom-right">
+                    <div id="m_profile" rel="profile" class="box-sm bb  animBlock notViewed" data-position="bottom-right">
                         <div class="box-face-sm touch-filter">
                             <img src="./assets/resource/ic_profile.png">
-                        
+
                             <div class="box-label-sm">PROFILE</div>
                         </div>
-                </div>
+                    </div>
                 </a>
             </div>
         </div>
