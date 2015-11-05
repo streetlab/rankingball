@@ -212,7 +212,7 @@ html, body
     width: 100%;
     padding: .5em;
     background-color: #fff;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 #contest-bar ul.inboxList .inboxList-face .inboxList-group {
     width: 100%;
@@ -893,7 +893,7 @@ html, body
     color: #fff;   
 }
 
-
+/* Contest List */
 .contest-lead-title {
     text-align: center;
 }
@@ -932,6 +932,38 @@ html, body
 .contest-lead-list a.btn-contest-lead.esp {
     background-color: #73b126;
 }
+
+/* Contest Match List */
+.contest-match-list {
+    position: relative;    
+}
+.contest-match-list ul.contest-inboxList {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.contest-match-list ul.contest-inboxList li {
+    padding: 0.8em .4em;
+}
+
+.contest-match-list a.btn-contest-lead
+{
+    position: relative;
+    width: 100%;
+    margin: 0 -1px;
+    padding: .8em 0;
+    border-radius: 3px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    background-color: #3180a4;
+}
+.contest-match-list a.btn-contest-lead.esp {
+    background-color: #73b126;
+}
+
+
+
 
 
 #contest-search-var .km-icon
