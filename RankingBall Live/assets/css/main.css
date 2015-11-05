@@ -205,7 +205,7 @@ html, body
     font-size: .9em;
     color: #9b9b9b;
     padding: .5em .5em 0 .5em;
-      line-height: 1.8em;
+    line-height: 1.8em;
 }
 #contest-bar ul.inboxList .inboxList-face {
     display: table;
@@ -269,26 +269,31 @@ html, body
     font-size: 0.9em;
 }
 #contest-bar .strip-group .strip-box-padding .strip-box-moz {
-    padding-left: .5em;
+    padding-left: .8em;
     color: #9b9b9b;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz span.bg-box {
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw {
+    text-align:right;
+    padding-right: .8em;
+    color: #3180a4;
+}
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box {
     display: inline-block;
     text-indent: -99999px;
     width: 12px;
     height: 8px;
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz span.bg-box.ic-triangle-n {
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;   
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz span.bg-box.ic-triangle-n-on
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-n-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;
 }
 
-#contest-bar .strip-group .strip-box-padding .strip-box-moz span.bg-box.ic-triangle-s {
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;
     -webkit-transform: rotate(180deg);
@@ -296,7 +301,7 @@ html, body
     -ms-transform: rotate(180deg);
     -o-transform: rotate(180deg);
 }
-#contest-bar .strip-group .strip-box-padding .strip-box-moz span.bg-box.ic-triangle-s-on
+#contest-bar .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box.ic-triangle-s-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;

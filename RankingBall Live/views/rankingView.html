@@ -1,7 +1,7 @@
 <div
-    id="mv_play_contest"
+    id="mv_ranking"
     data-role="view" 
-    data-title="컨테스트 플레이" 
+    data-title="랭킹 보기" 
     data-layout="main"
     data-model="app.Contests"
     data-init="app.Contests.init"
@@ -38,10 +38,10 @@
     <div id="contest-bar">
         <div class="tapstrip-group">
             <div id="tabstrip_upcoming" class="tabstrip-moz ts">
-                <a class="ts" data-role="button" data-click="app.Contests.matchPlay">경기 참여</a>
+                <a class="ts" data-role="button" data-click="app.Contests.matchPlay">게임참여</a>
             </div>
             <div id="tabstrip_live" class="tabstrip-moz">
-                <a data-role="button" data-click="app.Contests.matchParticipating">참여 중 경기</a>
+                <a data-role="button" data-click="app.Contests.matchParticipating">참여 중 게임</a>
             </div>
 
         </div>
@@ -49,7 +49,7 @@
         <div id="tab_upcomming" class="tabDiv">
             <div class="contest-lead-title">
                 <h4>
-                    참여할 경기 타입을 선택하세요
+                    참여할 게임 타입을 선택하세요
                 </h4>
             </div>
 
@@ -71,23 +71,7 @@
         </div>
 
         <div id="tab_live" class="tabDiv hide">
-            
-            <div class="contest-lead-list">
-                <div class="contest-lead-group">
-                    <ul>
-                        <li>
-                            <a class="btn-contest-lead esp" data-title="f" data-role="button" data-click="app.Contests.joinFeatured"><span>featured</span></a>
-                        </li>
-                        <li>
-                            <a class="btn-contest-lead" data-title="50" data-role="button" data-click="app.Contests.joinFF"><span>50 / 50</span></a>
-                        </li>
-                        <li>
-                            <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinGuarateed"><span>guaranteed to run</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
+
         </div>
 
     </div>
