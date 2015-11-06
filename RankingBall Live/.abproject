@@ -52,5 +52,8 @@
     "ID_RESOLUTION_WXGA",
     "ID_RESOLUTION_HD720P"
   ],
-  "iOSDeploymentTarget": "6.0"
+  "iOSDeploymentTarget": "6.0",
+  "CorePlugins": [
+    "cc.fovea.cordova.purchase@3.11.1.1"
+  ]
 }

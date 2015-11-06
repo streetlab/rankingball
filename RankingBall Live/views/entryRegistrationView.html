@@ -1,0 +1,37 @@
+<div
+    id="po_entry_registration"
+    data-role="view" 
+    data-title="엔트리 등록"
+    data-layout="main"
+    data-model="app.Entry"
+    data-init="app.Entry.init"
+    data-transition="slide">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="./assets/resource/btn_back.png"></a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span id="play-title" data-role="view-title"></span>
+        </div>
+        
+        <div class="salarycap-position">
+            <h4>사용가능 샐러리 캡</h4>
+            <div class="salarycap-box">
+                <div id="progressBar" class="salarycap-gage"><span></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="entry-box">
+       
+
+    </div>
+    
+    <div id="entry-control-box">
+        <a class="btn-close" data-role="button" >초기화</a>
+        <a class="btn-close" data-role="button" >엔트리 등록 완료</a>
+    </div>
+
+</div>

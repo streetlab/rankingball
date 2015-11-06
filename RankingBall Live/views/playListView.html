@@ -7,11 +7,11 @@
     data-init="app.Contests.playInit"
     data-transition="slide">
     
-    <div data-role="header">
+    <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="assets/resource/btn_back.png"></a>
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="./assets/resource/btn_back.png"></a>
             <a data-role="button" class="drawer-btn" data-align="right">
-                <img src="assets/resource/btn_help.png">
+                <img src="./assets/resource/btn_help.png">
             </a>
             <span id="play-title" data-role="view-title"></span>
         </div>
@@ -21,7 +21,7 @@
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
                     <span class="proper-add-btn">
-                        <img src="assets/resource/btn_plus.png">
+                        <img src="./assets/resource/btn_plus.png">
                     </span>    
                 </div>
             </div>
@@ -40,25 +40,32 @@
             </div>
             <div class="strip-box-padding">
                 <div class="strip-box-moz-vw">   
-                    <a data-click=""><span id="sort-label">이름</span> <span class="bg-box ic-triangle-n-on"></span></a>
+                    <a data-role="button" href="#do-popover" data-rel="popover"><span id="sort-label">이름</span> <span id="sort-ico" class="bg-box ic-triangle-n-on"></span></a>
                 </div>
             </div>
         </div>
-        
+        <div id="do-popover" data-role="popover" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-match-vw">
+                <ul>
+                    <li><label class="sort-l">이름</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><label>인원</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>입장료</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>상금</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
     <div id="contest-bar">
-        
         <ul class="inboxList">
             <li>
                 <div class="inboxList-face">
-                    
                     <div class="inboxList-group boxs">
                         <div class="inboxList-title"><span class="ic-50">50</span> 내 바구니를 가득 채워보자</div>
                         <div class="inboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
                     </div>
                     <div class="inboxList-group btns">
-                        <a data-role="button" class="inboxList-btn">JOIN</a>
+                        <a data-role="button" data-rel="1000" data-click="app.Contests.joinMatch" class="inboxList-btn">JOIN</a>
                     </div>
                 </div>
             </li>
@@ -67,6 +74,37 @@
     </div>
 
 </div>
+
+<div data-role="modalview" id="join-match" data-modal="false">
+    <div class="modal-layer">
+        <div class="modal-body">
+            <h4>[경기 입장 정보]</h4>
+            <dl>
+                <dt>플레이 방 이름</dt>
+                <dd>내 바구니를 가득 채워보자</dd>
+                <dt>경기방식</dt>
+                <dd>faetured</dd>
+                <dt>참여 인원 및 참여가능 인원</dt>
+                <dd>95명 / 100명</dd>
+                <dt>입장료</dt>
+                <dd>20루비</dd>
+                <dt>경기보상</dt>
+                <dd class="esp">$100,000</dd>
+                <dt>순위별 보상</dt>
+                <dd>1위 ~ 5위 40루</dd>
+            </dl>
+        </div>
+        <div class="modal-footer">
+            <div class="modalBtnWrp">
+                <a class="btn-close" data-role="button" data-click="app.Contests.closeModal">취소</a>
+            </div>
+            <div class="modalBtnWrp">
+                <a class="btn-join" data-role="button" data-click="app.Contests.joinMatchConfirm">확인</a>
+            </div>
+        </div>
+    </div>
+</div>   
+
 
 <script type="script/x-kendo-template" id="inboxItem">
     <a class="reply km-primary km-button-right"

@@ -5,11 +5,16 @@ html, body
     overflow: hidden;
 }
 
-.km-content
+.rnkb-wiz .km-content
 {
     color: #9b9b9b;
     background-color: #e9e9e9;
 }
+.rnkb-wiz .km-widget {
+    color: #fff;
+    background-color: #3c3c3c;    
+}
+
 
 /* Common Edit */
 .hide {
@@ -360,7 +365,7 @@ html, body
 }
 .km-flat .km-button, .km-flat .km-buttongroup .km-button {
     padding: .6em .688em;
-    border-radius: 4px;
+    border-radius: 3px;
     border-width: 1px;
     border-style: solid;
     line-height: 1.2em;
@@ -409,7 +414,7 @@ html, body
     border-style: solid;
     border-width: 1px;
     border-color: #e5e5e5;
-    border-radius: 0;
+    border-radius: 3px;
     color: #fff;
     font-size: 1rem;
     background-color: #9e005d;
@@ -952,7 +957,7 @@ html, body
     width: 100%;
     margin: 0;
     padding: .8em 0;
-    border-radius: 0;
+    border-radius: 3px;
     color: #fff;
     font-weight: 600;
     font-size: 1rem;
@@ -986,7 +991,7 @@ html, body
     width: 100%;
     padding: .5em;
     background-color: #fff;
-    border-radius: 0;
+    border-radius: 3px;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-face .collapseInboxList-group {
     width: 100%;
@@ -998,7 +1003,7 @@ html, body
     padding: 1em .4em;
     font-size: .9em;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: #3180a4;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-off-btn {
@@ -1006,7 +1011,7 @@ html, body
     padding: 1em .4em;
     font-size: .9em;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 3px;
     background-color: #9b9b9b;    
 }
 .contest-match-list ul.collapseInboxList .boxs {
@@ -1556,54 +1561,83 @@ span.ic-over {
 {
     color: #9d969d;
 }
-.modal-style
+
+.modal-layer
 {
-    padding: .8em 0;
+    min-width: 280px;
+    padding: .6em 0.6em;
+    color: #fff;
     text-align: center;
-    background-color: #352b34;
+    background-color: #1e1e1e;
+    border-radius: 3px;
 }
-.modal-style p
-{
-    font-size: 0.8em;
-    line-height: 1.2em;
+.modal-layer .modal-body {
+    margin: 0;
+    padding: 0;
 }
-.modal-style img
+.modal-layer .modal-body h4 {
+    margin: 0;
+    padding: 0.8em 0;
+}
+.modal-layer .modal-body dl, .modal-layer .modal-body dt, .modal-layer .modal-body dd {
+    line-height: 1.3em;
+    margin: 0;
+    padding: 0;
+    text-indent: 0;
+    font-weight: 600;
+}
+.modal-layer .modal-body dl {
+    margin: .8em 0 1.4em 0;
+}
+.modal-layer .modal-body dt {
+    display: block;
+    font-size: .75em;
+    color: #9b9b9b;
+}
+.modal-layer .modal-body dd {
+    display: block;
+    font-size: .95em;
+    text-decoration: underline;
+    margin-bottom: 1em;
+}
+.modal-layer .modal-body dd.esp {
+    font-size: 1.5em;
+    color: #fff799;
+}
+.modal-layer .modal-footer {
+    display: table;
+    width: 100%;
+}
+.modal-layer .modal-footer .modalBtnWrp
 {
-    width: 90px;
+    display: table-cell;
+    width: 50%;
+}
+.modal-layer .modal-footer .modalBtnWrp:first-child
+{
+    padding-right: .3em; 
+}
+.modal-layer .modal-footer .modalBtnWrp:last-child
+{
+    padding-left: .3em; 
+}
+.modal-layer .modal-footer .modalBtnWrp a {
+    width: 100%;
+    margin: 0;
+    padding: .8em 0;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1rem;
 }
 
-.modalBtnWrp
+.modal-layer .modal-footer .modalBtnWrp a.btn-close
 {
-    position: relative;
-    width: 100%;
-    padding: 0.4em 0.8em;
+    background-color: #9b9b9b;
 }
-.modalBtnWrp .btn-done,
-.modalBtnWrp .btn-confirm
+.modal-layer .modal-footer .modalBtnWrp a.btn-join
 {
-    width: 100%;
-    margin: 0;
-    padding: .8em 0;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #e5e5e5;
-    border-radius: 0;
-    color: #fff;
-    font-size: 1rem;
-    background-color: #9e005d;
-}
-.modalBtnWrp .btn-close
-{
-    width: 100%;
-    margin: 0;
-    padding: .8em 0;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #e5e5e5;
-    border-radius: 0;
-    color: #fff;
-    font-size: 1rem;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: #3180a4;
 }
 
 .m-list {
@@ -1630,6 +1664,8 @@ span.ic-over {
 }
 #landing-menu .box-menu-wrap a {
     text-decoration: none;
+    height: 100%;
+    width: 100%;
 }
 
 #landing-menu .box-menu-wrap .box-menu-grid {
@@ -1656,10 +1692,12 @@ span.ic-over {
     text-align: center;
 }
 #landing-menu .box-menu-wrap .box-menu-grid .box-menu-br {
-    height: 100%;
-    padding: 2px 4px 6px 2px;
+    height: 50%;
+    padding: 2px 4px 4px 2px;
     text-align: center;
 }
+
+
 #landing-menu .box-menu-wrap .box-menu-grid .box-face {
     width: 100%;
     height: 100%;
@@ -1697,7 +1735,7 @@ span.ic-over {
     width: 70%;
 }
 #landing-menu .box-menu-wrap .box-sm {
-    height: 50%;
+    height: 100%;
 }
 #landing-menu .box-menu-wrap .box-sm.bt {
     padding-bottom: 2px;
@@ -2016,5 +2054,68 @@ span.ic-over {
     background-color: #3180a4;
 }
 
+
+/* pop over */
+#do-popover {
+    width: 120px;
+}
+#do-popover.km-flat,
+#do-popover.km-popup.km-pane {
+    background-color: #4f4f4f;
+}
+#do-popover .km-content {
+    color: #9b9b9b;
+    background: #4f4f4f;
+}
+#do-popover ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#do-popover li {
+    padding: .5em;
+    font-size: .9em;
+    text-align: right;
+}
+#do-popover li label {
+    float: left;
+    font-weight: 600;
+}
+#do-popover li label.sort-l {
+    color: #489fc7;
+}
+#do-popover li span.bg-box {
+    display: inline-block;
+    text-indent: -99999px;
+    width: 12px;
+    height: 8px;
+}
+
+#do-popover span.bg-box.ic-triangle-n {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;   
+}
+#do-popover span.bg-box.ic-triangle-n-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+}
+#do-popover span.bg-box.ic-triangle-s {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+#do-popover span.bg-box.ic-triangle-s-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
 
 

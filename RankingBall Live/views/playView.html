@@ -7,13 +7,13 @@
     data-init="app.Contests.init"
     data-transition="slide">
     
-    <div data-role="header">
+    <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
             <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
-                <img src="assets/resource/btn_home.png">
+                <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
-                <img src="assets/resource/btn_help.png">
+                <img src="./assets/resource/btn_help.png">
             </a>
             <span data-role="view-title"></span>
         </div>
@@ -23,7 +23,7 @@
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
                     <span class="proper-add-btn">
-                        <img src="assets/resource/btn_plus.png">
+                        <img src="./assets/resource/btn_plus.png">
                     </span>    
                 </div>
             </div>
@@ -75,10 +75,10 @@
                 <div class="contest-match-list">
                     <div class="contest-match-group">
                         
-                        <ul class="contest-inboxList">
+                        <ul id="panelbar" class="contest-inboxList">
                             <li>
-                                <a class="btn-match-lead esp" data-role="button" data-click=""><span>featured</span> (<span id="math-cnt-f">1</span>) <span class="collapse-btn ico-open"></span></a>
-                                <ul class="collapseInboxList">
+                                <a id="acco_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><span>featured</span> (<span id="math-cnt-f">1</span>) <span class="collapse-btn ico-open"></span></a>
+                                <ul id="gt1" class="collapseInboxList">
                                     <li>
                                         <div class="collapseInboxList-face">
                                             
@@ -93,7 +93,6 @@
                                     </li>
                                     <li>
                                         <div class="collapseInboxList-face">
-                                            
                                             <div class="collapseInboxList-group boxs">
                                                 <div class="collapseInboxList-title"><span class="ic-guaranteed">G</span> <span class="ic-play">play</span> 내 바구니를 가득 채워보자 1234567890</div>
                                                 <div class="collapseInboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
@@ -105,7 +104,6 @@
                                     </li>
                                     <li>
                                         <div class="collapseInboxList-face">
-                                            
                                             <div class="collapseInboxList-group boxs">
                                                 <div class="collapseInboxList-title"><span class="ic-guaranteed">G</span> <span class="ic-over">over</span> 내 바구니를 가득 채워보자 1234567890123456</div>
                                                 <div class="collapseInboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
@@ -118,14 +116,14 @@
                                 </ul>
                             </li>
                             <li>
-                                <a class="btn-match-lead" data-role="button" data-click=""><span>50 /50</span> (<span id="math-cnt-5">1</span>) <span class="collapse-btn ico-open"></span></a>
-                                <ul class="collapseInboxList">
+                                <a id="acco_gt2" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt2"><span>50 /50</span> (<span id="math-cnt-5">1</span>) <span class="collapse-btn ico-open"></span></a>
+                                <ul id="gt2" class="collapseInboxList">
                                     <li>
                                         <div class="collapseInboxList-face">
                                             
                                             <div class="collapseInboxList-group boxs">
                                                 <div class="collapseInboxList-title"><span class="ic-50">50</span> 내 바구니를 가득 채워보자</div>
-                                                <div class="inboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
+                                                <div class="collapseInboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
                                             </div>
                                             <div class="collapseInboxList-group btns">
                                                 <a data-role="button" class="collapseInboxList-btn">JOIN</a>
@@ -135,8 +133,8 @@
                                 </ul>
                             </li>
                             <li>
-                                <a class="btn-match-lead" data-role="button" data-click=""><span>guaranteed to run</span> (<span id="math-cnt-g">1</span>) <span class="collapse-btn"></span></a>
-                                <ul class="collapseInboxList">
+                                <a id="acco_gt3" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt3"><span>guaranteed to run</span> (<span id="math-cnt-g">1</span>) <span class="collapse-btn"></span></a>
+                                <ul id="gt3" class="collapseInboxList">
                                     <li>
                                         <div class="collapseInboxList-face">
                                             
@@ -160,4 +158,10 @@
             </div>
     </div>
 
+    
+ 
+    
+    
+    
+    
 </div>

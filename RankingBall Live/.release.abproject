@@ -1,5 +1,6 @@
 {
   "CorePlugins": [
+    "cc.fovea.cordova.purchase@3.11.1.1",
     "com.phonegap.plugins.PushPlugin@2.5.8",
     "org.apache.cordova.camera",
     "org.apache.cordova.device",

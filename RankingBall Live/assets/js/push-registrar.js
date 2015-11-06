@@ -6,30 +6,6 @@ app.PushRegistrar = (function () {
 
     'use strict';
 
-    var _onDeviceIsSuccessfullyInitialized = function () {
-        console.log("The device is succcessfully initialized for push notifications.");
-        console.log("Push token received!");
-        console.log("Verifying device registration...");
-    }
-    var _onDeviceIsSuccessfullyRegistered = function () {
-        console.log("Your device is successfully registered in Backend Services.");
-        console.log("You can receive push notifications.");
-    };
-
-    var _onDeviceIsAlreadyRegistered = function () {
-        console.log("Your device is already registered in Telerik Backend Services.");
-        console.log("Updating the device registration...");
-    };
-
-    var _onDeviceIsNotRegistered = function () {
-        console.log("Your device is not registered in Backend Services.");
-        console.log("Registering the device in Backend Services...");
-    };
-
-    var _onDeviceRegistrationUpdated = function () {
-        console.log("Successfully updated the device registration.");
-    };
-
     var _onPushErrorOccurred = function (message) {
         alert("Error: " + message, true);
     };

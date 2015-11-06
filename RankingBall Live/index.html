@@ -4,9 +4,14 @@
         <title></title>
         <meta charset="utf-8" />
                 
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <link href="assets/css/main.css" rel="stylesheet" />
+        
         <script src="cordova.js"></script>
         <script src="kendo/js/jquery.min.js"></script>
+        
         <script src="kendo/js/kendo.mobile.min.js"></script>
+        <!-- script src="http://kendo.cdn.telerik.com/2015.3.930/js/kendo.all.min.js"></script //-->
         
         <!-- script src="bower_components/everlive/src/everlive.all.js"></script //-->
         <script src="https://bs-static.cdn.telerik.com/1.5.6/everlive.all.min.js"></script>
@@ -14,17 +19,17 @@
         <script src="assets/js/settings.js"></script>
         <script src="assets/js/extra_fn.js"></script>
         <script src="assets/js/app.js"></script>
+        <script src="assets/js/push-registrar.js"></script>        
+        
         <script src="assets/js/users.js"></script>
         <script src="assets/js/login.js"></script>
         <script src="assets/js/signup.js"></script>
-        <script src="assets/js/dfs.js"></script>
+        
         <script src="assets/js/objControl.js"></script>
         <script src="assets/js/contests.js"></script>
-        
-        <script src="assets/js/push-registrar.js"></script>
+        <script src="assets/js/entry.js"></script>
 
-        <link href="kendo/styles/kendo.mobile.all.css" rel="stylesheet" />
-        <link href="assets/css/main.css" rel="stylesheet" />
+
     <body>
         <!--Laning View -->
         <div data-role="view" id="landing" data-stretch="true" data-model="app.Login">
@@ -73,58 +78,6 @@
 
             <!--View content will render here-->
         </div>
-
-        <div data-role="layout" data-id="back-layout">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a data-click="app.Dfs.back" data-role="button" data-align="left" class="nav-button hide-text"><img src="assets/resource/btn_back.png"></a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-        </div>
-        
-        <div data-role="layout" data-id="close-layout">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a data-click="app.Dfs.back" data-role="button" data-align="right" class="nav-button hide-text"><img src="assets/resource/btn_close.png"></a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-        </div>
-        
-        <div data-role="layout" data-id="destroy-layout">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a data-click="app.Dfs.destory" data-role="button" data-align="right" class="nav-button hide-text"><img src="assets/resource/btn_close.png"></a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-        </div>
-        
-        <div data-role="layout" data-id="contest-setup-layout">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a data-click="app.Dfs.back" data-role="button" data-align="right" class="nav-button hide-text"><img src="assets/resource/btn_close.png"></a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-            <div data-role="footer" class="contestBtnWrp">
-                <a class="btn-submit" data-role="button" data-click="app.Dfs.completeEnter">Submit Lineup</a>
-            </div>
-        </div>
-        
-        <div data-role="layout" data-id="contest-enter-layout">
-            <div data-role="header">
-                <div data-role="navbar">
-                    <a data-click="app.Dfs.back" data-role="button" data-align="right" class="nav-button hide-text"><img src="assets/resource/btn_close.png"></a>
-                    <span data-role="view-title"></span>
-                </div>
-            </div>
-            <div data-role="footer" class="contestBtnWrp">
-                <a class="btn-submit" data-role="button" data-click="app.Dfs.setLineup">Enter Contest</a>
-            </div>
-        </div>
          
-        <iframe id="comm2server" style="display:none;" width="0" height="0" frameborder="0"></iframe>
     </body>
 </html>
