@@ -53,7 +53,9 @@
     "ID_RESOLUTION_HD720P"
   ],
   "iOSDeploymentTarget": "6.0",
-  "CorePlugins": [
-    "cc.fovea.cordova.purchase@3.11.1.1"
-  ]
+  "CordovaPluginVariables": {
+    "cc.fovea.cordova.purchase": {
+      "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjSIbqdMRkkqsCdN7NSduAi2as0PfAU1+mSPv9y77/b4mJGBtZbKx+QnYvKWoUaCSF88lQ2atrBKlnVEPcRlg9EMqjDQHLBQ2NkmtlO7tnYW+YttxVRqbY8LaoQzHG1e2+cJZPJPclhYBm1NwonyGnpm160bWOeRANuwltZoW3poB9C2flCm6anCoh+I+oTtzcT+hyF4aipGe1swaMlSKImpaeanpmN03II0Yn6dU2dekiZQIH8mTiDif6BXOY4py9eKCwVshMxJx+08jQPxN+yhKjUM1gC6+S8t++iTZvtUUPwBFP4ERAj3unHcXdcBTnIPkN5gkkXkiwkMgFaowpQIDAQAB"
+    }
+  }
 }

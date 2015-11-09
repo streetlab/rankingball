@@ -1,0 +1,93 @@
+<div
+    id="po_entry_players"
+    data-role="view" 
+    data-title="선수 선택하기"
+    data-layout="main"
+    data-model="app.Playerz"
+    data-init="app.Playerz.init"
+    data-transition="slide">
+
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#po_entry_registration" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span id="play-title" data-role="view-title"></span>
+        </div>
+
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-point" class="property-box bg-point">
+                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="salarycap-position">
+            
+            <div class="salarycap-box">
+                <h4>사용가능 샐러리 캡</h4>
+                <div id="progressBar" class="salarycap-gage">
+                    <p></p>
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="salarycap-box-padding">
+                <div class="salarycap-box-moz-vw">   
+                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label">포지션</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="do-popover-pos" data-role="popover" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-play-vw">
+                <ul>
+                    <li><label class="sort-l">포지션</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><label>네임</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>FPPG</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>샐러리</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="players-box">
+        <ul id="players_list">
+            <li id="listitem" class="clearfix header">
+                <div class="listitem_position">포지션</div>
+                <div class="listitem_name">네임</div>
+                <div class="listitem_fppg">FPPG</div>
+                <div class="listitem_salary">샐러리</div>
+                <div class="listitem_btns"></div>
+            </li>
+            <li class="clearfix players">
+                <div class="listitem_position">F</div>
+                <div class="listitem_name"><a data-role="button" data-click="app.Playerz.playerInfo">Jamie Vardy</a></div>
+                <div class="listitem_fppg">20</div>
+                <div class="listitem_salary">$25,000</div>
+                <div class="listitem_btns"><a data-role="button"><img src="./assets/resource/btn_plus_02.png"></a></div>
+            </li>
+            <li class="clearfix players">
+                <div class="listitem_position">F</div>
+                <div class="listitem_name">Jamie Vardy</div>
+                <div class="listitem_fppg">20</div>
+                <div class="listitem_salary">$25,000</div>
+                <div class="listitem_btns"><a data-role="button"><img src="./assets/resource/btn_plus_02.png"></a></div>
+            </li>
+        </ul>
+    </div>
+
+</div>

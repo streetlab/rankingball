@@ -1,0 +1,98 @@
+<div
+    id="mv_play_result_record"
+    data-role="view" 
+    data-title="상세 성적 보기"
+    data-layout="main"
+    data-model="app.Playerz"
+    data-init="app.Playerz.detailView"
+    data-transition="slide">
+
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_result" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span id="play-title" data-role="view-title"></span>
+        </div>
+
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-point" class="property-box bg-point">
+                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="player-box">
+        <div class="player-box-info">
+            <div class="player-result-info">
+                <div class="player-result-blank">
+                    <img src="/assets/resource/jersey/jersey_arsenal_fc.png" width="100%" />
+                </div>
+                <div class="player-result-str">
+                    <ul>
+                        <li class="pb">FW 10</li>
+                        <li class="pn">Wayne Rooney</li>
+                        <li class="pt">총점 20 PT</li>
+                    </ul>
+                </div>
+            </div>
+            <img src="./assets/resource/entry/bg_player.png" width="100%">
+        </div>
+        
+        <div class="player-table padT6em">
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>골</th>
+                    <th>어시</th>
+                    <th>슛</th>
+                    <th>유효슈팅</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>센터링</th>
+                    <th>파울</th>
+                    <th>경고</th>
+                    <th>퇴장</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <th>승리</th>
+                    <th>실점</th>
+                    <th>득점</th>
+                    <th>PK선방</th>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+
+
+    
+</div>

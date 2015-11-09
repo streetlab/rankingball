@@ -6,32 +6,164 @@
     data-model="app.Entry"
     data-init="app.Entry.init"
     data-transition="slide">
-    
+
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="./assets/resource/btn_back.png"></a>
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
             <a data-role="button" class="drawer-btn" data-align="right">
                 <img src="./assets/resource/btn_help.png">
             </a>
             <span id="play-title" data-role="view-title"></span>
         </div>
-        
+
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-point" class="property-box bg-point">
+                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
+                </div>
+            </div>
+        </div>
+
         <div class="salarycap-position">
-            <h4>사용가능 샐러리 캡</h4>
             <div class="salarycap-box">
-                <div id="progressBar" class="salarycap-gage"><span></span></div>
+                <h4>사용가능 샐러리 캡</h4>
+                <div id="progressBar" class="salarycap-gage">
+                    <p></p>
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <div class="salarycap-box-padding">
             </div>
         </div>
     </div>
 
     <div id="entry-box">
-       
+            <div class="position-layout">
+                <ul class="position-type">
+                    <li>
+                        <ol class="fw">
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="fw-ico choice-on">
+                                        <p><a data-role="button" data-rel="F1" data-click="app.Entry.setPlayerEntry"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="fw-ico choice-on">
+                                        <p><a data-role="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <ol class="mf">
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="mf-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="mf-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="mf-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <ol class="df">
 
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="df-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="df-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                    <li>
+                        <ol class="gk">
+                            <li>
+                                <div class="player-box-jersey">
+                                    <div class="gk-ico choice-on">
+                                        <p><a data-reole="button"><img src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                    </div>
+                                </div>
+                                <div class="player-box-player">
+                                    <span>Player</span>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <img src="./assets/resource/bg_soccer_field.png" width="100%">
     </div>
-    
+
     <div id="entry-control-box">
-        <a class="btn-close" data-role="button" >초기화</a>
-        <a class="btn-close" data-role="button" >엔트리 등록 완료</a>
+        <div class="control-box">
+            <a class="btn-close" data-role="button" >초기화</a>
+        </div>
+        <div class="control-box">
+            <a class="btn-confirm" data-role="button" >엔트리 등록 완료</a>
+        </div>
     </div>
 
 </div>
+
+<script>
+
+    
+</script>

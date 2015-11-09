@@ -1,0 +1,183 @@
+<div
+    id="mv_play_result"
+    data-role="view" 
+    data-title="결과 확인" 
+    data-layout="main"
+    data-model="app.Contests"
+    data-init="app.Contests.resultInit"
+    data-transition="slide">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+        
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn">
+                        <img src="./assets/resource/btn_plus.png">
+                    </span>    
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-point" class="property-box bg-point">   
+                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tapstrip-group">
+            <div id="tabstrip_upcoming_result" class="tabstrip-moz ts">
+                <a class="ts" data-role="button" data-click="app.Contests.playResultTotal">전체 순위</a>
+            </div>
+            <div id="tabstrip_live_result" class="tabstrip-moz">
+                <a data-role="button" data-click="app.Contests.playResultTeam">팀 성적</a>
+            </div>
+        </div>
+        
+        <div id="result_role_rank" class="tap_result_box">
+            <div class="tab_result_reward">
+                <div class="control-box">
+                    최종순위 및 보상
+                </div>
+                <div class="control-box">
+                    <a class="btn-do-reward" data-role="button" >보상 받기</a>
+                </div>
+            </div>
+            
+            <div class="tab_result_rank">
+                <div class="result_rank_line">
+                    <div class="control-box">
+                        <span>이름</span>
+                        <div>JustMe</div>
+                    </div>
+                    <div class="control-box">
+                        <span>순위</span>
+                        <div>5위</div>
+                    </div>
+                    <div class="control-box">
+                        <span>보상</span>
+                        <div>40루비</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab_result_label">
+                <ul>
+                    <li class="clearfix header">
+                        <div class="listitem_rank">순위</div>
+                        <div class="listitem_name">네임</div>
+                        <div class="listitem_point">랭킹 포인트</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="result_role_record" class="tap_result_box hide">
+            <div class="result-box-padding">
+                <div class="result-box-moz-vw">   
+                    <a data-role="button" href="#do-popover-rnk" data-rel="popover"><span id="sort-rnk-label">포지션</span> <span id="sort-rnk-ico" class="bg-box ic-triangle-n-on"></span></a>
+                </div>
+            </div>
+           <div class="tab_result_label">
+                <ul>
+                    <li id="listitem" class="clearfix header">
+                        <div class="listitem_position">포지션</div>
+                        <div class="listitem_name">네임</div>
+                        <div class="listitem_point">총점</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="do-popover-rnk" class="popover_div" data-role="popover" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-rnk-vw">
+                <ul>
+                    <li><label class="sort-l">포지션</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><label>네임</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>FPPG</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label>샐러리</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div id="contest-bar">
+            <div id="tab_upcomming_result" class="tabDiv">
+                <ul id="play_result_list" class="tab_result_label">
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">1</div>
+                        <div class="listitem_name">2 KLICKS SOUTH</div>
+                        <div class="listitem_point">135.6</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">2</div>
+                        <div class="listitem_name">James Mckenna</div>
+                        <div class="listitem_point">118.2</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">3</div>
+                        <div class="listitem_name">TwinkleToes</div>
+                        <div class="listitem_point">111.4</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">4</div>
+                        <div class="listitem_name">mike</div>
+                        <div class="listitem_point">99.8</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">5</div>
+                        <div class="listitem_name">JustMe</div>
+                        <div class="listitem_point">93.4</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">6</div>
+                        <div class="listitem_name">kaleb</div>
+                        <div class="listitem_point">88.6</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">7</div>
+                        <div class="listitem_name">dylan</div>
+                        <div class="listitem_point">87.8</div>
+                    </li>
+                    <li class="clearfix rank">
+                        <div class="listitem_rank">8</div>
+                        <div class="listitem_name">michael</div>
+                        <div class="listitem_point">86.0</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="tab_live_result" class="tabDiv hide">
+                 <ul id="play_result_list" class="tab_result_label">
+
+                    <li class="clearfix players">
+                        <div class="listitem_position">F</div>
+                        <div class="listitem_name"><a data-role="button" data-click="app.Contests.recordInfo">Jamie Vardy</a></div>
+                        <div class="listitem_point">6 PT</div>
+                    </li>
+                    <li class="clearfix players">
+                        <div class="listitem_position">F</div>
+                        <div class="listitem_name">Jamie Vardy</div>
+                        <div class="listitem_point">20 PT</div>
+
+                    </li>
+                </ul>  
+            </div>
+    </div>
+
+    
+ 
+    
+    
+    
+    
+</div>
