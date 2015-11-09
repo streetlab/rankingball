@@ -226,6 +226,7 @@ html, body
 }
 #contest-bar ul.inboxList .inboxList-btn {
     padding: 1em .5em;
+    min-width: 36px;
     font-size: .9em;
     color: #fff;
     border-radius: 4px;
@@ -1562,6 +1563,10 @@ span.ic-over {
     color: #9d969d;
 }
 
+/* Modal */
+#join-match .km-content {
+    background: rgba(0,0,0,0);
+}
 .modal-layer
 {
     min-width: 280px;
@@ -2056,51 +2061,51 @@ span.ic-over {
 
 
 /* pop over */
-#do-popover {
+.popover_div {
     width: 120px;
 }
-#do-popover.km-flat,
-#do-popover.km-popup.km-pane {
+.popover_div.km-flat,
+.popover_div.km-popup.km-pane {
     background-color: #4f4f4f;
 }
-#do-popover .km-content {
+.popover_div .km-content {
     color: #9b9b9b;
     background: #4f4f4f;
 }
-#do-popover ul {
+.popover_div ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-#do-popover li {
+.popover_div li {
     padding: .5em;
     font-size: .9em;
     text-align: right;
 }
-#do-popover li label {
+.popover_div li label {
     float: left;
     font-weight: 600;
 }
-#do-popover li label.sort-l {
+.popover_div li label.sort-l {
     color: #489fc7;
 }
-#do-popover li span.bg-box {
+.popover_div li span.bg-box {
     display: inline-block;
     text-indent: -99999px;
     width: 12px;
     height: 8px;
 }
 
-#do-popover span.bg-box.ic-triangle-n {
+.popover_div span.bg-box.ic-triangle-n {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;   
 }
-#do-popover span.bg-box.ic-triangle-n-on
+.popover_div span.bg-box.ic-triangle-n-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;
 }
-#do-popover span.bg-box.ic-triangle-s {
+.popover_div span.bg-box.ic-triangle-s {
     background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
     background-size: 12px;
     -webkit-transform: rotate(180deg);
@@ -2108,7 +2113,66 @@ span.ic-over {
     -ms-transform: rotate(180deg);
     -o-transform: rotate(180deg);
 }
-#do-popover span.bg-box.ic-triangle-s-on
+.popover_div span.bg-box.ic-triangle-s-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.salarycap-position {
+    width: 100%;
+    background-color: #3c3c3c;
+}
+.salarycap-position .salarycap-box {
+    padding: .6em .5em .4em .5em;
+}
+.salarycap-position .salarycap-box h4 {
+    margin: 0;
+    padding-bottom: 0.1em;
+    font-size: 0.8em;
+    color: #81c132;
+}
+.salarycap-position .salarycap-box-padding {
+    padding: .2em 0;
+}
+
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw {
+  text-align: right;
+  padding-right: .8em;
+  color: #3180a4;
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box {
+  display: inline-block;
+  text-indent: -99999px;
+  width: 12px;
+  height: 8px;
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box.ic-triangle-n-on {
+  background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+  background-size: 12px;
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box.ic-triangle-n {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;   
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box.ic-triangle-n-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box.ic-triangle-s {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box.ic-triangle-s-on
 {
     background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
     background-size: 12px;
@@ -2119,3 +2183,563 @@ span.ic-over {
 }
 
 
+
+
+
+/* Progress Bar */
+#progressBar {
+    position: relative;
+    width: 100%;
+    height: 22px;
+    border: 0;
+    background-color: #fff;
+}
+#progressBar p { 
+    padding-left: 1em;
+    margin: 0px;
+    font-size: 0.8em;
+    letter-spacing: 1px;
+    font-weight: 700;
+    white-space: nowrap;
+    line-height: 22px;
+}
+#progressBar > p { 
+    color: #81c132;
+}
+#progressBar > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+    line-height: 22px; /* same as #progressBar height if we want text middle aligned */
+    width: 0;
+    overflow: hidden;
+    background-color: #81c132;
+}
+#progressBar > div > p {
+    color: #fff;
+}
+
+/* Entry Surface */
+#po_entry_registration .km-content {
+    background-color: #3c3c3c;
+}
+
+
+#entry-box {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+#entry-box .position-layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#entry-box .position-layout ul,
+#entry-box .position-layout ol,
+#entry-box .position-layout ul li,
+#entry-box .position-layout ol li {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    list-style: none;
+    text-align: center;
+}
+#entry-box .position-layout ul li {
+    height: 25%;
+}
+
+
+#entry-box .position-layout ol.fw li {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+
+#entry-box .position-layout ol.mf li {
+    position: relative;
+    float: left;
+    width: 33.333%;
+    height: 100%;
+    text-align: center;
+}
+#entry-box .position-layout ol.df li {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+#entry-box .position-layout ol.gk li {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+#entry-box .position-layout .player-box-jersey {
+    height: 70%;
+}
+#entry-box .position-layout .player-box-player {
+    height: 30%;
+}
+#entry-box .position-layout .player-box-player span {
+    height: 100%;
+    padding: .3em .6em;
+    font-size: .8em;
+    color: #fff799;
+    background-color: #2a2329;
+}
+#entry-box .position-layout ol.fw .fw-ico {
+    display: inline-block;
+    background: url(../resource/entry/ic_forward.png) center 12px no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 100%;
+    vertical-align: middle;
+}
+#entry-box .position-layout ol.mf .mf-ico {
+    display: inline-block;
+    background: url(../resource/entry/ic_midfielder.png) center 12px no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 100%;
+    vertical-align: middle;
+}
+#entry-box .position-layout ol.df .df-ico {
+    display: inline-block;
+    background: url(../resource/entry/ic_defender.png) center 12px no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 100%;
+    vertical-align: middle;
+}
+#entry-box .position-layout ol.gk .gk-ico {
+    display: inline-block;
+    background: url(../resource/entry/ic_goalkeeper.png) center 12px no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 100%;
+    vertical-align: middle;
+}
+#entry-box .position-layout ol p {
+    margin: 0;
+    padding: 1.8em 1em;
+}
+
+#entry-control-box {
+    display: table;
+    width: 100%;
+}
+#entry-control-box .control-box {
+    display: table-cell;
+    padding: 1.2em .6em;
+}
+#entry-control-box .control-box:first-child {
+    width: 30%;
+    padding-right: .3em;
+}
+#entry-control-box .control-box:last-child {
+    width: 70%;
+    padding-left: .3em; 
+}
+
+#entry-control-box .control-box a {
+    width: 100%;
+    margin: 0;
+    padding: .8em 0;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1rem;
+    text-decoration: none;
+}
+#entry-control-box .control-box a.btn-close
+{
+    background-color: #AD0000;
+}
+#entry-control-box .control-box a.btn-confirm
+{
+    background-color: #9b9b9b;
+}
+
+
+/* Players */
+#players-box {
+    position: relative;
+    width: 100%;
+}
+
+ul#players_list {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+ul#players_list li.header {
+    width: 100%;
+}
+ul#players_list li.header div {
+    background-color: #e9e9e9;
+    color: #9b9b9b;
+    font-size: 0.7em;
+    padding: .6em 0;
+}
+ul#players_list li.players {
+    padding-right: .4em;
+    padding-left: .4em;
+    color: #3c3c3c;
+}
+ul#players_list li {
+    display: table;
+}
+ul#players_list li div {
+    display: table-cell;
+    border-bottom: 1px solid #e9e9e9;
+    padding: .3em 0;
+    font-size: 0.9em;
+    text-align: center;
+}
+ul#players_list li div.listitem_position {
+    width: 15%;
+}
+ul#players_list li div.listitem_name {
+    width: 40%;
+    text-align: left;
+}
+ul#players_list li div.listitem_fppg {
+    width: 10%;
+}
+ul#players_list li div.listitem_salary {
+    width:23%;
+}
+ul#players_list li div.listitem_btns {
+    width: 12%;
+    padding: 0.4em 0.3em; 
+}
+ul#players_list li div.listitem_btns img {
+    width: 100%;
+}
+ul#players_list li.players div.listitem_salary {
+    padding-right: 0.4em;
+    text-align: right;
+}
+
+
+#po_entry_players_detail .km-content {
+    background-color: #e9e9e9;
+}
+.player-box {
+    padding: .6em;
+}
+.player-box-info {
+    position: relative;
+}
+.player-box-info .player-info {
+    position: absolute;
+    display: table;
+    width: 100%;
+    background: url(/assets/resource/jersey/jersey_arsenal_fc.png) 75% center no-repeat;
+    background-size: 40%;
+}
+.player-box-info .player-info .player-str {
+    display: table-cell;
+    padding: 2em .5em;
+}
+.player-box-info .player-info .player-btn {
+    display: table-cell;
+    padding: 2em .5em;
+    vertical-align: bottom;
+    text-align: right;
+}
+.player-box-info .player-info .player-btn img {
+    width: 100%
+}
+
+.player-box-info .player-result-info {
+    position: absolute;
+    display: table;
+    width: 100%;
+}
+.player-box-info .player-result-blank {
+    display: table-cell;
+    width: 40%;
+    padding: 2em .4em;
+    vertical-align: middle;
+}
+.player-box-info .player-result-str {
+    display: table-cell;
+     width: 60%;
+    padding: 3em .5em;
+}
+.player-box-info .player-result-str ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.player-box-info ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.player-box-info li {
+    color: #ffffff;
+    padding: .1em 0;
+}
+.player-box-info li.pb {
+    font-size: 1.2em;
+}
+.player-box-info li.pn {
+    font-size: 1em;
+    font-weight: 500;
+}
+.player-box-info li.pt {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+.player-box-info li.pa {
+    font-size: 1.4em;
+    font-weight: 500;
+}
+
+.player-control {
+    display: table;
+    width: 100%;
+}
+.player-control .control-box {
+    display: table-cell;
+    padding: .6em 0;
+}
+.player-control .control-box:first-child {
+    width: 50%;
+    padding-right: .3em;
+}
+.player-control .control-box:last-child {
+    width: 50%;
+    padding-left: .3em; 
+}
+.player-control .control-box a {
+    width: 100%;
+    margin: 0;
+    padding: .8em 0;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1rem;
+    text-decoration: none;
+}
+.player-control .control-box a.btn-player-record
+{
+    background-color: #3180a4;
+}
+.player-control .control-box a.btn-player-news
+{
+    background-color: #3180a4;
+}
+
+.player-table table {
+    width: 100%;
+}
+.player-table th {
+    padding: 0.6em 0;
+    font-size: 0.9em;
+    color: #717171;
+    font-weight: 700;
+    background-color: #c6c6c6;   
+}
+.player-table td {
+    padding: 0.6em 0;
+    font-size: 0.9em;
+    color: #3c3c3c;
+    font-weight: 700;
+    text-align: center;
+    background-color: #ffffff;   
+}
+
+
+/* Playe Reulst */
+.tap_result_box {
+    position: relative;
+    width: 100%;
+}
+.tab_result_reward {
+    display: table;
+    width: 100%;
+    background-color: #e9e9e9;
+}
+.tab_result_reward .control-box {
+    display: table-cell;
+    padding: 1em .6em;
+}
+.tab_result_reward .control-box:first-child {
+    width: 50%;
+    text-align: center;
+}
+.tab_result_reward .control-box:last-child {
+    width: 50%;
+    padding-left: .3em; 
+}
+.tab_result_reward .control-box a {
+    width: 100%;
+    margin: 0;
+    padding: .8em 0;
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 1rem;
+    text-decoration: none;
+}
+.tab_result_reward .control-box a.btn-do-reward
+{
+    background-color: #73b126;
+}
+
+.tab_result_rank {
+    position: relative;
+    width: 100%;
+}
+.tab_result_rank .result_rank_line {
+    display: table;
+    width: 100%;
+    padding: 1em 0;
+    background-color: #3180a4;
+}
+.tab_result_rank .result_rank_line .control-box {
+    display: table-cell;
+    width: 33.333%;
+    text-align: center;
+}
+.tab_result_rank .result_rank_line .control-box:first-child {
+    border-right: 1px solid #fff;
+}
+.tab_result_rank .result_rank_line .control-box:last-child {
+    border-left: 1px solid #fff;
+}
+.tab_result_rank .result_rank_line .control-box span {
+    display: block;
+    font-size: 0.7em;
+    color: #ffffff;
+}
+.tab_result_rank .result_rank_line .control-box div {
+    display: block;
+    padding: .3em 0;
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+.tab_result_label {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0
+}
+.tab_result_label ul,
+.tab_result_label li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.tab_result_label li.header {
+    width: 100%;
+    background-color: #e9e9e9;
+}
+.tab_result_label li.header div {
+    color: #9b9b9b;
+    font-size: 0.7em;
+    padding: .6em 0;
+}
+.tab_result_label li {
+    display: table;
+    width: 100%;
+}
+.tab_result_label li div {
+    display: table-cell;
+    border-bottom: 1px solid #e9e9e9;
+    padding: .8em 0;
+    font-size: 0.9em;
+    text-align: center;
+    
+}
+.tab_result_label li.rank {
+    padding-right: .4em;
+    padding-left: .4em;
+}
+.tab_result_label li div.listitem_rank {
+    width: 15%;
+}
+.tab_result_label li div.listitem_name {
+    width: 60%;
+    text-align: left;
+}
+.tab_result_label li div.listitem_point {
+    width: 25%;
+}
+.tab_result_label li.rank div.listitem_point {
+    text-align: right;
+    padding-right: .5em;
+}
+
+.result-box-padding {
+    padding: .6em 0;
+    background-color: #dadada;
+}
+
+.result-box-padding .result-box-moz-vw {
+  text-align: right;
+  padding-right: .8em;
+  color: #3180a4;
+}
+.result-box-padding .result-box-moz-vw a {
+    color: #489fc7;
+    font-size: 0.8em;
+}
+.result-box-padding .result-box-moz-vw span.bg-box {
+  display: inline-block;
+  text-indent: -99999px;
+  width: 12px;
+  height: 8px;
+}
+.result-box-padding .result-box-moz-vw span.bg-box.ic-triangle-n-on {
+  background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+  background-size: 12px;
+}
+.result-box-padding .result-box-moz-vw span.bg-box.ic-triangle-n {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;   
+}
+.result-box-padding .result-box-moz-vw span.bg-box.ic-triangle-n-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+}
+.result-box-padding .result-box-moz-vw span.bg-box.ic-triangle-s {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.result-box-padding .result-box-moz-vw span.bg-box.ic-triangle-s-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+.padT6em {
+    padding-top: 0.6em
+}
