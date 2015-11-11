@@ -910,7 +910,7 @@ html, body
     background-color: #1e1e1e;
 }
 .bg-ruby {
-    background: #1e1e1e url(../resource/ic_ruby.png) .5em center no-repeat;
+    background: #1e1e1e url(../resource/shop/ic_cash.png) .5em center no-repeat;
     background-size: 14px;
 }
 .property-mini-info .property-box span {

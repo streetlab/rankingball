@@ -299,9 +299,15 @@ app.Playerz = (function () {
                 $('#entry-' + player).prop('src','/assets/resource/btn_minus_02.png');
                 $('#entry-' + player).parent('a')
                     .attr('data-status','on')
-                    .attr('data-status','on');
+                    .removeClass('addPlayer')
+                    .addClass('removePlayer');
                 
-                $('#img-' + requestSlot).prop('src','/assets/resource/btn_player_change.png');
+                if(requestSlot === "slot4" || requestSlot === "slot8") {
+                    $('#img-' + requestSlot).prop('src','/assets/resource/btn_player_change_02.png');
+                } else {
+                    $('#img-' + requestSlot).prop('src','/assets/resource/btn_player_change.png');
+                }
+                
                 
                 researchPlayer = playerData.filter(function ( obj ) {
                     return parseInt(obj.playerID) === parseInt(player);
