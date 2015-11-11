@@ -4,7 +4,7 @@
     data-title="컨테스트 플레이" 
     data-layout="main"
     data-model="app.Contests"
-    data-init="app.Contests.init"
+    data-show="app.Contests.onShow"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
@@ -25,11 +25,6 @@
                     <span class="proper-add-btn">
                         <img src="./assets/resource/btn_plus.png">
                     </span>    
-                </div>
-            </div>
-            <div class="property-box-padding">
-                <div id="my-point" class="property-box bg-point">   
-                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
                 </div>
             </div>
         </div>
@@ -57,10 +52,10 @@
                     <div class="contest-lead-group">
                         <ul>
                             <li>
-                                <a class="btn-contest-lead esp" data-title="f" data-role="button" data-click="app.Contests.joinFeatured"><span>featured</span></a>
+                                <a class="btn-contest-lead esp" data-role="button" data-click="app.Contests.joinFeatured"><span>featured</span></a>
                             </li>
                             <li>
-                                <a class="btn-contest-lead" data-title="50" data-role="button" data-click="app.Contests.joinFF"><span>50 / 50</span></a>
+                                <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinFF"><span>50 / 50</span></a>
                             </li>
                             <li>
                                 <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinGuarateed"><span>guaranteed to run</span></a>

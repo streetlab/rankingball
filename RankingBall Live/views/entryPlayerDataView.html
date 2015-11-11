@@ -4,7 +4,7 @@
     data-title="선수 상세보기"
     data-layout="main"
     data-model="app.Playerz"
-    data-init="app.Playerz.detailView"
+    data-show="app.Playerz.detailView"
     data-transition="slide">
 
     <div data-role="header" class="rnkb-wiz">
@@ -25,11 +25,6 @@
                     <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
                 </div>
             </div>
-            <div class="property-box-padding">
-                <div id="my-point" class="property-box bg-point">
-                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -38,14 +33,14 @@
             <div class="player-info">
                 <div class="player-str">
                     <ul>
-                        <li class="pb">FW 10</li>
-                        <li class="pn">Wayne Rooney</li>
-                        <li class="pt">Man Utd</li>
-                        <li class="pa">$rr 19.66 fppg</li>
+                        <li id="player-info-number" class="pb">FW 10</li>
+                        <li id="player-info-name" class="pn">Wayne Rooney</li>
+                        <li id="player-info-team" class="pt">Man Utd</li>
+                        <li id="player-info-point" class="pa">$rr 19.66 <span>fppg</span></li>
                     </ul>
                 </div>
                 <div class="player-btn">
-                    <a data-role="button">
+                    <a data-role="button" data-click="app.Playerz.addPlayerStatic">
                         <img src="./assets/resource/btn_player_plus.png">
                     </a>
                 </div>
@@ -55,10 +50,10 @@
         
         <div class="player-control">
             <div class="control-box">
-                <a class="btn-player-record" data-role="button" >최근 경기 성적</a>
+                <a class="btn-player-record" data-role="button" data-click="app.Playerz.record">최근 경기 성적</a>
             </div>
             <div class="control-box">
-                <a class="btn-player-news" data-role="button" >최신 뉴스</a>
+                <a class="btn-player-news" data-role="button" data-click="app.Playerz.news">최신 뉴스</a>
             </div>
         </div>
         

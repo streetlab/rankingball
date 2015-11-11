@@ -5,11 +5,12 @@
     data-layout="main"
     data-model="app.Contests"
     data-init="app.Contests.playInit"
+    data-show="app.Contests.onShowReset"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right"><img src="./assets/resource/btn_back.png"></a>
+            <a class="drawer-btn" data-align="left" data-role="button" href="#mv_play_contest" data-transition="slide:right"><img src="./assets/resource/btn_back.png"></a>
             <a data-role="button" class="drawer-btn" data-align="right">
                 <img src="./assets/resource/btn_help.png">
             </a>
@@ -23,11 +24,6 @@
                     <span class="proper-add-btn">
                         <img src="./assets/resource/btn_plus.png">
                     </span>    
-                </div>
-            </div>
-            <div class="property-box-padding">
-                <div id="my-point" class="property-box bg-point">   
-                    <span id="amount-point" class="amount_mini_point">123,456,789</span>
                 </div>
             </div>
         </div>
@@ -57,18 +53,7 @@
     </div>
 
     <div id="contest-bar">
-        <ul class="inboxList">
-            <li>
-                <div class="inboxList-face">
-                    <div class="inboxList-group boxs">
-                        <div class="inboxList-title"><span class="ic-50">50</span> 내 바구니를 가득 채워보자</div>
-                        <div class="inboxList-summ"><span><b>30</b>/100</span><span><b>$5</b>/$10,000</span><span>오늘 오후 1시</span></div>
-                    </div>
-                    <div class="inboxList-group btns">
-                        <a data-role="button" data-rel="1000" data-click="app.Contests.joinMatch" class="inboxList-btn">JOIN</a>
-                    </div>
-                </div>
-            </li>
+        <ul id="playListBox" class="inboxListByType" data-role="listView">
         </ul>
 
     </div>
@@ -79,19 +64,19 @@
     <div class="modal-layer">
         <div class="modal-body">
             <h4>[경기 입장 정보]</h4>
-            <dl>
+            <dl id="modal-info">
                 <dt>플레이 방 이름</dt>
-                <dd>내 바구니를 가득 채워보자</dd>
+                <dd id="mo_title"></dd>
                 <dt>경기방식</dt>
-                <dd>faetured</dd>
+                <dd id="mo_title"></dd>
                 <dt>참여 인원 및 참여가능 인원</dt>
-                <dd>95명 / 100명</dd>
+                <dd>0명 / 0명</dd>
                 <dt>입장료</dt>
-                <dd>20루비</dd>
+                <dd></dd>
                 <dt>경기보상</dt>
-                <dd class="esp">$100,000</dd>
+                <dd class="esp"></dd>
                 <dt>순위별 보상</dt>
-                <dd>1위 ~ 5위 40루</dd>
+                <dd></dd>
             </dl>
         </div>
         <div class="modal-footer">
@@ -103,56 +88,5 @@
             </div>
         </div>
     </div>
-</div>   
+</div>
 
-
-<script type="script/x-kendo-template" id="inboxItem">
-    <a class="reply km-primary km-button-right"
-    data-role="button"
-    data-rel="actionsheet"
-    href="\\#inboxActions"
-    data-actionsheet-context="#:ID#">Reply</a>
-    <h6>#: From # <span class="disabled">#: Time#</span></h6>
-    <h4>#: Subject#</h4>
-    <p>#: Text#</p>
-</script>
-
-<script>
-    var inbox = [
-        {
-            ID: 1,
-            From: "John Doe",
-            Subject: "Monday meeting",
-            Text: "Hi Tom, Since Monday I'll be out of office, I'm rescheduling the meeting for Tuesday.",
-            Time: "07:56"
-        },
-        {
-            ID: 2,
-            From: "Sarah Connor",
-            Subject: "Regarding org chart changes",
-            Text: "Tom, I checked the new org chart last night and I have some reservations about it...",
-            Time: "08:22"
-        },
-        {
-            ID: 3,
-            From: "Jane Parker",
-            Subject: "Your Costume is ready",
-            Text: "Hi mr. Sawyer, I'm sorry for the delay, your Halloween costume is ready. The bears...",
-            Time: "10:14"
-        },
-        {
-            ID: 4,
-            From: "Joe Harper",
-            Subject: "I'm sorry, Tom",
-            Text: "Hi Tom, my aunt comes for a visit this Saturday, so I can't come back to St. Pete...",
-            Time: "10:14"
-        },
-        {
-            ID: 5,
-            From: "Becky Thatcher",
-            Subject: "Out tonight?",
-            Text: "Honey, wanna go out tonight to grab some chicken? My weekly vouchers for cooking...",
-            Time: "10:14"
-        }
-    ];
-</script>

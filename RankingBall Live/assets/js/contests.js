@@ -5,70 +5,81 @@ var app = app || {};
 
 app.Contests = (function () {
     'use strict';
-
-    var contestListData = "";
     
     var contestProcess = (function () {
+
+        var joinMatchNo = "";
+        var checkedData = "";
+        
+        $(document).on('click','.inboxList-btn', function() {
+            joinMatch( $(this) );
+        });
+        $(document).on('click','.inboxList-off-btn', function() {
+            resultMatch( $(this) );
+        });
         
         function init() {
-            $('#tabstrip_live').removeClass('ts');
-            $('#tabstrip_upcoming').addClass('ts');
-            loadContestData();
+                        
+            matchPlay();
+            
             observableView();
-            console.log("data init");
+            //loadContestData();
+            restoreMatchs();
         }
         
-        function playInit() {
-            loadContestData();
+        function playInit(e) {
+            var param = e.view.params;
+            
+            app.mobileApp.showLoading();
+            
+            currentContestType = param.bar;
+
             observableView();
+            setTimeout(function() {
+                if(currentContestType === "F") {
+                    $('ul#playListBox').html(contestFtypeData);
+                } else if(currentContestType === "5") {
+                    $('ul#playListBox').html(contest5typeData);
+                } else {
+                    $('ul#playListBox').html(contestGtypeData);
+                }
+                
+                app.mobileApp.hideLoading();
+            },300);
         }
         
-        
+        function onShowReset(e) {
+            var param =  e.view.params;
+            currentContestType = param.bar;
+            setTimeout(function() {
+                if(currentContestType === "F") {
+                    $('ul#playListBox').html(contestFtypeData);
+                } else if(currentContestType === "5") {
+                    $('ul#playListBox').html(contest5typeData);
+                } else {
+                    $('ul#playListBox').html(contestGtypeData);
+                }
+                
+                app.mobileApp.hideLoading();
+            },300);
+        }
+                
         function resultInit() {
 
         }
         
-        var loadContestData = function() {
-            if( uu_data.memSeq === "" ) {
-                console.log("User seq is null");
-            } else {
-                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
-                var url = init_data.auth + "?callback=?";
-                console.log(url);
-                navigator.splashscreen.show();
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    async: false,
-                    dataType: "jsonp",
-                    jsonpCallback: "jsonCallback",
-                    data: {
-                        "type": "apps",
-                        "id": "contestGetList",
-                        "param":param
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        if (response.code === 0) {
-                            contestListData = response.data;
-                        
-                        } else {
-                            
-                        }
-                    },
-                    complete: function() {
-                        navigator.splashscreen.hide();
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }
-                });  
-            }
+        function onShow() {
+            init();
         }
         
+        
+        var myContestList = function() {
+            
+        };
+        
         var observableView = function() {
-            $('.amount_mini_ruby').html(uu_data.coin);
-            $('.amount_mini_point').html(uu_data.points);
+            $('.amount_mini_ruby').html(uu_data.cash);
+            //$('.amount_mini_point').html(uu_data.points);
         }
         
         var matchPlay = function() {
@@ -85,38 +96,166 @@ app.Contests = (function () {
             $('#tab_live').removeClass('hide');
         };
         
-        
-        var joinMatchConfirm = function(e) {
-            //var data = e.button.data();
+        var pageTransition = function() {
             closeModal();
-            app.mobileApp.navigate('views/entryRegistrationView.html');
+            app.mobileApp.navigate('views/shopView.html', 'slide');
+        };
+        
+        var joinMatchConfirm = function() {
+            
+            var today = new Date();
+            var timeValue = checkedData.startTime;
+            var yy = timeValue.substring(0,4);
+            var mm = timeValue.substring(4,6);
+            var dd = timeValue.substring(6,8);
+            var h = timeValue.substring(8,10);
+            var m = timeValue.substring(10,12);
+            var s = timeValue.substring(12,14);
+                        
+            var startDate = new Date(yy,Number(mm)-1,dd,h,m,s);
+            
+            if( ( startDate.getTime() - today.getTime() ) < 0 ) {
+                //app.showError(errorMessage.game_time);
+                //return false;
+                console.log(errorMessage.game_time);
+            }
+            
+            if( checkedData.contestStatus === 2 ) {
+                app.showError(errorMessage.game_started);
+                return false;
+            } else if( checkedData.contestStatus === 3 ) {
+                navigator.notification.confirm(errorMessage.game_closed, function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       var resVwUrl = 'views/playResultView.html?contest=' + joinMatchNo;
+                       pageTransition(resVwUrl);
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['확인', '취소']);
+                return false;
+            }
+            
+            if( parseInt(checkedData.entryFee) > parseInt(uu_data.cash) ) {
+                navigator.notification.confirm(errorMessage.game_cash, function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       pageTransition('views/shopView.html');
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['충전하기', '나가기']);
+                return false;
+            }
+            
+            app.Entry.initEntryData();
+            var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&mode=reg';
+            
+            closeModal();
+            app.mobileApp.navigate(entryUrl, 'slide');
         }
         
         var joinMatch = function(e) {
-            e.preventDefault();
-            var data = e.button.data();
-            console.log( data.rel );
+            //var data = e.button.data();
+            var rel = parseInt(e.attr('data-rel'));
+            var modalHtml = "";
+        
+            checkedData = "";
+            joinMatchNo = "";
+                        
+            $.each(contestListData, function(i, v) {
+                if (parseInt(v.contestSeq) === rel) {
+                    modalHtml = '<dt>플레이 방 이름</dt><dd>' + v.contestName + '</dd>' + 
+                    '<dt>경기방식</dt><dd>' + contestTypeLabel(v.contestType) + '</dd>' +
+                    '<dt>참여 인원 및 참여가능 인원</dt><dd>' + v.totalEntry + '명 / ' + v.maxEntry + '명</dd>' +
+                    '<dt>입장료</dt><dd>' + v.entryFee + '</dd>' +
+                    '<dt>경기보상</dt><dd class="esp">' + v.contestReward + '</dd>';
+                    checkedData = v;
+                    joinMatchNo = rel;
+                    return;
+                }
+            });
             
-            $("#join-match").data("kendoMobileModalView").open();
+            //'<dt>순위별 보상</dt><dd>1위 ~ 5위 40루</dd>'
+            if( joinMatchNo ) {
+                $('#modal-info').html(modalHtml);
+                $("#join-match").data("kendoMobileModalView").open();    
+            } else {
+                app.showError(errorMessage.game_param);
+                return false;
+            }
         };
         
+        var contestTypeLabel = function(c) {
+            if(c === 1) {
+                return "featured";
+            } else if(c === 2) {
+                return "50 / 50";    
+            } else {
+                return "guaranteed to run";
+            }
+        }
+        
         var closeModal = function(e) {
+            checkedData = "";
+            joinMatchNo = "";
+            
             $("#join-match").data("kendoMobileModalView").close();
         };
         
-        var joinFeatured = function() {
-            app.mobileApp.navigate('views/playListView.html', 'slide');
-            $('#play-title').html('featured');
+        var resultMatch = function(e) {
+            //var data = e.button.data();
+            app.ObjControl.reloadContest();
+            app.showError(errorMessage.game_started);
+            return false;
+        }
+        
+        var restoreMatchs = function() {
+            //$('ul#playListBox').empty();
+        }
+        
+        var joinFeatured = function(e) {
+            e.preventDefault();
+            if( contestFtypeData === "" ) {
+                app.showError(errorMessage.game_empty);
+                return false;
+            }
+            
+            app.mobileApp.showLoading();
+            //$('ul#playListBox').html(contestFtypeData);
+            setTimeout(function() {
+                app.mobileApp.navigate('views/playListView.html?bar=F', 'slide');
+                $('#play-title').html('featured');
+                app.mobileApp.hideLoading();
+            },300);
+        };
+       
+        var joinFF = function(e) {
+            e.preventDefault();
+            if( contest5typeData === "" ) {
+                app.showError(errorMessage.game_empty);
+                return false;
+            }
+            app.mobileApp.showLoading();
+            //$('ul#playListBox').html(contest5typeData);
+            setTimeout(function() {
+                app.mobileApp.navigate('views/playListView.html?bar=5', 'slide');
+                $('#play-title').html('50 / 50');
+                app.mobileApp.hideLoading();
+            },300);
         };
         
-        var joinFF = function() {
-            app.mobileApp.navigate('views/playListView.html', 'slide');
-            $('#play-title').html('50 / 50');
-        };
-        
-        var joinGuarateed = function() {
-            app.mobileApp.navigate('views/playListView.html', 'slide');
-            $('#play-title').html('guaranteed to run');
+        var joinGuarateed = function(e) {
+            e.preventDefault();
+            if( contestGtypeData === "" ) {
+                app.showError(errorMessage.game_empty);
+                return false;
+            }
+            app.mobileApp.showLoading();
+            //$('ul#playListBox').html(contestGtypeData);
+            setTimeout(function() {
+                app.mobileApp.navigate('views/playListView.html?bar=G', 'slide');
+                $('#play-title').html('guaranteed to run');
+                app.mobileApp.hideLoading();
+            },300);
         };
         
         var customAccordon = function(e) {
@@ -170,6 +309,8 @@ app.Contests = (function () {
             init: init,
             playInit: playInit,
             resultInit: resultInit,
+            onShow: onShow,
+            onShowReset: onShowReset,
             matchPlay: matchPlay,
             matchParticipating: matchParticipating,
             playResultTotal: playResultTotal,

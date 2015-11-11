@@ -1,4 +1,4 @@
-/**
+ /**
  * Signup view model
  */
 var app = app || {};
@@ -82,7 +82,30 @@ app.Signup = (function () {
             alert("You have entered an invalid email address!")  
             return (false);
         }  
+        
+        function encodingStr(str) {
             
+            //return unescape(encodeURIComponent(str));
+            //return escape(str);
+            //return str;
+            
+            //return encodeURIComponent(str);
+            //return encodeURI(str);
+            //return escape(encodeURIComponent(str));
+            
+            str = (str + '')
+            .toString();
+            
+            return encodeURIComponent(str)
+                .replace(/!/g, '%21')
+                .replace(/'/g, '%27')
+                .replace(/\(/g, '%28')
+                .replace(/\)/g, '%29')
+                .replace(/\*/g, '%2A')
+                .replace(/%20/g, '+');
+            
+        };
+        
         var simpleSignup = function() {
             
             var userNick = dataSource.Username;
@@ -91,27 +114,41 @@ app.Signup = (function () {
                 return false;
             }
             
+
             var param = '{"osType":' + init_apps.osType + 
                 ',"version":"' + init_apps.version + 
-                '","name":"' + userNick + 
+                '","name":"' + encodeURI(encodeURIComponent(userNick)) + 
                 '","memUID":"' + init_apps.memUID + 
                 '","deviceID":"' + init_apps.deviceID + '"}';
+/*
+            var param = {
+                osType: init_apps.osType,
+                version: init_apps.version,
+                name: userNick,
+                memUID: init_apps.memUID,
+                deviceID: init_apps.deviceID
+            };
+*/
+            //param = encodeURIComponent(JSON.stringify(param));
+           // param = encodeURIComponent(param);
+   
             
+            //var parapara = $.param({"type": "apps","id": "memberLoginDevice","param": param});           
+            
+            //var url = init_data.auth + "?type=apps&id=memberLoginDevice&param=" + param;
             var url = init_data.auth + "?callback=?";
             
+            console.log(url);
             app.mobileApp.showLoading();
-            
+                //data: {"type": "apps","id": "memberLoginDevice","param": param},
             $.ajax({
-                url: url,
+                url: init_data.auth,
                 type: "GET",
                 async: false,
+                timeout:2000,
                 dataType: "jsonp",
                 jsonpCallback: "jsonCallback",
-                data: {
-                    "type": "apps",
-                    "id": "memberLoginDevice",
-                    "param":param
-                },
+                data: {"type": "apps","id": "memberLoginDevice","param": param},
                 success: function(response) {
                     if(response.code === 0) {
                         uu_data = response.data;
@@ -130,12 +167,11 @@ app.Signup = (function () {
                     {
                         app.showAlert(response.message,"안내");
                     }
+                    app.mobileApp.hideLoading();
                 },
                 error: function(e) {
-                    console.log(JSON.stringify(e));  
-                },
-                complete: function() {
-                    app.mobileApp.hideLoading();
+                    console.log(JSON.stringify(e)); 
+                    app.mobileApp.navigate('#landing');
                 }
             });  
             

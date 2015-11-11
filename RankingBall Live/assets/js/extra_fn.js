@@ -4,6 +4,33 @@ var uu_data = {};
 var guest = false;
 var registType = 2; // member join type ( normal: 1, guest: 2, sns: 3 )
 
+var contestListData = ""; // Total Game List
+var contestFtypeData = ""; // Game Group - Featured
+var contest5typeData = ""; // Game Group - 50 / 50
+var contestGtypeData = ""; // Game Group - GuaranteedtmpData
+var muContestF = ""; // my Game Featured
+var muContest5 = ""; // my Game 50 / 50
+var muContestG = ""; // my Game Guaranteed
+
+var myGames = "";
+
+var playerData = [];
+var entryAmount = 0;
+var max_salarycap_amount = 30000;
+
+var currentContestType = "";
+
+var errorMessage = {
+    game_param: "경기 정보를 확인할 수 없습니다.",
+    game_empty: "참가할 수 있는 경기가 없습니다.",
+    game_time: "게임 진행 중에는 입장하실 수 없습니다.",
+    game_started: "게임 진행 중에는 입장하실 수 없습니다.",
+    game_closed: "게임 결과를 확인 하시겠습니까?",
+    game_cash: "입장료가 부족해서 참가하실 수 없습니다.\n\n캐쉬를 구매하시겠습니까?"
+};
+
+
+
 var routine_version_check = function(device, version) {
     var returnValue = true;
     var param = '{"osType":' + device + ',"version":"' + version + '"}';
@@ -257,3 +284,16 @@ function getlocalStorage(p) {
 function clearStorage(p) {
     localStorage.removeItem(p);
 }
+
+
+function numberFormat(num) {
+    if(num === 0) return 0;
+
+    var reg = /(^[+-]?\d+)(\d{3})/;
+    var n = (num + '');
+
+    while (reg.test(n)) n = n.replace(reg, '$1' + ',' + '$2');
+
+    return n;
+}
+
