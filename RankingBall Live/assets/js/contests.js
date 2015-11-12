@@ -17,6 +17,35 @@ app.Contests = (function () {
         $(document).on('click','.inboxList-off-btn', function() {
             resultMatch( $(this) );
         });
+        $(document).on('click','.myContest', function() {
+            
+            var contest = $(this).attr('data-rel');
+            var contestStatus = $(this).attr('data-status');
+            
+            if(contest !== "" && contestStatus === 1) {
+                navigator.notification.confirm("엔트리를 수정하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       pageTransition('views/entryUpdateView.html');
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['확인', '취소']);
+                return false;
+            } else if(contest !== "" && contestStatus === 2) {
+                app.showError("게임 진행 중에는 들어갈 수 없습니다.");
+                return false;
+            } else if(contest !== "" && contestStatus === 3) {
+                navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       pageTransition('views/playResultView.html');
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['확인', '취소']);
+                return false;
+            }
+
+        });
         
         function init() {
                         
@@ -25,6 +54,8 @@ app.Contests = (function () {
             observableView();
             //loadContestData();
             restoreMatchs();
+            
+            myContestList();
         }
         
         function playInit(e) {
@@ -74,14 +105,38 @@ app.Contests = (function () {
         
         
         var myContestList = function() {
+
+            if(muContestF.cnt === 0) {
+                $('#gt_list1').html('');
+                $('#math-cnt-f').html(0);
+                $('#acco_gt1').removeClass('ico-open');
+            } else {
+                $('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
+                $('#math-cnt-f').html(muContestF.cnt);
+                $('#acco_gt1').addClass('ico-open');
+            }
             
+            if(muContest5.cnt === 0) {
+                $('#gt_list2').html('');
+                $('#math-cnt-5').html(0);
+                $('#acco_gt2').removeClass('ico-open');
+            } else {
+                $('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
+                $('#math-cnt-5').html(muContest5.cnt);
+                $('#acco_gt2').addClass('ico-open');
+            }
+            
+            if(muContestG.cnt === 0) {
+                $('#gt_list3').html('');
+                $('#math-cnt-g').html(0);
+                $('#acco_gt3').removeClass('ico-open');
+            } else {
+                $('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
+                $('#math-cnt-g').html(muContestG.cnt);
+                $('#acco_gt3').addClass('ico-open');
+            }
         };
-        
-        var observableView = function() {
-            $('.amount_mini_ruby').html(uu_data.cash);
-            //$('.amount_mini_point').html(uu_data.points);
-        }
-        
+                
         var matchPlay = function() {
             $('#tabstrip_live').removeClass('ts');
             $('#tabstrip_upcoming').addClass('ts');
@@ -147,7 +202,7 @@ app.Contests = (function () {
             }
             
             app.Entry.initEntryData();
-            var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&mode=reg';
+            var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg';
             
             closeModal();
             app.mobileApp.navigate(entryUrl, 'slide');
@@ -260,7 +315,7 @@ app.Contests = (function () {
         
         var customAccordon = function(e) {
             var data = e.button.data();
-            var els_this = $('#acco_' + data.rel);
+            var els_this = $('#accoList_' + data.rel);
             var els_ul = $('#' + data.rel);
             els_ul.slideToggle( "2500", "swing", function() {
                         if(els_ul.is(":visible")) {

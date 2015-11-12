@@ -1,4 +1,116 @@
 
+/* common */
 .warning {
     color: #ff0000;
+}
+
+
+
+
+
+
+/* view */
+
+.profile-info {
+    width: 100%;
+}
+
+.profile-box {
+    padding: .5em;
+}
+.profile-rows {
+    border-radius: 3px;
+    background-color: #fff;
+}
+.profile-rows .profile-row {
+    display: table;
+    width: 100%;
+}
+.profile-rows .profile-row .profile-btns {
+    display: table-cell;
+    width: 33.333%;
+    vertical-align: top;
+}
+.profile-rows .profile-row .profile-btns img {
+    width: 80%;
+}
+.profile-rows .profile-row .profile-btns a {
+    font-size: 0.8em;
+    line-height: 1.8em;
+    padding: 1.4em;
+}
+
+
+/* list */
+.contents-view {
+    background-color: #e9e9e9;
+}
+.contents-view ul.inboxList {
+    list-style: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.contents-view ul.inboxList li {
+    font-size: .9em;
+    color: #9b9b9b;
+    padding: .5em .5em 0 .5em;
+    line-height: 1.8em;
+}
+.contents-view ul.inboxList .inboxList-face {
+    display: table;
+    width: 100%;
+    padding: .5em;
+    background-color: #fff;
+    border-radius: 3px;
+}
+.contents-view ul.inboxList .inboxList-face .inboxList-group {
+    width: 100%;
+    display: table-cell;
+    vertical-align: middle;
+}
+.contents-view ul.inboxList .inboxList-btn {
+    padding: 1em .5em;
+    min-width: 36px;
+    font-size: .9em;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #3180a4;    
+}
+.contents-view ul.inboxList .boxs {
+    padding: .2em 0 0 .2em;
+}
+.contents-view ul.inboxList .btns {
+    max-width: 42px;
+}
+.contents-view ul.inboxList .inboxList-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: #3180a4;
+    word-break: break-all;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.contents-view ul.inboxList .inboxList-title span.ic-50 {
+    display: inline-block;
+    text-indent: -99999px;
+    width: 16px;
+    height: 20px;
+    background: url(../resource/ic_50.png) 0 center no-repeat;
+    background-size: 15px;
+}
+.contents-view ul.inboxList .inboxList-summ {
+    width: 100%;
+    display: table;
+}
+.contents-view ul.inboxList .inboxList-summ span {
+    display: table-cell;
+    font-size: .9em;
+}
+.contents-view ul.inboxList .inboxList-summ b {
+    color: #3c3c3c;    
 }

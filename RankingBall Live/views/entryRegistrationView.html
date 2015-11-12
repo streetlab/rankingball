@@ -21,7 +21,7 @@
         <div class="property-mini-info">
             <div class="property-box-padding">
                 <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
+                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                             <li>
                                 <div class="player-box-jersey">
                                     <div class="gk-ico choice-off">
-                                        <p><a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry"><img class="btn-slots" id="img-slot8" src="./assets/resource/btn_player_plus.png" width="100%"></a></p>
+                                        <p><a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry"><img class="btn-slots" id="img-slot8" src="./assets/resource/btn_player_plus_02.png" width="100%"></a></p>
                                     </div>
                                 </div>
                                 <div class="player-box-player">
@@ -149,10 +149,10 @@
 
     <div id="entry-control-box">
         <div class="control-box">
-            <a class="btn-close" data-role="button" >초기화</a>
+            <a class="btn-close" data-role="button" data-click="app.Entry.allClear">초기화</a>
         </div>
-        <div class="control-box disabled">
-            <a class="btn-confirm" data-role="button" >엔트리 등록 완료</a>
+        <div class="control-box">
+            <a id="entryRegBtn" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.regEntry">엔트리 등록 완료</a>
         </div>
     </div>
 

@@ -8,9 +8,9 @@ var contestListData = ""; // Total Game List
 var contestFtypeData = ""; // Game Group - Featured
 var contest5typeData = ""; // Game Group - 50 / 50
 var contestGtypeData = ""; // Game Group - GuaranteedtmpData
-var muContestF = ""; // my Game Featured
-var muContest5 = ""; // my Game 50 / 50
-var muContestG = ""; // my Game Guaranteed
+var muContestF = {cnt:0,arr:''}; // my Game Featured
+var muContest5 = {cnt:0,arr:''}; // my Game 50 / 50
+var muContestG = {cnt:0,arr:''}; // my Game Guaranteed
 
 var myGames = "";
 
@@ -18,6 +18,7 @@ var playerData = [];
 var entryAmount = 0;
 var max_salarycap_amount = 30000;
 
+var entryStatus = false;
 var currentContestType = "";
 
 var errorMessage = {
@@ -297,3 +298,7 @@ function numberFormat(num) {
     return n;
 }
 
+var observableView = function() {
+    $('.amount_mini_ruby').html(uu_data.cash);
+    //$('.amount_mini_point').html(uu_data.points);
+}

@@ -1106,12 +1106,7 @@ html, body
     -webkit-box-orient: vertical;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-50 {
-    display: inline-block;
-    text-indent: -9999px;
-    width: 16px;
-    height: 20px;
-    background: url(../resource/ic_50.png) 0 center no-repeat;
-    background-size: 15px;
+    position:relative;
 }
 
 
@@ -2459,9 +2454,12 @@ span.ic-over {
 }
 #entry-control-box .control-box a.btn-confirm
 {
+    background-color: #3180a4;
+}
+#entry-control-box .control-box a.btn-confirm.disabled
+{
     background-color: #9b9b9b;
 }
-
 
 /* Players */
 #players-box {
@@ -2717,6 +2715,14 @@ ul.player_list_header li div {
     position: relative;
     width: 100%;
 }
+.tab_rnk_mark {
+    padding: .6em .5em;
+    background-color: #dadada;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #3180a4;
+    background-color: #dadada;
+}
 .tab_result_reward {
     display: table;
     width: 100%;
@@ -2834,6 +2840,14 @@ ul.player_list_header li div {
     padding-right: .5em;
 }
 
+.tab_result_label li.myrank {
+    color: #fff;
+    background-color: #3180a4;
+    
+}
+.tab_result_label li.myrank div {
+    border:0;
+}
 .result-box-padding {
     padding: .6em 0;
     background-color: #dadada;

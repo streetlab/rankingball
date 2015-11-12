@@ -45,8 +45,7 @@ app.Playerz = (function () {
             entryData = [];
             progressBar(entryAmount, $('.salarycap-gage'));
             
-            $('.amount_mini_ruby').html(uu_data.cash);
-            
+            observableView();
             if(requestPosition) playerList(requestPosition);
         }
 
@@ -65,7 +64,7 @@ app.Playerz = (function () {
 
         function clearVariables() {
             
-            $('.amount_mini_ruby').html(uu_data.cash);
+            observableView();
             
             playerSlot = {};
             requestPosition = "";
@@ -144,6 +143,8 @@ app.Playerz = (function () {
                                                                                     
                                     playerData = [];
                                     
+                                    console.log(response.data);
+                                    
                                     $.each(response.data, function (i, p) {
                                         playerData.push({
                                             teamName: p.teamName,
@@ -166,15 +167,19 @@ app.Playerz = (function () {
                                         else return (b.playerID - a.playerID);
                                     });
                                     
+                                    console.log(playerData);
+                                    
                                     for(var i=0;i<playerData.length;i++) {
                                         
                                         var entryStatus = "";
                                         var entryImg = "btn_plus_02.png";
                                         var salaryColor = "";
+                                        var controlClass = "addPlayer";
                                         
                                         if( entryData.indexOf(playerData[i].playerID) > -1 ) {
                                             entryStatus = "on";
                                             entryImg = "btn_minus_02.png";
+                                            controlClass = "removePlayer";
                                         } else {
                                             salaryColor = (salaryLimit < playerData[i].salary) ? 'warning' : '';
                                         }
@@ -182,7 +187,7 @@ app.Playerz = (function () {
                                         var resp = '<li class="clearfix players"><div class="listitem_position">' + playerPosition(playerData[i].posType) + '</div>' +
                                             '<div class="listitem_name"><a data-role="button" data-rel="' + playerData[i].playerID + '" class="vwPlayer">' + playerData[i].playerName + '</a></div>' +
                                             '<div class="listitem_fppg">0</div><div class="listitem_salary ' + salaryColor + '">$' + numberFormat(playerData[i].salary) + '</div>' +
-                                            '<div class="listitem_btns"><a data-role="button" data-salary="' + playerData[i].salary + '" data-rel="' + playerData[i].playerID + '" data-status="' + entryStatus + '" class="addPlayer"><img id="entry-' + playerData[i].playerID + '" src="/assets/resource/' + entryImg + '"></a></div></li>';
+                                            '<div class="listitem_btns"><a data-role="button" data-salary="' + playerData[i].salary + '" data-rel="' + playerData[i].playerID + '" data-status="' + entryStatus + '" class="' + controlClass + '"><img id="entry-' + playerData[i].playerID + '" src="/assets/resource/' + entryImg + '"></a></div></li>';
                                         
                                         $('#players_list').append( resp );
                                     }
@@ -207,41 +212,7 @@ app.Playerz = (function () {
             pl.fetch();
                         
         }
-        
-        var listSortTemplate = function(tmpData) {
-            
-            //console.log(tmpData);
-            var asc = "desc";
-            var prop = "playerID";
-            
-            $.each(tmpData, function (i, p) {
-                arrays.push({
-                    teamName: p.teamName,
-                    position: p.position,
-                    playerID: p.playerID,
-                    playerName: p.playerName,
-                    posDesc: p.posDesc,
-                    number: p.number,
-                    posId: p.posId,
-                    team: p.team,
-                    salary: p.salary,
-                    posCode: p.posCode,
-                    posType: p.posType
-                });
-            }); 
-            
-            arrays = arrays.sort(function(a, b) {
-                //return a.playerID - b.playerID;
-                if (asc) return (a.playerID - b.playerID);
-                else return (b.playerID - a.playerID);
-            });
-            
-            for (var e in arrays) {
-                console.log( arrays[e].playerID + " : " + arrays[e].playerName );
-            }
-            
-        }
-        
+
         var playerPosition = function(pos) {
             switch(pos) {
                 case 1:
@@ -273,22 +244,16 @@ app.Playerz = (function () {
         
         var addPlayer = function(player, salary) {
             
-            var tempAmount = entryAmount + salary;
-/*
-            if( entryData.indexOf(playerData[i].playerID) > -1 ) {
-                
-                navigator.notification.confirm("", function (confirmed) {
-                   if (confirmed === true || confirmed === 1) {
-                       var resVwUrl = 'views/playResultView.html?contest=' + joinMatchNo;
-                       pageTransition(resVwUrl);
-                   } else {
-                       closeModal();
-                   }
-                }, '알림', ['확인', '취소']);
-                return false;
-                
+            if(playerSlot[requestSlot] !== undefined) {
+                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
+                    console.log(playerSlot[requestSlot]);
+                    app.showError("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n먼저 등록된 선수를 등록취소하세요.");
+                    return false;
+                }
             }
-*/        
+            
+            var tempAmount = entryAmount + salary;
+       
             if(tempAmount > max_salarycap_amount) {
                 app.showError("샐러리캡 한도를 벗어났습니다.");
             } else {
@@ -317,9 +282,85 @@ app.Playerz = (function () {
                 
                 progressBar(entryAmount, $('.salarycap-gage'));
                 
+                checkSlot();
                 app.mobileApp.navigate('#po_entry_registration','slide:right');
             }
         }
+        
+        var removePlayer = function(player, salary) {
+            
+            var tempAmount = entryAmount - salary;
+     
+            if(tempAmount < 0) {
+                app.showError("샐러리캡 설정 범위가 잘못 되었습니다.");
+            } else {
+                                
+                if( playerSlot[requestSlot] === "" || playerSlot[requestSlot] !== player) {
+                    app.showError("엔트리 등록된 선수가 잘못 저장 되었습니다.\n\n동일한 포지션일 경우 선수를 확인해주세요.");
+                } else {
+                        
+                    navigator.notification.confirm("선택한 엔트리 등록 선수를 취소할까요?", function (confirmed) {
+                       if (confirmed === true || confirmed === 1) {
+                          
+                            playerSlot[requestSlot] = "";
+
+                            var arr_index = entryData.indexOf(player);
+                            if( arr_index >= 0 ) {
+                               entryData.splice(arr_index, 1);
+                            }
+
+                            $('#entry-' + player).prop('src','/assets/resource/btn_plus_02.png');
+                            $('#entry-' + player).parent('a')
+                                .attr('data-status','')
+                                .removeClass('removePlayer')
+                                .addClass('addPlayer');
+
+                            if(requestSlot === "slot4" || requestSlot === "slot8") {
+                                $('#img-' + requestSlot).prop('src','/assets/resource/btn_player_plus_02.png');
+                            } else {
+                                $('#img-' + requestSlot).prop('src','/assets/resource/btn_player_plus.png');
+                            }
+
+                            $('#player-' + requestSlot).html(slotLabel(requestSlot));
+                            
+                            entryAmount -= salary;
+                            progressBar(entryAmount, $('.salarycap-gage'));
+                            checkSlot();
+                            app.mobileApp.navigate('#po_entry_registration','slide:right');
+                           
+                       }
+                    }, '알림', ['취소하기', '유지하기']);
+                    return false;
+                    
+                }
+            }
+        }
+
+        var slotLabel = function(slot){
+            var returnLabe = "";
+            switch(slot) {
+                case "slot1":
+                case "slot2":
+                    returnLabe = "F";
+                    break;
+                case "slot3":
+                case "slot5":
+                    returnLabe = "M";
+                    break;
+                case "slot4":
+                    returnLabe = "FLEX";
+                    break;
+                case "slot6":
+                case "slot7":
+                    returnLabe = "D";
+                    break;
+                case "slot8":
+                    returnLabe = "GK";
+                    break;
+            }
+            
+            return returnLabe;
+        };
         
         var addPlayerStatic = function() {
             $.each(playerData, function(i, v) {
@@ -331,67 +372,80 @@ app.Playerz = (function () {
         }
         
         var checkSlot = function() {
-            $.each(playerSlot, function(i, v) {
-                 
-            });
+                      
+            var key, count = 0;
+            for(key in playerSlot) {
+                if(playerSlot.hasOwnProperty(key)) {
+                    if(playerSlot[key] !== "" || playerSlot[key] !== 0) {
+                        count++;
+                    }
+                }
+            }
+                        
+            if(count === 8) {
+                $('a#entryRegBtn').removeClass('disabled');
+                entryStatus = true;
+            } else {
+                $('a#entryRegBtn').addClass('disabled');
+                entryStatus = false;
+            }
         }
                 
-        var setFinalEntry = function() {
+        var setFinalEntry = function(contest,fee) {
+
+            if(contest === "") {
+                console.log("no contst");
+                return false;
+            }
             
-            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","position":' + requestPostion + ',"organ":1}';
+            var param = '{"osType":' + init_apps.osType + 
+                ',"version":"' + init_apps.version + 
+                '","memSeq":' + uu_data.memSeq + 
+                ',"contestSeq":' + contest + 
+                ',"slot1":' + playerSlot.slot1 + 
+                ',"slot2":' + playerSlot.slot2 + 
+                ',"slot3":' + playerSlot.slot3 + 
+                ',"slot4":' + playerSlot.slot4 + 
+                ',"slot5":' + playerSlot.slot5 + 
+                ',"slot6":' + playerSlot.slot6 + 
+                ',"slot7":' + playerSlot.slot7 + 
+                ',"slot8":' + playerSlot.slot8 + 
+                '}';
+            
             var url = init_data.auth + "?callback=?";
             app.mobileApp.showLoading();
             
             $.ajax({
-                       url: "http://m3.liveball.kr:8080/rankBall/query.frz?callback=?",
-                       type: "GET",
-                       async: false,
-                       dataType: "jsonp",
-                       jsonpCallback: "contestRegistEntry",
-                       data: {
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
                     "type": "apps",
-                    "id": "checkVersion",
+                    "id": "contestRegistEntry",
                     "param":param
                 },
-                       success: function(response) {
-                           if (response.code === 0) {
-                               var inits = response.data;
-                               init_data = {
-                                   status: inits.serviceStatus,
-                                   apps: inits.APPS,
-                                   auth: inits.AUTH,
-                                   extr: inits.EXTR,
-                                   file: inits.FILE,
-                                   note: inits.NOTE,
-                                   path: inits.PATH,
-                                   port: inits.PORT,
-                                   sp: inits.supportVer
-                               };
-                               var tmpVersion = version.replace(/\./g, "");
-                        
-                               if (tmpVersion < init_data.sp.replace(/\./g, "")) {
-                                   app_status = false;
-                                   navigator.notification.confirm('신규 버전으로 업데이트하셔야 합니다.\n\n지금 업데이트하시겠습니까?', function (confirmed) {
-                                       if (confirmed === true || confirmed === 1) {
-                                           openAppStore();
-                                       }
-                                   }, '종료', ['확인', '취소']);
-                                   //app.showConfirm('신규 버전으로 업데이트하셔야 합니다.\n\n지금 업데이트하시겠습니까?','업데이트 안내',openAppStore());
-                               } else {
-                                   routine_device_check();
-                               }
-                           } else {
-                               app_status = false;
-                               returnValue = false;
-                           }
-                       },
-                       complete: function() {
-                           //navigator.splashscreen.hide();
-                       },
-                       error: function(e) {
-                           console.log(e);
-                       }
-                   });  
+               success: function(response) {
+                   
+                    console.log(response);
+
+                    if (response.code === 0) {
+                        alert("엔트리가 등록되었습니다.");
+                        uu_data.cash -= fee;
+                        entryAmount = 0;
+                        app.ObjControl.launchPlay();
+                    } else {
+                        app.showError(response.message);
+                    }
+               },
+               complete: function() {
+                   navigator.splashscreen.hide();
+               },
+               error: function(e) {
+                   console.log(e);
+               }
+           });  
            
             return returnValue;
         };
@@ -473,7 +527,8 @@ app.Playerz = (function () {
             addPlayerStatic: addPlayerStatic,
             vwParam: vwParam,
             record: record,
-            news: news
+            news: news,
+            setFinalEntry: setFinalEntry
         };
     }());
 

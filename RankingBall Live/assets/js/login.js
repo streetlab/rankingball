@@ -189,6 +189,8 @@ app.Login = (function () {
                                clearStorage('appd');
                                setlocalStorage('doLogin', false);
                            }
+                           
+                           console.log(uu_data);
                        },
                        error: function(e) {
                            console.log(e); 

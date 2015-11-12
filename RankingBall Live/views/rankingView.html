@@ -3,10 +3,10 @@
     data-role="view" 
     data-title="랭킹 보기" 
     data-layout="main"
-    data-model="app.Contests"
-    data-init="app.Contests.init"
+    data-model="app.Resnrnk"
+    data-init="app.Resnrnk.init"
     data-transition="slide">
-    
+   
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
             <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
@@ -17,27 +17,164 @@
             </a>
             <span data-role="view-title"></span>
         </div>
-    </div>
-
-    <div class="property-mini-info">
-        <div class="property-box-padding">
-            <div id="my-ruby" class="property-box bg-ruby">
-                <span id="amount-ruby" class="amount_mini_ruby">123,456,789</span>
-                <span class="proper-add-btn">
-                    <img src="./assets/resource/btn_plus.png">
-                </span>    
+        
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
+                    <span class="proper-add-btn">
+                        <img src="./assets/resource/btn_plus.png">
+                    </span>    
+                </div>
             </div>
         </div>
-        <div class="property-box-padding">
-            <div id="my-point" class="property-box bg-point">   
-                <span id="amount-point" class="amount_mini_point">123,456,789</span>
+        
+       <div class="tapstrip-group">
+            <div id="tabstrip_header_season" class="tabstrip-moz ts">
+                <a class="ts" data-role="button" data-click="app.Resnrnk.rankSeason">전체 시즌 랭킹</a>
+            </div>
+            <div id="tabstrip_header_week" class="tabstrip-moz">
+                <a data-role="button" data-click="app.Resnrnk.rankWeekly">주간 랭킹</a>
             </div>
         </div>
+        
+        <div class="tap_result_box">
+            <div class="tab_rnk_mark">
+                2014~2015 시즌 <span>16</span>주차
+            </div>
+        </div>
+        
+        <div class="tab_result_label">
+            <ul>
+                <li class="clearfix header">
+                    <div class="listitem_rank">순위</div>
+                    <div class="listitem_name">네임</div>
+                    <div class="listitem_point">랭킹 포인트</div>
+                </li>
+            </ul>
+        </div>
+        
     </div>
     
-    <div id="contest-bar">
- 
-
+    <div id="tabstrip_seaon" class="tabDiv">
+       <ul id="ranking_season" class="tab_result_label">
+            <li class="clearfix rank myrank">
+                <div class="listitem_rank">10</div>
+                <div class="listitem_name rnk-name"></div>
+                <div class="listitem_point rnk-point"></div>
+            </li>
+           <li class="clearfix rank">
+                <div class="listitem_rank">1</div>
+                <div class="listitem_name">2 KLICKS SOUTH</div>
+                <div class="listitem_point">135.6</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">2</div>
+                <div class="listitem_name">James Mckenna</div>
+                <div class="listitem_point">118.2</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">3</div>
+                <div class="listitem_name">TwinkleToes</div>
+                <div class="listitem_point">111.4</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">4</div>
+                <div class="listitem_name">mike</div>
+                <div class="listitem_point">99.8</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">5</div>
+                <div class="listitem_name">JustMe</div>
+                <div class="listitem_point">93.4</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">6</div>
+                <div class="listitem_name">kaleb</div>
+                <div class="listitem_point">88.6</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">7</div>
+                <div class="listitem_name">dylan</div>
+                <div class="listitem_point">87.8</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">8</div>
+                <div class="listitem_name">michael</div>
+                <div class="listitem_point">86.0</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">9</div>
+                <div class="listitem_name">michael</div>
+                <div class="listitem_point">86.0</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">10</div>
+                <div class="listitem_name rnk-name"></div>
+                <div class="listitem_point rnk-point"></div>
+            </li>
+        </ul>
     </div>
-
+    
+    <div id="tabstrip_week" class="tabDiv hide">
+       <ul id="ranking_week" class="tab_result_label">
+            <li class="clearfix rank myrank">
+                <div class="listitem_rank">10</div>
+                <div class="listitem_name rnk-name"></div>
+                <div class="listitem_point rnk-point"></div>
+            </li>
+           <li class="clearfix rank">
+                <div class="listitem_rank">1</div>
+                <div class="listitem_name">2 KLICKS SOUTH</div>
+                <div class="listitem_point">135.6</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">2</div>
+                <div class="listitem_name">James Mckenna</div>
+                <div class="listitem_point">118.2</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">3</div>
+                <div class="listitem_name">TwinkleToes</div>
+                <div class="listitem_point">111.4</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">4</div>
+                <div class="listitem_name">mike</div>
+                <div class="listitem_point">99.8</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">5</div>
+                <div class="listitem_name">JustMe</div>
+                <div class="listitem_point">93.4</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">6</div>
+                <div class="listitem_name">kaleb</div>
+                <div class="listitem_point">88.6</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">7</div>
+                <div class="listitem_name">dylan</div>
+                <div class="listitem_point">87.8</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">8</div>
+                <div class="listitem_name">michael</div>
+                <div class="listitem_point">86.0</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">9</div>
+                <div class="listitem_name">michael</div>
+                <div class="listitem_point">86.0</div>
+            </li>
+            <li class="clearfix rank">
+                <div class="listitem_rank">10</div>
+                <div class="listitem_name rnk-name"></div>
+                <div class="listitem_point rnk-point"></div>
+            </li>
+        </ul>
+    </div>
+        
+    
 </div>
