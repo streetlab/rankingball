@@ -7,7 +7,7 @@
   "Author": "streetlab",
   "Description": "DFS Global Service",
   "BundleVersion": "1.0.1",
-  "AndroidVersionCode": "1",
+  "AndroidVersionCode": "101",
   "iOSDeviceFamily": [
     "1",
     "2"
@@ -55,7 +55,26 @@
   "iOSDeploymentTarget": "6.0",
   "CordovaPluginVariables": {
     "cc.fovea.cordova.purchase": {
-      "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjSIbqdMRkkqsCdN7NSduAi2as0PfAU1+mSPv9y77/b4mJGBtZbKx+QnYvKWoUaCSF88lQ2atrBKlnVEPcRlg9EMqjDQHLBQ2NkmtlO7tnYW+YttxVRqbY8LaoQzHG1e2+cJZPJPclhYBm1NwonyGnpm160bWOeRANuwltZoW3poB9C2flCm6anCoh+I+oTtzcT+hyF4aipGe1swaMlSKImpaeanpmN03II0Yn6dU2dekiZQIH8mTiDif6BXOY4py9eKCwVshMxJx+08jQPxN+yhKjUM1gC6+S8t++iTZvtUUPwBFP4ERAj3unHcXdcBTnIPkN5gkkXkiwkMgFaowpQIDAQAB"
+      "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiOWmIqAY9XjHz5C1qN8ortAlJDao3DEWnPgE3+mXnDt4w3oSsgmnt73VvAYK3rCnA+KUhP+27R2/vAqPs0zAnhwoyhKOmTpVi/p9bEiX8+MafBU8kP6INo26/otdnJXtYIDjnRjvj1L1aCr4tV/IISgAsUf7u8qYR+IRojCGAjdNjgJxaL5qFZfzxeX6gje2PDsqMSogvFTGcZmjzAv5fbLJxkrt982hJbyZLE6ryvU+KdBYSDg3VNr6FPG4vkRHqfSTJ9MN+FtmzaCGS8EGYPcarrcCcwuG/n6IoGuP9rnoAo7WtY78rmjxGcTB/SroCUvSBJ290yzwfvIP+MGyfwIDAQAB"
     }
-  }
+  },
+  "CorePlugins": [
+    "cc.fovea.cordova.purchase@3.11.1.1",
+    "com.phonegap.plugins.PushPlugin@2.5.8",
+    "org.apache.cordova.camera",
+    "org.apache.cordova.console",
+    "org.apache.cordova.device",
+    "org.apache.cordova.device-orientation",
+    "org.apache.cordova.dialogs",
+    "org.apache.cordova.file",
+    "org.apache.cordova.file-transfer",
+    "org.apache.cordova.geolocation",
+    "org.apache.cordova.globalization",
+    "org.apache.cordova.inappbrowser",
+    "org.apache.cordova.network-information",
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.statusbar",
+    "org.apache.cordova.vibration",
+    "uk.co.whiteoctober.cordova.appversion@0.1.7"
+  ]
 }
