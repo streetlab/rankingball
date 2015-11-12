@@ -42,6 +42,7 @@
 
 
     <preference name="loglevel" value="DEBUG" />
+    <preference name="fullscreen" value="true" />
     <!--
       <preference name="splashscreen" value="splash" />
       <preference name="backgroundColor" value="0xFFF" />

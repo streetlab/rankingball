@@ -63,39 +63,89 @@ app.ObjControl = (function () {
            if( uu_data.memSeq === "" ) {
                 console.log("User seq is null");
             } else {
-                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
-                var url = init_data.auth + "?callback=?";
-
                 app.mobileApp.showLoading();
-                
-                $.ajax({
-                    url: url,
-                    type: "GET",
-                    async: false,
-                    dataType: "jsonp",
-                    jsonpCallback: "jsonCallback",
-                    data: {
-                        "type": "apps",
-                        "id": "contestGetList",
-                        "param":param
-                    },
-                    success: function(response) {
-                        if (response.code === 0) {
-                            contestListData = response.data;
-                            generateContestList();
-                        }
-                        else
-                        {
-                            console.log("no match data");
-                            app.mobileApp.navigate('views/playView.html', 'slide');
-                            app.mobileApp.hideLoading();
-                        }
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }
-                });  
+                setupPlayerOnLeague();
             }
+        }
+        
+        function setupPlayerOnLeague() {
+            
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","position":15,"organ":1}';
+            var url = init_data.auth + "?callback=?";
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "contestGetEntry",
+                    "param":param
+                },
+                success: function(response) {
+                    if (response.code === 0) {
+                        $.each(response.data, function (i, p) {
+                            playerOnLeague.push({
+                                teamName: p.teamName,
+                                position: p.position,
+                                fppg: p.fppg,
+                                playerID: p.playerID,
+                                playerName: p.playerName,
+                                posDesc: p.posDesc,
+                                number: p.number,
+                                posId: p.posId,
+                                team: p.team,
+                                salary: p.salary,
+                                posCode: p.posCode,
+                                posType: p.posType
+                            });
+                        });
+                    }
+                    
+                    console.log(playerOnLeague);
+                    requestContestList();
+                },
+                error: function(e) {
+                    console.log(e);
+                    app.mobileApp.hideLoading();
+                }
+            });
+        }        
+                
+        function requestContestList() {
+            
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
+            var url = init_data.auth + "?callback=?";
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "contestGetList",
+                    "param":param
+                },
+                success: function(response) {
+                    if (response.code === 0) {
+                        contestListData = response.data;
+                        generateContestList();
+                    }
+                    else
+                    {
+                        console.log("no match data");
+                        app.mobileApp.navigate('views/playView.html', 'slide');
+                        app.mobileApp.hideLoading();
+                    }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });  
         }
         
         function generateContestList() {
@@ -105,20 +155,21 @@ app.ObjControl = (function () {
             muContestF = {cnt:0,arr:''};
             muContest5 = {cnt:0,arr:''};
             muContestG = {cnt:0,arr:''};
-            
-            var mFcnt = 0;
-            var m5cnt = 0;
-            var mGcnt = 0;
-            
+                        
             for (var i=0 ; i < contestListData.length ; i++)
             {
                 var playDate = timeGenerate(contestListData[i]['startTime']);
                 var matchType = "";
-                if(contestListData[i]['contestType'] === 1) {
+                
+                var contestType = parseInt(contestListData[i]['contestType']);
+                
+                if(contestType === 1) {
                     matchType = '<span class="ic-50">50</span>';
-                } else if(contestListData[i]['contestType'] === 2) {
-                    matchType = '<span class="ic-guaranteed">G</span>';
+                } else if(contestType === 2) {
+                    matchType = '<span class="ic-ranking">R</span>';
                 }
+                
+                var guaranteed = (contestListData[i]['guaranteed'] === 1) ? '<span class="ic-guaranteed">G</span>' : '';
                 
                 var statusLabel = "";
                 if(contestListData[i]['contestStatus'] === 1) {
@@ -126,7 +177,7 @@ app.ObjControl = (function () {
                 } else if(contestListData[i]['contestStatus'] === 2) {
                     statusLabel = '<span class="ic-play">play</span>';
                 } else {
-                    statusLabel = '<span class="ic-over">over</span>';
+                    statusLabel = '<span class="ic-end">end</span>';
                 }
                 
                 var joinBtn = "";
@@ -134,14 +185,14 @@ app.ObjControl = (function () {
                 
                 if(contestListData[i]['myEntry'] === 1) {
                     
-                    if(contestListData[i]['contestStatus'] === 1) {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" data-click="app.Contests.joinMatch" class="myContest collapseInboxList-btn km-widget km-button"><span class="km-text">JOIN</span></a>';
+                    if(contestListData[i]['contestStatus'] < 3) {
+                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" class="myContest collapseInboxList-btn"><span class="km-text">JOIN</span></a>';
                     } else {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" data-click="app.Contests.playResult" class="myContest collapseInboxList-off-btn km-widget km-button"><span class="km-text">CLOSE</span></a>';
+                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" class="myContest collapseInboxList-off-btn"><span class="km-text">CLOSED</span></a>';
                     }
                     
                     item = '<li><div class="collapseInboxList-face"><div class="collapseInboxList-group boxs">' +
-                        '<div class="collapseInboxList-title">' + matchType + ' ' + statusLabel + ' ' + contestListData[i]['contestName'] + '</div>' +
+                        '<div class="collapseInboxList-title">' + matchType + ' ' + guaranteed + ' ' + statusLabel + ' ' + contestListData[i]['contestName'] + '</div>' +
                         '<div class="collapseInboxList-summ"><span><b>' + contestListData[i]['totalEntry'] + '</b> / ' + contestListData[i]['maxEntry'] + '</span><span><b>' + 
                         numberFormat(contestListData[i]['entryFee']) + '</b> / ' + numberFormat(contestListData[i]['rewardValue']) + '</span><span>' + playDate +'</span></div></div>' +
                         '<div class="collapseInboxList-group btns">' + joinBtn + '</div></li>';
@@ -150,38 +201,51 @@ app.ObjControl = (function () {
                         muContestF.arr += item;
                         muContestF.cnt++;
                     }
-                    if (contestListData[i]['contestType'] === 1) {
+                    if (contestType === 1) {
                         muContest5.arr += item;
                         muContest5.cnt++;
-                    } else if (contestListData[i]['contestType'] === 2) {
+                    } else if (contestType === 2) {
                         muContestG.arr += item;
                         muContestG.cnt++;
                     }
+                    
+                    var $tmpSlots = [];
+                    $.each(contestListData[i]['entryData'],function(k,x) {
+                        $tmpSlots[k] = x;
+                    });
+                    
+                    
+                    myEntryByContest[contestListData[i]['contestSeq']] = $tmpSlots;
 
                 } else {
                     
                     if(contestListData[i]['contestStatus'] === 1) {
                         joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" data-click="app.Contests.joinMatch" class="inboxList-btn">JOIN</a>';
-                    } else {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" data-click="app.Contests.resultMatch" class="inboxList-off-btn">CLOSE</a>';
+                        
+                        item = '<li><div class="inboxList-group boxs"><div class="inboxList-title">' + matchType + ' ' + guaranteed + '<div class="marquee"><p>' + contestListData[i]['contestName'] + '</p></div></div>' +
+                        '<div class="inboxList-summ"><span><b>' + contestListData[i]['totalEntry'] + '</b> / ' + contestListData[i]['maxEntry'] + '</span><span><b>' + 
+                        numberFormat(contestListData[i]['entryFee']) + '</b> / ' + numberFormat(contestListData[i]['rewardValue']) + '</span><span>' + playDate +'</span></div></div>' +
+                        '<div class="inboxList-group btns">' + joinBtn + '</div></li>';
+                        
+                        if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
+                            contestFtypeData += item;
+                        }
+                        
+                        if (contestType === 1) {
+                            contest5typeData += item;
+                        } else if (contestType === 2) {
+                            contestGtypeData += item;
+                        }
+                    
                     }
                     
-                    item = '<li><div class="inboxList-group boxs"><div class="inboxList-title">' + matchType + '<div class="marquee"><p>' + contestListData[i]['contestName'] + '</p></div></div>' +
-                    '<div class="inboxList-summ"><span><b>' + contestListData[i]['totalEntry'] + '</b> / ' + contestListData[i]['maxEntry'] + '</span><span><b>' + 
-                    numberFormat(contestListData[i]['entryFee']) + '</b> / ' + numberFormat(contestListData[i]['rewardValue']) + '</span><span>' + playDate +'</span></div></div>' +
-                    '<div class="inboxList-group btns">' + joinBtn + '</div></li>';
-                    
-                    if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
-                        contestFtypeData += item;
-                    }
-                    
-                    if (contestListData[i]['contestType'] === 1) {
-                        contest5typeData += item;
-                    } else if (contestListData[i]['contestType'] === 2) {
-                        contestGtypeData += item;
-                    }
+
                 }
             }
+            
+            
+            console.log(contestListData);
+            console.log(myEntryByContest);
                                     
             setTimeout(function() {
                 app.mobileApp.navigate('views/playView.html', 'slide');
@@ -280,11 +344,7 @@ app.ObjControl = (function () {
             muContestF = {cnt:0,arr:''};
             muContest5 = {cnt:0,arr:''};
             muContestG = {cnt:0,arr:''};
-            
-            var mFcnt = 0;
-            var m5cnt = 0;
-            var mGcnt = 0;
-            
+                        
             for (var i=0 ; i < contestListData.length ; i++)
             {
                 var playDate = timeGenerate(contestListData[i]['startTime']);

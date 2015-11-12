@@ -17,15 +17,18 @@ app.Contests = (function () {
         $(document).on('click','.inboxList-off-btn', function() {
             resultMatch( $(this) );
         });
-        $(document).on('click','.myContest', function() {
+        $(document).on('click','a.myContest', function() {
             
             var contest = $(this).attr('data-rel');
-            var contestStatus = $(this).attr('data-status');
-            
+            var contestStatus = parseInt($(this).attr('data-status'));
+                        
             if(contest !== "" && contestStatus === 1) {
                 navigator.notification.confirm("엔트리를 수정하시겠습니까?", function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
-                       pageTransition('views/entryUpdateView.html');
+                       
+                       //app.Entry.initEntryDataUpdate(contest);
+                       var entryUrl = 'views/entryUpdateView.html?contest=' + contest + '&mode=ed';
+                       app.mobileApp.navigate(entryUrl, 'slide');
                    } else {
                        closeModal();
                    }
@@ -37,7 +40,7 @@ app.Contests = (function () {
             } else if(contest !== "" && contestStatus === 3) {
                 navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
-                       pageTransition('views/playResultView.html');
+                       app.mobileApp.navigate('views/playResultView.html', 'slide');
                    } else {
                        closeModal();
                    }
@@ -245,7 +248,7 @@ app.Contests = (function () {
             } else if(c === 2) {
                 return "50 / 50";    
             } else {
-                return "guaranteed to run";
+                return "랭킹전";
             }
         }
         
@@ -308,7 +311,7 @@ app.Contests = (function () {
             //$('ul#playListBox').html(contestGtypeData);
             setTimeout(function() {
                 app.mobileApp.navigate('views/playListView.html?bar=G', 'slide');
-                $('#play-title').html('guaranteed to run');
+                $('#play-title').html('랭킹전');
                 app.mobileApp.hideLoading();
             },300);
         };

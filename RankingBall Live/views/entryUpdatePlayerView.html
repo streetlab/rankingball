@@ -1,16 +1,15 @@
 <div
-    id="po_entry_players"
+    id="po_entry_update_players"
     data-role="view" 
     data-title="선수 선택하기"
     data-layout="main"
     data-model="app.Playerz"
-    data-init="app.Playerz.init"
-    data-show="app.Playerz.vwParam"
+    data-show="app.Playerz.vwParam4update"
     data-transition="slide">
 
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#po_entry_registration" data-transition="slide:right">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#po_entry_update" data-transition="slide:right">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -32,7 +31,7 @@
             
             <div class="salarycap-box">
                 <h4>사용가능 샐러리 캡</h4>
-                <div id="progressBar" class="salarycap-gage">
+                <div class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
@@ -71,8 +70,8 @@
         
     </div>
 
-    <div id="players-box">
-        <ul id="players_list" class="player_detail" data-role="listview">
+    <div id="players-box4up">
+        <ul id="players_list4update" class="player_detail" data-role="listview">
         </ul>
     </div>
 

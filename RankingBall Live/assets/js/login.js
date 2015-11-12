@@ -147,8 +147,7 @@ app.Login = (function () {
                         
                         param = '{"osType":' + init_apps.osType + 
                                  ',"version":"' + init_apps.version + 
-                                 '","name":"' + uu_data.nick + 
-                                 '","memUID":"' + init_apps.memUID + 
+                                 '","name":"","memUID":"' + init_apps.memUID + 
                                  '","deviceID":"' + init_apps.deviceID + '"}';
                     } else {
                         callerID = "memberLogin";
@@ -163,6 +162,8 @@ app.Login = (function () {
                     
                     var url = init_data.auth + "?callback=?";
                     
+                    console.log(param);
+                    
                     app.mobileApp.showLoading();
                     $.ajax({
                                url: url,
@@ -176,6 +177,7 @@ app.Login = (function () {
                             "param":param
                         },
                        success: function(response) {
+                           console.log(response);
                            if (response.code === 0) {
                                uu_data = response.data;
                                setlocalStorage('appd', JSON.stringify(uu_data));
@@ -190,7 +192,7 @@ app.Login = (function () {
                                setlocalStorage('doLogin', false);
                            }
                            
-                           console.log(uu_data);
+                           console.log(JSON.stringify(uu_data));
                        },
                        error: function(e) {
                            console.log(e); 

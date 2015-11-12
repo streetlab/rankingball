@@ -1105,10 +1105,11 @@ html, body
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
-.contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-50 {
+.contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-50,
+.contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-ranking,
+.contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-guaranteed {
     position:relative;
 }
-
 
 .contest-match-list ul.collapseInboxList .collapseInboxList-summ {
     width: 100%;
@@ -1141,6 +1142,15 @@ span.ic-guaranteed {
     background: url(../resource/ic_guaranteed.png) 0 center no-repeat;
     background-size: 15px;
 }
+span.ic-ranking {
+    position: absolute;
+    display: inline-block;
+    text-indent: -9999px;
+    width: 16px;
+    height: 20px;
+    background: url(../resource/ic_rankinggame.png) 0 center no-repeat;
+    background-size: 15px;
+}
 span.ic-wait {
     display: inline-block;
     text-indent: -9999px;
@@ -1163,6 +1173,14 @@ span.ic-over {
     width: 26px;
     height: 22px;
     background: url(../resource/ic_featured_over.png) 0 center no-repeat;
+    background-size: 26px;
+}
+span.ic-end {
+    display: inline-block;
+    text-indent: -9999px;
+    width: 26px;
+    height: 22px;
+    background: url(../resource/ic_featured_end.png) 0 center no-repeat;
     background-size: 26px;
 }
 
@@ -2265,14 +2283,14 @@ span.ic-over {
 
 
 /* Progress Bar */
-#progressBar {
+.salarycap-gage {
     position: relative;
     width: 100%;
     height: 22px;
     border: 0;
     background-color: #fff;
 }
-#progressBar p { 
+.salarycap-gage p { 
     padding-left: 1em;
     margin: 0px;
     font-size: 0.8em;
@@ -2281,10 +2299,10 @@ span.ic-over {
     white-space: nowrap;
     line-height: 22px;
 }
-#progressBar > p { 
+.salarycap-gage > p { 
     color: #81c132;
 }
-#progressBar > div {
+.salarycap-gage > div {
     position: absolute;
     top: 0;
     left: 0;
@@ -2296,44 +2314,47 @@ span.ic-over {
     overflow: hidden;
     background-color: #81c132;
 }
-#progressBar > div > p {
+.salarycap-gage > div > p {
     color: #fff;
 }
+
 
 /* Entry Surface */
 #po_entry_registration .km-content {
     background-color: #3c3c3c;
 }
+#po_entry_update .km-content {
+    background-color: #3c3c3c;
+}
 
-
-#entry-box {
+.entry-box-all {
     position: relative;
     width: 100%;
     overflow: hidden;
 }
-#entry-box .position-layout {
+.entry-box-all .position-layout {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
 }
-#entry-box .position-layout ul,
-#entry-box .position-layout ol,
-#entry-box .position-layout ul li,
-#entry-box .position-layout ol li {
+.entry-box-all .position-layout ul,
+.entry-box-all .position-layout ol,
+.entry-box-all .position-layout ul li,
+.entry-box-all .position-layout ol li {
     margin: 0;
     padding: 0;
     height: 100%;
     list-style: none;
     text-align: center;
 }
-#entry-box .position-layout ul li {
+.entry-box-all .position-layout ul li {
     height: 25%;
 }
 
 
-#entry-box .position-layout ol.fw li {
+.entry-box-all .position-layout ol.fw li {
     position: relative;
     float: left;
     width: 50%;
@@ -2342,34 +2363,34 @@ span.ic-over {
 }
 
 
-#entry-box .position-layout ol.mf li {
+.entry-box-all .position-layout ol.mf li {
     position: relative;
     float: left;
     width: 33.333%;
     height: 100%;
     text-align: center;
 }
-#entry-box .position-layout ol.df li {
+.entry-box-all .position-layout ol.df li {
     position: relative;
     float: left;
     width: 50%;
     height: 100%;
     text-align: center;
 }
-#entry-box .position-layout ol.gk li {
+.entry-box-all .position-layout ol.gk li {
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
 }
 
-#entry-box .position-layout .player-box-jersey {
+.entry-box-all .position-layout .player-box-jersey {
     height: 70%;
 }
-#entry-box .position-layout .player-box-player {
+.entry-box-all .position-layout .player-box-player {
     height: 30%;
 }
-#entry-box .position-layout .player-box-player span {
+.entry-box-all .position-layout .player-box-player span {
     display: inline-block;
     min-width: 50px;
     padding: .3em .6em;
@@ -2377,7 +2398,7 @@ span.ic-over {
     color: #fff799;
     background-color: #2a2329;
 }
-#entry-box .position-layout ol.fw .fw-ico {
+.entry-box-all .position-layout ol.fw .fw-ico {
     display: inline-block;
     background: url(../resource/entry/ic_forward.png) center 12px no-repeat;
     background-size: contain;
@@ -2385,7 +2406,7 @@ span.ic-over {
     height: 100%;
     vertical-align: middle;
 }
-#entry-box .position-layout ol.mf .mf-ico {
+.entry-box-all .position-layout ol.mf .mf-ico {
     display: inline-block;
     background: url(../resource/entry/ic_midfielder.png) center 12px no-repeat;
     background-size: contain;
@@ -2393,14 +2414,14 @@ span.ic-over {
     height: 100%;
     vertical-align: middle;
 }
-#entry-box .position-layout ol.mf .dmf-ico {
+.entry-box-all .position-layout ol.mf .dmf-ico {
     background: url(../resource/entry/ic_DMF.png) center 12px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
 }
 
-#entry-box .position-layout ol.df .df-ico {
+.entry-box-all .position-layout ol.df .df-ico {
     display: inline-block;
     background: url(../resource/entry/ic_defender.png) center 12px no-repeat;
     background-size: contain;
@@ -2408,7 +2429,7 @@ span.ic-over {
     height: 100%;
     vertical-align: middle;
 }
-#entry-box .position-layout ol.gk .gk-ico {
+.entry-box-all .position-layout ol.gk .gk-ico {
     display: inline-block;
     background: url(../resource/entry/ic_goalkeeper.png) center 12px no-repeat;
     background-size: contain;
@@ -2416,29 +2437,29 @@ span.ic-over {
     height: 100%;
     vertical-align: middle;
 }
-#entry-box .position-layout ol p {
+.entry-box-all .position-layout ol p {
     margin: 0;
     padding: 1.8em 1em;
 }
 
-#entry-control-box {
+.entry-control-box {
     display: table;
     width: 100%;
 }
-#entry-control-box .control-box {
+.entry-control-box .control-box {
     display: table-cell;
     padding: 1.2em .6em;
 }
-#entry-control-box .control-box:first-child {
+.entry-control-box .control-box:first-child {
     width: 30%;
     padding-right: .3em;
 }
-#entry-control-box .control-box:last-child {
+.entry-control-box .control-box:last-child {
     width: 70%;
     padding-left: .3em; 
 }
 
-#entry-control-box .control-box a {
+.entry-control-box .control-box a {
     width: 100%;
     margin: 0;
     padding: .8em 0;
@@ -2448,15 +2469,15 @@ span.ic-over {
     font-size: 1rem;
     text-decoration: none;
 }
-#entry-control-box .control-box a.btn-close
+.entry-control-box .control-box a.btn-close
 {
     background-color: #AD0000;
 }
-#entry-control-box .control-box a.btn-confirm
+.entry-control-box .control-box a.btn-confirm
 {
     background-color: #3180a4;
 }
-#entry-control-box .control-box a.btn-confirm.disabled
+.entry-control-box .control-box a.btn-confirm.disabled
 {
     background-color: #9b9b9b;
 }
@@ -2466,67 +2487,75 @@ span.ic-over {
     position: relative;
     width: 100%;
 }
+#players-box4up {
+    position: relative;
+    width: 100%;
+}
 
-ul#players_list {
+ul.player_detail {
     width: 100%;
     list-style: none;
     margin: 0;
     padding: 0;
     font-weight: bold;
 }
-ul#players_list.km-list>li
+ul.player_detail.km-list>li
 {
     padding: .3em .3em
 }
-ul#players_list li.header {
+ul.player_detail li.header {
     width: 100%;
 }
-ul#players_list li.header div {
+ul.player_detail li.header div {
     background-color: #e9e9e9;
     color: #9b9b9b;
     font-size: 0.7em;
     padding: .6em 0;
 }
-ul#players_list li.players {
+ul.player_detail li.players {
     padding-right: .4em;
     padding-left: .4em;
     color: #3c3c3c;
 }
-ul#players_list li {
+ul.player_detail li {
     display: table;
 }
-ul#players_list li div {
+ul.player_detail li div {
     display: table-cell;
     border-bottom: 1px solid #e9e9e9;
     padding: .3em 0;
     font-size: 0.9em;
     text-align: center;
 }
-ul#players_list li div.listitem_position {
+ul.player_detail li div.listitem_position {
     width: 12%;
     vertical-align: middle;
 }
-ul#players_list li div.listitem_name {
+ul.player_detail li div.listitem_name {
     width: 40%;
     text-align: left;
     vertical-align: middle;
 }
-ul#players_list li div.listitem_fppg {
+ul.player_detail li div.listitem_name span {
+    font-size: .8em;
+    color: #9b9b9b;
+}
+ul.player_detail li div.listitem_fppg {
     width: 12%;
     vertical-align: middle;
 }
-ul#players_list li div.listitem_salary {
+ul.player_detail li div.listitem_salary {
     width:21%;
     vertical-align: middle;
 }
-ul#players_list li div.listitem_btns {
+ul.player_detail li div.listitem_btns {
     width: 15%;
     padding: 0.5em; 
 }
-ul#players_list li div.listitem_btns img {
+ul.player_detail li div.listitem_btns img {
     width: 100%;
 }
-ul#players_list li.players div.listitem_salary {
+ul.player_detail li.players div.listitem_salary {
     padding-right: 0.4em;
     text-align: right;
 }

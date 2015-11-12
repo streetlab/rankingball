@@ -13,10 +13,16 @@ var muContest5 = {cnt:0,arr:''}; // my Game 50 / 50
 var muContestG = {cnt:0,arr:''}; // my Game Guaranteed
 
 var myGames = "";
+var myEntryByContest = {}; // 엔트리별 선수 등록 정보
 
-var playerData = [];
+var playerOnLeague = []; // 전체 선수 받아오기용
+var playerData = []; // entry 설정용
+var playerListData = [];
+
 var entryAmount = 0;
 var max_salarycap_amount = 30000;
+
+var playerData4up = [];
 
 var entryStatus = false;
 var currentContestType = "";
@@ -47,6 +53,7 @@ var routine_version_check = function(device, version) {
             "param":param
         },
                success: function(response) {
+                   console.log(response);
                    if (response.code === 0) {
                        var inits = response.data;
                        init_data = {
@@ -125,6 +132,7 @@ var routine_device_check = function() {
                     "param":param
                 },
                        success: function(response) {
+                           console.log(response);
                            if (response.code === 0) {
                                uu_data = response.data;
                                //setlocalStorage('appd',JSON.stringify(uu_data));

@@ -68,8 +68,10 @@ var app = (function (win) {
     }
     
     var onDeviceReady = function() {
-        
+        //StatusBar.overlaysWebView(false);
+        StatusBar.hide();        
         navigator.splashscreen.show();
+        
         initService();
         /*
         var init_process = initService();
@@ -150,15 +152,17 @@ var app = (function (win) {
         }
     };
 
+    //black
     var os = kendo.support.mobileOS,
-        statusBarStyle = os.ios && os.flatVersion >= 700 ? 'black-translucent' : 'black';
+        statusBarStyle = os.ios && os.flatVersion >= 700 ? 'black-translucent' : 'balck';
+
     init_apps.osType = (os.ios) ? 2 : 1;
     
     // Initialize KendoUI mobile application
     var mobileApp = new kendo.mobile.Application(document.body, {
                                                      initial: "landing",
                                                      layout: "main-layout",
-                                                     statusBarStyle: statusBarStyle,
+                                                     statusBarStyle: 'hidden',
                                                      skin: "flat"
                                                  });
    
