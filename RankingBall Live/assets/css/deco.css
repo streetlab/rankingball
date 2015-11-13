@@ -55,7 +55,7 @@
     font-size: .9em;
     color: #9b9b9b;
     padding: .5em .5em 0 .5em;
-    line-height: 1.8em;
+    line-height: 1.4em;
 }
 .contents-view ul.inboxList .inboxList-face {
     display: table;
@@ -69,7 +69,19 @@
     display: table-cell;
     vertical-align: middle;
 }
+.contents-view ul.inboxList .inboxList-face img {
+    width: 60px;
+    padding-right: 5px;
+}
 .contents-view ul.inboxList .inboxList-btn {
+    padding: 1em .5em;
+    min-width: 36px;
+    font-size: .9em;
+    color: #fff;
+    border-radius: 4px;
+    background-color: #3180a4;    
+}
+.contents-view ul.inboxList .inboxList-shop-btn {
     padding: 1em .5em;
     min-width: 36px;
     font-size: .9em;
@@ -84,7 +96,7 @@
     max-width: 42px;
 }
 .contents-view ul.inboxList .inboxList-title {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 600;
     color: #3180a4;
     word-break: break-all;
@@ -93,6 +105,10 @@
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+}
+.contents-view ul.inboxList .inboxList-title span {
+    display: block;
+    color: #B60404;
 }
 
 .contents-view ul.inboxList .inboxList-title span.ic-50 {

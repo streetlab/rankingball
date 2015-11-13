@@ -7,9 +7,9 @@ app.Shop = (function () {
     'use strict';
     
     var shopProcess = (function () {        
-       
+               
         function init(){
-            console.log('init shop');
+            console.log('init shop!');
             
             if (window.navigator.simulator === true) {
                 
@@ -20,27 +20,32 @@ app.Shop = (function () {
               // Inform the store of your products
                          
               store.register({
-                               id:    'ruby_100',
-                               alias: "루비100개",
+                               id:    'com.streetlab.cash5500',
+                               alias: "cash5500",
                                type:   store.CONSUMABLE
                              });
                 
               store.register({
-                               id:    "com.streetlab.test1",
-                               alias: "결제테스트",
+                               id:    "com.streetlab.cash11000",
+                               alias: "cash11000",
                                type:   store.CONSUMABLE
                              });                
               
               store.register({
-                               id:    'com.streetlab.test2',
-                               alias: 'test2',
+                               id:    'com.streetlab.cash22000',
+                               alias: 'cash22000',
                                type:   store.CONSUMABLE
                              });
                 
               store.register({
-                               id:    'com.streetlab.test3',
-                               alias: 'test3',
-                               type:   store.PAID_SUBSCRIPTION
+                               id:    'com.streetlab.cash33000',
+                               alias: 'cash33000',
+                               type:   store.CONSUMABLE
+                             });      
+              store.register({
+                               id:    'com.streetlab.cash55000',
+                               alias: 'cash55000',
+                               type:   store.CONSUMABLE
                              });      
                 
               
@@ -63,7 +68,7 @@ app.Shop = (function () {
                 if (!p.loaded) {
                   console.log("load failed");
                 } else if (!p.valid) {
-                    alert("invalid : "+p.alias);
+                    console.log("invalid : "+p.alias);
                 } else if (p.valid) {
                   //var product =   store.get(p.id);
                     
@@ -116,8 +121,8 @@ app.Shop = (function () {
               //                                    });
   
               // When purchase of 100 coins is approved, show an alert
-              store.when("test2").approved(function (order) {
-                                                  alert(order.alias + 'approved!');
+              store.when("cash5500").approved(function (order) {
+                                                  console.log(order.alias + 'approved!');
                                                   //order.verify();
                                                   order.finish();
                                                 });
@@ -131,54 +136,67 @@ app.Shop = (function () {
                 //                                  alert(order.alias + 'unverified!');
                 //                                });
                 
-                store.when("test2").finished(function (order) {
-                                                  alert(order.alias + 'finished!');
+                store.when("cash5500").finished(function (order) {
+                                                  console.log(order.alias + 'finished!');
                                                 });
                 
-                store.when("test2").cancelled(function (order) {
-                                                  alert(order.alias + 'cancelled!');
+                store.when("cash5500").cancelled(function (order) {
+                                                  console.log(order.alias + 'cancelled!');
                                                 });
                 
-                 store.when("test3").approved(function (order) {
-                                                  alert(order.alias + 'approved!');                     
+                 store.when("cash11000").approved(function (order) {
+                                                  console.log(order.alias + 'approved!');                     
                                                   order.finish();
                                                 });
                 
-                store.when("test3").finished(function (order) {
-                                                  alert(order.alias + 'finished!');
+                store.when("cash11000").finished(function (order) {
+                                                  console.log(order.alias + 'finished!');
                                                 });
                 
-                 store.when("test3").cancelled(function (order) {
-                                                  alert(order.alias + 'cancelled!');
+                 store.when("cash11000").cancelled(function (order) {
+                                                  console.log(order.alias + 'cancelled!');
                                                 });
                 
-                 store.when("결제테스트").approved(function (order) {
-                                                  alert(order.alias + 'approved!');                     
+                 store.when("cash22000").approved(function (order) {
+                                                  console.log(order.alias + 'approved!');                     
                                                   order.finish();
                                                 });
                 
-                store.when("결제테스트").finished(function (order) {
-                                                  alert(order.alias + 'finished!');
+                store.when("cash22000").finished(function (order) {
+                                                  console.log(order.alias + 'finished!');
                                                 });
                 
-                store.when("결제테스트").cancelled(function (order) {
-                                                  alert(order.alias + 'cancelled!');
+                store.when("cash22000").cancelled(function (order) {
+                                                  console.log(order.alias + 'cancelled!');
                                                 });
                 
-                store.when("루비100개").approved(function (order) {
-                                                  alert(order.alias + 'approved!');                    
+                store.when("cash33000").approved(function (order) {
+                                                  console.log(order.alias + 'approved!');                    
                                                   //order.verify();
                                                   order.finish();
                                                 });
                 
-                store.when("루비100개").finished(function (order) {
-                                                  alert(order.alias + 'finished!');
+                store.when("cash33000").finished(function (order) {
+                                                  console.log(order.alias + 'finished!');
                                                 });
                 
-                store.when("루비100개").cancelled(function (order) {
-                                                  alert(order.alias + 'cancelled!');
+                store.when("cash33000").cancelled(function (order) {
+                                                  console.log(order.alias + 'cancelled!');
                                                 });
                 
+                store.when("cash55000").approved(function (order) {
+                                                  console.log(order.alias + 'approved!');                    
+                                                  //order.verify();
+                                                  order.finish();
+                                                });
+                
+                store.when("cash55000").finished(function (order) {
+                                                  console.log(order.alias + 'finished!');
+                                                });
+                
+                store.when("cash55000").cancelled(function (order) {
+                                                  console.log(order.alias + 'cancelled!');
+                                                });
                 //store.when("루비100개").verified(function (order) {
                 //                                  alert(order.alias + 'verified!');
                 //                                  order.finish();
@@ -188,18 +206,6 @@ app.Shop = (function () {
                 //                                  alert(order.alias + 'unverified!');
                 //                                });
                 
-
-              // When purchase of the full version is approved, show an alert and finish the transaction.
-              store.when("Full version").approved(function (order) {
-                                                    alert('You just unlocked the FULL VERSION!');
-                                                    order.finish();
-                                                  });
-  
-              // The play button can only be accessed when the user owns the full version.
-              store.when("Full version").updated(function (product) {
-                                                   console.log("The full version updated to " + (product.owned ? "owned" : "not owned"));
-                                                 });
-
               // When the store is ready all products are loaded and in their "final" state.
               // Note that the "ready" function will be called immediately if the store is already ready.
               // When the store is ready, activate the "refresh" button;
