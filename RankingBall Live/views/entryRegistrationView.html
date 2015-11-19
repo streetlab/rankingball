@@ -9,7 +9,7 @@
 
     <div data-role="header" data-reload="true" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#mv_play_contest" data-transition="slide:right">
+            <a class="drawer-btn" data-align="left" data-role="button" data-click="app.Entry.returnContestPlay">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -22,7 +22,7 @@
             <div class="property-box-padding">
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                    <span class="proper-add-btn"> <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a> </span>
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="salarycap-box">
                 <h4>사용가능 샐러리 캡</h4>
                 <div id="progressBar" class="salarycap-gage">
-                    <p></p>
+                    <p id="checkElementWidth"></p>
                     <div>
                         <p></p>
                     </div>

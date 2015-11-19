@@ -367,6 +367,9 @@ html, body
     padding-right: .8em;
     color: #3180a4;
 }
+.strip-group .strip-box-padding .strip-box-moz-vw a {
+    color: #3180a4;
+}
 .strip-group .strip-box-padding .strip-box-moz-vw span.bg-box {
     display: inline-block;
     text-indent: -99999px;
@@ -1009,6 +1012,14 @@ html, body
 }
 .contest-lead-list a.btn-contest-lead.esp {
     background-color: #73b126;
+}
+
+.badge_hot {
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    margin-left: -72px;
+    width: 28px;
 }
 
 /* Contest Match List */
@@ -2535,6 +2546,9 @@ ul.player_detail li div.listitem_name {
     width: 40%;
     text-align: left;
     vertical-align: middle;
+}
+ul.player_detail li div.listitem_name a {
+    text-align: left;
 }
 ul.player_detail li div.listitem_name span {
     font-size: .8em;

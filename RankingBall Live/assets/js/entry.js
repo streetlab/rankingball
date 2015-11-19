@@ -18,8 +18,6 @@ app.Entry = (function () {
                 
         function init(e) {
             
-            console.log(uu_data);
-            
             var param = e.view.params;
             contestNo = param.contest;
             contestFee = param.fee;
@@ -28,15 +26,18 @@ app.Entry = (function () {
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
-            console.log(param);
+            console.log(JSON.stringify(param));
             
+            progressBar(entryAmount, $('#progressBar'));
+            /*
             if(param.mode === "ed") {
                 initEntryDataUpdate(contestNo);
             } else {
                 initEntryData();
             }            
             
-            progressBar(entryAmount, $('#progressBar'));
+            
+            */
         }
         
         function updateInit() {
@@ -59,6 +60,8 @@ app.Entry = (function () {
         }
         
         function initEntryData() {
+            
+            console.log("haha");
             
             observableView();
             
@@ -253,7 +256,7 @@ app.Entry = (function () {
             
             var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
             app.mobileApp.navigate(url,'slide');
-        }
+        };
         
         var setPlayerEntry4up = function(e) {
             var data = e.button.data();
@@ -261,7 +264,21 @@ app.Entry = (function () {
             
             var url = 'views/entryUpdatePlayerView.html?pos=' + data.rel + "&slot=" + data.slot;
             app.mobileApp.navigate(url,'slide');
-        }
+        };
+        
+        var returnContestPlay = function() {
+            console.log("return : " + currentContestType);
+            if(currentContestType === "F") {
+                //app.Contests.joinFeatured;
+                app.mobileApp.navigate('views/playListView.html?bar=F', 'slide:right');
+            } else if(currentContestType === "5") {
+                //app.Contests.joinFF;
+                app.mobileApp.navigate('views/playListView.html?bar=5', 'slide:right');
+            } else {
+                //app.Contests.joinGuarateed;
+                app.mobileApp.navigate('views/playListView.html?bar=G', 'slide:right');
+            }
+        };
         
         return {
             init: init,
@@ -273,7 +290,8 @@ app.Entry = (function () {
             allClear: allClear,
             allClearUpdate: allClearUpdate,
             regEntry: regEntry,
-            updateEntry: updateEntry
+            updateEntry: updateEntry,
+            returnContestPlay: returnContestPlay
         };
     }());
 

@@ -1,10 +1,9 @@
 <div
     id="mv_play_list"
     data-role="view" 
-    data-title="featured"
+    data-title="컨테스트 플레이"
     data-layout="main"
     data-model="app.Contests"
-    data-init="app.Contests.playInit"
     data-show="app.Contests.onShowReset"
     data-transition="slide">
     
@@ -22,7 +21,7 @@
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
+                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                     </span>    
                 </div>
             </div>
@@ -36,17 +35,17 @@
             </div>
             <div class="strip-box-padding">
                 <div class="strip-box-moz-vw">   
-                    <a data-role="button" href="#do-popover" data-rel="popover"><span id="sort-match-label">이름</span> <span id="sort-match-ico" class="bg-box ic-triangle-n-on"></span></a>
+                    <a data-role="button" href="#do-popover" data-rel="popover"><span id="sort-match-label">상금</span> <span id="sort-match-ico" class="bg-box ic-triangle-s-on"></span></a>
                 </div>
             </div>
         </div>
         <div id="do-popover" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
             <div data-role="view" id="popover-match-vw">
                 <ul>
-                    <li><label class="sort-l">이름</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
-                    <li><label>인원</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>입장료</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>상금</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelName" class="sortClass">이름</label> <a id="orderByName" data-role="button" data-rel="off" data-val="1" data-order="asc" data-click="app.Contests.listOrder" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelNumber" class="sortClass">인원</label> <a id="orderByNumber" data-role="button" data-rel="off" data-val="2" data-order="asc" data-click="app.Contests.listOrder" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelFee" class="sortClass">입장료</label> <a id="orderByFee" data-role="button" data-rel="off" data-val="3" data-order="asc" data-click="app.Contests.listOrder" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelReward" class="sortClass sort-l">상금</label> <a id="orderByReward" data-role="button" data-rel="on" data-val="4" data-order="asc" data-click="app.Contests.listOrder" data-align="right"><span class="bg-box ic-triangle-s-on"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -59,6 +58,26 @@
     </div>
 
 </div>
+
+
+<script id="contestListTemplate" type="text/x-kendo-template">
+    <div class="inboxList-group boxs">
+        <div class="inboxList-title">
+            #if(contestType===1){#
+            <span class="ic-50">50</span>
+            #} else {#
+            <span class="ic-ranking">R</span>
+            #}#
+            #if(guaranteed===1){#
+            <span class="ic-guaranteed">G</span>
+            #}#
+            <div class="marquee"><p>#:contestName#</p></div>
+        </div>
+        <div class="inboxList-summ"><span><b>#:kendo.toString(totalEntry,"n0")#</b> / #:kendo.toString(maxEntry,"n0")#</span><span><b>#:kendo.toString(entryFee, "n0")#</b> / #:kendo.toString(rewardValue,"n0")#</span><span>#:timeRew#</span></div>
+    </div>
+    <div class="inboxList-group btns"><a data-role="button" data-rel="#:contestSeq#" data-status="#:contestStatus#" data-click="app.Contests.joinMatch" class="inboxList-btn">JOIN</a></div>
+</script>
+
 
 <div data-role="modalview" id="join-match" data-modal="false" style="min-width: 300px;">
     <div class="modal-layer">

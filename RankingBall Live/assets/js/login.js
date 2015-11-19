@@ -140,67 +140,75 @@ app.Login = (function () {
                 storageObject = uu_data;
             }
                 if (storageObject.status === 1) {    
-                    var param, callerID;
+                    var param, callerID, pushKey;
                     
-                    if (registType === 2) {
-                        callerID = "memberLoginDevice";
-                        
-                        param = '{"osType":' + init_apps.osType + 
-                                 ',"version":"' + init_apps.version + 
-                                 '","name":"","memUID":"' + init_apps.memUID + 
-                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                    pushKey = ( init_apps.memUID === undefined ||  init_apps.memUID === "" ) ? getlocalStorage('push_wiz') : init_apps.memUID;
+                    
+                    if(pushKey === "" ) {
+                        init_apps.deviceID = device.uuid;
+                        initAppService.initAppVersion();
                     } else {
-                        callerID = "memberLogin";
-                        param = '{"osType":' + init_apps.osType + 
-                                 ',"version":"' + init_apps.version + 
-                                 '","email":"' + storageObject.email + 
-                                 '","memPwd":"' + passw + 
-                                 '","registType":' + registType +
-                                 ',"memUID":"' + init_apps.memUID + 
-                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                        
+                        if (registType === 2) {
+                            callerID = "memberLoginDevice";
+                            
+                            param = '{"osType":' + init_apps.osType + 
+                                     ',"version":"' + init_apps.version + 
+                                     '","name":"","memUID":"' + init_apps.memUID + 
+                                     '","deviceID":"' + init_apps.deviceID + '"}';
+                        } else {
+                            callerID = "memberLogin";
+                            param = '{"osType":' + init_apps.osType + 
+                                     ',"version":"' + init_apps.version + 
+                                     '","email":"' + storageObject.email + 
+                                     '","memPwd":"' + passw + 
+                                     '","registType":' + registType +
+                                     ',"memUID":"' + init_apps.memUID + 
+                                     '","deviceID":"' + init_apps.deviceID + '"}';
+                        }
+                        
+                        var url = init_data.auth + "?callback=?";
+                        
+                        console.log(param);
+                        
+                        app.mobileApp.showLoading();
+                        $.ajax({
+                                   url: url,
+                                   type: "GET",
+                                   async: false,
+                                   dataType: "jsonp",
+                                   jsonpCallback: "jsonCallback",
+                                   data: {
+                                "type": "apps",
+                                "id": callerID,
+                                "param":param
+                            },
+                           success: function(response) {
+                               console.log(JSON.stringify(response));
+                               if (response.code === 0) {
+                                   uu_data = response.data;
+                                   setlocalStorage('appd', JSON.stringify(uu_data));
+                                   setlocalStorage('doLogin', true);
+                            
+                                   app.mobileApp.navigate('views/landingView.html', 'slide');
+                               } else {
+                                   
+                                    app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                                        navigator.app.exitApp();
+                                    });
+                               }
+                               
+                               console.log(JSON.stringify(uu_data));
+                           },
+                           error: function(e) {
+                               console.log(e); 
+                           },
+                           complete: function() {
+                               app.mobileApp.hideLoading();
+                           }
+                       });
                     }
                     
-                    var url = init_data.auth + "?callback=?";
-                    
-                    console.log(param);
-                    
-                    app.mobileApp.showLoading();
-                    $.ajax({
-                               url: url,
-                               type: "GET",
-                               async: false,
-                               dataType: "jsonp",
-                               jsonpCallback: "jsonCallback",
-                               data: {
-                            "type": "apps",
-                            "id": callerID,
-                            "param":param
-                        },
-                       success: function(response) {
-                           console.log(response);
-                           if (response.code === 0) {
-                               uu_data = response.data;
-                               setlocalStorage('appd', JSON.stringify(uu_data));
-                               setlocalStorage('doLogin', true);
-                        
-                               app.mobileApp.navigate('views/landingView.html', 'slide');
-                           } else {
-                               uu_data = {
-                                   status: 0
-                               };
-                               clearStorage('appd');
-                               setlocalStorage('doLogin', false);
-                           }
-                           
-                           console.log(JSON.stringify(uu_data));
-                       },
-                       error: function(e) {
-                           console.log(e); 
-                       },
-                       complete: function() {
-                           app.mobileApp.hideLoading();
-                       }
-                   });
                 } else {
                     console.log("not found");
                 }
@@ -208,7 +216,15 @@ app.Login = (function () {
         }
         
         var joinGame = function() {
-            app.mobileApp.navigate('views/simpleSignupView.html', 'slide');
+            
+            if(app_status === 1) {
+                app.mobileApp.navigate('views/simpleSignupView.html', 'slide');
+            } else if(app_status === 2) {
+                app.showAlert('서비스를 이용하시기 위해서는 업그레이드가 필요합니다.','안내',function() {
+                    return false;
+                });
+            }
+            
         }
         
         // Authenticate using Facebook credentials

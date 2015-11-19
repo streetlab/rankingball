@@ -6,8 +6,8 @@
   "DisplayName": "LiveBall Soccer",
   "Author": "streetlab",
   "Description": "DFS Global Service",
-  "BundleVersion": "1.0.1",
-  "AndroidVersionCode": "101",
+  "BundleVersion": "1.0.3",
+  "AndroidVersionCode": "103",
   "iOSDeviceFamily": [
     "1",
     "2"

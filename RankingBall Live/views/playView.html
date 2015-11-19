@@ -4,12 +4,13 @@
     data-title="컨테스트 플레이" 
     data-layout="main"
     data-model="app.Contests"
+    data-init="app.Contests.init"
     data-show="app.Contests.onShow"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" data-click="app.Contests.homeService">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -23,7 +24,7 @@
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
+                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                     </span>    
                 </div>
             </div>
@@ -52,13 +53,13 @@
                     <div class="contest-lead-group">
                         <ul>
                             <li>
-                                <a class="btn-contest-lead esp" data-role="button" data-click="app.Contests.joinFeatured"><span>featured</span></a>
+                                <a class="btn-contest-lead esp" data-role="button" data-click="app.Contests.joinFeatured"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>featured</span> (<span id="math-cnt-ff">0</span>)</a>
                             </li>
                             <li>
-                                <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinFF"><span>50 / 50</span></a>
+                                <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinFF"><span>50 / 50</span> (<span id="math-cnt-f5">0</span>)</a>
                             </li>
                             <li>
-                                <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinGuarateed"><span>랭킹전</span></a>
+                                <a class="btn-contest-lead" data-role="button" data-click="app.Contests.joinGuarateed"><span>랭킹전</span> (<span id="math-cnt-fg">0</span>)</a>
                             </li>
                         </ul>
                     </div>
@@ -72,21 +73,21 @@
                         
                         <ul id="panelbar" class="contest-inboxList">
                             <li>
-                                <a id="accoList_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><span>featured</span> (<span id="math-cnt-f">1</span>) <span id="acco_gt1" class="collapse-btn"></span></a>
+                                <a id="accoList_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>featured</span> (<span id="math-cnt-f">1</span>) <span id="acco_gt1" class="collapse-btn"></span></a>
                                 <div id="gt_list1">
-
+                                    <ul id="gt1" class="collapseInboxList"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_gt2" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt2"><span>50 /50</span> (<span id="math-cnt-5">1</span>) <span id="acco_gt2" class="collapse-btn"></span></a>
                                 <div id="gt_list2">
-
+                                    <ul id="gt2" class="collapseInboxList"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_gt3" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt3"><span>랭킹전</span> (<span id="math-cnt-g">1</span>) <span id="acco_gt3" class="collapse-btn"></span></a>
                                 <div id="gt_list3">
-
+                                    <ul id="gt3" class="collapseInboxList"></ul>
                                 </div>
                             </li>
                             
@@ -98,10 +99,43 @@
             </div>
     </div>
 
-    
- 
-    
-    
-    
-    
 </div>
+
+
+<script id="myContestListTemplate" type="text/x-kendo-template">
+    <div class="collapseInboxList-face">
+        <div class="collapseInboxList-group boxs">
+            <div class="collapseInboxList-title">
+                #if(contestType===1){#
+                <span class="ic-50">50</span>
+                #} else {#
+                <span class="ic-ranking">R</span>
+                #}#
+                #if(guaranteed===1){#
+                <span class="ic-guaranteed">G</span>
+                #}#
+                #if(contestStatus===1){#
+                <span class="ic-wait">wait</span>
+                #} else if(contestStatus===2){#
+                <span class="ic-play">play</span>
+                #} else {#
+                <span class="ic-end">end</span>
+                #}#
+                #:contestName#
+            </div>
+            <div class="collapseInboxList-summ"><span><b>#:kendo.toString(totalEntry,"n0")#</b> / #:kendo.toString(maxEntry,"n0")#</span><span><b>#:kendo.toString(entryFee, "n0")#</b> / #:kendo.toString(rewardValue,"n0")#</span><span>#:timeRew#</span></div>
+        </div>
+        <div class="collapseInboxList-group btns">
+        
+        # var btnClass, btnLabel;
+        if(contestStatus < 3) {
+            btnClass = "myContest collapseInboxList-btn";
+            btnLabel = "JOIN";
+        } else {
+            btnClass = "myContest collapseInboxList-off-btn";
+            btnLabel = "CLOSED";
+        }#
+            <a data-role="button" data-rel="#:contestSeq#" data-status="#:contestStatus#" data-click="app.Contests.observeMatch" class="#=btnClass#">#=btnLabel#</a>
+        </div>
+    </div>
+</script>

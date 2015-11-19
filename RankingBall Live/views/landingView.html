@@ -3,7 +3,7 @@
     data-role="view"
     data-model="app.ObjControl"
     data-init="app.ObjControl.init"
-    data-layout="main-landing-menu" 
+    data-layout="main" 
     data-stretch="true">
 
     <div class="box-menu-wrap">
@@ -19,7 +19,7 @@
         </div>
 
         <div class="box-menu-grid">
-            <a data-role="button" href="views/rankingView.html">
+            <a data-role="button" data-click="app.ObjControl.launchRanking">
                 <div id="m_ranking" rel="ranking" class="box-menu-tr animBlock notViewed" data-position="top-right">
                     <div class="box-face box-def touch-filter">
                         <img src="./assets/resource/ic_ranking.png">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="box-menu-grid">
-            <a data-role="button" href="views/recordView.html">
+            <a data-role="button" data-click="app.ObjControl.launchRecord">
                 <div id="m_record" rel="record" class="box-menu-bl animBlock notViewed" data-position="bottom-left">
                     <div class="box-face box-def touch-filter">
                         <img src="./assets/resource/ic_record.png">
@@ -44,7 +44,7 @@
 
         <div class="box-menu-grid">
             <div class="box-menu-br">
-                <a data-role="button" href="views/shopView.html">
+                <a data-role="button" data-click="app.ObjControl.launchShop">
                     <div id="m_shop" rel="shop" class="box-sm bt animBlock notViewed" data-position="right">
                         <div class="box-face-sm touch-filter">
                             <img src="./assets/resource/ic_shop.png">
@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div class="box-menu-br">
-                <a data-role="button" href="views/profileView.html">
+                <a data-role="button" data-click="app.ObjControl.launchProfile">
                     <div id="m_profile" rel="profile" class="box-sm bb  animBlock notViewed" data-position="bottom-right">
                         <div class="box-face-sm touch-filter">
                             <img src="./assets/resource/ic_profile.png">

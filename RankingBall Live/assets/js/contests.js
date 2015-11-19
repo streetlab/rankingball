@@ -10,10 +10,7 @@ app.Contests = (function () {
 
         var joinMatchNo = "";
         var checkedData = "";
-        
-        $(document).on('click','.inboxList-btn', function() {
-            joinMatch( $(this) );
-        });
+
         $(document).on('click','.inboxList-off-btn', function() {
             resultMatch( $(this) );
         });
@@ -51,13 +48,14 @@ app.Contests = (function () {
         });
         
         function init() {
-                        
-            matchPlay();
-            
             observableView();
-            //loadContestData();
-            restoreMatchs();
-            
+            matchPlay();
+            myContestList();
+        }
+        
+        function onShow() {
+            observableView();
+            matchPlay();
             myContestList();
         }
         
@@ -68,14 +66,22 @@ app.Contests = (function () {
             
             currentContestType = param.bar;
 
+            console.log(param.bar + " : " + currentContestType);
+            
             observableView();
             setTimeout(function() {
                 if(currentContestType === "F") {
-                    $('ul#playListBox').html(contestFtypeData);
+                    resetViewTitle(e,"featured");
+                    setContestList(contestPartList['cf']);
+                    //$('ul#playListBox').html(contestFtypeData.arr);
                 } else if(currentContestType === "5") {
-                    $('ul#playListBox').html(contest5typeData);
+                    resetViewTitle(e,"50 / 50");
+                    setContestList(contestPartList['c5'])
+                    //$('ul#playListBox').html(contest5typeData.arr);
                 } else {
-                    $('ul#playListBox').html(contestGtypeData);
+                    resetViewTitle(e,"랭킹전");
+                    setContestList(contestPartList['cg'])
+                    //$('ul#playListBox').html(contestGtypeData.arr);
                 }
                 
                 app.mobileApp.hideLoading();
@@ -85,57 +91,119 @@ app.Contests = (function () {
         function onShowReset(e) {
             var param =  e.view.params;
             currentContestType = param.bar;
+            
+            console.log(param.bar + " : " + currentContestType);
+            
             setTimeout(function() {
                 if(currentContestType === "F") {
-                    $('ul#playListBox').html(contestFtypeData);
+                    resetViewTitle(e,"featured");
+                    setContestList(contestPartList['cf'])
+                    //$('ul#playListBox').html(contestFtypeData.arr);
                 } else if(currentContestType === "5") {
-                    $('ul#playListBox').html(contest5typeData);
+                    resetViewTitle(e,"50 / 50");
+                    setContestList(contestPartList['c5'])
+                    //$('ul#playListBox').html(contest5typeData.arr);
                 } else {
-                    $('ul#playListBox').html(contestGtypeData);
+                    resetViewTitle(e,"랭킹전");
+                    setContestList(contestPartList['cg'])
+                    //$('ul#playListBox').html(contestGtypeData.arr);
                 }
                 
                 app.mobileApp.hideLoading();
             },300);
         }
-                
-        function resultInit() {
-
+  
+        function setContestList(sortData) {
+            
+            var dataSource = new kendo.data.DataSource({
+                data: sortData
+            });
+            
+            $("#playListBox").empty();
+            $("#playListBox").kendoMobileListView({
+                dataSource: dataSource,
+                template: $("#contestListTemplate").html()
+            });
+            
         }
         
-        function onShow() {
-            init();
+        function homeService() {
+            //$("#mv_play_contest").data("kendoMobileView").destroy();
+            app.mobileApp.navigate('views/landingView.html', 'slide:right');
         }
+        
+        var resetViewTitle = function(e,t) {
+            var navbar = e.view
+                .header
+                .find(".km-navbar")
+                .data("kendoMobileNavBar");
+
+            navbar.title(t);
+        };
         
         
         var myContestList = function() {
-
-            if(muContestF.cnt === 0) {
+            
+            var dataSource;
+            
+            if(contestMyPartList['cf'].length === 0) {
                 $('#gt_list1').html('');
                 $('#math-cnt-f').html(0);
                 $('#acco_gt1').removeClass('ico-open');
             } else {
-                $('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
-                $('#math-cnt-f').html(muContestF.cnt);
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestMyPartList['cf']
+                });
+                
+                $("#gt1").empty();
+                $("#gt1").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#myContestListTemplate").html()
+                });
+                
+                //$('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
+                $('#math-cnt-f').html(contestMyPartList['cf'].length);
                 $('#acco_gt1').addClass('ico-open');
             }
             
-            if(muContest5.cnt === 0) {
+            if(contestMyPartList['c5'].length === 0) {
                 $('#gt_list2').html('');
                 $('#math-cnt-5').html(0);
                 $('#acco_gt2').removeClass('ico-open');
             } else {
-                $('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
-                $('#math-cnt-5').html(muContest5.cnt);
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestMyPartList['c5']
+                });
+                $("#gt2").empty();
+                $("#gt2").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#myContestListTemplate").html()
+                });
+                
+                //$('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
+                $('#math-cnt-5').html(contestMyPartList['c5'].length);
                 $('#acco_gt2').addClass('ico-open');
             }
             
-            if(muContestG.cnt === 0) {
+            if(contestMyPartList['cg'].length === 0) {
                 $('#gt_list3').html('');
                 $('#math-cnt-g').html(0);
                 $('#acco_gt3').removeClass('ico-open');
             } else {
-                $('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
-                $('#math-cnt-g').html(muContestG.cnt);
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestMyPartList['cg']
+                });
+                $("#gt3").empty();
+                $("#gt3").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#myContestListTemplate").html()
+                });
+                
+                //$('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
+                $('#math-cnt-g').html(contestMyPartList['cg'].length);
                 $('#acco_gt3').addClass('ico-open');
             }
         };
@@ -145,6 +213,10 @@ app.Contests = (function () {
             $('#tabstrip_upcoming').addClass('ts');
             $('#tab_live').addClass('hide');
             $('#tab_upcomming').removeClass('hide');
+
+            $('#math-cnt-ff').html(contestPartList['cf'].length);
+            $('#math-cnt-f5').html(contestPartList['c5'].length);
+            $('#math-cnt-fg').html(contestPartList['cg'].length);
         };
         
         var matchParticipating = function() {
@@ -160,6 +232,8 @@ app.Contests = (function () {
         };
         
         var joinMatchConfirm = function() {
+            
+            console.log( JSON.stringify(checkedData) );
             
             var today = new Date();
             var timeValue = checkedData.startTime;
@@ -180,40 +254,49 @@ app.Contests = (function () {
             
             if( checkedData.contestStatus === 2 ) {
                 app.showError(errorMessage.game_started);
-                return false;
+
             } else if( checkedData.contestStatus === 3 ) {
                 navigator.notification.confirm(errorMessage.game_closed, function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
                        var resVwUrl = 'views/playResultView.html?contest=' + joinMatchNo;
                        pageTransition(resVwUrl);
+                       $("#dashboard-view").data("kendoMobileView").destroy()
                    } else {
                        closeModal();
                    }
                 }, '알림', ['확인', '취소']);
-                return false;
+
+            } else {
+                if( parseInt(checkedData.entryFee) > parseInt(uu_data.cash) ) {
+                    navigator.notification.confirm(errorMessage.game_cash, function (confirmed) {
+                       if (confirmed === true || confirmed === 1) {
+                           pageTransition('views/shopView.html');
+                           $("#mv_play_list").data("kendoMobileView").destroy();
+                       } else {
+                           closeModal();
+                       }
+                    }, '알림', ['충전하기', '나가기']);
+
+                } else {
+                    app.Entry.initEntryData();
+                    var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg';
+                    
+                    closeModal();
+                    app.mobileApp.navigate(entryUrl, 'slide');
+                }
+                
+
             }
             
-            if( parseInt(checkedData.entryFee) > parseInt(uu_data.cash) ) {
-                navigator.notification.confirm(errorMessage.game_cash, function (confirmed) {
-                   if (confirmed === true || confirmed === 1) {
-                       pageTransition('views/shopView.html');
-                   } else {
-                       closeModal();
-                   }
-                }, '알림', ['충전하기', '나가기']);
-                return false;
-            }
-            
-            app.Entry.initEntryData();
-            var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg';
-            
-            closeModal();
-            app.mobileApp.navigate(entryUrl, 'slide');
+
         }
         
         var joinMatch = function(e) {
-            //var data = e.button.data();
-            var rel = parseInt(e.attr('data-rel'));
+            var data = e.button.data();
+            var rel = parseInt(data.rel);
+            
+            console.log(rel);
+            
             var modalHtml = "";
         
             checkedData = "";
@@ -221,6 +304,7 @@ app.Contests = (function () {
                         
             $.each(contestListData, function(i, v) {
                 if (parseInt(v.contestSeq) === rel) {
+                    console.log(JSON.stringify(v));
                     modalHtml = '<dt>플레이 방 이름</dt><dd>' + v.contestName + '</dd>' + 
                     '<dt>경기방식</dt><dd>' + contestTypeLabel(v.contestType) + '</dd>' +
                     '<dt>참여 인원 및 참여가능 인원</dt><dd>' + v.totalEntry + '명 / ' + v.maxEntry + '명</dd>' +
@@ -243,12 +327,13 @@ app.Contests = (function () {
         };
         
         var contestTypeLabel = function(c) {
+            console.log(c);
             if(c === 1) {
-                return "featured";
+                return "50 / 50";
             } else if(c === 2) {
-                return "50 / 50";    
-            } else {
                 return "랭킹전";
+            } else {
+                return "";
             }
         }
         
@@ -265,53 +350,50 @@ app.Contests = (function () {
             app.showError(errorMessage.game_started);
             return false;
         }
+
         
-        var restoreMatchs = function() {
-            //$('ul#playListBox').empty();
-        }
-        
-        var joinFeatured = function(e) {
-            e.preventDefault();
-            if( contestFtypeData === "" ) {
+        var joinFeatured = function() {
+            //e.preventDefault();
+            if( contestPartList['cf'].length === 0 ) {
                 app.showError(errorMessage.game_empty);
                 return false;
             }
             
             app.mobileApp.showLoading();
             //$('ul#playListBox').html(contestFtypeData);
-            setTimeout(function() {
+            //setTimeout(function() {
+                //$('#play-title').html('featured');
                 app.mobileApp.navigate('views/playListView.html?bar=F', 'slide');
-                $('#play-title').html('featured');
                 app.mobileApp.hideLoading();
-            },300);
+            //},300);
         };
        
         var joinFF = function(e) {
             e.preventDefault();
-            if( contest5typeData === "" ) {
+            if( contestPartList['c5'].length === 0 ) {
                 app.showError(errorMessage.game_empty);
                 return false;
             }
             app.mobileApp.showLoading();
             //$('ul#playListBox').html(contest5typeData);
             setTimeout(function() {
+                //$('#play-title').html('50 / 50');
                 app.mobileApp.navigate('views/playListView.html?bar=5', 'slide');
-                $('#play-title').html('50 / 50');
                 app.mobileApp.hideLoading();
             },300);
         };
         
         var joinGuarateed = function(e) {
             e.preventDefault();
-            if( contestGtypeData === "" ) {
+            if( contestPartList['cg'].length === 0 ) {
                 app.showError(errorMessage.game_empty);
                 return false;
             }
             app.mobileApp.showLoading();
             //$('ul#playListBox').html(contestGtypeData);
             setTimeout(function() {
+                //$('#play-title').html('랭킹전');
                 app.mobileApp.navigate('views/playListView.html?bar=G', 'slide');
-                $('#play-title').html('랭킹전');
                 app.mobileApp.hideLoading();
             },300);
         };
@@ -363,12 +445,105 @@ app.Contests = (function () {
             app.mobileApp.navigate('views/playResultRecordView.html', 'slide');
         }
         
+        
+        var listOrder = function(e) {
+            
+            app.mobileApp.showLoading();
+            
+            var data = e.button.data();
+            var orderType = parseInt(data.val);
+            var orderSet = data.order;
+            var orderIco, sortData;
+
+            $('.sortClass').removeClass('sort-l');
+            $('#popover-match-vw span').removeClass( function(index, css) {
+                return (css.match(/(^|\s)ic-\S+/g) || []).join(' ');
+            }).addClass('ic-triangle-n');
+
+            $('#sort-match-ico').removeClass( function(index, css) {
+                return (css.match(/(^|\s)ic-\S+/g) || []).join(' ');
+            });            
+            
+            if(orderSet === "desc") {
+                orderIco = "ic-triangle-n-on";
+                data.order = "asc";
+            } else {
+                orderIco = "ic-triangle-s-on";
+                data.order = "desc";
+            }
+
+            if(currentContestType === "F") {
+                sortData = contestPartList['cf'];
+            } if(currentContestType === "G") {
+                sortData = contestPartList['cg'];
+            } else {
+                sortData = contestPartList['c5'];
+            }
+                       
+            switch(orderType) {
+                case 1:
+                    $('#sort-match-label').html("이름");
+                    $('#sort-match-ico').addClass(orderIco);
+                    $('#orderLabelName').addClass('sort-l');
+                    $('#orderByName').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sortData  = sortData.sort(function(a, b) {
+                        if (data.order === "asc") return (a.contestName - b.contestName);
+                        else return (b.contestName - a.contestName);
+                    });
+                    break;
+                case 2:
+                    $('#sort-match-label').html("인원");
+                    $('#sort-match-ico').addClass(orderIco);
+                    $('#orderLabelNumber').addClass('sort-l');                  
+                    $('#orderByNumber').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sortData  = sortData.sort(function(a, b) {
+                        if (data.order === "asc") return (a.maxEntry - b.maxEntry);
+                        else return (b.maxEntry - a.maxEntry);
+                    });
+                    break;
+                case 3:
+                    $('#sort-match-label').html("입장료");
+                    $('#sort-match-ico').addClass(orderIco);
+                    $('#orderLabelFee').addClass('sort-l');  
+                    $('#orderByFee').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sortData  = sortData.sort(function(a, b) {
+                        if (data.order === "asc") return (a.entryFee - b.entryFee);
+                        else return (b.entryFee - a.entryFee);
+                    });
+                    break;
+                case 4:
+                    $('#sort-match-label').html("상금");
+                    $('#sort-match-ico').addClass(orderIco);
+                    $('#orderLabelReward').addClass('sort-l');
+                    $('#orderByReward').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sortData  = sortData.sort(function(a, b) {
+                        if (data.order === "asc") return (a.rewardValue - b.rewardValue);
+                        else return (b.rewardValue - a.rewardValue);
+                    });
+                    break;
+            }
+
+            
+            var dataSource = new kendo.data.DataSource({
+                data: sortData
+            });
+            
+            $("#playListBox").empty();
+            $("#playListBox").kendoMobileListView({
+                dataSource: dataSource,
+                template: $("#contestListTemplate").html()
+            });
+            
+            app.mobileApp.hideLoading();
+        }
+        
+        
         return {
             init: init,
             playInit: playInit,
-            resultInit: resultInit,
             onShow: onShow,
             onShowReset: onShowReset,
+            homeService: homeService,
             matchPlay: matchPlay,
             matchParticipating: matchParticipating,
             playResultTotal: playResultTotal,
@@ -382,7 +557,8 @@ app.Contests = (function () {
             customAccordon: customAccordon,
             closeModal: closeModal,
             joinMatch: joinMatch,
-            joinMatchConfirm: joinMatchConfirm
+            joinMatchConfirm: joinMatchConfirm,
+            listOrder: listOrder
         };
     }());
 

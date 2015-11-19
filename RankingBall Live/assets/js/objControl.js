@@ -61,12 +61,31 @@ app.ObjControl = (function () {
         
         function launchPlay() {
            if( uu_data.memSeq === "" ) {
-                console.log("User seq is null");
+                app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
+                    navigator.app.exitApp();
+                });
             } else {
                 app.mobileApp.showLoading();
                 setupPlayerOnLeague();
             }
         }
+        
+        function launchRanking() {
+            app.mobileApp.navigate('views/rankingView.html', 'slide');
+        }
+        
+        function launchRecord() {
+            app.mobileApp.navigate('views/recordView.html', 'slide');
+        }
+        
+        function launchShop() {
+            app.mobileApp.navigate('views/shopView.html', 'slide');
+        }
+        
+        function launchProfile() {
+            app.mobileApp.navigate('views/profileView.html', 'slide');
+        }
+
         
         function setupPlayerOnLeague() {
             
@@ -86,6 +105,7 @@ app.ObjControl = (function () {
                 },
                 success: function(response) {
                     if (response.code === 0) {
+                  
                         $.each(response.data, function (i, p) {
                             playerOnLeague.push({
                                 teamName: p.teamName,
@@ -99,16 +119,16 @@ app.ObjControl = (function () {
                                 team: p.team,
                                 salary: p.salary,
                                 posCode: p.posCode,
-                                posType: p.posType
+                                posType: p.posType,
+                                playerSelected:1
                             });
                         });
+
                     }
-                    
-                    console.log(playerOnLeague);
                     requestContestList();
                 },
                 error: function(e) {
-                    console.log(e);
+                    console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
                     app.mobileApp.hideLoading();
                 }
             });
@@ -118,7 +138,7 @@ app.ObjControl = (function () {
             
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
             var url = init_data.auth + "?callback=?";
-            
+            console.log(JSON.stringify(param));
             $.ajax({
                 url: url,
                 type: "GET",
@@ -133,6 +153,11 @@ app.ObjControl = (function () {
                 success: function(response) {
                     if (response.code === 0) {
                         contestListData = response.data;
+                        
+                        contestListData  = contestListData.sort(function(a, b) {
+                            return (b.rewardValue - a.rewardValue);
+                        });
+                        
                         generateContestList();
                     }
                     else
@@ -143,112 +168,69 @@ app.ObjControl = (function () {
                     }
                 },
                 error: function(e) {
-                    console.log(e);
+                    console.log("error - requestContestList Contest : " + JSON.stringify(e));
                 }
             });  
         }
         
         function generateContestList() {
-            contestFtypeData = "";
-            contest5typeData = "";
-            contestGtypeData = "";
-            muContestF = {cnt:0,arr:''};
-            muContest5 = {cnt:0,arr:''};
-            muContestG = {cnt:0,arr:''};
-                        
+            contestPartList['cf'] = new Array();
+            contestPartList['c5'] = new Array();
+            contestPartList['cg'] = new Array();
+            contestMyPartList['cf'] = new Array();
+            contestMyPartList['c5'] = new Array();
+            contestMyPartList['cg'] = new Array();
+            
             for (var i=0 ; i < contestListData.length ; i++)
             {
-                var playDate = timeGenerate(contestListData[i]['startTime']);
-                var matchType = "";
                 
-                var contestType = parseInt(contestListData[i]['contestType']);
+                contestListData[i]['timeRew'] = timeGenerate(contestListData[i]['startTime']);
                 
-                if(contestType === 1) {
-                    matchType = '<span class="ic-50">50</span>';
-                } else if(contestType === 2) {
-                    matchType = '<span class="ic-ranking">R</span>';
-                }
-                
-                var guaranteed = (contestListData[i]['guaranteed'] === 1) ? '<span class="ic-guaranteed">G</span>' : '';
-                
-                var statusLabel = "";
-                if(contestListData[i]['contestStatus'] === 1) {
-                    statusLabel = '<span class="ic-wait">wait</span>';
-                } else if(contestListData[i]['contestStatus'] === 2) {
-                    statusLabel = '<span class="ic-play">play</span>';
-                } else {
-                    statusLabel = '<span class="ic-end">end</span>';
-                }
-                
-                var joinBtn = "";
-                var item = "";
-                
-                if(contestListData[i]['myEntry'] === 1) {
-                    
-                    if(contestListData[i]['contestStatus'] < 3) {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" class="myContest collapseInboxList-btn"><span class="km-text">JOIN</span></a>';
-                    } else {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" class="myContest collapseInboxList-off-btn"><span class="km-text">CLOSED</span></a>';
-                    }
-                    
-                    item = '<li><div class="collapseInboxList-face"><div class="collapseInboxList-group boxs">' +
-                        '<div class="collapseInboxList-title">' + matchType + ' ' + guaranteed + ' ' + statusLabel + ' ' + contestListData[i]['contestName'] + '</div>' +
-                        '<div class="collapseInboxList-summ"><span><b>' + contestListData[i]['totalEntry'] + '</b> / ' + contestListData[i]['maxEntry'] + '</span><span><b>' + 
-                        numberFormat(contestListData[i]['entryFee']) + '</b> / ' + numberFormat(contestListData[i]['rewardValue']) + '</span><span>' + playDate +'</span></div></div>' +
-                        '<div class="collapseInboxList-group btns">' + joinBtn + '</div></li>';
+                if(contestListData[i]['myEntry'] === 1) 
+                {
                     
                     if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
-                        muContestF.arr += item;
-                        muContestF.cnt++;
-                    }
-                    if (contestType === 1) {
-                        muContest5.arr += item;
-                        muContest5.cnt++;
-                    } else if (contestType === 2) {
-                        muContestG.arr += item;
-                        muContestG.cnt++;
+                        contestMyPartList['cf'].push(contestListData[i]);
                     }
                     
-                    var $tmpSlots = [];
-                    $.each(contestListData[i]['entryData'],function(k,x) {
-                        $tmpSlots[k] = x;
-                    });
+                    if (parseInt(contestListData[i]['contestType']) === 1) {
+                        contestMyPartList['c5'].push(contestListData[i]);
+                    } else if (parseInt(contestListData[i]['contestType']) === 2) {
+                        contestMyPartList['cg'].push(contestListData[i]);
+                    }
                     
-                    
-                    myEntryByContest[contestListData[i]['contestSeq']] = $tmpSlots;
+                    if(contestListData[i]['entryData'] !== null) {
+                        var $tmpSlots = [];
+                        $.each(contestListData[i]['entryData'],function(k,x) {
+                            $tmpSlots[k] = x;
+                        });
+
+                        myEntryByContest[contestListData[i]['contestSeq']] = $tmpSlots;
+                    }
 
                 } else {
                     
                     if(contestListData[i]['contestStatus'] === 1) {
-                        joinBtn = '<a data-role="button" data-rel="' + contestListData[i]['contestSeq'] + '" data-status="' + contestListData[i]['contestStatus'] + '" data-click="app.Contests.joinMatch" class="inboxList-btn">JOIN</a>';
-                        
-                        item = '<li><div class="inboxList-group boxs"><div class="inboxList-title">' + matchType + ' ' + guaranteed + '<div class="marquee"><p>' + contestListData[i]['contestName'] + '</p></div></div>' +
-                        '<div class="inboxList-summ"><span><b>' + contestListData[i]['totalEntry'] + '</b> / ' + contestListData[i]['maxEntry'] + '</span><span><b>' + 
-                        numberFormat(contestListData[i]['entryFee']) + '</b> / ' + numberFormat(contestListData[i]['rewardValue']) + '</span><span>' + playDate +'</span></div></div>' +
-                        '<div class="inboxList-group btns">' + joinBtn + '</div></li>';
                         
                         if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
-                            contestFtypeData += item;
+                            contestPartList['cf'].push(contestListData[i]);
                         }
                         
-                        if (contestType === 1) {
-                            contest5typeData += item;
-                        } else if (contestType === 2) {
-                            contestGtypeData += item;
-                        }
-                    
+                        if (parseInt(contestListData[i]['contestType']) === 1) {
+                            contestPartList['c5'].push(contestListData[i]);
+                        } else if (parseInt(contestListData[i]['contestType']) === 2) {
+                            contestPartList['cg'].push(contestListData[i]);
+                        }                        
                     }
                     
-
                 }
             }
             
+            //console.log("objControl - contestListData : " + JSON.stringify(contestListData));
+            //console.log("objControl - myEntryByContest : " + JSON.stringify(myEntryByContest));
             
-            console.log(contestListData);
-            console.log(myEntryByContest);
-                                    
             setTimeout(function() {
-                app.mobileApp.navigate('views/playView.html', 'slide');
+                app.mobileApp.navigate('views/playView.html', 'slide:left');
                 app.mobileApp.hideLoading();   
             },500);
         }
@@ -331,16 +313,16 @@ app.ObjControl = (function () {
                         }
                     },
                     error: function(e) {
-                        console.log(e);
+                        console.log("error - reload Contest : " + JSON.stringify(e));
                     }
                 });
             }
         }
         
         function resetContestList() {
-            contestFtypeData = "";
-            contest5typeData = "";
-            contestGtypeData = "";
+            contestFtypeData = {cnt:0,arr:''};
+            contest5typeData = {cnt:0,arr:''};
+            contestGtypeData = {cnt:0,arr:''};
             muContestF = {cnt:0,arr:''};
             muContest5 = {cnt:0,arr:''};
             muContestG = {cnt:0,arr:''};
@@ -407,24 +389,27 @@ app.ObjControl = (function () {
                     '<div class="inboxList-group btns">' + joinBtn + '</div></li>';
                     
                     if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
-                        contestFtypeData += item;
+                        contestFtypeData.arr += item;
+                        contestFtypeData.cnt++;
                     }
                     
-                    if (contestListData[i]['contestType'] === 1) {
-                        contest5typeData += item;
-                    } else if (contestListData[i]['contestType'] === 2) {
-                        contestGtypeData += item;
+                    if (contestType === 1) {
+                        contest5typeData.arr += item;
+                        contest5typeData.cnt++;
+                    } else if (contestType === 2) {
+                        contestGtypeData.arr += item;
+                        contestGtypeData.cnt++;
                     }
                 }
             }
                         
             setTimeout(function() {
                 if(currentContestType === "F") {
-                    $('ul#playListBox').html(contestFtypeData);
+                    $('ul#playListBox').html(contestFtypeData.arr);
                 } else if(currentContestType === "5") {
-                    $('ul#playListBox').html(contest5typeData);
+                    $('ul#playListBox').html(contest5typeData.arr);
                 } else {
-                    $('ul#playListBox').html(contestGtypeData);
+                    $('ul#playListBox').html(contestGtypeData.arr);
                 }
                 
                 if(muContestF.cnt === 0) {
@@ -465,6 +450,10 @@ app.ObjControl = (function () {
         return {
             init: init,
             launchPlay: launchPlay,
+            launchRanking: launchRanking,
+            launchRecord: launchRecord,
+            launchShop: launchShop,
+            launchProfile: launchProfile,
             reloadContest: reloadContest
         };
     }());

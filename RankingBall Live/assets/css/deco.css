@@ -19,6 +19,7 @@
     padding: .5em;
 }
 .profile-rows {
+    padding: 0.4em;
     border-radius: 3px;
     background-color: #fff;
 }
@@ -26,11 +27,19 @@
     display: table;
     width: 100%;
 }
+.profile-rows .profile-row:first-child {
+    border-bottom: 1px solid #cbcbcb;
+}
 .profile-rows .profile-row .profile-btns {
     display: table-cell;
     width: 33.333%;
     vertical-align: top;
 }
+.profile-rows .profile-row .profile-btns:nth-child(2n+2) {
+    border-right: 1px solid #cbcbcb;
+    border-left: 1px solid #cbcbcb;
+}
+
 .profile-rows .profile-row .profile-btns img {
     width: 80%;
 }

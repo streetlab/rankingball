@@ -23,7 +23,7 @@
             <div class="property-box-padding">
                 <div id="my-ruby" class="property-box bg-ruby">
                     <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                    <span class="proper-add-btn"> <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a> </span>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             
             <div class="salarycap-box">
                 <h4>사용가능 샐러리 캡</h4>
-                <div id="progressBar" class="salarycap-gage">
+                <div id="progressBars" class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
@@ -78,3 +78,37 @@
 
 </div>
 
+
+
+<script id="playerListTemplate" type="text/x-kendo-template">
+    # if(app.Playerz.salaryLimit < salary) { 
+            entryStatus = "";
+            entryImg = "btn_plus_02.png";
+            controlClass = "addPlayer";
+            salaryColor = "";
+        } else {
+            entryStatus = "on";
+            entryImg = "btn_minus_02.png";
+            controlClass = "removePlayer";
+            salaryColor = "warning";
+        }
+        if(posType === 1) {
+            playerPostionLabel = "F";
+        } else if(posType === 2) {
+            playerPostionLabel = "M";
+        } else if(posType === 4) {
+            playerPostionLabel = "D";
+        } else if(posType === 8) {
+            playerPostionLabel = "G";
+        } else {
+            playerPostionLabel = "";
+        }
+        
+    #
+
+    <div class="listitem_position">#:playerPostionLabel#</div>
+    <div class="listitem_name"><a data-role="button" data-rel="#:playerID#" class="vwPlayer">#:playerName#<br><span>#:teamName#</span></a></div>
+    <div class="listitem_fppg">#:fppg#</div><div class="listitem_salary $#:salaryColor#">$#:salary#</div>
+    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
+    
+</script>

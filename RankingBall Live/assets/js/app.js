@@ -45,7 +45,7 @@ var app = (function (win) {
     var onBackKeyDown = function(e) {
         e.preventDefault();
 
-        navigator.notification.confirm('랭킹볼을 종료하시겠습니까?', function (confirmed) {
+        navigator.notification.confirm('라이브볼-사커를 종료하시겠습니까?', function (confirmed) {
             var exit = function () {
                 navigator.app.exitApp();
             };
@@ -60,7 +60,7 @@ var app = (function (win) {
     var onOffline = function(e) {
         e.preventDefault();
 
-        navigator.notification.confirm('네트워크 접속이 끊어졌습니다.\n\n랭킹볼을 종료하시겠습니까?', function (confirmed) {
+        navigator.notification.confirm('네트워크 접속이 끊어졌습니다.\n\n라이브볼-사커를 종료하시겠습니까?', function (confirmed) {
             if (confirmed === true || confirmed === 1) {
                 navigator.app.exitApp();
             }
@@ -69,10 +69,18 @@ var app = (function (win) {
     
     var onDeviceReady = function() {
         //StatusBar.overlaysWebView(false);
-        StatusBar.hide();        
+                
         navigator.splashscreen.show();
         
-        initService();
+        StatusBar.hide();
+        
+        //var init_process = initAppService.initAppVersion();
+        
+        //initService();
+        
+        init_apps.deviceID = device.uuid;
+        initAppService.initAppVersion();
+        
         /*
         var init_process = initService();
         if(!init_process) {

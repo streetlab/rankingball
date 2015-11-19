@@ -15,7 +15,10 @@ app.Playerz = (function () {
         var sort_order = "";
         var selectedPlayer = "";
         var researchPlayer = "";
-        var entryData = [];       
+        var entryData = [];
+        
+        var checkCount = 0;
+        var salaryLimit = 0;
         
         $(document).on('click','.vwPlayer', function() {
             playerInfo( $(this) );
@@ -60,8 +63,20 @@ app.Playerz = (function () {
             entryData = [];
             progressBar(entryAmount, $('.salarycap-gage'));
             
+            ++checkCount;
+            console.log("run player i script : " + checkCount);
+            
             observableView();
-            if(requestPosition) playerList(requestPosition);
+            var preset = prePlayerList();
+            
+            $waitUntil(
+                function () {
+                  return preset === true;
+                },
+                function () {
+                    if(requestPosition) playerList(requestPosition);
+                }
+            );
         }
 
         function vwParam(e) {
@@ -72,6 +87,9 @@ app.Playerz = (function () {
                 requestPosition = param.pos;
                 playerList(requestPosition);
             }
+            
+            ++checkCount;
+            console.log("run player v script : " + checkCount);
             
             console.log(playerSlot);
             console.log(entryData);
@@ -105,7 +123,8 @@ app.Playerz = (function () {
         
         function progressBar(amount, $element) {
             var percent = amount / max_salarycap_amount * 100;
-            var progressBarWidth = percent * $element.width() / 100;
+            var elementWidth = $('#checkElementWidth').offsetParent().width();
+            var progressBarWidth = percent * elementWidth / 100;
             $element.find('div').animate({ width: progressBarWidth }, 500);
             $element.find('p').html("$" + numberFormat(amount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
         }
@@ -161,7 +180,7 @@ app.Playerz = (function () {
             console.log(entryData);
         }
         
-       var playerList4up = function(p) {
+        var playerList4up = function(p) {
         
             var salaryLimit = max_salarycap_amount - entryAmount;         
             var requestPostion = (p) ? p : 1;
@@ -193,7 +212,7 @@ app.Playerz = (function () {
            
             var tmpAmount = 0;
     
-           console.log(playerListData);
+           console.log(JSON.stringify(playerListData));
            
             for(var i=0;i<playerListData.length;i++) {
 
@@ -230,7 +249,7 @@ app.Playerz = (function () {
         
         var playerList = function(p) {
     
-            var salaryLimit = max_salarycap_amount - entryAmount;            
+            salaryLimit = max_salarycap_amount - entryAmount;            
             var requestPostion = (p) ? p : 1;
             
             if(init_data.auth === undefined) {
@@ -238,101 +257,61 @@ app.Playerz = (function () {
                 app.mobileApp.navigate('#landing');
             }
             
-            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","position":' + requestPostion + ',"organ":1}';
-            var url = init_data.auth + "?callback=?";
+            app.mobileApp.showLoading();
             
             $('#players_list').empty();
             
-            app.mobileApp.showLoading();
-            
-            var pl = new kendo.data.DataSource({
-               transport: {
-                   read: function(options) {
-                        $.ajax({
-                            url: url,
-                            dataType: "jsonp",
-                            jsonpCallback: "jsonCallback",
-                            data: {
-                                "type": "apps",
-                                "id": "contestGetEntry",
-                                "param":param
-                            },
-                            success: function(response) {
-                                if (response.code === 0) {
-                                                                                    
-                                    playerData = [];
-                                    
-                                    console.log(response.data);
-                                    
-                                    $.each(response.data, function (i, p) {
-                                        playerData.push({
-                                            teamName: p.teamName,
-                                            position: p.position,
-                                            playerID: p.playerID,
-                                            playerName: p.playerName,
-                                            posDesc: p.posDesc,
-                                            number: p.number,
-                                            posId: p.posId,
-                                            team: p.team,
-                                            salary: p.salary,
-                                            posCode: p.posCode,
-                                            posType: p.posType
-                                        });
-                                    }); 
-                                    
-                                    playerData = playerData.sort(function(a, b) {
-                                        //return a.playerID - b.playerID;
-                                        if (sort_order) return (a.salary - b.salary);
-                                        else return (b.salary - a.salary);
-                                    });
-                                    
-                                    console.log(playerData);
-                                    
-                                    for(var i=0;i<playerData.length;i++) {
-                                        
-                                        var entryStatus = "";
-                                        var entryImg = "btn_plus_02.png";
-                                        var salaryColor = "";
-                                        var controlClass = "addPlayer";
-                                        
-                                        if( entryData.indexOf(playerData[i].playerID) > -1 ) {
-                                            entryStatus = "on";
-                                            entryImg = "btn_minus_02.png";
-                                            controlClass = "removePlayer";
-                                        } else {
-                                            salaryColor = (salaryLimit < playerData[i].salary) ? 'warning' : '';
-                                        }
-                                                                                
-                                        var resp = '<li class="clearfix players"><div class="listitem_position">' + playerPosition(playerData[i].posType) + '</div>' +
-                                            '<div class="listitem_name"><a data-role="button" data-rel="' + playerData[i].playerID + '" class="vwPlayer">' + playerData[i].playerName + '<br><span>' + playerListData[i].teamName + '</span></a></div>' +
-                                            '<div class="listitem_fppg">0</div><div class="listitem_salary ' + salaryColor + '">$' + numberFormat(playerData[i].salary) + '</div>' +
-                                            '<div class="listitem_btns"><a data-role="button" data-salary="' + playerData[i].salary + '" data-rel="' + playerData[i].playerID + '" data-status="' + entryStatus + '" class="' + controlClass + '"><img id="entry-' + playerData[i].playerID + '" src="./assets/resource/' + entryImg + '"></a></div></li>';
-                                        
-                                        $('#players_list').append( resp );
-                                    }
-                                    
-                                } else {
-                                    console.log("error");
-                                }
-                            },
-                            complete: function() {
-                                app.mobileApp.hideLoading();
-                            },
-                            error: function(e) {
-                                console.log(e);
-                                app.showError("잘못된 요청입니다.");
-                                app.mobileApp.navigate('#landing');
-                            }
-                        });  
-                   }
-               } 
+            var sortData;            
+            if(parseInt(requestPostion) === 15) {
+                sortData = playerOnLeague.sort(function(a, b) {
+                    if (sort_order) return (a.salary - b.salary);
+                    else return (b.salary - a.salary);
+                });
+            } else {
+                var pos;
+                if(parseInt(requestPostion) === 1) {
+                    sortData = playerData['F'].sort(function(a, b) {
+                        if (sort_order) return (a.salary - b.salary);
+                        else return (b.salary - a.salary);
+                    });
+                } else if(parseInt(requestPostion) === 2) {
+                    sortData = playerData['M'].sort(function(a, b) {
+                        if (sort_order) return (a.salary - b.salary);
+                        else return (b.salary - a.salary);
+                    });
+                } else if(parseInt(requestPostion) === 4) {
+                    sortData = playerData['D'].sort(function(a, b) {
+                        if (sort_order) return (a.salary - b.salary);
+                        else return (b.salary - a.salary);
+                    });
+                } else if(parseInt(requestPostion) === 8) {
+                    sortData = playerData['M'].sort(function(a, b) {
+                        if (sort_order) return (a.salary - b.salary);
+                        else return (b.salary - a.salary);
+                    });
+                } else {
+                    console.log("ERROR :");  
+                }
+            }
+    
+            console.log(JSON.stringify(sortData ));
+           
+            var dataSource = new kendo.data.DataSource({
+                data: sortData,
+                filter: { field: "playerSelected", operator: "eq", value: 1}
             });
             
-            pl.fetch();
-                        
-        }
+            $("#players_list").kendoMobileListView({
+                dataSource: dataSource,
+                template: $("#playerListTemplate").html()
+            });
 
-        var playerPosition = function(pos) {
+            app.mobileApp.hideLoading();
+            
+                     
+        }    
+
+        function playerPosition(pos) {
             switch(pos) {
                 case 1:
                     return "F";
@@ -350,6 +329,32 @@ app.Playerz = (function () {
                     return "";
             }
         } 
+        
+        function filterPlayer(obj) {
+            
+        }
+        
+        function prePlayerList() {
+            console.log("preset array");
+            playerData['F'] = new Array();
+            playerData['M'] = new Array();
+            playerData['D'] = new Array();
+            playerData['G'] = new Array();
+            
+            for (var i=0 ; i < playerOnLeague.length ; i++) {
+                if (parseInt(playerOnLeague[i]['posType']) === 1) {
+                    playerData['F'].push(playerOnLeague[i]);
+                } else if (parseInt(playerOnLeague[i]['posType']) === 4) {
+                    playerData['M'].push(playerOnLeague[i]);
+                } else if (parseInt(playerOnLeague[i]['posType']) === 8) {
+                    playerData['D'].push(playerOnLeague[i]);
+                } else {
+                    playerData['G'].push(playerOnLeague[i]);
+                }
+            }
+            
+            return true;
+        }
         
         var searchPlayerData = function(player, val) {
             $.each(playerData, function(i, v) {
@@ -840,7 +845,8 @@ app.Playerz = (function () {
             news: news,
             setFinalEntry: setFinalEntry,
             setFinalUpdateEntry: setFinalUpdateEntry,
-            presetPlayer4up: presetPlayer4up
+            presetPlayer4up: presetPlayer4up,
+            salaryLimit:salaryLimit
         };
     }());
 
