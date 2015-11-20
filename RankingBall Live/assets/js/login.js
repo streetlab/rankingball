@@ -142,7 +142,7 @@ app.Login = (function () {
                 if (storageObject.status === 1) {    
                     var param, callerID, pushKey;
                     
-                    pushKey = ( init_apps.memUID === undefined ||  init_apps.memUID === "" ) ? getlocalStorage('push_wiz') : init_apps.memUID;
+                    pushKey = ( typeof (init_apps.memUID) === undefined ||  init_apps.memUID === "" ) ? getlocalStorage('push_wiz') : init_apps.memUID;
                     
                     if(pushKey === "" ) {
                         init_apps.deviceID = device.uuid;
@@ -154,7 +154,7 @@ app.Login = (function () {
                             
                             param = '{"osType":' + init_apps.osType + 
                                      ',"version":"' + init_apps.version + 
-                                     '","name":"","memUID":"' + init_apps.memUID + 
+                                     '","name":"","memUID":"' + pushKey + 
                                      '","deviceID":"' + init_apps.deviceID + '"}';
                         } else {
                             callerID = "memberLogin";
@@ -163,7 +163,7 @@ app.Login = (function () {
                                      '","email":"' + storageObject.email + 
                                      '","memPwd":"' + passw + 
                                      '","registType":' + registType +
-                                     ',"memUID":"' + init_apps.memUID + 
+                                     ',"memUID":"' + pushKey + 
                                      '","deviceID":"' + init_apps.deviceID + '"}';
                         }
                         

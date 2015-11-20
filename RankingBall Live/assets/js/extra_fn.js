@@ -62,7 +62,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;        
         console.log("Run : ");
-        
+                
         if (window.navigator.simulator === true) {
             that._app_version = "1.0.4";
             that.ajaxVersionCheck(that._app_version);
@@ -92,6 +92,7 @@ var initAppService = {
     },
     ajaxVersionCheck: function(version) {
         console.log("check version with server");
+        
         init_apps.version = version;
         
         console.log("VERSION: " + version);

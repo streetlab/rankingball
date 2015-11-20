@@ -69,6 +69,7 @@ app.PushRegistrar = (function () {
                             .updateRegistration(customDeviceParameters)
                             .then(function () {
                                // _onDeviceRegistrationUpdated();
+                                console.log(init_apps.memUID);
                             }, function (err) {
                                 _onPushErrorOccurred(err.message);
                             });
@@ -80,6 +81,7 @@ app.PushRegistrar = (function () {
                             currentDevice.register(customDeviceParameters)
                                 .then(function (regData) {
                                     init_apps.memUID = regData.token;
+                                    console.log(init_apps.memUID);
                                     //_onDeviceIsSuccessfullyRegistered();
                                 }, function (err) {
                                     _onPushErrorOccurred(err.message);

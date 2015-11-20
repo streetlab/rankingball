@@ -77,6 +77,8 @@ var app = (function (win) {
         //var init_process = initAppService.initAppVersion();
         
         //initService();
+        init_apps.memUID = "";
+        app.PushRegistrar.enablePushNotifications();
         
         init_apps.deviceID = device.uuid;
         initAppService.initAppVersion();
