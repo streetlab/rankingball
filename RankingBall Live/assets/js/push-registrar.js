@@ -11,13 +11,15 @@ app.PushRegistrar = (function () {
     };
 
     var _processPushMessage = function (message, date) {
-        alert(date + " : " + message);
+        //alert(date + " : " + message);
+        console.log(""+message);
     };
 
     var onAndroidPushReceived = function (e) {
         var message = e.message;
-        var dateCreated = app.helper.formatDate(e.payload.customData.dateCreated);
-        alert(message);
+        //var dateCreated = app.helper.formatDate(e.payload.customData.dateCreated);
+        var dateCreated = '';
+        //alert(message);
         _processPushMessage(message, dateCreated);
     };
 
