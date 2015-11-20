@@ -6,8 +6,8 @@
   "DisplayName": "LiveBall Soccer",
   "Author": "streetlab",
   "Description": "DFS Global Service",
-  "BundleVersion": "1.0.3",
-  "AndroidVersionCode": "103",
+  "BundleVersion": "1.0.4",
+  "AndroidVersionCode": "104",
   "iOSDeviceFamily": [
     "1",
     "2"
@@ -32,7 +32,7 @@
   "DeviceOrientations": [
     "Portrait"
   ],
-  "AndroidHardwareAcceleration": "false",
+  "AndroidHardwareAcceleration": "true",
   "iOSStatusBarStyle": "Default",
   "Framework": "Cordova",
   "WP8TileTitle": "",

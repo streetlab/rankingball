@@ -451,6 +451,7 @@ html, body
     padding: 1.09em .84em 1.23em .84em;
     color: #9b9b9b;
 }
+
 .km-flat .km-button, .km-flat .km-buttongroup .km-button {
     padding: .6em .688em;
     border-radius: 3px;
@@ -2251,6 +2252,9 @@ span.ic-end {
   text-align: right;
   padding-right: .8em;
   color: #3180a4;
+}
+.salarycap-position .salarycap-box-padding .salarycap-box-moz-vw a {
+    color: #3180a4;
 }
 .salarycap-position .salarycap-box-padding .salarycap-box-moz-vw span.bg-box {
   display: inline-block;

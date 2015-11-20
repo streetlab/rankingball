@@ -93,6 +93,7 @@ app.Contests = (function () {
             currentContestType = param.bar;
             
             console.log(param.bar + " : " + currentContestType);
+            observableView();
             
             setTimeout(function() {
                 if(currentContestType === "F") {
@@ -260,7 +261,7 @@ app.Contests = (function () {
                    if (confirmed === true || confirmed === 1) {
                        var resVwUrl = 'views/playResultView.html?contest=' + joinMatchNo;
                        pageTransition(resVwUrl);
-                       $("#dashboard-view").data("kendoMobileView").destroy()
+                       //$("#dashboard-view").data("kendoMobileView").destroy()
                    } else {
                        closeModal();
                    }
@@ -278,11 +279,30 @@ app.Contests = (function () {
                     }, '알림', ['충전하기', '나가기']);
 
                 } else {
-                    app.Entry.initEntryData();
-                    var entryUrl = 'views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg';
                     
-                    closeModal();
-                    app.mobileApp.navigate(entryUrl, 'slide');
+                    console.log(joinMatchNo + " : " + JSON.stringify(checkedData));
+                    
+                    var confirmMessage;
+                    if(checkedData.entryFee === 0) {       
+                        closeModal();
+                        app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
+                    } else {
+                        confirmMessage = "해당 경기에 참여 시 " + numberFormat(checkedData.entryFee) + "의 입장료가 소모됩니다.\n\n경기에 참여하시겠습니까?";
+                        navigator.notification.confirm(confirmMessage, function (confirmed) {
+                           if (confirmed === true || confirmed === 1) {
+                                
+                                app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
+                               closeModal();
+                           } else {
+                               closeModal();
+                           }
+                        }, '알림', ['확인', '취소']);
+                    }
+                    
+                    
+                    //app.Entry.initEntryData();
+                    //closeModal();
+                    //app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
                 }
                 
 
@@ -298,13 +318,11 @@ app.Contests = (function () {
             console.log(rel);
             
             var modalHtml = "";
-        
             checkedData = "";
             joinMatchNo = "";
                         
             $.each(contestListData, function(i, v) {
                 if (parseInt(v.contestSeq) === rel) {
-                    console.log(JSON.stringify(v));
                     modalHtml = '<dt>플레이 방 이름</dt><dd>' + v.contestName + '</dd>' + 
                     '<dt>경기방식</dt><dd>' + contestTypeLabel(v.contestType) + '</dd>' +
                     '<dt>참여 인원 및 참여가능 인원</dt><dd>' + v.totalEntry + '명 / ' + v.maxEntry + '명</dd>' +
@@ -327,7 +345,6 @@ app.Contests = (function () {
         };
         
         var contestTypeLabel = function(c) {
-            console.log(c);
             if(c === 1) {
                 return "50 / 50";
             } else if(c === 2) {
@@ -537,6 +554,38 @@ app.Contests = (function () {
             app.mobileApp.hideLoading();
         }
         
+        var observeMatch = function(e) {
+            var data = e.button.data();
+            var contest = parseInt(data.rel);
+            var contestStatus = parseInt(data.status);
+                        
+            if(contest !== "" && contestStatus === 1) {
+                navigator.notification.confirm("엔트리를 수정하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       
+                       //app.Entry.initEntryDataUpdate(contest);
+                       var entryUrl = 'views/entryUpdateView.html?contest=' + contest + '&mode=ed';
+                       app.mobileApp.navigate(entryUrl, 'slide');
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['확인', '취소']);
+                return false;
+            } else if(contest !== "" && contestStatus === 2) {
+                app.showError("게임 진행 중에는 들어갈 수 없습니다.");
+                return false;
+            } else if(contest !== "" && contestStatus === 3) {
+                navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                       app.mobileApp.navigate('views/playResultView.html', 'slide');
+                   } else {
+                       closeModal();
+                   }
+                }, '알림', ['확인', '취소']);
+                return false;
+            }
+        };
+        
         
         return {
             init: init,
@@ -558,7 +607,8 @@ app.Contests = (function () {
             closeModal: closeModal,
             joinMatch: joinMatch,
             joinMatchConfirm: joinMatchConfirm,
-            listOrder: listOrder
+            listOrder: listOrder,
+            observeMatch: observeMatch
         };
     }());
 

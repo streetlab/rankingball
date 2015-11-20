@@ -8,10 +8,13 @@ app.Entry = (function () {
 
     var entryProcess = (function () {
         
+        var entryProcess = "nowon";
+        
+        var entryMode = "";
         var contestNo = "";
+        var entryNo = "";
         var contestFee = 0;
         var pb;
-        var max_salarycap_amount = 30000;
         
         var ps = {};
         var playerFilter = [];
@@ -19,31 +22,29 @@ app.Entry = (function () {
         function init(e) {
             
             var param = e.view.params;
+            console.log(param);
+                        
+            if(param.contest === "") {
+                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                return false;
+            }
+
             contestNo = param.contest;
             contestFee = param.fee;
-            if(!contestNo) {
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
-                //app.mobileApp.navigate('views/entryPlayerzView.html');
-            }
-            
-            console.log(JSON.stringify(param));
-            
-            progressBar(entryAmount, $('#progressBar'));
-            /*
-            if(param.mode === "ed") {
+            entryMode = param.mode;
+          
+            if(entryMode === "ed") {
                 initEntryDataUpdate(contestNo);
             } else {
                 initEntryData();
-            }            
-            
-            
-            */
+            }
+            //initEntryData();
         }
         
-        function updateInit() {
-           
-            console.log(uu_data);
+        function updateInit(e) {
+ 
             var param = e.view.params;
+            console.log(param);
             contestNo = param.contest;
             if(!contestNo) {
                 app.showError("엔트리 수정을 위한 경기 정보를 확인할 수 없습니다.");
@@ -57,6 +58,10 @@ app.Entry = (function () {
             }            
             
             progressBar(entryAmount, $('#progressBar'));
+        }
+        
+        function return2playList() {
+            
         }
         
         function initEntryData() {
@@ -97,12 +102,11 @@ app.Entry = (function () {
         }
         
         function initUpdateData() {
-            
+/*
             observableView();
             entryAmount = myEntryByContest[contestNo]['mySalaryTotal'];
             progressBar(entryAmount, $('.salarycap-gage'));
             
-            /* reset entry view */
             $('.btn-slots').each(function() {
                 $(this).prop('src','./assets/resource/btn_player_change.png');
             });
@@ -121,22 +125,49 @@ app.Entry = (function () {
             console.log(playerFilter[ps.s8]);
             $('#entryUpdate').removeClass('disabled');
             
-            /* reset player view */
             app.Playerz.clearVariables2Update();
+*/
+            observableView();
             
+            entryAmount = 0;
+            progressBar(entryAmount, $('.salarycap-gage'));
+            
+            /* reset entry view */
+            $('.btn-slots').each(function() {
+                $(this).prop('src','./assets/resource/btn_player_plus.png');
+            });
+            $('#update-img-slot4').prop('src','./assets/resource/btn_player_plus_02.png');
+            $('#update-img-slot8').prop('src','./assets/resource/btn_player_plus_02.png');
+            
+            $(".update-player-slots-f").each(function() {
+                $(this).html("F");
+            });
+            $('.update-player-slots-m').each(function() {
+                $(this).html("M");
+            });
+            $('.update-player-slots-d').each(function() {
+                $(this).html("D");
+            });
+            
+            $('#update-player-slot4').html("FLEX");
+            $('#update-player-slot8').html("GK");
+        
+            $('#entryRegBtn')
+                .attr('data-rel','disabled')
+                .addClass('disabled')
+            /* reset player view */
+            app.Playerz.playerSlot = "";
+            app.Playerz.clearVariables();
         }
         
         function initEntryDataUpdate(c) {
             //console.log(c);
-            if(!c) return false;
+            //if(!c) return false;
             
             entryStatus = true;
             contestNo = c;
             
             app.mobileApp.showLoading();
-            $.each(playerOnLeague, function(n, p) {
-                playerFilter[p.playerID] = p.playerName;
-            });
             
             ps.s1 = myEntryByContest[c]['slot1'];
             ps.s2 = myEntryByContest[c]['slot2'];
@@ -147,13 +178,23 @@ app.Entry = (function () {
             ps.s7 = myEntryByContest[c]['slot7'];
             ps.s8 = myEntryByContest[c]['slot8'];
             
+            
+            $.each(playerOnLeague, function(n, p) {
+                playerFilter[p.playerID] = p.playerName;
+            });
+            
             $.each(ps, function(id, val) {
                 playerData4up.push(val); 
             });
+            
+            console.log(playerFilter);
+            console.log(playerData4up);
+            console.log(myEntryByContest[c]);
 
             observableView();
             entryAmount = myEntryByContest[c]['mySalaryTotal'];
             progressBar(entryAmount, $('.salarycap-gage'));
+
 
             /* reset entry view */
             $('.btn-slots').each(function() {
@@ -231,12 +272,29 @@ app.Entry = (function () {
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
-            navigator.notification.confirm("현재 지정된 선수로 엔트리를 수정하시겠습니까?", function (confirmed) {
-               if (confirmed === true || confirmed === 1) {
-                    app.Playerz.setFinalUpdateEntry(contestNo,contestFee);    
-               }
-            }, '알림', ['확인', '취소']);
-            return false;
+            console.log("update");
+            var chkPlayerSlot = app.Playerz.playerSlot;
+
+            var key, count = 0;
+            for(key in chkPlayerSlot) {
+                if(chkPlayerSlot.hasOwnProperty(key)) {
+                    if(chkPlayerSlot[key] !== "" || chkPlayerSlot[key] !== 0) {
+                        count++;
+                    }
+                }
+            }
+                        
+            if(count !== 8) {
+                app.showError("선수 엔트리 등록 상태를 확인해주세요.");
+                return false;
+            } else {
+                navigator.notification.confirm("현재 지정된 선수로 엔트리를 수정하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                        app.Playerz.setFinalUpdateEntry(contestNo,contestFee);    
+                   }
+                }, '알림', ['확인', '취소']);
+            }
+            
         }
         
         function progressBar(amount, $element) {
@@ -254,6 +312,7 @@ app.Entry = (function () {
             var data = e.button.data();
             console.log(data);
             
+            app.mobileApp.showLoading();
             var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
             app.mobileApp.navigate(url,'slide');
         };
@@ -267,16 +326,36 @@ app.Entry = (function () {
         };
         
         var returnContestPlay = function() {
+            
             console.log("return : " + currentContestType);
-            if(currentContestType === "F") {
-                //app.Contests.joinFeatured;
-                app.mobileApp.navigate('views/playListView.html?bar=F', 'slide:right');
-            } else if(currentContestType === "5") {
-                //app.Contests.joinFF;
-                app.mobileApp.navigate('views/playListView.html?bar=5', 'slide:right');
+            console.log("mode : " + entryMode);
+            
+            if(entryMode === "ed") {
+                
+                app.mobileApp.navigate('views/playView.html', 'slide:right');
+                
+                $("#po_entry_update").data("kendoMobileView").destroy();
+                //$("#po_entry_update").remove();
             } else {
-                //app.Contests.joinGuarateed;
-                app.mobileApp.navigate('views/playListView.html?bar=G', 'slide:right');
+                
+                navigator.notification.confirm("경기 참여를 취소하시겠습니까?", function (confirmed) {
+                    if (confirmed === true || confirmed === 1) {
+                        if(currentContestType === "F") {
+                            //app.Contests.joinFeatured;
+                            app.mobileApp.navigate('views/playListView.html?bar=F', 'slide:right');
+                        } else if(currentContestType === "5") {
+                            //app.Contests.joinFF;
+                            app.mobileApp.navigate('views/playListView.html?bar=5', 'slide:right');
+                        } else {
+                            //app.Contests.joinGuarateed;
+                            app.mobileApp.navigate('views/playListView.html?bar=G', 'slide:right');
+                        }
+                        $("#po_entry_registration").data("kendoMobileView").destroy();
+                        //$("#po_entry_registration").remove();
+                    }
+                    
+                }, '알림', ['확인', '취소']);
+                
             }
         };
         

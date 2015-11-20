@@ -180,7 +180,6 @@ app.Shop = (function () {
                 $.ajax({
                    url: url,
                    type: "GET",
-                   async: false,
                    dataType: "jsonp",
                    jsonpCallback: "jsonCallback",
                    data: {
@@ -189,7 +188,7 @@ app.Shop = (function () {
                         "param":param
                     },
                    success: function(response) {
-                       console.log( JSON.stringify(response));
+                       //console.log( JSON.stringify(response));
                        if (response.code === 0) {
                            var purchase = response.data;
                            if(purchase.cash > 0) {

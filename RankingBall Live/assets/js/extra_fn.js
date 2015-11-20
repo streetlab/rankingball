@@ -5,7 +5,7 @@ var guest = false;
 var registType = 2; // member join type ( normal: 1, guest: 2, sns: 3 )
 
 var globalRequestTry = 0;
-
+var salaryLimit = 0;
 
 var contestListData = ""; // Total Game List
 var contestPartList = [];
@@ -52,7 +52,9 @@ var observableView = function() {
 
 
 var openAppStore = function() {
-    window.open('market://details?id=com.streetlab.lb.soccer', '_blank', 'location=no');
+    //var url = "market://details?id=com.streetlab.lb.soccer";
+    var url = "https://play.google.com/store/apps/details?id=com.streetlab.lb.soccer";
+    window.open(url, '_blank');
 };
 
 var initAppService = {
@@ -62,7 +64,7 @@ var initAppService = {
         console.log("Run : ");
         
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.3";
+            that._app_version = "1.0.4";
             that.ajaxVersionCheck(that._app_version);
         } else {
             console.log("Get App Plugin : ");
@@ -132,6 +134,7 @@ var initAppService = {
                             if (confirmed === true || confirmed === 1) {
                                 openAppStore();
                             } else {
+                                navigator.app.exitApp();
                                 app_status = 2;
                             }
                         }, '종료', ['확인', '취소']);

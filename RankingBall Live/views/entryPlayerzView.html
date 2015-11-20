@@ -42,7 +42,7 @@
             
             <div class="salarycap-box-padding">
                 <div class="salarycap-box-moz-vw">   
-                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label">포지션</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label">샐러리</span> <span id="sort-player-ico" class="bg-box ic-triangle-s-on"></span></a>
                 </div>
             </div>
         </div>
@@ -50,10 +50,10 @@
         <div id="do-popover-pos" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
             <div data-role="view" id="popover-play-vw">
                 <ul>
-                    <li><label class="sort-l">포지션</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
-                    <li><label>네임</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>FPPG</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>샐러리</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelPosition" class="sortClass2">포지션</label> <a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelPlayer" class="sortClass2">네임</label> <a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelSalary" class="sortClass2 sort-l">샐러리</label> <a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-s-on"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -81,16 +81,18 @@
 
 
 <script id="playerListTemplate" type="text/x-kendo-template">
-    # if(app.Playerz.salaryLimit < salary) { 
+    # if(salaryLimit > salary) { 
             entryStatus = "";
             entryImg = "btn_plus_02.png";
             controlClass = "addPlayer";
             salaryColor = "";
+            entryBtn = "app.Playerz.addPlayer";
         } else {
             entryStatus = "on";
             entryImg = "btn_minus_02.png";
             controlClass = "removePlayer";
             salaryColor = "warning";
+            entryBtn = "app.Playerz.overPlayer";
         }
         if(posType === 1) {
             playerPostionLabel = "F";
@@ -103,12 +105,11 @@
         } else {
             playerPostionLabel = "";
         }
-        
     #
 
     <div class="listitem_position">#:playerPostionLabel#</div>
-    <div class="listitem_name"><a data-role="button" data-rel="#:playerID#" class="vwPlayer">#:playerName#<br><span>#:teamName#</span></a></div>
-    <div class="listitem_fppg">#:fppg#</div><div class="listitem_salary $#:salaryColor#">$#:salary#</div>
-    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
+    <div class="listitem_name"><a data-role="button" data-rel="#:playerID#" class="vwPlayer">#:playerName#<br><span>#:teamName##:salaryLimit#</span></a></div>
+    <div class="listitem_fppg">#:fppg#</div><div class="listitem_salary #:salaryColor#">$#:kendo.toString(salary,"n0")#</div>
+    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
     
 </script>
