@@ -57,6 +57,8 @@ app.Contests = (function () {
             observableView();
             matchPlay();
             myContestList();
+            
+            //matchParticipating
         }
         
         function playInit(e) {
@@ -354,14 +356,14 @@ app.Contests = (function () {
             }
         }
         
-        var closeModal = function(e) {
+        var closeModal = function() {
             checkedData = "";
             joinMatchNo = "";
             
             $("#join-match").data("kendoMobileModalView").close();
         };
         
-        var resultMatch = function(e) {
+        var resultMatch = function() {
             //var data = e.button.data();
             app.ObjControl.reloadContest();
             app.showError(errorMessage.game_started);
@@ -448,8 +450,8 @@ app.Contests = (function () {
             $('#result_role_record').removeClass('hide');
         };
         
-        var playResult = function(e) {
-            var data = e.button.data();
+        var playResult = function() {
+           // var data = e.button.data();
             
             app.mobileApp.navigate('views/playResultView.html', 'slide');
         };

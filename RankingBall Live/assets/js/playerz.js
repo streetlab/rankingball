@@ -19,16 +19,11 @@ app.Playerz = (function () {
         var researchPlayer = "";
         var entryData = [];
         
+        var paging = 0;
+        
         $(document).on('click','.vwPlayer', function() {
             playerInfo( $(this) );
         });
-
-        $(document).on('click','.removePlayer', function() {
-            var player = parseInt($(this).attr('data-rel'));
-            var salary = parseInt($(this).attr('data-salary'));
-            removePlayer(player, salary); 
-            
-        });  
         
         $(document).on('click','.vwPlayer4up', function() {
             playerInfo4Up( $(this) );
@@ -66,7 +61,8 @@ app.Playerz = (function () {
                         
             observableView();
             progressBar(entryAmount, $('.salarycap-gage'));
-
+            
+            app.mobileApp.showLoading();
             console.log(playerSlot);
             console.log(entryData);
             
@@ -229,7 +225,7 @@ app.Playerz = (function () {
             playerList(requestPosition);
         }
         
-        var playerList4up = function(p) {
+        var playerList4up = function() {
         
             var salaryLimit = max_salarycap_amount - entryAmount;         
 
@@ -347,20 +343,53 @@ app.Playerz = (function () {
             }
     
             //console.log(JSON.stringify(sortData ));
-           
+            
+            paging = 1;
+            
+            var dataRange = parseInt(sortData.length / 10);
+            var end;
+            
             var dataSource = new kendo.data.DataSource({
-                data: sortData,
+                transport: {
+                    read: function(options) {
+                        
+                        console.log(dataRange + " : " + paging);
+                        
+                        if(paging > dataRange) {
+                            paging = 1;
+                            end = (paging * 10) - 1;
+                        } else if(paging === dataRange) {
+                            end = sortData.length;
+                        } else {
+                            end = (paging * 10) - 1;
+                        }
+                        
+                        var sliceFirst = (paging - 1) * 10;                        
+                        var newArr = sortData.slice(sliceFirst, end);
+                        console.log(sliceFirst + " ~ " + end + " : " + paging);
+                        
+                        options.success(newArr);                        
+                    }
+                },
+
                 filter: { field: "playerSelected", operator: "eq", value: 1}
             });
             
+            //dataSource.read();
+            
             $("#players_list").kendoMobileListView({
                 dataSource: dataSource,
-                template: $("#playerListTemplate").html()
+                pullToRefresh: true,
+                template: $("#playerListTemplate").html(),
+                pullParameters: function(item) {
+                    console.log(item); // the last item currently displayed
+                    paging++;
+                    return { since_id: item.playerID };
+                }
             });
 
             app.mobileApp.hideLoading();
-            
-                     
+      
         }    
 
         
@@ -725,7 +754,7 @@ app.Playerz = (function () {
         }
         
         var checkSlot = function() {
-                      
+
             var key, count = 0;
             for(key in playerSlot) {
                 if(playerSlot.hasOwnProperty(key)) {
@@ -734,11 +763,13 @@ app.Playerz = (function () {
                     }
                 }
             }
-                        
+            
             if(count === 8) {
+                $("#entryRegBtn").attr('data-rel','enable');
                 $('a#entryRegBtn').removeClass('disabled');
                 entryStatus = true;
             } else {
+                $("#entryRegBtn").attr('data-rel','disabled');
                 $('a#entryRegBtn').addClass('disabled');
                 entryStatus = false;
             }
@@ -823,7 +854,7 @@ app.Playerz = (function () {
                         alert("엔트리가 등록되었습니다.");
                         uu_data.cash -= fee;
                         entryAmount = 0;
-                        app.ObjControl.launchPlay();
+                        app.ObjControl.reloadContest('#po_entry_registration','views/playListView.html?bar=' + currentContestType);
                     } else {
                         app.showError(response.message);
                     }
@@ -882,7 +913,7 @@ app.Playerz = (function () {
                         alert("엔트리가 수정되었습니다.");
                         //uu_data.cash -= fee;
                         entryAmount = 0;
-                        app.ObjControl.launchPlay();
+                        app.ObjControl.reloadContest('#po_entry_update','views/playView.html?tab=2');
                     } else {
                         app.showError(response.message);
                     }

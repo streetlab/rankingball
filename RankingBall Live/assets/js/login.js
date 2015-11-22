@@ -146,68 +146,71 @@ app.Login = (function () {
                     
                     if(pushKey === "" ) {
                         init_apps.deviceID = device.uuid;
-                        initAppService.initAppVersion();
+                        //console.log("pushkey call");
+                        //initAppService.initAppVersion();
                     } else {
                         
-                        if (registType === 2) {
-                            callerID = "memberLoginDevice";
-                            
-                            param = '{"osType":' + init_apps.osType + 
-                                     ',"version":"' + init_apps.version + 
-                                     '","name":"","memUID":"' + pushKey + 
-                                     '","deviceID":"' + init_apps.deviceID + '"}';
-                        } else {
-                            callerID = "memberLogin";
-                            param = '{"osType":' + init_apps.osType + 
-                                     ',"version":"' + init_apps.version + 
-                                     '","email":"' + storageObject.email + 
-                                     '","memPwd":"' + passw + 
-                                     '","registType":' + registType +
-                                     ',"memUID":"' + pushKey + 
-                                     '","deviceID":"' + init_apps.deviceID + '"}';
-                        }
-                        
-                        var url = init_data.auth + "?callback=?";
-                        
-                        console.log(param);
-                        
-                        app.mobileApp.showLoading();
-                        $.ajax({
-                                   url: url,
-                                   type: "GET",
-                                   async: false,
-                                   dataType: "jsonp",
-                                   jsonpCallback: "jsonCallback",
-                                   data: {
-                                "type": "apps",
-                                "id": callerID,
-                                "param":param
-                            },
-                           success: function(response) {
-                               console.log(JSON.stringify(response));
-                               if (response.code === 0) {
-                                   uu_data = response.data;
-                                   setlocalStorage('appd', JSON.stringify(uu_data));
-                                   setlocalStorage('doLogin', true);
-                            
-                                   app.mobileApp.navigate('views/landingView.html', 'slide');
-                               } else {
-                                   
-                                    app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
-                                        navigator.app.exitApp();
-                                    });
-                               }
-                               
-                               console.log(JSON.stringify(uu_data));
-                           },
-                           error: function(e) {
-                               console.log(e); 
-                           },
-                           complete: function() {
-                               app.mobileApp.hideLoading();
-                           }
-                       });
                     }
+                    
+                    if (registType === 2) {
+                        callerID = "memberLoginDevice";
+                        
+                        param = '{"osType":' + init_apps.osType + 
+                                 ',"version":"' + init_apps.version + 
+                                 '","name":"","memUID":"' + pushKey + 
+                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                    } else {
+                        callerID = "memberLogin";
+                        param = '{"osType":' + init_apps.osType + 
+                                 ',"version":"' + init_apps.version + 
+                                 '","email":"' + storageObject.email + 
+                                 '","memPwd":"' + passw + 
+                                 '","registType":' + registType +
+                                 ',"memUID":"' + pushKey + 
+                                 '","deviceID":"' + init_apps.deviceID + '"}';
+                    }
+                    
+                    var url = init_data.auth + "?callback=?";
+                    
+                    console.log(param);
+                    
+                    app.mobileApp.showLoading();
+                    $.ajax({
+                               url: url,
+                               type: "GET",
+                               async: false,
+                               dataType: "jsonp",
+                               jsonpCallback: "jsonCallback",
+                               data: {
+                            "type": "apps",
+                            "id": callerID,
+                            "param":param
+                        },
+                       success: function(response) {
+                           console.log(JSON.stringify(response));
+                           if (response.code === 0) {
+                               uu_data = response.data;
+                               setlocalStorage('appd', JSON.stringify(uu_data));
+                               setlocalStorage('doLogin', true);
+                        
+                               app.mobileApp.navigate('views/landingView.html', 'slide');
+                           } else {
+                               
+                                app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                                    navigator.app.exitApp();
+                                });
+                           }
+                           
+                           console.log(JSON.stringify(uu_data));
+                       },
+                       error: function(e) {
+                           console.log(e); 
+                       },
+                       complete: function() {
+                           app.mobileApp.hideLoading();
+                       }
+                   });
+
                     
                 } else {
                     console.log("not found");

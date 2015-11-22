@@ -313,8 +313,11 @@ app.Entry = (function () {
             console.log(data);
             
             app.mobileApp.showLoading();
-            var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
-            app.mobileApp.navigate(url,'slide');
+            setTimeout(function() {
+                var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
+                app.mobileApp.navigate(url,'slide');    
+            }, 500);
+
         };
         
         var setPlayerEntry4up = function(e) {
@@ -351,7 +354,7 @@ app.Entry = (function () {
                             app.mobileApp.navigate('views/playListView.html?bar=G', 'slide:right');
                         }
                         $("#po_entry_registration").data("kendoMobileView").destroy();
-                        //$("#po_entry_registration").remove();
+                        $("#po_entry_registration").remove();
                     }
                     
                 }, '알림', ['확인', '취소']);

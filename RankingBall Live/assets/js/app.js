@@ -2,8 +2,9 @@
 var app = (function (win) {
     'use strict';
     
-    var timeInMs = Date.now();    
-    document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/rankingball.js?'" + timeInMs + "><"+"/script>");
+    // Remote Server Used
+    //var timeInMs = Date.now();    
+    //document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/rankingball.js?'" + timeInMs + "><"+"/script>");
 
     
     // Global error handling
@@ -18,10 +19,11 @@ var app = (function (win) {
 
     win.addEventListener('error', function (e) {
         e.preventDefault();
-
+        
         var message = e.message + "' from " + e.filename + ":" + e.lineno;
-
+        
         showAlert(message, 'Error occured');
+        showAlert(e, 'Error occured');
 
         return true;
     });
