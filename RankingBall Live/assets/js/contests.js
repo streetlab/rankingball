@@ -14,51 +14,23 @@ app.Contests = (function () {
         $(document).on('click','.inboxList-off-btn', function() {
             resultMatch( $(this) );
         });
-        $(document).on('click','a.myContest', function() {
-            
-            var contest = $(this).attr('data-rel');
-            var contestStatus = parseInt($(this).attr('data-status'));
-                        
-            if(contest !== "" && contestStatus === 1) {
-                navigator.notification.confirm("엔트리를 수정하시겠습니까?", function (confirmed) {
-                   if (confirmed === true || confirmed === 1) {
-                       
-                       //app.Entry.initEntryDataUpdate(contest);
-                       var entryUrl = 'views/entryUpdateView.html?contest=' + contest + '&mode=ed';
-                       app.mobileApp.navigate(entryUrl, 'slide');
-                   } else {
-                       closeModal();
-                   }
-                }, '알림', ['확인', '취소']);
-                return false;
-            } else if(contest !== "" && contestStatus === 2) {
-                app.showError("게임 진행 중에는 들어갈 수 없습니다.");
-                return false;
-            } else if(contest !== "" && contestStatus === 3) {
-                navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
-                   if (confirmed === true || confirmed === 1) {
-                       app.mobileApp.navigate('views/playResultView.html', 'slide');
-                   } else {
-                       closeModal();
-                   }
-                }, '알림', ['확인', '취소']);
-                return false;
-            }
-
-        });
-        
+ 
         function init() {
             observableView();
             matchPlay();
             myContestList();
         }
         
-        function onShow() {
+        function onShow(e) {
+            
             observableView();
             matchPlay();
             myContestList();
-            
-            //matchParticipating
+
+            var param = e.view.params;
+            if(param.tab !== undefined && param.tab === "m") {
+                matchParticipating();
+            }
         }
         
         function playInit(e) {
@@ -216,7 +188,7 @@ app.Contests = (function () {
             $('#tabstrip_upcoming').addClass('ts');
             $('#tab_live').addClass('hide');
             $('#tab_upcomming').removeClass('hide');
-
+            
             $('#math-cnt-ff').html(contestPartList['cf'].length);
             $('#math-cnt-f5').html(contestPartList['c5'].length);
             $('#math-cnt-fg').html(contestPartList['cg'].length);
@@ -236,7 +208,7 @@ app.Contests = (function () {
         
         var joinMatchConfirm = function() {
             
-            console.log( JSON.stringify(checkedData) );
+            //console.log( JSON.stringify(checkedData) );
             
             var today = new Date();
             var timeValue = checkedData.startTime;
@@ -286,8 +258,9 @@ app.Contests = (function () {
                     
                     var confirmMessage;
                     if(checkedData.entryFee === 0) {       
-                        closeModal();
+                        
                         app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
+                        closeModal();
                     } else {
                         confirmMessage = "해당 경기에 참여 시 " + numberFormat(checkedData.entryFee) + "의 입장료가 소모됩니다.\n\n경기에 참여하시겠습니까?";
                         navigator.notification.confirm(confirmMessage, function (confirmed) {
@@ -322,7 +295,9 @@ app.Contests = (function () {
             var modalHtml = "";
             checkedData = "";
             joinMatchNo = "";
-                        
+
+            
+            
             $.each(contestListData, function(i, v) {
                 if (parseInt(v.contestSeq) === rel) {
                     modalHtml = '<dt>플레이 방 이름</dt><dd>' + v.contestName + '</dd>' + 
@@ -341,6 +316,7 @@ app.Contests = (function () {
                 $('#modal-info').html(modalHtml);
                 $("#join-match").data("kendoMobileModalView").open();    
             } else {
+                //console.log("Error Find joinMatchNo");
                 app.showError(errorMessage.game_param);
                 return false;
             }
@@ -380,11 +356,11 @@ app.Contests = (function () {
             
             app.mobileApp.showLoading();
             //$('ul#playListBox').html(contestFtypeData);
-            //setTimeout(function() {
+            setTimeout(function() {
                 //$('#play-title').html('featured');
                 app.mobileApp.navigate('views/playListView.html?bar=F', 'slide');
                 app.mobileApp.hideLoading();
-            //},300);
+            },300);
         };
        
         var joinFF = function(e) {
@@ -568,11 +544,8 @@ app.Contests = (function () {
                        //app.Entry.initEntryDataUpdate(contest);
                        var entryUrl = 'views/entryUpdateView.html?contest=' + contest + '&mode=ed';
                        app.mobileApp.navigate(entryUrl, 'slide');
-                   } else {
-                       closeModal();
                    }
                 }, '알림', ['확인', '취소']);
-                return false;
             } else if(contest !== "" && contestStatus === 2) {
                 app.showError("게임 진행 중에는 들어갈 수 없습니다.");
                 return false;
@@ -580,11 +553,8 @@ app.Contests = (function () {
                 navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
                        app.mobileApp.navigate('views/playResultView.html', 'slide');
-                   } else {
-                       closeModal();
                    }
                 }, '알림', ['확인', '취소']);
-                return false;
             }
         };
         

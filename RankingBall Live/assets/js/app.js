@@ -23,7 +23,6 @@ var app = (function (win) {
         var message = e.message + "' from " + e.filename + ":" + e.lineno;
         
         showAlert(message, 'Error occured');
-        showAlert(e, 'Error occured');
 
         return true;
     });
@@ -76,22 +75,17 @@ var app = (function (win) {
         
         StatusBar.hide();
         
-        //var init_process = initAppService.initAppVersion();
-        
-        //initService();
-        init_apps.memUID = "";
-        app.PushRegistrar.enablePushNotifications();
-        
+        var locUID = getlocalStorage('push_wiz');
+        if( getlocalStorage('push_wiz') ) {
+            init_apps.memUID = locUID;    
+        } else {
+            app.PushRegistrar.enablePushNotifications();
+        }
+                
         init_apps.deviceID = device.uuid;
         initAppService.initAppVersion();
         
         /*
-        var init_process = initService();
-        if(!init_process) {
-            showError('init Error');
-        }
-        
-
         setTimeout(function() {
             navigator.splashscreen.hide();    
         }, 2000);

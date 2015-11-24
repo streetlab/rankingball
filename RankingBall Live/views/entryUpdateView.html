@@ -5,6 +5,7 @@
     data-layout="main"
     data-model="app.Entry"
     data-init="app.Entry.init"
+    data-show="app.Entry.updateBar"
     data-transition="slide">
 
     <div data-role="header" data-reload="true" class="rnkb-wiz">
@@ -20,9 +21,9 @@
 
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <span class="proper-add-btn"> <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a> </span>
                 </div>
             </div>
         </div>
@@ -30,7 +31,7 @@
         <div class="salarycap-position">
             <div class="salarycap-box">
                 <h4>사용가능 샐러리 캡</h4>
-                <div id="progressBarup" class="salarycap-gage">
+                <div class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
@@ -49,9 +50,11 @@
                         <ol class="fw">
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="fw-ico">
-                                        <p><a data-role="button" data-rel="1" data-slot="slot1" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot1" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="1" data-slot="slot1" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="fw-ico">
+                                            <p><img class="btn-slots" id="update-img-slot1" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-f" id="update-player-slot1">Player</span>
@@ -59,9 +62,11 @@
                             </li>
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="fw-ico choice-off">
-                                        <p><a data-role="button" data-rel="1" data-slot="slot2" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot2" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="1" data-slot="slot2" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="fw-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot2" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-f" id="update-player-slot2">Player</span>
@@ -73,9 +78,11 @@
                         <ol class="mf">
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="mf-ico choice-off">
-                                        <p><a data-role="button" data-rel="2" data-slot="slot3" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot3" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="2" data-slot="slot3" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="mf-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot3" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-m" id="update-player-slot3">Player</span>
@@ -83,9 +90,11 @@
                             </li>
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="mf-ico  choice-off dmf-ico">
-                                        <p><a data-role="button" data-rel="15" data-slot="slot4" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots2" id="update-img-slot4" src="./assets/resource/btn_player_change_02.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="15" data-slot="slot4" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="mf-ico  choice-off dmf-ico">
+                                            <p><img class="btn-slots2" id="update-img-slot4" src="./assets/resource/btn_player_change_02.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span id="update-player-slot4">Player</span>
@@ -93,9 +102,11 @@
                             </li>
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="mf-ico choice-off">
-                                        <p><a data-role="button" data-rel="2" data-slot="slot5" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot5" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="2" data-slot="slot5" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="mf-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot5" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-m" id="update-player-slot5">Player</span>
@@ -108,9 +119,11 @@
 
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="df-ico choice-off">
-                                        <p><a data-role="button" data-rel="4" data-slot="slot6" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot6" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="4" data-slot="slot6" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="df-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot6" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-d" id="update-player-slot6">Player</span>
@@ -118,9 +131,11 @@
                             </li>
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="df-ico choice-off">
-                                        <p><a data-role="button" data-rel="4" data-slot="slot7" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot7" src="./assets/resource/btn_player_change.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="4" data-slot="slot7" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="df-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot7" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span class="update-player-slots-d" id="update-player-slot7">Player</span>
@@ -132,9 +147,11 @@
                         <ol class="gk">
                             <li>
                                 <div class="player-box-jersey">
-                                    <div class="gk-ico choice-off">
-                                        <p><a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry4up"><img class="btn-slots" id="update-img-slot8" src="./assets/resource/btn_player_change_02.png" width="100%"></a></p>
-                                    </div>
+                                    <a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry4up">
+                                        <div class="gk-ico choice-off">
+                                            <p><img class="btn-slots" id="update-img-slot8" src="./assets/resource/btn_player_change_02.png" width="100%"></p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="player-box-player">
                                     <span id="update-player-slot8">Player</span>

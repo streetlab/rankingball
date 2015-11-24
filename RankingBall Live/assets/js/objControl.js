@@ -138,7 +138,7 @@ app.ObjControl = (function () {
             
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
             var url = init_data.auth + "?callback=?";
-            console.log(JSON.stringify(param));
+
             $.ajax({
                 url: url,
                 type: "GET",
@@ -214,9 +214,7 @@ app.ObjControl = (function () {
                         
                         if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
                             contestPartList['cf'].push(contestListData[i]);
-                        }
-                        
-                        if (parseInt(contestListData[i]['contestType']) === 1) {
+                        } else if (parseInt(contestListData[i]['contestType']) === 1) {
                             contestPartList['c5'].push(contestListData[i]);
                         } else if (parseInt(contestListData[i]['contestType']) === 2) {
                             contestPartList['cg'].push(contestListData[i]);
@@ -379,6 +377,7 @@ app.ObjControl = (function () {
                 app.mobileApp.navigate(m, 'slide');
                 if(v) {
                     $(v).data("kendoMobileView").destroy();
+                    $(v).remove();
                 }
                 
             },500);

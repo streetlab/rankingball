@@ -60,14 +60,11 @@ var openAppStore = function() {
 var initAppService = {
     _app_version: "0.0.0",
     initAppVersion: function() {
-        var that = this;        
-        console.log("Run : ");
-                
+        var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.4";
+            that._app_version = "1.0.5";
             that.ajaxVersionCheck(that._app_version);
         } else {
-            console.log("Get App Plugin : ");
             that.pluginGetVersion();
         }
     },
@@ -91,11 +88,8 @@ var initAppService = {
         });
     },
     ajaxVersionCheck: function(version) {
-        console.log("check version with server");
         
         init_apps.version = version;
-        
-        console.log("VERSION: " + version);
         
         var that = this;
         var param = '{"osType":' + init_apps.osType + ',"version":"' + version + '"}';
@@ -112,7 +106,7 @@ var initAppService = {
                 "param":param
             },
             success: function(response) {
-                console.log(JSON.stringify(response));
+
                 if (response.code === 0) {
                     var inits = response.data;
                     init_data = {
@@ -142,7 +136,7 @@ var initAppService = {
                     } else if (tmpVersion === 0) {
                         ++globalRequestTry;
                         if(globalRequestTry > 3) {
-                            app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
+                            app.showAlert('[111] 서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
                                 navigator.app.exitApp();
                             });
                         }
@@ -151,14 +145,13 @@ var initAppService = {
                             that.initAppVersion();    
                         }
                     } else {
-                        console.log("run appDeviceCheck");
                         globalRequestTry = 0;
                         that.appDeviceCheck();
                     }
                 } else {
                     ++globalRequestTry;
                     if(globalRequestTry > 3) {
-                        app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
+                        app.showAlert('[112] 서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
                             navigator.app.exitApp();
                         });
                     }
@@ -169,10 +162,9 @@ var initAppService = {
                 }
             },
             error: function(e) {
-                console.log(e);
                 ++globalRequestTry;
                 if(globalRequestTry > 3) {
-                    app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
+                    app.showAlert('[113] 서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
                         navigator.app.exitApp();
                     });
                 }
@@ -184,12 +176,10 @@ var initAppService = {
         });
     },
     appDeviceCheck: function() {
-        console.log("check device with server");
         if (init_data.status === 1) {
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","deviceID":"' + init_apps.deviceID + '"}';
             var url = init_data.auth + "?callback=?";
             
-            console.log("check device data : " + JSON.stringify(param));
             
             $.ajax({
                 url: url,
@@ -203,9 +193,7 @@ var initAppService = {
                     "param":param
                 },
                success: function(response) {
-                   console.log("response device check : " + JSON.stringify(response));
                    if (response.code === 0) {
-                       console.log("do login");
                        globalRequestTry = 0;
                        uu_data = response.data;
                        

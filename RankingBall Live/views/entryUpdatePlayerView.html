@@ -20,9 +20,9 @@
 
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn"> <img src="./assets/resource/btn_plus.png"> </span>
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <span class="proper-add-btn"> <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a> </span>
                 </div>
             </div>
         </div>
@@ -38,21 +38,21 @@
                     </div>
                 </div>
             </div>
-            
+        
             <div class="salarycap-box-padding">
                 <div class="salarycap-box-moz-vw">   
-                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label">포지션</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+                    <a data-role="button" href="#do-popover-pos2" data-rel="popover"><span id="sort-player-label2">샐러리</span> <span id="sort-player-ico2" class="bg-box ic-triangle-n-on"></span></a>
                 </div>
             </div>
         </div>
         
-        <div id="do-popover-pos" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
-            <div data-role="view" id="popover-play-vw">
+        <div id="do-popover-pos2" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-play-vw2">
                 <ul>
-                    <li><label class="sort-l">포지션</label> <a data-role="button" data-rel="on" data-val="1" data-align="right"><span class="bg-box ic-triangle-n-on"></span></a></li>
-                    <li><label>네임</label> <a data-role="button" data-rel="off" data-val="2" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>FPPG</label> <a data-role="button" data-rel="off" data-val="3" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label>샐러리</label> <a data-role="button" data-rel="off" data-val="4" data-align="right"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelPosition" class="sortClass2">포지션</label> <a id="orderByPosition2" data-role="button" data-rel="off" data-val="1" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelPlayer" class="sortClass2">네임</label> <a id="orderByPlayer2" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <a id="orderByFPPG2" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><label id="orderLabelSalary" class="sortClass2 sort-l">샐러리</label> <a id="orderBySalary2" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><span class="bg-box ic-triangle-n-on"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -77,3 +77,32 @@
 
 </div>
 
+
+
+<script id="playerListUpdateTemplate" type="text/x-kendo-template">
+    #
+        entryStatus = "";
+        entryImg = "btn_plus_02.png";
+        controlClass = "addPlayer";
+        salaryColor = "";
+        entryBtn = "app.Playerz.addPlayer4Up";
+
+        if(posType === 1) {
+            playerPostionLabel = "F";
+        } else if(posType === 2) {
+            playerPostionLabel = "M";
+        } else if(posType === 4) {
+            playerPostionLabel = "D";
+        } else if(posType === 8) {
+            playerPostionLabel = "G";
+        } else {
+            playerPostionLabel = "";
+        }
+    #
+
+    <div class="listitem_position">#:playerPostionLabel#</div>
+    <div class="listitem_name"><a data-role="button" data-rel="#:playerID#" data-val="" data-click="app.Playerz.playerAddInfo2">#:playerName#<br><span>#:teamName#</span></a></div>
+    <div class="listitem_fppg">#:fppg#</div><div class="listitem_salary #:salaryColor#">$#:kendo.toString(salary,"n0")#</div>
+    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
+    
+</script>

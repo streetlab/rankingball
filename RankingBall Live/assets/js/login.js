@@ -172,8 +172,6 @@ app.Login = (function () {
                     
                     var url = init_data.auth + "?callback=?";
                     
-                    console.log(param);
-                    
                     app.mobileApp.showLoading();
                     $.ajax({
                                url: url,
@@ -187,24 +185,24 @@ app.Login = (function () {
                             "param":param
                         },
                        success: function(response) {
-                           console.log(JSON.stringify(response));
                            if (response.code === 0) {
                                uu_data = response.data;
                                setlocalStorage('appd', JSON.stringify(uu_data));
                                setlocalStorage('doLogin', true);
-                        
+                                setlocalStorage('push_wiz', init_apps.memUID);
                                app.mobileApp.navigate('views/landingView.html', 'slide');
                            } else {
                                
-                                app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                                app.showAlert('[101] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
                                     navigator.app.exitApp();
                                 });
                            }
                            
-                           console.log(JSON.stringify(uu_data));
                        },
                        error: function(e) {
-                           console.log(e); 
+                            app.showAlert('[102] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                                navigator.app.exitApp();
+                            });
                        },
                        complete: function() {
                            app.mobileApp.hideLoading();
@@ -213,7 +211,9 @@ app.Login = (function () {
 
                     
                 } else {
-                    console.log("not found");
+                    app.showAlert('[103] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                        navigator.app.exitApp();
+                    });
                 }
 
         }

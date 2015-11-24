@@ -9,7 +9,7 @@
 
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#po_entry_players" data-transition="slide:right">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#:back" data-transition="slide:right">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -20,8 +20,8 @@
 
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn"> <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a> </span>
                 </div>
             </div>
@@ -36,11 +36,11 @@
                         <li id="player-info-number" class="pb">FW 10</li>
                         <li id="player-info-name" class="pn">Wayne Rooney</li>
                         <li id="player-info-team" class="pt">Man Utd</li>
-                        <li id="player-info-point" class="pa">$rr 19.66 <span>fppg</span></li>
+                        <li id="player-info-point" class="pa">$rr 19.66 </li>
                     </ul>
                 </div>
                 <div class="player-btn">
-                    <a data-role="button" data-click="app.Playerz.addPlayerStatic">
+                    <a id="playerAddSolotBtn" data-role="button" data-rel="0" data-salary="0" data-click="app.Playerz.addPlayerStatic">
                         <img src="./assets/resource/btn_player_plus.png">
                     </a>
                 </div>

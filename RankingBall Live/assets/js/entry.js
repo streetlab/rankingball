@@ -8,7 +8,7 @@ app.Entry = (function () {
 
     var entryProcess = (function () {
         
-        var entryProcess = "nowon";
+        //var entryProcess = "nowon";
         
         var entryMode = "";
         var contestNo = "";
@@ -18,11 +18,11 @@ app.Entry = (function () {
         
         var ps = {};
         var playerFilter = [];
+        var playerFilterSalary = [];
                 
         function init(e) {
             
             var param = e.view.params;
-            console.log(param);
                         
             if(param.contest === "") {
                 app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
@@ -52,12 +52,17 @@ app.Entry = (function () {
             }
             
             if(param.mode === "ed") {
-                
+                //initEntryDataUpdate(contestNo);
             } else {
                 app.showError("잘못된 요청입니다.");
             }            
             
-            progressBar(entryAmount, $('#progressBar'));
+            progressBar(entryAmount, $('.salarycap-gage'));
+        }
+        
+        function updateBar() {
+            observableView();
+            progressBar(entryAmount, $('.salarycap-gage'));
         }
         
         function return2playList() {
@@ -178,19 +183,17 @@ app.Entry = (function () {
             ps.s7 = myEntryByContest[c]['slot7'];
             ps.s8 = myEntryByContest[c]['slot8'];
             
+            entryNo = myEntryByContest[c]['entrySeq'];
             
             $.each(playerOnLeague, function(n, p) {
                 playerFilter[p.playerID] = p.playerName;
+                playerFilterSalary[p.playerID] = p.salary;
             });
             
             $.each(ps, function(id, val) {
                 playerData4up.push(val); 
             });
             
-            console.log(playerFilter);
-            console.log(playerData4up);
-            console.log(myEntryByContest[c]);
-
             observableView();
             entryAmount = myEntryByContest[c]['mySalaryTotal'];
             progressBar(entryAmount, $('.salarycap-gage'));
@@ -240,8 +243,7 @@ app.Entry = (function () {
         function regEntry() {
             
             if(entryStatus === false) {
-                console.log("error : " + entryStatus);
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showError("엔트리에 등록되는 선수들을 확인해주세요.");
                 return false;
             }
             
@@ -261,8 +263,7 @@ app.Entry = (function () {
         
         function updateEntry() {
             if(entryStatus === false) {
-                console.log("error : " + entryStatus);
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showError("엔트리에 등록되는 선수들을 확인해주세요.");
                 return false;
             }
             
@@ -271,8 +272,6 @@ app.Entry = (function () {
                 return false;
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
-            
-            console.log("update");
             var chkPlayerSlot = app.Playerz.playerSlot;
 
             var key, count = 0;
@@ -290,7 +289,7 @@ app.Entry = (function () {
             } else {
                 navigator.notification.confirm("현재 지정된 선수로 엔트리를 수정하시겠습니까?", function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
-                        app.Playerz.setFinalUpdateEntry(contestNo,contestFee);    
+                        app.Playerz.setFinalUpdateEntry(contestNo,entryNo);    
                    }
                 }, '알림', ['확인', '취소']);
             }
@@ -298,8 +297,10 @@ app.Entry = (function () {
         }
         
         function progressBar(amount, $element) {
+           
             var percent = amount / max_salarycap_amount * 100;
             var progressBarWidth = percent * $element.width() / 100;
+            
             $element.find('div').animate({ width: progressBarWidth }, 500);
             $element.find('p').html("$" + numberFormat(amount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
         }
@@ -310,8 +311,6 @@ app.Entry = (function () {
         
         var setPlayerEntry = function(e) {
             var data = e.button.data();
-            console.log(data);
-            
             app.mobileApp.showLoading();
             setTimeout(function() {
                 var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
@@ -322,23 +321,23 @@ app.Entry = (function () {
         
         var setPlayerEntry4up = function(e) {
             var data = e.button.data();
-            console.log(data);
+
+            app.mobileApp.showLoading();
+            setTimeout(function() {
+                var url = 'views/entryUpdatePlayerView.html?pos=' + data.rel + "&slot=" + data.slot;
+                app.mobileApp.navigate(url,'slide');  
+            }, 500);
             
-            var url = 'views/entryUpdatePlayerView.html?pos=' + data.rel + "&slot=" + data.slot;
-            app.mobileApp.navigate(url,'slide');
         };
         
         var returnContestPlay = function() {
             
-            console.log("return : " + currentContestType);
-            console.log("mode : " + entryMode);
-            
             if(entryMode === "ed") {
                 
-                app.mobileApp.navigate('views/playView.html', 'slide:right');
+                app.mobileApp.navigate('views/playView.html?tab=m', 'slide:right');
                 
                 $("#po_entry_update").data("kendoMobileView").destroy();
-                //$("#po_entry_update").remove();
+                $("#po_entry_update").remove();
             } else {
                 
                 navigator.notification.confirm("경기 참여를 취소하시겠습니까?", function (confirmed) {
@@ -364,6 +363,7 @@ app.Entry = (function () {
         
         return {
             init: init,
+            updateBar: updateBar,
             setPbAmount: setPbAmount,
             setPlayerEntry: setPlayerEntry,
             setPlayerEntry4up: setPlayerEntry4up,
@@ -373,7 +373,8 @@ app.Entry = (function () {
             allClearUpdate: allClearUpdate,
             regEntry: regEntry,
             updateEntry: updateEntry,
-            returnContestPlay: returnContestPlay
+            returnContestPlay: returnContestPlay,
+            playerFilterSalary: playerFilterSalary
         };
     }());
 

@@ -8,6 +8,7 @@ app.Playerz = (function () {
 
     var playerProcess = (function () {
         
+
         var playerSlot = {};
         var requestPosition = "";
         var requestSlot = "";
@@ -20,31 +21,11 @@ app.Playerz = (function () {
         var entryData = [];
         
         var paging = 0;
-        
-        $(document).on('click','.vwPlayer', function() {
-            playerInfo( $(this) );
-        });
-        
-        $(document).on('click','.vwPlayer4up', function() {
-            playerInfo4Up( $(this) );
-        });
-        $(document).on('click','.addPlayer4up', function() {
-            var player = parseInt($(this).attr('data-rel'));
-            var salary = parseInt($(this).attr('data-salary'));
-            addPlayer4Up(player, salary); 
-            
-        });
-        
-        $(document).on('click','.removePlayer4up', function() {
-            var player = parseInt($(this).attr('data-rel'));
-            var salary = parseInt($(this).attr('data-salary'));
-            removePlayer4Up(player, salary); 
-            
-        });
+ 
         
         function init() {
             
-            sort_order = 1;
+            sort_order = "asc";
             salaryLimit = 0;
             entryData = [];
             
@@ -107,9 +88,10 @@ app.Playerz = (function () {
         }
         
         function progressBar(amount, $element) {
+            
             var percent = amount / max_salarycap_amount * 100;
-            var elementWidth = $('#checkElementWidth').offsetParent().width();
-            var progressBarWidth = percent * elementWidth / 100;
+            var progressBarWidth = percent * $element.width() / 100;
+            
             $element.find('div').animate({ width: progressBarWidth }, 500);
             $element.find('p').html("$" + numberFormat(amount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
         }
@@ -136,34 +118,155 @@ app.Playerz = (function () {
             }
         }
         
+        
+        function playerAddInfo(e) {
+            var data = e.button.data();
+                       
+            app.mobileApp.showLoading();
+            if(data.rel) {
+                console.log(data.rel);
+
+                app.mobileApp.navigate('views/entryPlayerDataView.html?player=' + data.rel, 'slide'); 
+                app.mobileApp.hideLoading();
+            } else {
+                app.showError("잘못된 선수 정보요청입니다.");
+            }
+        }
+
+        function playerAddInfo2(e) {
+            var data = e.button.data();
+                       
+            app.mobileApp.showLoading();
+            if(data.rel) {
+                console.log(data.rel);
+
+                app.mobileApp.navigate('views/entryUpdatePlayerDataView.html?player=' + data.rel, 'slide'); 
+                app.mobileApp.hideLoading();
+            } else {
+                app.showError("잘못된 선수 정보요청입니다.");
+            }
+        }
+        
         function detailView(e) {
             var param = e.view.params;
             selectedPlayer = param.player;
-            $.each(playerData, function(i, v) {
-                if (parseInt(v.playerID) === parseInt(selectedPlayer)) {
-                    $('#player-info-number').html(v.posCode + " " + v.number);
-                    $('#player-info-name').html(v.playerName);
-                    $('#player-info-team').html(v.teamName);
-                    $('#player-info-point').html("$" + v.salary + " " + "<span></span>");
-                    $('.player-info').css('background-image','url(./assets/resource/jersey/' + uniform(v.team) + ')');
-                    return;
-                }
-            });
+                $.each(playerOnLeague, function(i, v) {
+                    if (parseInt(v.playerID) === parseInt(selectedPlayer)) {
+                        console.log(v);
+                        $('#player-info-number').html(v.posCode + " " + v.number);
+                        $('#player-info-name').html(v.playerName);
+                        $('#player-info-team').html(v.teamName);
+                        $('#player-info-point').html("$" + v.salary + " " + v.fppg + "<span>fppg</span>");
+                        $('.player-info').css('background-image','url(./assets/resource/jersey/' + uniform(v.team) + ')');
+                        
+                        $('#playerAddSolotBtn').attr('data-rel',v.playerID);
+                        $('#playerAddSolotBtn').attr('data-salary',v.salary);
+                        return;
+                    }
+                });
         }
+        
+        
+        function detailViewUp(e) {
+            var param = e.view.params;
+            selectedPlayer = param.player;
+                $.each(playerOnLeague, function(i, v) {
+                    if (parseInt(v.playerID) === parseInt(selectedPlayer)) {
+                        console.log(v);
+                        $('#player-upinfo-number').html(v.posCode + " " + v.number);
+                        $('#player-upinfo-name').html(v.playerName);
+                        $('#player-upinfo-team').html(v.teamName);
+                        $('#player-upinfo-point').html("$" + v.salary + " " + v.fppg + "<span>fppg</span>");
+                        $('.player-upinfo').css('background-image','url(./assets/resource/jersey/' + uniform(v.team) + ')');
+                        
+                        $('#playerAddSolotBtn2').attr('data-rel',v.playerID);
+                        $('#playerAddSolotBtn2').attr('data-salary',v.salary);
+                        return;
+                    }
+                });
+        }
+        
         
         function vwParam4update(e) {
             var param = e.view.params;
             requestSlot = param.slot;
             console.log(requestSlot);
-            if(requestPosition !== param.pos) {
+            //if(requestPosition !== param.pos) {
                 requestPosition = param.pos;
+                commonInit(requestPosition);
                 console.log(requestPosition);
                 playerList4up(requestPosition);
-            }
+            //}
             
             console.log(playerSlot);
             console.log(entryData);
+            
+            console.log(entryAmount);
+            progressBar(entryAmount, $('.salarycap-gage'));
         }
+        
+        
+        
+        function playerListSort4up(e) {
+             app.mobileApp.showLoading();
+            
+            var data = e.button.data();
+            var orderType = parseInt(data.val);
+            var orderIco;
+                        
+            $('.sortClass2').removeClass('sort-l');
+            $('#popover-play-vw2 span').removeClass( function(index, css) {
+                return (css.match(/(^|\s)ic-\S+/g) || []).join(' ');
+            }).addClass('ic-triangle-n');
+
+            $('#sort-player-ico2').removeClass( function(index, css) {
+                return (css.match(/(^|\s)ic-\S+/g) || []).join(' ');
+            });            
+            
+            if(data.order === "desc") {
+                orderIco = "ic-triangle-n-on";
+                data.order = "asc";
+            } else {
+                orderIco = "ic-triangle-s-on";
+                data.order = "desc";
+            }
+            
+            sort_order = data.order;
+            console.log(data);
+            switch(orderType) {
+                case 1:
+                    $('#sort-player-label2').html("포지션");
+                    $('#sort-player-ico2').addClass(orderIco);
+                    $('#orderLabelPosition2').addClass('sort-l');
+                    $('#orderByPosition2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sort_field = "posType";
+                    break;
+                case 2:
+                    $('#sort-player-label2').html("네임");
+                    $('#sort-player-ico2').addClass(orderIco);
+                    $('#orderLabelPlayer2').addClass('sort-l');                  
+                    $('#orderByPlayer2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sort_field = "playerName";
+                    break;
+                case 3:
+                    $('#sort-player-label2').html("FPPG");
+                    $('#sort-player-ico2').addClass(orderIco);
+                    $('#orderLabelFPPG2').addClass('sort-l');  
+                    $('#orderByFPPG2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sort_field = "fppg";
+                    break;
+                case 4:
+                    $('#sort-player-label2').html("샐러리");
+                    $('#sort-player-ico2').addClass(orderIco);
+                    $('#orderLabelSalary2').addClass('sort-l');
+                    $('#orderBySalary2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
+                    sort_field = "salary";
+                    break;
+            }
+            
+            playerList4up(requestPosition);
+        }
+        
         
         function playerListSort(e) {
              app.mobileApp.showLoading();
@@ -225,8 +328,9 @@ app.Playerz = (function () {
             playerList(requestPosition);
         }
         
-        var playerList4up = function() {
-        
+        var playerList4up = function(p) {
+            
+            
             var salaryLimit = max_salarycap_amount - entryAmount;         
 
             if(init_data.auth === undefined) {
@@ -236,59 +340,96 @@ app.Playerz = (function () {
            
             app.mobileApp.showLoading();
            
-            $('#players_list4update').empty();           
+            $('#players_list4update').empty();              
+                
+            sort_field = (sort_field) ? sort_field : "salary";
 
-            playerListData = [];
-            
-            console.log("pos : " + requestPosition);
+            var sortData;
             if(parseInt(requestPosition) === 15) {
-                playerListData = playerOnLeague.sort(function(a, b) {
-                    if (sort_order) return (a.salary - b.salary);
-                    else return (b.salary - a.salary);
+                globalPosition = "A";
+                 sortData = playerOnLeague.sort(function(a, b) {
+                    if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
+                    else return (b[sort_field] - a[sort_field]);
                 });
             } else {
-                $.each(playerOnLeague, function(i, v) {
-                    if(parseInt(v.posType) === parseInt(requestPosition)) {
-                        playerListData.push(v);
-                    }
-                });
-            }
-           
-            var tmpAmount = 0;
-    
-           console.log(JSON.stringify(playerListData));
-           
-            for(var i=0;i<playerListData.length;i++) {
-
-                var entryStatus = "";
-                var entryImg = "btn_plus_02.png";
-                var salaryColor = "";
-                var controlClass = "addPlayer4up";
-                
-                console.log("id : " + playerListData[i].playerID);
-                
-                if( entryData.indexOf(playerListData[i].playerID) > -1 ) {
-                    //entryStatus = "on";
-                    //entryImg = "btn_minus_02.png";
-                    //controlClass = "removePlayer4up";
-                    tmpAmount += playerListData[i].salary;
+                if(parseInt(requestPosition) === 1) {
+                   globalPosition = "F";
+                    sortData = playerData['F'].sort(function(a, b) {
+                        if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
+                        else return (b[sort_field] - a[sort_field]);
+                    });
+                } else if(parseInt(requestPosition) === 2) {
+                   globalPosition = "M";
+                    sortData = playerData['M'].sort(function(a, b) {
+                        if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
+                        else return (b[sort_field] - a[sort_field]);
+                    });
+                } else if(parseInt(requestPosition) === 4) {
+                   globalPosition = "D";
+                    sortData = playerData['D'].sort(function(a, b) {
+                        if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
+                        else return (b[sort_field] - a[sort_field]);
+                    });
+                } else if(parseInt(requestPosition) === 8) {
+                    globalPosition = "G";                    
+                    sortData = playerData['G'].sort(function(a, b) {
+                        if (sort_order) return (a[sort_field] - b[sort_field]);
+                        else return (b[sort_field] - a[sort_field]);
+                    });
                 } else {
-                    salaryColor = (salaryLimit < playerListData[i].salary) ? 'warning' : '';
+                    console.log("ERROR :");  
                 }
-                
-                
-                
-                var resp = '<li class="clearfix players"><div class="listitem_position">' + playerPosition(playerListData[i].posType) + '</div>' +
-                    '<div class="listitem_name"><a data-role="button" data-rel="' + playerListData[i].playerID + '" class="vwPlayer4up">' + playerListData[i].playerName + '<br><span>' + playerListData[i].teamName + '</span></a></div>' +
-                    '<div class="listitem_fppg">' + playerListData[i].fppg + '</div><div class="listitem_salary ' + salaryColor + '">$' + numberFormat(playerListData[i].salary) + '</div>' +
-                    '<div class="listitem_btns"><a data-role="button" data-salary="' + playerListData[i].salary + '" data-rel="' + playerListData[i].playerID + '" data-status="' + entryStatus + '" class="' + controlClass + '"><img id="up-entry-' + playerListData[i].playerID + '" src="./assets/resource/' + entryImg + '"></a></div></li>';
-
-                $('#players_list4update').append( resp );
             }
-            entryAmount = (entryAmount === 0) ? tmpAmount : entryAmount;
-            progressBar(entryAmount, $('.salarycap-gage'));
-            app.mobileApp.hideLoading();
+                
+            paging = 1;
+            
+            
+            console.log(entryStatus, salaryLimit);
+            
+            var dataRange = parseInt(sortData.length / 10);
+            var end;
+            
+            var dataSource = new kendo.data.DataSource({
+                transport: {
+                    read: function(options) {
                         
+                        console.log(dataRange + " : " + paging);
+                        
+                        if(paging > dataRange) {
+                            paging = 1;
+                            end = (paging * 10) - 1;
+                        } else if(paging === dataRange) {
+                            end = sortData.length;
+                        } else {
+                            end = (paging * 10) - 1;
+                        }
+                        
+                        var sliceFirst = (paging - 1) * 10;                        
+                        var newArr = sortData.slice(sliceFirst, end);
+                        console.log(sliceFirst + " ~ " + end + " : " + paging);
+                        
+                        options.success(newArr);                        
+                    }
+                },
+
+                filter: { field: "playerSelected", operator: "eq", value: 1}
+            });
+            
+            $('.km-flat .km-scroller-pull .km-template').html('');
+            
+            $("#players_list4update").kendoMobileListView({
+                dataSource: dataSource,
+                pullToRefresh: true,
+                template: $("#playerListUpdateTemplate").html(),
+                pullParameters: function(item) {
+                    console.log(item); // the last item currently displayed
+                    paging++;
+                    return { since_id: item.playerID };
+                }
+            });
+
+            //$('#do-popover-hint01').data("kendoMobilePopOver").open("#player_list_header_label");
+            app.mobileApp.hideLoading();                        
         }
         
         var playerList = function(p) {
@@ -301,7 +442,7 @@ app.Playerz = (function () {
                 app.mobileApp.navigate('#landing');
             }
             
-            $('#players_list').empty();
+            //$('#players_list').empty();
             
             sort_field = (sort_field) ? sort_field : "salary";
             console.log(sort_field);
@@ -375,7 +516,7 @@ app.Playerz = (function () {
                 filter: { field: "playerSelected", operator: "eq", value: 1}
             });
             
-            //dataSource.read();
+            $('.km-flat .km-scroller-pull .km-template').html('');
             
             $("#players_list").kendoMobileListView({
                 dataSource: dataSource,
@@ -388,6 +529,7 @@ app.Playerz = (function () {
                 }
             });
 
+            //$('#do-popover-hint01').data("kendoMobilePopOver").open("#player_list_header_label");
             app.mobileApp.hideLoading();
       
         }    
@@ -465,18 +607,18 @@ app.Playerz = (function () {
         
         var addPlayer = function(e) {
             var data = e.button.data();
-            var player = data.rel;
             
+            console.log(data);
             console.log("position: " + globalPosition);
             
             if(playerSlot[requestSlot] !== undefined) {
-                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
-                    //var playerOnslot = searchPlayerName(playerData[globalPosition],player);
+                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === data.rel) {
+                    
                     console.log(playerSlot[requestSlot]);
                     navigator.notification.confirm("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n선수를 교체하시겠습니까?", function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
-                           addPlayerProceed(e,oldPlayer,requestSlot);
+                           addPlayerProceed(data.rel,data.salary,oldPlayer,requestSlot);
                        } else {
                            return false;
                        }
@@ -485,14 +627,14 @@ app.Playerz = (function () {
                     return false;
                 }
             } else {
-                addPlayerProceed(e,0,'');
+                console.log("add more");
+                addPlayerProceed(data.rel,data.salary,0,'');
             }
         };
         
-        function addPlayerProceed(e,oldPlayer,oldSlot) {
-            var data = e.button.data();
-            var player = data.rel;
-            var salary = data.salary;
+        function addPlayerProceed(player,salary,oldPlayer,oldSlot) {
+            console.log(player + " : " + salary);
+            console.log("1");
             
             if(parseInt(oldPlayer) > 0 && oldSlot !== "") {
                 
@@ -511,14 +653,19 @@ app.Playerz = (function () {
                              
             }            
             
-            var tempAmount = entryAmount + salary;
+            var tempAmount = entryAmount + parseInt(salary);
+            
+            console.log("2");
             
             if(tempAmount > max_salarycap_amount) {
                 app.showError("샐러리캡 한도를 벗어났습니다.");
             } else {
+                
+                console.log(player + " : " + salary);
+                
                 playerSlot[requestSlot] = player;
                 entryData.push(player);
-                entryAmount += salary;
+                entryAmount += parseInt(salary);
                 
                 //$('#entry-' + player).prop('src','./assets/resource/btn_minus_02.png');
                 //$('#entry-' + player).parent('a').attr('data-status','on');
@@ -603,25 +750,21 @@ app.Playerz = (function () {
             }
         }
 
-        var addPlayer4Up = function(player, salary) {
-           
+        var addPlayer4Up = function(e) {
+           var data = e.button.data();
             
             if(playerSlot[requestSlot] !== undefined) {
-                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
+                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === data.rel) {
                     //var playerOnslot = searchPlayerName(playerData[globalPosition],player);
                     console.log(playerSlot[requestSlot]);
-                    navigator.notification.confirm("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n선수를 교체하시겠습니까?", function (confirmed) {
+                    navigator.notification.confirm("해당 슬롯에 등록된 선수를 교체하시겠습니까?", function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
-                                       
-                            var arr_index = entryData.indexOf(oldPlayer);                
-                            if( arr_index >= 0 ) {
-                               entryData.splice(arr_index, 1);
-                            }
+                             
 
-                            resetPlayerSalary(playerListData,oldPlayer);   
-                           
-                            addPlayer4UpProceed(player, salary);
+                            //resetPlayerSalary(playerListData,oldPlayer, function() {addPlayer4UpProceed(data.rel, data.salary);});   
+                            addPlayer4UpProceed(data.rel, data.salary,oldPlayer,requestSlot);
+                            
                        } else {
                            return false;
                        }
@@ -630,19 +773,61 @@ app.Playerz = (function () {
                     return false;
                 }
             } else {
-                addPlayer4UpProceed(player, salary);
+                addPlayer4UpProceed(data.rel, data.salary,0,'');
             }
         }
         
-        var addPlayer4UpProceed = function(player, salary) {
-            var tempAmount = entryAmount + salary;
-       
+        var addPlayer4UpProceed = function(player, salary,oldPlayer,oldSlot) {
+
+             var tempAmount = 0;
+            
+            console.log("OLD : " + entryAmount);
+            if(parseInt(oldPlayer) > 0 && oldSlot !== "") {
+                
+                console.log(oldPlayer + " : " + oldSlot);
+                
+
+                
+                /*
+                if(globalPosition === "A") {
+                    resetPlayerSalary(playerOnLeague,oldPlayer);   
+                } else {
+                    resetPlayerSalary(playerData[globalPosition],oldPlayer);   
+                }
+                */
+                
+                var salaryTable = app.Entry.playerFilterSalary;
+                var oldPlayerSalary = salaryTable[oldPlayer];
+                var tmpEntryAmount = entryAmount;
+                console.log("salary : " + oldPlayerSalary);
+                tmpEntryAmount -= parseInt(oldPlayerSalary);
+                
+                tempAmount = tmpEntryAmount + parseInt(salary);
+                
+                console.log(tmpEntryAmount + " : "  + salary + " : " + tempAmount + " : "  + max_salarycap_amount);
+                
+                if(tempAmount > max_salarycap_amount) {
+                    app.showError("샐러리캡 한도를 벗어났습니다.");
+                    return false;                    
+                } else {
+                    var arr_index = entryData.indexOf(oldPlayer);                
+                    if( arr_index >= 0 ) {
+                       entryData.splice(arr_index, 1);
+                    }
+                    
+                    entryAmount -= parseInt(oldPlayerSalary);
+                }
+            } else {
+                console.log("no change");
+                tempAmount = entryAmount + parseInt(salary);
+            }         
+            
             if(tempAmount > max_salarycap_amount) {
                 app.showError("샐러리캡 한도를 벗어났습니다.");
             } else {
                 playerSlot[requestSlot] = player;
                 entryData.push(player);
-                entryAmount += salary;
+                entryAmount += parseInt(salary);
                 
                 //$('#up-entry-' + player).prop('src','./assets/resource/btn_minus_02.png');
                 $('#up-entry-' + player).parent('a').attr('data-status','on');
@@ -654,9 +839,21 @@ app.Playerz = (function () {
                 }
                 
                 
-                researchPlayer = playerListData.filter(function ( obj ) {
-                    return parseInt(obj.playerID) === parseInt(player);
-                })[0];
+                console.log(entryAmount);
+                
+                if(globalPosition === "A") {
+                    researchPlayer = playerOnLeague.filter(function ( obj ) {
+                        return parseInt(obj.playerID) === parseInt(player);
+                    })[0];
+                    
+                } else {
+                                        
+                    researchPlayer = playerData[globalPosition].filter(function ( obj ) {
+                        return parseInt(obj.playerID) === parseInt(player);
+                    })[0];
+                    
+                    hideOnOffPlayerData(playerData[globalPosition],player,2);
+                }
 
                 $('#update-player-' + requestSlot).html(researchPlayer.playerName);
                 
@@ -745,12 +942,50 @@ app.Playerz = (function () {
         };
         
         var addPlayerStatic = function() {
-            $.each(playerData, function(i, v) {
-                if (parseInt(v.playerID) === parseInt(selectedPlayer)) {
-                    addPlayer(selectedPlayer,v.salary);
-                    return;
+            var player = $('#playerAddSolotBtn').attr('data-rel');
+            var salary = $('#playerAddSolotBtn').attr('data-salary');
+            
+            if(playerSlot[requestSlot] !== undefined) {
+                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
+                    
+                    console.log(playerSlot[requestSlot]);
+                    navigator.notification.confirm("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n선수를 교체하시겠습니까?", function (confirmed) {
+                       if (confirmed === true || confirmed === 1) {
+                           var oldPlayer = playerSlot[requestSlot];
+                           addPlayerProceed(player,salary,oldPlayer,requestSlot);
+                       } else {
+                           return false;
+                       }
+                    }, '알림', ['교체하기', '유지하기']);
+                    
+                    return false;
                 }
-            });
+            } else {
+                console.log("add more");
+                addPlayerProceed(player,salary,0,'');
+            }
+        }
+        
+        var addPlayerStaticUp = function() {
+            var player = $('#playerAddSolotBtn2').attr('data-rel');
+            var salary = $('#playerAddSolotBtn2').attr('data-salary');
+            
+            if(playerSlot[requestSlot] !== undefined) {
+                if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
+                    
+                    console.log(playerSlot[requestSlot]);
+                    navigator.notification.confirm("해당 슬롯에 등록된 선수를 교체하시겠습니까?", function (confirmed) {
+                       if (confirmed === true || confirmed === 1) {
+                           var oldPlayer = playerSlot[requestSlot];
+
+                            addPlayer4UpProceed(player, salary, oldPlayer, requestSlot);
+                       }
+                    }, '알림', ['교체하기', '유지하기']);
+                }
+            } else {
+                console.log("add more");
+                addPlayer4UpProceed(player,salary,0,'');
+            }
         }
         
         var checkSlot = function() {
@@ -764,6 +999,7 @@ app.Playerz = (function () {
                 }
             }
             
+            console.log(count);
             if(count === 8) {
                 $("#entryRegBtn").attr('data-rel','enable');
                 $('a#entryRegBtn').removeClass('disabled');
@@ -870,17 +1106,22 @@ app.Playerz = (function () {
             return returnValue;
         };
 
-        var setFinalUpdateEntry = function(contest, fee) {
+        var setFinalUpdateEntry = function(contest, entry) {
 
             if(contest === "") {
                 console.log("no contst");
                 return false;
             }
             
+            if(entry === "") {
+                console.log("no entry");
+                return false;
+            }
+            
             var param = '{"osType":' + init_apps.osType + 
                 ',"version":"' + init_apps.version + 
                 '","memSeq":' + uu_data.memSeq + 
-                ',"contestSeq":' + contest + 
+                ',"entrySeq":' + entry + 
                 ',"slot1":' + playerSlot.slot1 + 
                 ',"slot2":' + playerSlot.slot2 + 
                 ',"slot3":' + playerSlot.slot3 + 
@@ -897,36 +1138,32 @@ app.Playerz = (function () {
             $.ajax({
                 url: url,
                 type: "GET",
-                async: false,
                 dataType: "jsonp",
+                timeout: 3000,
                 jsonpCallback: "jsonCallback",
                 data: {
                     "type": "apps",
                     "id": "contestUpdateEntry",
                     "param":param
                 },
-               success: function(response) {
-                   
+                success: function(response) {
+
                     console.log(response);
 
                     if (response.code === 0) {
                         alert("엔트리가 수정되었습니다.");
                         //uu_data.cash -= fee;
                         entryAmount = 0;
-                        app.ObjControl.reloadContest('#po_entry_update','views/playView.html?tab=2');
+                        app.ObjControl.reloadContest('#po_entry_update','views/playView.html?tab=m');
                     } else {
                         app.showError(response.message);
                     }
-               },
-               complete: function() {
-                   navigator.splashscreen.hide();
-               },
-               error: function(e) {
-                   console.log(e);
-               }
+                },
+                error: function(e) {
+                    console.log(e);
+                }
            });  
            
-            return returnValue;
         };
         
         var uniform = function(js) {
@@ -983,22 +1220,22 @@ app.Playerz = (function () {
                     return 'jersey_west_ham.png';
                     break;
                 default:
-                    return 'jersey_queens_park_rangers';
+                    return 'jersey_queens_park_rangers.png';
             }
             
             // jersey_burnley_fc, jersey_hull_a_fc, jersey_queens_park_rangers
         }
         
         var record = function() {
-            app.showAlert("안내","서버스 준비중입니다.");
+            app.showAlert("서버스 준비중입니다.","안내");
         }
         
         var news = function() {
-            app.showAlert("안내","서버스 준비중입니다.");    
+            app.showAlert("서버스 준비중입니다.", "안내");    
         }
         
         var overPlayer = function() {
-            app.showAlert("안내","이 선수는 사용할 수 없습니다."); 
+            app.showAlert("이 선수는 사용할 수 없습니다.", "안내"); 
         }
         
         function tempCheckup() {
@@ -1027,10 +1264,13 @@ app.Playerz = (function () {
             playerInfo: playerInfo,
             playerList: playerList,
             detailView: detailView,
+            detailViewUp: detailViewUp,
             clearVariables: clearVariables,
             clearVariables2Update: clearVariables2Update,
             addPlayer:addPlayer,
+            addPlayer4Up: addPlayer4Up,
             addPlayerStatic: addPlayerStatic,
+            addPlayerStaticUp: addPlayerStaticUp,
             vwParam: vwParam,
             vwParam4update: vwParam4update,
             record: record,
@@ -1040,8 +1280,11 @@ app.Playerz = (function () {
             presetPlayer4up: presetPlayer4up,
             overPlayer:overPlayer,
             playerListSort: playerListSort,
+            playerListSort4up: playerListSort4up,
             tempCheckup: tempCheckup,
-            playerSlot: playerSlot
+            playerSlot: playerSlot,
+            playerAddInfo: playerAddInfo,
+            playerAddInfo2: playerAddInfo2
         };
     }());
 

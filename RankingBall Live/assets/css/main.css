@@ -2300,7 +2300,9 @@ span.ic-end {
 /* Progress Bar */
 .salarycap-gage {
     position: relative;
+    /*
     width: 100%;
+    */
     height: 22px;
     border: 0;
     background-color: #fff;
@@ -2415,7 +2417,7 @@ span.ic-end {
 }
 .entry-box-all .position-layout ol.fw .fw-ico {
     display: inline-block;
-    background: url(../resource/entry/ic_forward.png) center 12px no-repeat;
+    background: url(../resource/entry/ic_forward.png) center 10px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
@@ -2423,14 +2425,14 @@ span.ic-end {
 }
 .entry-box-all .position-layout ol.mf .mf-ico {
     display: inline-block;
-    background: url(../resource/entry/ic_midfielder.png) center 12px no-repeat;
+    background: url(../resource/entry/ic_midfielder.png) center 10px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
     vertical-align: middle;
 }
 .entry-box-all .position-layout ol.mf .dmf-ico {
-    background: url(../resource/entry/ic_DMF.png) center 12px no-repeat;
+    background: url(../resource/entry/ic_DMF.png) center 10px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
@@ -2438,7 +2440,7 @@ span.ic-end {
 
 .entry-box-all .position-layout ol.df .df-ico {
     display: inline-block;
-    background: url(../resource/entry/ic_defender.png) center 12px no-repeat;
+    background: url(../resource/entry/ic_defender.png) center 10px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
@@ -2446,7 +2448,7 @@ span.ic-end {
 }
 .entry-box-all .position-layout ol.gk .gk-ico {
     display: inline-block;
-    background: url(../resource/entry/ic_goalkeeper.png) center 12px no-repeat;
+    background: url(../resource/entry/ic_goalkeeper.png) center 10px no-repeat;
     background-size: contain;
     width: 50px;
     height: 100%;
@@ -2622,6 +2624,20 @@ ul.player_list_header li div {
     text-align: center;
 }
 
+
+/* guide */
+#popover_player_guide {
+    position: relative;
+    width: 220px;
+    margin: 0 auto;
+}
+#popover_player_guide .popover_guide_str {
+    position: absolute;
+    top:15px;
+    z-index: 2;
+    padding: 10px;
+    font-size: 0.8em;
+}
 
 
 
