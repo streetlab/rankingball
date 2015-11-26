@@ -35,8 +35,6 @@ app.Entry = (function () {
           
             if(entryMode === "ed") {
                 initEntryDataUpdate(contestNo);
-            } else {
-                initEntryData();
             }
             //initEntryData();
         }
@@ -57,7 +55,7 @@ app.Entry = (function () {
                 app.showError("잘못된 요청입니다.");
             }            
             
-            progressBar(entryAmount, $('.salarycap-gage'));
+            //progressBar(entryAmount, $('.salarycap-gage'));
         }
         
         function updateBar() {

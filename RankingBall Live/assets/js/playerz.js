@@ -23,13 +23,27 @@ app.Playerz = (function () {
         var paging = 0;
  
         
-        function init() {
+        function init(e) {
+            var param = e.view.params;
+            requestSlot = param.slot;
+            requestPosition = param.pos;
             
             sort_order = "asc";
             salaryLimit = 0;
             entryData = [];
+            paging = 1;
             
             progressBar(entryAmount, $('.salarycap-gage'));
+            
+            var preset = prePlayerList();
+            
+            if(preset) {
+                if(requestPosition) playerList(requestPosition);
+                else
+                console.log("Error : Request postion.");
+            } else {
+                console.log("Error : Player preset fail.");
+            }
         }
 
         function vwParam(e) {
@@ -43,11 +57,11 @@ app.Playerz = (function () {
             observableView();
             progressBar(entryAmount, $('.salarycap-gage'));
             
-            app.mobileApp.showLoading();
+            //app.mobileApp.showLoading();
             console.log(playerSlot);
             console.log(entryData);
             
-            commonInit(requestPosition);
+            playerList();
         }
         
         function commonInit(pos) {
@@ -146,7 +160,8 @@ app.Playerz = (function () {
                 app.showError("잘못된 선수 정보요청입니다.");
             }
         }
-        
+
+
         function detailView(e) {
             var param = e.view.params;
             selectedPlayer = param.player;
@@ -165,7 +180,6 @@ app.Playerz = (function () {
                     }
                 });
         }
-        
         
         function detailViewUp(e) {
             var param = e.view.params;
@@ -187,13 +201,33 @@ app.Playerz = (function () {
         }
         
         
+        function init4update(e) {
+            
+            var param = e.view.params;
+            requestSlot = param.slot;
+            requestPosition = param.pos;
+            
+            sort_order = "asc";
+            paging = 1;
+            
+            var preset = prePlayerList();
+            
+            if(preset) {
+                if(requestPosition) playerList(requestPosition);
+                else
+                console.log("Error : Request postion.");
+            } else {
+                console.log("Error : Player preset fail.");
+            }
+        }
+        
         function vwParam4update(e) {
             var param = e.view.params;
             requestSlot = param.slot;
             console.log(requestSlot);
             //if(requestPosition !== param.pos) {
                 requestPosition = param.pos;
-                commonInit(requestPosition);
+                //commonInit(requestPosition);
                 console.log(requestPosition);
                 playerList4up(requestPosition);
             //}
@@ -266,8 +300,7 @@ app.Playerz = (function () {
             
             playerList4up(requestPosition);
         }
-        
-        
+
         function playerListSort(e) {
              app.mobileApp.showLoading();
             
@@ -327,6 +360,7 @@ app.Playerz = (function () {
             
             playerList(requestPosition);
         }
+
         
         var playerList4up = function(p) {
             
@@ -338,7 +372,7 @@ app.Playerz = (function () {
                 app.mobileApp.navigate('#landing');
             }
            
-            app.mobileApp.showLoading();
+            //app.mobileApp.showLoading();
            
             $('#players_list4update').empty();              
                 
@@ -380,10 +414,7 @@ app.Playerz = (function () {
                     console.log("ERROR :");  
                 }
             }
-                
-            paging = 1;
-            
-            
+                            
             console.log(entryStatus, salaryLimit);
             
             var dataRange = parseInt(sortData.length / 10);
@@ -485,8 +516,6 @@ app.Playerz = (function () {
     
             //console.log(JSON.stringify(sortData ));
             
-            paging = 1;
-            
             var dataRange = parseInt(sortData.length / 10);
             var end;
             
@@ -569,8 +598,11 @@ app.Playerz = (function () {
                     playerData['M'].push(playerOnLeague[i]);
                 } else if (parseInt(playerOnLeague[i]['posType']) === 4) {
                     playerData['D'].push(playerOnLeague[i]);
-                } else {
+                } else if (parseInt(playerOnLeague[i]['posType']) === 8) {
                     playerData['G'].push(playerOnLeague[i]);
+                } else {
+                    console.log("Error: none position type"); 
+                    console.log(playerOnLeague[i]);
                 }
             }
             
@@ -1261,6 +1293,7 @@ app.Playerz = (function () {
         
         return {
             init: init,
+            init4update: init4update,
             playerInfo: playerInfo,
             playerList: playerList,
             detailView: detailView,

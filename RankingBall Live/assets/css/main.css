@@ -160,6 +160,7 @@ html, body
     }
 }
 
+
 #processing-message {
     text-align: center;
     font-size: 0.8em;
@@ -1760,6 +1761,7 @@ span.ic-end {
 #landing-menu .km-content
 {
     width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     background: url(../resource/main-menu/bg_main.png);
@@ -1769,7 +1771,6 @@ span.ic-end {
 }
 
 #landing-menu .box-menu-wrap {
-    position: fixed;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -1812,6 +1813,7 @@ span.ic-end {
 
 
 #landing-menu .box-menu-wrap .box-menu-grid .box-face {
+    position: relative;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -1820,6 +1822,7 @@ span.ic-end {
     background-position: center top;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    overflow: hidden;
     /*
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 5px;
@@ -1829,6 +1832,7 @@ span.ic-end {
     */
 }
 #landing-menu .box-menu-wrap .box-menu-grid .box-face-sm {
+    position: relative;
     width: 100%;
     height: 100%;
     margin: 0;
@@ -1837,6 +1841,7 @@ span.ic-end {
     background-position: center top;
     background-size: 100% 100%;
     background-repeat: no-repeat;
+    overflow: hidden;
 }
 .box-touch-oh {
     /*background: linear-gradient(rgba(0.0,0,0.75),rgba(0.0,0,0.75)), url(../resource/main-menu/main_bg_02.png);*/
@@ -1860,12 +1865,15 @@ span.ic-end {
     padding-top: 10%;
     width: 40%;
 }
-
+#landing-menu .box-menu-wrap .box-label-picto {
+    height: 85%;
+    vertical-align: middle;
+}
 #landing-menu .box-menu-wrap .box-label {
+    height: 15%;
     font-size: 1.2em;
     font-weight: 600;
     color: #fff;
-    padding-top: 45%;
 }
 #landing-menu .box-menu-wrap .box-label-sm {
     font-size: 1.1em;
@@ -1889,7 +1897,7 @@ span.ic-end {
 .animBlock[data-position="top-left"] { top: -35%; left: -35%; }
 .animBlock[data-position="top-right"] { top: -35%; right: -35%; }
 .animBlock[data-position="right"] { right: -35%; }
-.animBlock[data-position="bottom-left"] { right: -35%; bottom: -35%; }
+.animBlock[data-position="bottom-left"] { left: -35%; bottom: -35%; }
 .animBlock[data-position="bottom-right"] { right: -35%; bottom: -35%; }
 
 .animBlock[data-position="top-left"].viewed {

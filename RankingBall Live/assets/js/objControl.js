@@ -9,12 +9,13 @@ app.ObjControl = (function () {
     var $blocks;
     
     var objModel = (function () {
-        
-        
+         
         function init() {
             
             setTimeout(setMenuAnimate,300);
             
+            setTimeout(setMenuDecoration,500);
+
             $('.animBlock').kendoTouch({
                 tap: handleTouchEvent,
                 touchstart: handleTouchEvent,
@@ -24,9 +25,8 @@ app.ObjControl = (function () {
                 dragstart: handleTouchEvent,
                 dragend: handleTouchEvent
             });
-            
         }
-        
+     
         function setMenuAnimate() {
             $blocks = $('.animBlock.notViewed');
             $blocks.each(function(i, elem) {
@@ -35,7 +35,18 @@ app.ObjControl = (function () {
                 isScrolledIntoView($(this));
             });
         }
-         
+        
+        function setMenuDecoration() {
+            var menuGlu = $('.touch-filter');
+            menuGlu.each(function(i, elem) {
+                console.log(i + " : ");
+                console.log(elem);
+                console.log($(this));
+                var deco = '<div class="masker mask_' + $(this).attr('data-rel') + '"></div>';
+                $(this).append(deco);
+            });
+        }
+        
         function isScrolledIntoView(elem) {
             //var docViewTop = $(window).scrollTop();
             //var docViewBottom = docViewTop + $(window).height();
@@ -189,11 +200,9 @@ app.ObjControl = (function () {
                 if(contestListData[i]['myEntry'] === 1) 
                 {
                     
-                    if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
+                    if (contestListData[i]['featured'] === 1) {
                         contestMyPartList['cf'].push(contestListData[i]);
-                    }
-                    
-                    if (parseInt(contestListData[i]['contestType']) === 1) {
+                    } else if (parseInt(contestListData[i]['contestType']) === 1) {
                         contestMyPartList['c5'].push(contestListData[i]);
                     } else if (parseInt(contestListData[i]['contestType']) === 2) {
                         contestMyPartList['cg'].push(contestListData[i]);
@@ -212,7 +221,7 @@ app.ObjControl = (function () {
                     
                     if(contestListData[i]['contestStatus'] === 1) {
                         
-                        if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
+                        if (contestListData[i]['featured'] === 1) {
                             contestPartList['cf'].push(contestListData[i]);
                         } else if (parseInt(contestListData[i]['contestType']) === 1) {
                             contestPartList['c5'].push(contestListData[i]);
@@ -335,11 +344,9 @@ app.ObjControl = (function () {
                 if(contestListData[i]['myEntry'] === 1) 
                 {
                     
-                    if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
+                    if (contestListData[i]['featured'] === 1) {
                         contestMyPartList['cf'].push(contestListData[i]);
-                    }
-                    
-                    if (parseInt(contestListData[i]['contestType']) === 1) {
+                    } else if (parseInt(contestListData[i]['contestType']) === 1) {
                         contestMyPartList['c5'].push(contestListData[i]);
                     } else if (parseInt(contestListData[i]['contestType']) === 2) {
                         contestMyPartList['cg'].push(contestListData[i]);
@@ -358,11 +365,9 @@ app.ObjControl = (function () {
                     
                     if(contestListData[i]['contestStatus'] === 1) {
                         
-                        if (contestListData[i]['featured'] === 1 || contestListData[i]['guaranteed'] === 1) {
+                        if (contestListData[i]['featured'] === 1) {
                             contestPartList['cf'].push(contestListData[i]);
-                        }
-                        
-                        if (parseInt(contestListData[i]['contestType']) === 1) {
+                        } else if (parseInt(contestListData[i]['contestType']) === 1) {
                             contestPartList['c5'].push(contestListData[i]);
                         } else if (parseInt(contestListData[i]['contestType']) === 2) {
                             contestPartList['cg'].push(contestListData[i]);
