@@ -12,10 +12,13 @@ app.ObjControl = (function () {
          
         function init() {
             
-            setTimeout(setMenuAnimate,300);
-            
-            setTimeout(setMenuDecoration,500);
+            //setTimeout(setMenuAnimate,500);
+            //setMenuAnimate();
 
+            //setTimeout(setMenuDecoration,700);
+
+            //$('#m_profile').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', setMenuDecoration);
+            
             $('.animBlock').kendoTouch({
                 tap: handleTouchEvent,
                 touchstart: handleTouchEvent,
@@ -28,20 +31,19 @@ app.ObjControl = (function () {
         }
      
         function setMenuAnimate() {
-            $blocks = $('.animBlock.notViewed');
+            $blocks = $('.animBlocks.notViewed');
             $blocks.each(function(i, elem) {
-                if( $(this).hasClass('viewed') )
-                    return;    
-                isScrolledIntoView($(this));
+                if( $(this).hasClass('notViewed') ) {
+                    //$(this).addClass('animated bounceOutLeft');
+                }
+                //isScrolledIntoView($(this));
+                //setTimeout(isScrolledIntoView($(this)),1500);
             });
         }
         
         function setMenuDecoration() {
             var menuGlu = $('.touch-filter');
             menuGlu.each(function(i, elem) {
-                console.log(i + " : ");
-                console.log(elem);
-                console.log($(this));
                 var deco = '<div class="masker mask_' + $(this).attr('data-rel') + '"></div>';
                 $(this).append(deco);
             });
@@ -95,6 +97,10 @@ app.ObjControl = (function () {
         
         function launchProfile() {
             app.mobileApp.navigate('views/profileView.html', 'slide');
+        }
+        
+        function launchRT() {
+            app.mobileApp.navigate('views/playRTVu.html', 'slide');
         }
 
         
@@ -395,6 +401,7 @@ app.ObjControl = (function () {
             launchRecord: launchRecord,
             launchShop: launchShop,
             launchProfile: launchProfile,
+            launchRT: launchRT,
             reloadContest: reloadContest
         };
     }());

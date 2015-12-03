@@ -53,8 +53,15 @@ var observableView = function() {
 
 var openAppStore = function() {
     //var url = "market://details?id=com.streetlab.lb.soccer";
-    var url = "https://play.google.com/store/apps/details?id=com.streetlab.lb.soccer";
-    window.open(url, '_blank');
+    var url = "http://play.google.com/store/apps/details?id=com.streetlab.lb.soccer";
+    //window.open(url, '_blank');
+    
+    var location= window.location.href;
+    iab = window.open(url, '_top', 'location=yes');
+    iab.addEventListener('exit', function () {
+        window.location.href=location;
+    });
+    
 };
 
 var initAppService = {
@@ -62,25 +69,22 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.5";
+            that._app_version = "1.0.4";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
+            //that.ajaxVersionCheck("1.0.1");
         }
     },
     pluginGetVersion: function() {
         var that = this;
         cordova.getAppVersion(function(value ){ 
-            console.log("check value: " + value);
             that._app_version = value;
-                
             $waitUntil(
                 function () {
-                  console.log("checking app_version=" + that._app_version);
                   return that._app_version !== "";
                 },
                 function () {
-                    console.log("checking app_version=" + that._app_version);
                     that.ajaxVersionCheck(that._app_version);
                 }
             );
@@ -88,7 +92,7 @@ var initAppService = {
         });
     },
     ajaxVersionCheck: function(version) {
-        
+
         init_apps.version = version;
         
         var that = this;

@@ -10,7 +10,7 @@
 
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#po_entry_registration" data-transition="slide:right">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#:back" data-transition="slide:right">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -50,10 +50,10 @@
         <div id="do-popover-pos" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
             <div data-role="view" id="popover-play-vw">
                 <ul>
-                    <li><label id="orderLabelPosition" class="sortClass2">포지션</label> <a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label id="orderLabelPlayer" class="sortClass2">네임</label> <a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><label id="orderLabelSalary" class="sortClass2 sort-l">샐러리</label> <a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-click="app.Playerz.playerListSort"><label id="orderLabelPosition" data-align="left" class="sortClass2">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelPlayer" class="sortClass2">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelSalary" class="sortClass2 sort-l">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
                 </ul>
             </div>
         </div>

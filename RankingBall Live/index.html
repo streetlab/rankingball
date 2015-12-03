@@ -6,7 +6,9 @@
                 
         <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
         <link href="assets/css/main.css" rel="stylesheet" />
+        <link href="assets/css/animate.css" rel="stylesheet" />
         <link href="assets/css/deco.css" rel="stylesheet" />
+        <link href="assets/css/circular.css" rel="stylesheet" />
         
         <script src="cordova.js"></script>
         <script src="kendo/js/jquery.min.js"></script>
@@ -34,13 +36,12 @@
         
         <script src="assets/js/shop.js"></script>
 
-
     <body>
         <!--Laning View -->
         <div data-role="view" id="landing" data-stretch="true" data-model="app.Login">
             <div class="landing-screen">
                 <div id="start-game" class="landing-point">
-                   <a data-click="app.Login.joinGame" data-role="button"><img src="./assets/resource/landing/ic_gamestart.png" id="ppiki" /></a>
+                   <a id="launchBtnImg" data-click="app.Login.joinGame" data-role="button" class="animated infinite rubberBand"><img src="./assets/resource/landing/ic_gamestart.png" /></a>
                     <span>게임시작하기</span>
                 </div>
                 <div class="landing-bottom">    

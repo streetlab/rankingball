@@ -35,8 +35,8 @@ app.Playerz = (function () {
             
             progressBar(entryAmount, $('.salarycap-gage'));
             
-            var preset = prePlayerList();
-            
+            prePlayerList();
+/*
             if(preset) {
                 if(requestPosition) playerList(requestPosition);
                 else
@@ -44,6 +44,7 @@ app.Playerz = (function () {
             } else {
                 console.log("Error : Player preset fail.");
             }
+*/
         }
 
         function vwParam(e) {
@@ -55,13 +56,13 @@ app.Playerz = (function () {
             console.log(requestPosition + " : " + requestSlot);
                         
             observableView();
-            progressBar(entryAmount, $('.salarycap-gage'));
+            //progressBar(entryAmount, $('.salarycap-gage'));
             
             //app.mobileApp.showLoading();
             console.log(playerSlot);
             console.log(entryData);
             
-            playerList();
+            playerList(requestPosition);
         }
         
         function commonInit(pos) {
@@ -102,9 +103,20 @@ app.Playerz = (function () {
         }
         
         function progressBar(amount, $element) {
+            console.log("Player set salary cap with " + amount);
+            var percent = 0;
+            var progressBarWidth = 0;
             
-            var percent = amount / max_salarycap_amount * 100;
-            var progressBarWidth = percent * $element.width() / 100;
+            if(amount >= max_salarycap_amount) {
+                progressBarWidth = $element.width();
+            } else {
+                percent = amount / max_salarycap_amount * 100;
+                progressBarWidth = percent * $element.width() / 100;
+            }
+
+            
+            console.log($element);
+            console.log( $element.width() + " : " + progressBarWidth + " : " + percent );
             
             $element.find('div').animate({ width: progressBarWidth }, 500);
             $element.find('p').html("$" + numberFormat(amount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
@@ -213,7 +225,7 @@ app.Playerz = (function () {
             var preset = prePlayerList();
             
             if(preset) {
-                if(requestPosition) playerList(requestPosition);
+                if(requestPosition) playerList4up(requestPosition);
                 else
                 console.log("Error : Request postion.");
             } else {
@@ -678,11 +690,13 @@ app.Playerz = (function () {
                 }
                 
                 if(globalPosition === "A") {
-                    resetPlayerSalary(playerOnLeague,oldPlayer);   
+                    resetPlayerSalary(playerOnLeague,oldPlayer);
+                    hideOnOffPlayerData(playerData,oldPlayer,1);
                 } else {
-                    resetPlayerSalary(playerData[globalPosition],oldPlayer);   
+                    resetPlayerSalary(playerData[globalPosition],oldPlayer);
+                    hideOnOffPlayerData(playerData[globalPosition],oldPlayer,1);
                 }
-                             
+ 
             }            
             
             var tempAmount = entryAmount + parseInt(salary);
@@ -715,6 +729,8 @@ app.Playerz = (function () {
                         return parseInt(obj.playerID) === parseInt(player);
                     })[0];
                     
+                    hideOnOffPlayerData(playerData,player,2);
+                    
                 } else {
                                         
                     researchPlayer = playerData[globalPosition].filter(function ( obj ) {
@@ -727,9 +743,10 @@ app.Playerz = (function () {
                 $('#player-' + requestSlot).html(researchPlayer.playerName);
                 
                 progressBar(entryAmount, $('.salarycap-gage'));
-                
+                app.Entry.updateBar();
                 checkSlot();
-                app.mobileApp.navigate('#po_entry_registration','slide:right');
+                //app.mobileApp.navigate('#po_entry_registration','slide:right');
+                app.mobileApp.navigate('#:back');
             }
         }
         
@@ -890,6 +907,7 @@ app.Playerz = (function () {
                 $('#update-player-' + requestSlot).html(researchPlayer.playerName);
                 
                 progressBar(entryAmount, $('.salarycap-gage'));
+                app.Entry.updateBar();
                 
                 checkSlot4up();
                 app.mobileApp.navigate('#po_entry_update','slide:right');

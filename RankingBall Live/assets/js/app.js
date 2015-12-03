@@ -14,16 +14,18 @@ var app = (function (win) {
     };
 
     var showError = function(message) {
-        showAlert(message, 'Error occured');
+        showAlert(message, '이용안내');
     };
 
     win.addEventListener('error', function (e) {
         e.preventDefault();
         
         var message = e.message + "' from " + e.filename + ":" + e.lineno;
-        
-        showAlert(message, 'Error occured');
-
+        if(e.message === undefined || e.message === "undefined") {
+            console.log("Error occured : undefined " + e);
+        } else {
+            showAlert(message, 'Error occured');
+        }  
         return true;
     });
 

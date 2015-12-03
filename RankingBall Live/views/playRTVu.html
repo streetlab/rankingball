@@ -1,0 +1,94 @@
+<div
+    id="play_rt"
+    data-role="view" 
+    data-title="REAL TIME"
+    data-layout="main"
+    data-init="app.playRT.init"
+    data-transition="slide">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+                <img src="./assets/resource/btn_home.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+            
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-point">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn">
+                        <img src="assets/resource/btn_plus.png">
+                    </span>    
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn">
+                        <img src="assets/resource/btn_plus.png">
+                    </span>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contents-view">
+        <div class="srl-lmt-wrapper">
+            <div class="srl-lmt-container"></div>
+        </div>
+            
+        <div id="page">
+            <div class="progress-bar">
+                <canvas id="inactiveProgress" class="progress-inactive" height="275px" width="275px"></canvas>
+                <canvas id="activeProgress" class="progress-active"  height="275px" width="275px"></canvas>
+            <p>0%</p>
+            </div>
+            <div id="progressControllerContainer">
+            <input type="range" id="progressController" min="0" max="100" value="15" />
+            </div>
+        </div>
+        
+        <a data-role="button" data-click="initRadial;">start</a>
+    </div>
+</div>
+
+<script>
+$(function(){
+    
+    var radial = 0;
+    
+    var viewModel = kendo.observable({
+       arcVal: radial 
+    });
+    
+    kendo.bind($('#dialer'), viewModel);
+    
+    var $ppc = $('.progress-pie-chart'),
+    //percent = parseInt($ppc.data('percent')),
+    deg = 360*radial/100;
+    
+    console.log(radial);
+    
+    if (radial > 50) {
+        $ppc.addClass('gt-50');
+    }
+    
+    console.log(deg);
+    
+    
+    $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
+    $('.ppc-percents span').html(radial+'%');
+    
+    function initRadial() {
+        radial += 10;
+        deg = 360*radial/100;
+        $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
+    }
+});
+
+</script>

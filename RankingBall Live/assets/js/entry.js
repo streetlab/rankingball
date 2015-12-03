@@ -35,8 +35,11 @@ app.Entry = (function () {
           
             if(entryMode === "ed") {
                 initEntryDataUpdate(contestNo);
+            } else {
+                initEntryData();
             }
             //initEntryData();
+            //updateBar();
         }
         
         function updateInit(e) {
@@ -295,9 +298,20 @@ app.Entry = (function () {
         }
         
         function progressBar(amount, $element) {
-           
-            var percent = amount / max_salarycap_amount * 100;
-            var progressBarWidth = percent * $element.width() / 100;
+           console.log("Entry set salary cap with " + amount);
+            var percent = 0;
+            var progressBarWidth = 0;
+            
+            if(amount >= max_salarycap_amount) {
+                progressBarWidth = $element.width();
+            } else {
+                percent = amount / max_salarycap_amount * 100;
+                progressBarWidth = percent * $element.width() / 100;
+            }
+
+            
+            console.log($element);
+            console.log( $element.width() + " : " + progressBarWidth + " : " + percent );
             
             $element.find('div').animate({ width: progressBarWidth }, 500);
             $element.find('p').html("$" + numberFormat(amount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));

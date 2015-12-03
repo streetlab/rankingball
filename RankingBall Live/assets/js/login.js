@@ -190,7 +190,7 @@ app.Login = (function () {
                                setlocalStorage('appd', JSON.stringify(uu_data));
                                setlocalStorage('doLogin', true);
                                 setlocalStorage('push_wiz', init_apps.memUID);
-                               app.mobileApp.navigate('views/landingView.html', 'slide');
+                               app.mobileApp.navigate('views/landingVu.html', 'slide');
                            } else {
                                
                                 app.showAlert('[101] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
