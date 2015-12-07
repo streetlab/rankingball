@@ -174,7 +174,7 @@ var initAppService = {
                 }
                 else 
                 {
-                    that.initAppVersion();    
+                    that.initAppVersion();
                 }
             }
         });

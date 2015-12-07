@@ -3,8 +3,9 @@
     data-role="view" 
     data-title="REAL TIME"
     data-layout="main"
-    data-init="app.playRT.init"
-    data-transition="slide">
+    data-init="app.playRTS.init"
+    data-transition="slide"
+    data-stretch="true">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
@@ -17,13 +18,10 @@
             <span data-role="view-title"></span>
         </div>
             
-        <div class="property-mini-info">
+        <div class="property-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-point">
+                <div id="my-rtpoint" class="property-box bg-point">
                     <span class="amount_mini_ruby">123,456,789</span>
-                    <span class="proper-add-btn">
-                        <img src="assets/resource/btn_plus.png">
-                    </span>    
                 </div>
             </div>
             <div class="property-box-padding">
@@ -38,57 +36,121 @@
     </div>
 
     <div class="contents-view">
-        <div class="srl-lmt-wrapper">
-            <div class="srl-lmt-container"></div>
-        </div>
+        
+        <div id="liveScoreWidget">
             
-        <div id="page">
-            <div class="progress-bar">
-                <canvas id="inactiveProgress" class="progress-inactive" height="275px" width="275px"></canvas>
-                <canvas id="activeProgress" class="progress-active"  height="275px" width="275px"></canvas>
-            <p>0%</p>
-            </div>
-            <div id="progressControllerContainer">
-            <input type="range" id="progressController" min="0" max="100" value="15" />
-            </div>
         </div>
         
-        <a data-role="button" data-click="initRadial;">start</a>
+        
+        <div id="widgetController">
+            
+            <div id="point_area">
+                <span class="star full">☆</span>
+                <span class="star full">☆</span>
+                <span class="star">☆</span>
+                <span class="star">☆</span>
+                <span class="star">☆</span>
+            </div>
+            
+            <div id="controller_area">
+
+                <div id="progress-box">
+                    
+                        <div class="clc_box">
+                            <div class="clc_round">
+                                <a data-role="button" data-click="app.playRTS.rosa">
+                                    <div class="clc_btn">
+                                        <span id="clc_txt">GO</span>
+                                    </div>
+                                    
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div id="svg1" class="clc_marker">
+                            <div class="svgDiv">
+                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
+                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(42,96,68)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 219.523426322258px;"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="svg2" class="clc_marker">
+                            <div class="svgDiv">
+                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
+                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(242,242,10)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 155.84487613743px;"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="progress_bar" class=""></div>
+                </div>
+                
+                <div id="position-box">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                
+                <div id="controller-box">
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    중계화면
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    문자중계
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    선발선수
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    경기기록
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    맞대결
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    문팀순위
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+            
+            
+
+        
+        
+       
+        
     </div>
 </div>
 
-<script>
-$(function(){
-    
-    var radial = 0;
-    
-    var viewModel = kendo.observable({
-       arcVal: radial 
-    });
-    
-    kendo.bind($('#dialer'), viewModel);
-    
-    var $ppc = $('.progress-pie-chart'),
-    //percent = parseInt($ppc.data('percent')),
-    deg = 360*radial/100;
-    
-    console.log(radial);
-    
-    if (radial > 50) {
-        $ppc.addClass('gt-50');
-    }
-    
-    console.log(deg);
-    
-    
-    $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
-    $('.ppc-percents span').html(radial+'%');
-    
-    function initRadial() {
-        radial += 10;
-        deg = 360*radial/100;
-        $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
-    }
-});
 
-</script>

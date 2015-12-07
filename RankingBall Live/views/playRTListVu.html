@@ -1,9 +1,82 @@
-<!DOCTYPE html>
+<div
+    id="play_rtList"
+    data-role="view" 
+    data-title="REAL TIME"
+    data-layout="main"
+    data-transition="slide">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+                <img src="./assets/resource/btn_home.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+            
+        <div class="property-info">
+            <div class="property-box-padding">
+                <div id="my-rtpoint" class="property-box bg-point">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn">
+                        <img src="assets/resource/btn_plus.png">
+                    </span>    
+                </div>
+            </div>
+        </div>
+    </div>
 
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-    </body>
-</html>
+    <div class="contents-view">
+        
+        <div class="contest-match-list">
+            <div class="contest-match-group">
+                
+                <ul id="rtListBar" class="contest-inboxList">
+                    <li>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 21일</span> <span id="acco_rt1" class="collapse-btn"></span></a>
+                        <div id="rt_list1">
+                            <ul id="rt1" class="collapseInboxList">
+                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
+                                    <table>
+                                        <tr>
+                                            <td>[HOME]</td>
+                                            <td>11:00</td>
+                                            <td>[AWAY]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>선덜랜드</td>
+                                            <td><span>1</span> <span>경기종료</span> <span>0</span>
+                                            <td>맨체스UTD</td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 22일</span> <span id="acco_rt2" class="collapse-btn"></span></a>
+                        <div id="rt_list2">
+                            <ul id="rt2" class="collapseInboxList"></ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 23일</span> <span id="acco_rt3" class="collapse-btn"></span></a>
+                        <div id="rt_list3">
+                            <ul id="rt3" class="collapseInboxList"></ul>
+                        </div>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+        
+    </div>
+</div>

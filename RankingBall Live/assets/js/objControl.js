@@ -100,7 +100,7 @@ app.ObjControl = (function () {
         }
         
         function launchRT() {
-            app.mobileApp.navigate('views/playRTVu.html', 'slide');
+            app.mobileApp.navigate('views/playRTListVu.html', 'slide');
         }
 
         

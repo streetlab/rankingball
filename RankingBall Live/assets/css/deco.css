@@ -261,5 +261,168 @@
 
 
 
+#widgetController {
+    position: fixed;
+    z-index: 999;
+    bottom: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 170px;
+    background: #717171; /* Old browsers */
+    background: -moz-linear-gradient(top, #717171 0%, #111111 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #717171 0%,#111111 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #717171 0%,#111111 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
 
+#point_area {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+}
+#controller_area {
+    position: relative;
+    width: 100%;
+    height: 135px;
+    margin: 0;
+    padding: 0;
+}
 
+#progress-box {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: 120px;
+    height:120px;
+    z-index: 99;
+    margin: 0 0 0 -60px;
+    padding: 0;
+}
+
+.clc_box {
+    position: absolute;
+    z-index: 9;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;    
+}
+
+.clc_box .clc_round {
+    margin: 0 auto;
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    background: url(../resource/bg_second.png) 0 center no-repeat;
+    background-size: 100%;
+    text-align: center;
+}
+.clc_box .clc_round .clc_btn {
+    margin: 15px auto;
+    padding: 0;
+    width: 90px;
+    height: 90px;
+    background: url(../resource/bg_second_02.png) 0 center no-repeat;
+    background-size: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+.clc_box .clc_round .clc_btn span {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #fff;
+    line-height: 3.4em;
+    text-shadow: rgb(150, 150, 150) 1px 1px 1px, rgb(171, 168, 168) 1px 2px 1px;
+}
+#svg1 {
+    position: absolute;
+    z-index: 3;
+}
+#svg2 {
+    position: absolute;
+    z-index: 2;
+}
+.clc_marker {
+    display: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100px;
+}
+.clc_marker .svgDiv {
+    margin: 10px auto;
+    width: 100px;
+    height: 100px;
+}
+
+#progress_bar {
+    display: block;
+    margin: 0px auto;
+    padding: 10px 0;
+    width: 100px;
+    height: 100px;
+}
+
+#position-box {
+    position: absolute;
+    top: 3px;
+    left: 50%;
+    width: 148px;
+    height: 120px;
+    margin-left: -74px;
+    z-index: 55;
+    background: url(../resource/bg_second_03.png) 0 center no-repeat;
+    background-size: 100%;
+}
+
+#controller-box {
+    
+}
+#controller-box dl {
+    display: table;
+    width: 100%;
+    margin: 4px 0;
+    padding: 0;
+    background-color: rgba(0, 80, 124, 0.4);
+    background: rgba(0, 80, 124, 0.4);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+#controller-box dt,
+#controller-box dd {
+    display: table-cell;
+    position: relative;
+    width: 50%;
+    font-size: 0.9em;
+    color: #fff;
+}
+#controller-box dt {
+    text-align: left;
+}
+#controller-box dd {
+    text-align: right;
+}
+#controller-box dt .wc_btn {
+    width: 90px;
+    padding: 10px;
+}
+#controller-box dd .wc_btn {
+    width: 90px;
+    padding: 10px;
+}
+
+.star {
+    font-family: FontAwesome;
+    color: #ddd;
+    font-size: 1.6em;
+    position: relative;
+}
+.star.full:before {
+    text-shadow: 0 0 2px rgba(0,0,0,0.7);
+    color: #FDE16D;
+    content: '\2605'; /* Full star in UTF-8 */
+    position: absolute;
+    left: 0;
+}
