@@ -1,9 +1,212 @@
-<!DOCTYPE html>
+<div
+    id="play_rt_result"
+    data-role="view" 
+    data-title="REAL TIME"
+    data-layout="main"
+    data-init="app.playRTS.init_result"
+    data-transition="slide"
+    data-stretch="true">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+                <img src="./assets/resource/btn_home.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+            
+        <div class="property-info">
+            <div class="property-box-padding">
+                <div id="my-rtpoint" class="property-box bg-point">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                </div>
+            </div>
+            <div class="property-box-padding">
+                <div id="my-ruby" class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="proper-add-btn">
+                        <img src="assets/resource/btn_plus.png">
+                    </span>    
+                </div>
+            </div>
+        </div>
+    </div>
 
-<html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-    </body>
-</html>
+    <div class="contents-view">
+        
+        <div id="rtResult" class="">
+            
+            <div>플레이 결과 확인</div>
+            <div class="rt_result_summary">
+                <table>
+                    <tr>
+                        <td>총시도 횟수</td>
+                        <td>성공 횟수</td>
+                        <td>성공 확률</td>
+                    </tr>
+                    <tr>
+                        <td>10회</td>
+                        <td>1회</td>
+                        <td>10%</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>경기 시간</td>
+                        <td>득점 현황</td>
+                        <td>예측 결과</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>11:00</td>
+                        <td>득점</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>10:59</td>
+                        <td></td>
+                        <td>성공(10:59)</td>
+                    </tr>
+                    <tr>
+                        <td>14:07</td>
+                        <td></td>
+                        <td>실패(14:11)</td>
+                    </tr>
+                    <tr>
+                        <td>18:23</td>
+                        <td></td>
+                        <td>실패(18:20)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+        </div>
+        
+        
+        <div id="widgetController">
+            
+            <div id="point_area">
+                <div class="star-fill">
+                    <div class="star-tab">
+                        <span class="star full">☆</span>
+                    </div>
+                    <div class="star-tab">
+                        <span class="star full">☆</span>
+                    </div>
+                    <div class="star-tab">
+                        <span class="star">☆</span>
+                    </div>
+                    <div class="star-tab">
+                        <span class="star">☆</span>
+                    </div>
+                    <div class="star-tab">
+                        <span class="star">☆</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="controller_area">
+
+                <div id="progress-box">
+                    
+                        <div class="clc_box">
+                            <div class="clc_round">
+                                <a data-role="button" data-click="app.playRTS.rosa">
+                                    <div class="clc_btn">
+                                        
+                                    </div>
+                                    
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div id="svg1" class="clc_marker">
+                            <div class="svgDiv">
+                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
+                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(42,96,68)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 219.523426322258px;"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div id="svg2" class="clc_marker">
+                            <div class="svgDiv">
+                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
+                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(242,242,10)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 155.84487613743px;"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div id="progress_bar" class=""></div>
+                </div>
+                
+                <div id="position-box">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                
+                <div id="controller-box">
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    중계화면
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    문자중계
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    선발선수
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    경기기록
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                    <dl class="controller-box-menu">
+                        <dt>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    맞대결
+                                </div>
+                            </a>
+                        </dt>
+                        <dd>
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div class="wc_btn">
+                                    문팀순위
+                                </div>
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+            
+        
+    </div>
+</div>

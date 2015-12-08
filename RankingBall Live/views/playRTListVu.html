@@ -40,22 +40,56 @@
                 
                 <ul id="rtListBar" class="contest-inboxList">
                     <li>
-                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 21일</span> <span id="acco_rt1" class="collapse-btn"></span></a>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 21일</span> <span id="acco_rt1" class="collapse-btn ico-open"></span></a>
                         <div id="rt_list1">
-                            <ul id="rt1" class="collapseInboxList">
+                            <ul id="rt1" class="collapseRTList">
+                                <li data-role="button" data-val="999" data-click="app.playRTS.playRTResult">
+                                    <div class="rt-games-row">
+                                        <div class="rt-games-label rt-list-home font-red">
+                                            <span>[HOME]</span>
+                                        </div>
+                                        <div class="rt-games-label rt-list-info">
+                                            <span>11:00</span>
+                                        </div>
+                                        <div class="rt-games-label rt-list-away font-cyan">
+                                            <span>[AWAY]</span>
+                                        </div>
+                                    </div>
+                                    <div class="rt-games-row">
+                                        <div class="rt-games-data rt-list-home">
+                                            <span>선덜랜드</span>
+                                        </div>
+                                        <div class="rt-games-data rt-list-info">
+                                            <span>1</span> <span class="rt-status-badge rt-off">경기종료</span> <span>0</span>
+                                        </div>
+                                        <div class="rt-games-data rt-list-away">
+                                            <span>맨체스UTD</span>
+                                        </div>
+                                    </div>
+                                </li>
                                 <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <table>
-                                        <tr>
-                                            <td>[HOME]</td>
-                                            <td>11:00</td>
-                                            <td>[AWAY]</td>
-                                        </tr>
-                                        <tr>
-                                            <td>선덜랜드</td>
-                                            <td><span>1</span> <span>경기종료</span> <span>0</span>
-                                            <td>맨체스UTD</td>
-                                        </tr>
-                                    </table>
+                                    <div class="rt-games-row">
+                                        <div class="rt-games-label rt-list-home font-red">
+                                            <span>[HOME]</span>
+                                        </div>
+                                        <div class="rt-games-label rt-list-info">
+                                            <span>17:00</span>
+                                        </div>
+                                        <div class="rt-games-label rt-list-away font-cyan">
+                                            <span>[AWAY]</span>
+                                        </div>
+                                    </div>
+                                    <div class="rt-games-row">
+                                        <div class="rt-games-data rt-list-home">
+                                            <span>선덜랜드</span>
+                                        </div>
+                                        <div class="rt-games-data rt-list-info">
+                                            <span>2</span> <span class="rt-status-badge rt-on">경기중</span> <span>3</span>
+                                        </div>
+                                        <div class="rt-games-data rt-list-away">
+                                            <span>맨체스UTD</span>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
