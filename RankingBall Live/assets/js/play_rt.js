@@ -1,3 +1,4 @@
+
 /**
  * Real Time Service model
  */
@@ -22,9 +23,21 @@ app.playRTS = (function () {
             to: { color: startColor }
         };
         
-        var clc, reactCLC;
+        var clc, reactCLC, sparkle;
+        
+        
+        var vr_timer;
+        var vr_point = 1000;
+        var vr_minutes = 900000;
+        var vr_minute_val = 0;
+        var vr_predict_count = 0;
+        var vr_predict_right = 0;
+        var vr_star = 0;
                 
         function init() {
+            
+            observableView();
+            $('.amount_mini_point').html(numberFormat(vr_point));
             
             var element = document.getElementById('progress_bar');
             $('.clc_btn').append('<span id="clc_txt">GO</span>');
@@ -39,7 +52,87 @@ app.playRTS = (function () {
                 }
             });
         }
+        
+        function rt_init() {
+            observableView();
+            $('.amount_mini_point').html(numberFormat(vr_point));
+        }
+        
+        function init_result() {
+            observableView();
+            $('.amount_mini_point').html(numberFormat(vr_point));
+        }
+        
+        function loadRTs() {
+            $('.amount_mini_point').html(numberFormat(vr_point));
+            vr_timer = setInterval(checkFeverTime,60000);
+        }
 
+        function checkFeverTime() {
+            ++vr_minute_val;
+            if(!activePrediction) {
+                if(vr_minute_val === 5 || vr_minute_val === 40 || vr_minute_val === 50 || vr_minute_val === 85) {
+                    ani();
+                }
+            }
+        }
+        
+        $('#result_effect').one('webkitAnimationEnd animationend', markingStart);
+        
+        function markingStart() {
+            
+            $('#prediction_message')
+                .empty()
+                .addClass('hide'); 
+            $('#position-box-yahoo').addClass('hide');
+        }
+        
+        function prediction_process() {
+            
+            if(activePrediction) reactResult();
+            
+            var randomNumber = Math.random() >= 0.5;
+                       
+            var predictDiv = "";
+            
+            if(randomNumber) {
+                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/good.png"></div>';
+                ++vr_predict_count;
+                ++vr_predict_right;
+                ++vr_star;
+                
+                $('#stars_ani_' + vr_star).append('<div class="star_ani"></div>');
+                
+                setTimeout(function() {
+                    $('#stars_ani_' + vr_star).children('div').remove();
+                    $('#start_pos_' + vr_star).addClass('full');
+                    }, 2000);
+                
+                if(vr_star === 5) {
+                    predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/perfect.png"></div>';
+                    setTimeout(function() {
+                        app.showAlert('별 다섯개를 모아서 500 포인트를 획득하셨습니다.','안내',function() {
+                            vr_point += 500;
+                            $('.amount_mini_point').html(numberFormat(vr_point));
+                            $.each('.star', function(k,v) {
+                                $(this).removeClass('full');
+                            });
+                        });
+                    }, 2000);
+                }
+                
+                $('#position-box-yahoo').removeClass('hide');
+            } else {
+                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/fail.png"></div>';
+            }
+            
+            $('#prediction_message')
+                .append(predictDiv)
+                .removeClass('hide');
+            
+            setTimeout(markingStart, 5000);
+        }
+        
         function reactResult() {
             window.clearInterval(reactCLC);
             clc.animate(0, opts);
@@ -51,9 +144,10 @@ app.playRTS = (function () {
             
             $('.clc_btn').empty();
             $('.clc_btn').append('<span id="clc_txt">GO</span>');
-            //$('#clc_txt').html('GO');
             $('.clc_marker').hide();
             activePrediction = false;
+            
+            $('#prediction_sub_effect').empty().addClass('hide');
         }
         
         function predictionCheck() {
@@ -68,15 +162,28 @@ app.playRTS = (function () {
                 return false;   
             }
             
+            vr_point -= 50;
+            
+            if(vr_point < 0) {
+                vr_point = 0;
+                app.showError("포인트가 부족해서 실행할 수 없습니다.");
+                return false;  
+            }
+            
+            
             activePrediction = true;
             var loop = 0;
+            
+            $('#prediction_sub_effect').append('<div class="rt_txt_effect_fade animated slideOutUp">-50</div>').removeClass('hide');
+            
+            $('.amount_mini_point').html(numberFormat(vr_point));
             
             $('.clc_btn').empty();
             $('.clc_btn').append('<span id="clc_number" class="animated infinite tada"></span>');
             
             reactCLC = setInterval(function() {
                 //var second = new Date().getSeconds();
-                
+                var clooTime = 0;
                 if( ++loop > maxCirclePosition ) {
                     reactResult();
                 } else {
@@ -89,9 +196,9 @@ app.playRTS = (function () {
                             }, function() {
                             console.log( loop + " : " + circlePosition );
                             //clc.setText('');
-                            var clooTime = maxCirclePosition - loop;
-                            if(clooTime > 10) {
-                                $('#clc_number').html("...");
+                            clooTime = 120 - (loop - 15);
+                            if(loop > 134) {
+                                prediction_process();
                             } else {
                                 $('#clc_number').html(clooTime);
                             }
@@ -105,30 +212,46 @@ app.playRTS = (function () {
                                 to: { color: endColor }
                             };
                             
+                            clooTime = 10 - (loop - 6);
+                        } else {
+                            clooTime = 5 - (loop - 1);
                         }
                         
                         circlePosition += 0.025333333;
                         clc.animate(circlePosition, opts, function() {
                             console.log( loop + " : " + circlePosition );
                             //clc.setText(loop);
-                            $('#clc_number').html(loop);
+                            
+                            $('#clc_number').html(clooTime);
                         });
                     }
                 }
             }, 1000);
         }
+       
         
-        function rosa2() {
-            clc.animate(1, opts);
-        }
-
-
+        
         function playRTResult() {
-            app.mobileApp.navigate('views/playRTResultVu.html', 'slide');
+
+            app.mobileApp.showLoading();
+            setTimeout(function() {
+                app.mobileApp.navigate('views/playRTResultVu.html', 'slide');
+                app.mobileApp.hideLoading();
+                }
+                ,300);
         }
         
         function nowPlayRT() {
-            app.mobileApp.navigate('views/playRTVu.html', 'slide');
+            
+            $("#moadl_loading").data("kendoMobileModalView").open();
+            $("#moadl_loading").children('.km-content').addClass('opacity_zero');
+                        
+            setTimeout(function() {
+                app.mobileApp.navigate('views/playRTVu.html', 'slide');
+                $("#moadl_loading").data("kendoMobileModalView").close();
+                }
+                ,1000);
+            
         }
         
         function ani() {
@@ -139,7 +262,8 @@ app.playRTS = (function () {
                 count: 80,
                 color: ["#ff0080","#ff0080","#0000FF"]
             });
-                      
+            
+            setTimeout(onTap,8000);
         }        
 
         $.fn.sparkleh = function( options ) {
@@ -153,7 +277,7 @@ app.playRTS = (function () {
                     overlap: 0,
                     speed: 1
                     }, options );
-                var sparkle = new Sparkle( $this, settings );
+                sparkle = new Sparkle( $this, settings );
                 sparkle.over();
             });
         }
@@ -304,16 +428,34 @@ app.playRTS = (function () {
         
         
         function onTap() {
+            sparkle.out();
             $("#ya").data("kendoMobileModalView").close();
+        }
+        
+        function confirmBack() {
+            
+            if(activePrediction) {
+                app.showError("골 예측 중에는 나올 수 없습니다.");
+                return false;   
+            }
+            
+            navigator.notification.confirm("경기를 나오시겠습니까?", function (confirmed) {
+               if (confirmed === true || confirmed === 1) {
+                   app.mobileApp.navigate('#:back', 'slide');
+               }
+            }, '알림', ['확인', '취소']);
         }
         
         return {
             init: init,
+            rt_init: rt_init,
+            init_result: init_result,
             rosa: rosa,
             nowPlayRT: nowPlayRT,
             ani: ani,
             playRTResult: playRTResult,
-            onTap: onTap
+            onTap: onTap,
+            confirmBack: confirmBack
         };
         
     }());

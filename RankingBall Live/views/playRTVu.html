@@ -9,8 +9,8 @@
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
-                <img src="./assets/resource/btn_home.png">
+            <a class="drawer-btn" data-align="left" data-role="button" data-click="app.playRTS.confirmBack">
+                <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
                 <img src="./assets/resource/btn_help.png">
@@ -21,7 +21,7 @@
         <div class="property-info">
             <div class="property-box-padding">
                 <div id="my-rtpoint" class="property-box bg-point">
-                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="amount_mini_point">123,456,789</span>
                 </div>
             </div>
             <div class="property-box-padding">
@@ -35,10 +35,10 @@
         </div>
     </div>
 
-    <div class="contents-view">
+    <div class="contents-rt-view">
         
         <div id="liveScoreWidget">
-            <a data-role="button" data-click="app.playRTS.ani">ani</a>
+            
         </div>
         
         
@@ -46,27 +46,44 @@
             
             <div id="point_area">
                 <div class="star-fill">
-                    <div class="star-tab">
-                        <span class="star full">☆</span>
+                    <div id="stars_ani_1" class="star-tab">
+                        <span id="start_pos_1" class="star">☆</span>
                     </div>
-                    <div class="star-tab">
-                        <span class="star full">☆</span>
+                    <div id="stars_ani_2" class="star-tab">
+                        <span id="start_pos_2" class="star">☆</span>
                     </div>
-                    <div class="star-tab">
-                        <span class="star">☆</span>
+                    <div id="stars_ani_3" class="star-tab">
+                        <span id="start_pos_3" class="star">☆</span>
                     </div>
-                    <div class="star-tab">
-                        <span class="star">☆</span>
+                    <div id="stars_ani_4" class="star-tab">
+                        <span id="start_pos_4" class="star">☆</span>
                     </div>
-                    <div class="star-tab">
-                        <span class="star">☆</span>
+                    <div id="stars_ani_5" class="star-tab">
+                        <span id="start_pos_5" class="star">☆</span>
                     </div>
                 </div>
             </div>
             
             <div id="controller_area">
-
+                <div id="position-box-yahoo" class="hide">
+                    <div class="roate_star"></div>
+                </div>
+                <div id="rt_prediction_message" class="rt_common_messagebox">
+                </div>
+                
+                <div id="rt_prediction" class="rt_predict_effects">
+                    <div class="rt_predict_effect_stars_lr top"></div>
+                    <div class="rt_predict_effect_stars_tb right"></div>
+                    <div class="rt_predict_effect_stars_lr bottom"></div>
+                    <div class="rt_predict_effect_stars_tb left"></div>
+                </div>
+                
                 <div id="progress-box">
+                        
+                        <div id="prediction_message" class="hide rt_predict_result_message">
+                        </div>
+                        <div id="prediction_sub_effect" class="hide rt_predict_sub_effect">
+                        </div>
                     
                         <div class="clc_box">
                             <div class="clc_round">
@@ -160,32 +177,11 @@
     </div>
 </div>
 
-<div data-role="modalview" id="ya" data-modal="false">
-    <div class="ani_body" data-role="touch" data-tap="onTap">
-        
-        <div class="stage">
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
-            <div class="layer"></div>
+<div data-role="modalview" id="ya" data-modal="false" style="width:100%;height:100%">
+    <div id="ya_sparkle" class="ani_body" data-role="touch" data-tap="onTap">
+        <div class="fever_box">
+            <div class="fever_image animated pulse"><img src="./assets/resource/rt/fever_time.png"></div>
+            <p>피버 타임이 발동했어요!<br>피버 타임이 발동하는 사이에 예측을 성공하면 더 높은 점수를 획득할 수 있어요.</p>
         </div>
-        
-        
     </div>
 </div>

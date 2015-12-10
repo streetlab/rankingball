@@ -202,6 +202,12 @@ app.Signup = (function () {
                 } else {
                     $signupBtnWrp.addClass('disabled');
                 }
+                return true;
+            });
+            
+            $formFields.on('focus', function() {
+                console.log("scroll");
+                $('#toScrollDiv').data("kendoMobileScroller").animatedScrollTo(0,-150);
             });
         }
 
@@ -223,7 +229,19 @@ app.Signup = (function () {
             var selected = sel.options[sel.selectedIndex].value;
             sel.style.color = (selected === 0) ? '#b6c5c6' : '#34495e';
         }
-
+        /*
+        $('#signupUsername').on('focus',function() {
+            var input = $(this);
+            setTimeout(function() { input.select();});
+            console.log("scroll");
+             //app.mobileApp.data("kendoMobileScroller").animatedScrollTo(0,-200;
+            $('#signupConfirm').animate( {
+                scrollTop: $(window).scrollTop() + 100
+            });
+        }).focusout(function() {
+             app.mobileApp.scroller().reset();
+        });
+        */
         return {
             init: init,
             show: show,

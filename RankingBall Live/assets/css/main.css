@@ -579,7 +579,10 @@ html, body
     width: 100%;
 }
 
-
+.signup-field {
+    padding: 3px;
+    border-color: #a0a0a0;
+}
 
 /* Lobby */
 #lobby-home
@@ -984,6 +987,10 @@ html, body
     width: 14px;
     /* customizing 4 Android */
     margin-bottom: -2px;
+}
+
+.amount_mini_point {
+  color: #00c0ff;
 }
 
 

@@ -3,6 +3,7 @@
     data-role="view" 
     data-title="REAL TIME"
     data-layout="main"
+    data-init="app.playRTS.rt_init"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
@@ -19,7 +20,7 @@
         <div class="property-info">
             <div class="property-box-padding">
                 <div id="my-rtpoint" class="property-box bg-point">
-                    <span class="amount_mini_ruby">123,456,789</span>
+                    <span class="amount_mini_point">123,456,789</span>
                 </div>
             </div>
             <div class="property-box-padding">
@@ -40,7 +41,7 @@
                 
                 <ul id="rtListBar" class="contest-inboxList">
                     <li>
-                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 21일</span> <span id="acco_rt1" class="collapse-btn ico-open"></span></a>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button"><span>13라운드 11월 21일</span> <span id="acco_rt1" class="collapse-btn ico-open"></span></a>
                         <div id="rt_list1">
                             <ul id="rt1" class="collapseRTList">
                                 <li data-role="button" data-val="999" data-click="app.playRTS.playRTResult">
@@ -95,13 +96,13 @@
                         </div>
                     </li>
                     <li>
-                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 22일</span> <span id="acco_rt2" class="collapse-btn"></span></a>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button"><span>13라운드 11월 22일</span> <span id="acco_rt2" class="collapse-btn"></span></a>
                         <div id="rt_list2">
                             <ul id="rt2" class="collapseInboxList"></ul>
                         </div>
                     </li>
                     <li>
-                        <a id="accoList_rt" class="btn-match-lead" data-role="button" data-click="" data-rel=""><span>13라운드 11월 23일</span> <span id="acco_rt3" class="collapse-btn"></span></a>
+                        <a id="accoList_rt" class="btn-match-lead" data-role="button"><span>13라운드 11월 23일</span> <span id="acco_rt3" class="collapse-btn"></span></a>
                         <div id="rt_list3">
                             <ul id="rt3" class="collapseInboxList"></ul>
                         </div>
@@ -112,5 +113,12 @@
             </div>
         </div>
         
+    </div>
+</div>
+
+<div data-role="modalview" id="moadl_loading" data-modal="false">
+    <div class="loading_enter">
+        <div class="loading_enter_bar"></div>
+        <div class="loading_enter_txt">경기에 입장중입니다..</div>
     </div>
 </div>
