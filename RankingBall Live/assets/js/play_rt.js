@@ -96,7 +96,7 @@ app.playRTS = (function () {
             var predictDiv = "";
             
             if(randomNumber) {
-                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/good.png"></div>';
+                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/great.png"></div>';
                 ++vr_predict_count;
                 ++vr_predict_right;
                 ++vr_star;

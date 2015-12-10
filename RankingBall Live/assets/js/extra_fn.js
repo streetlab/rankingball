@@ -69,11 +69,10 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.4";
+            that._app_version = "1.0.6";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
-            //that.ajaxVersionCheck("1.0.1");
         }
     },
     pluginGetVersion: function() {
