@@ -25,7 +25,7 @@ app.playRTS = (function () {
         
         var clc, reactCLC, sparkle;
         
-        
+        var swiper;
         var vr_timer;
         var vr_point = 1000;
         var vr_minutes = 900000;
@@ -38,6 +38,21 @@ app.playRTS = (function () {
             
             observableView();
             $('.amount_mini_point').html(numberFormat(vr_point));
+            
+            swiper = new Swipe(document.getElementById('sliderz'), {
+                startSlide: 0,
+                speed: 400,
+                auto: 3000,
+                continuous: false,
+                disableScroll: false,
+                stopPropagation: false,
+                callback: function(index, elem) {},
+                transitionEnd: function(index, elem) {
+                    console.log(index, elem);
+                    $('.wc_btn').removeClass('swc');
+                    $('#swipeBtn' + index).addClass('swc');
+                }
+            });
             
             var element = document.getElementById('progress_bar');
             $('.clc_btn').append('<span id="clc_txt">GO</span>');
@@ -68,6 +83,12 @@ app.playRTS = (function () {
             vr_timer = setInterval(checkFeverTime,60000);
         }
 
+        function swipeSlide(e) {
+            var data = e.button.data();
+            console.log(data.rel);
+            swiper.slide(data.rel, 300);
+        }
+        
         function checkFeverTime() {
             ++vr_minute_val;
             if(!activePrediction) {
@@ -446,6 +467,21 @@ app.playRTS = (function () {
             }, '알림', ['확인', '취소']);
         }
         
+        var collapseList = function(e) {
+            var data = e.button.data();
+            console.log(data.rel);
+            var els_this = $('#accoList_rt_' + data.rel);
+            var els_ul = $('#rt' + data.rel);
+            els_ul.slideToggle( "2500", "swing", function() {
+                        if(els_ul.is(":visible")) {
+                            els_this.find('span.collapse-btn').addClass('ico-open');
+                        } else {
+                            els_this.find('span.collapse-btn').removeClass('ico-open');
+                        }
+                    }
+                );
+        };
+        
         return {
             init: init,
             rt_init: rt_init,
@@ -455,7 +491,9 @@ app.playRTS = (function () {
             ani: ani,
             playRTResult: playRTResult,
             onTap: onTap,
-            confirmBack: confirmBack
+            confirmBack: confirmBack,
+            swipeSlide: swipeSlide,
+            collapseList: collapseList
         };
         
     }());

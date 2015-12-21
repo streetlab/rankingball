@@ -28,7 +28,7 @@ var playerData = []; // entry 설정용
 var playerListData = [];
 
 var entryAmount = 0;
-var max_salarycap_amount = 30000;
+var max_salarycap_amount = 50000;
 
 var playerData4up = [];
 
@@ -69,7 +69,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.6";
+            that._app_version = "1.0.7";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
@@ -97,6 +97,8 @@ var initAppService = {
         var that = this;
         var param = '{"osType":' + init_apps.osType + ',"version":"' + version + '"}';
         
+        console.log("ajax version check : " + param);
+        
         $.ajax({
             url: "http://m3.liveball.kr:8080/rankBall/query.frz?callback=?",
             type: "GET",
@@ -109,7 +111,7 @@ var initAppService = {
                 "param":param
             },
             success: function(response) {
-
+                
                 if (response.code === 0) {
                     var inits = response.data;
                     init_data = {
@@ -145,6 +147,7 @@ var initAppService = {
                         }
                         else 
                         {
+                            console.log("ajax recall initAppVersion : 111");
                             that.initAppVersion();    
                         }
                     } else {
@@ -160,6 +163,7 @@ var initAppService = {
                     }
                     else 
                     {
+                        console.log("ajax recall initAppVersion : 112");
                         that.initAppVersion();    
                     }
                 }
@@ -173,6 +177,7 @@ var initAppService = {
                 }
                 else 
                 {
+                    console.log("ajax recall initAppVersion : 113");
                     that.initAppVersion();
                 }
             }
@@ -183,6 +188,7 @@ var initAppService = {
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","deviceID":"' + init_apps.deviceID + '"}';
             var url = init_data.auth + "?callback=?";
             
+            console.log("ajax appDeviceCheck check : " + param);
             
             $.ajax({
                 url: url,
@@ -196,6 +202,8 @@ var initAppService = {
                     "param":param
                 },
                success: function(response) {
+                   
+                   console.log(response);
                    if (response.code === 0) {
                        globalRequestTry = 0;
                        uu_data = response.data;
@@ -205,6 +213,8 @@ var initAppService = {
                        $('#processing-message').removeClass('hide');
                        navigator.splashscreen.hide();
                        app.Login.loginAutoim('');
+                   } else {
+                       navigator.splashscreen.hide();
                    }
                },
                error: function(e) {

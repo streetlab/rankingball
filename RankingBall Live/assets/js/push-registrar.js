@@ -12,7 +12,7 @@ app.PushRegistrar = (function () {
 
     var _processPushMessage = function (message, date) {
         //alert(date + " : " + message);
-        console.log(""+message);
+        console.log(date+""+message);
     };
 
     var onAndroidPushReceived = function (e) {

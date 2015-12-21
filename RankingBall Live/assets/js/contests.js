@@ -242,45 +242,8 @@ app.Contests = (function () {
                 }, '알림', ['확인', '취소']);
 
             } else {
-                if( parseInt(checkedData.entryFee) > parseInt(uu_data.cash) ) {
-                    navigator.notification.confirm(errorMessage.game_cash, function (confirmed) {
-                       if (confirmed === true || confirmed === 1) {
-                           pageTransition('views/shopView.html');
-                           $("#mv_play_list").data("kendoMobileView").destroy();
-                       } else {
-                           closeModal();
-                       }
-                    }, '알림', ['충전하기', '나가기']);
-
-                } else {
-                    
-                    console.log(joinMatchNo + " : " + JSON.stringify(checkedData));
-                    
-                    var confirmMessage;
-                    if(checkedData.entryFee === 0) {       
-                        
-                        app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
-                        closeModal();
-                    } else {
-                        confirmMessage = "해당 경기에 참여 시 " + numberFormat(checkedData.entryFee) + "의 입장료가 소모됩니다.\n\n경기에 참여하시겠습니까?";
-                        navigator.notification.confirm(confirmMessage, function (confirmed) {
-                           if (confirmed === true || confirmed === 1) {
-                                
-                                app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
-                               closeModal();
-                           } else {
-                               closeModal();
-                           }
-                        }, '알림', ['확인', '취소']);
-                    }
-                    
-                    
-                    //app.Entry.initEntryData();
-                    //closeModal();
-                    //app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
-                }
-                
-
+                app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
+                closeModal();
             }
             
 

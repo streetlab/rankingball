@@ -185,6 +185,8 @@ app.Login = (function () {
                             "param":param
                         },
                        success: function(response) {
+                           console.log("auto login" + param);
+                           console.log(response);
                            if (response.code === 0) {
                                uu_data = response.data;
                                setlocalStorage('appd', JSON.stringify(uu_data));

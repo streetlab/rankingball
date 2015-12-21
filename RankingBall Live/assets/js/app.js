@@ -73,19 +73,27 @@ var app = (function (win) {
     var onDeviceReady = function() {
         //StatusBar.overlaysWebView(false);
                 
+        
+        console.log("device check strat");
+        
         navigator.splashscreen.show();
         
         StatusBar.hide();
         
         var locUID = getlocalStorage('push_wiz');
-        if( getlocalStorage('push_wiz') ) {
-            init_apps.memUID = locUID;    
+        if( locUID && locUID !== 'undefined' ) {
+            init_apps.memUID = locUID; 
+            console.log("push load from localstorage : " + init_apps.memUID);  
         } else {
             app.PushRegistrar.enablePushNotifications();
+            console.log("push init!");
         }
-                
+        
+        
         init_apps.deviceID = device.uuid;
         initAppService.initAppVersion();
+        
+        
         
         /*
         setTimeout(function() {

@@ -161,7 +161,7 @@ app.Signup = (function () {
                         setlocalStorage('doLogin',true);
                         setlocalStorage('doStrip','');
                         
-                        app.mobileApp.navigate('views/landingView.html', 'slide');
+                        app.mobileApp.navigate('views/landingVu.html', 'slide');
                     }
                     else
                     {

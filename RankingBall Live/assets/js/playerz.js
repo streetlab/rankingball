@@ -492,10 +492,14 @@ app.Playerz = (function () {
             var sortData;            
             if(parseInt(requestPosition) === 15) {
                 globalPosition = "A";
-                 sortData = playerOnLeague.sort(function(a, b) {
+                
+                var filterdArray = playerData['F'].concat(playerData['M'], playerData['D']);
+                sortData = filterdArray.sort(function(a, b) {
                     if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
                     else return (b[sort_field] - a[sort_field]);
                 });
+                filterdArray = [];
+                //delete filterdArray;
             } else {
                 if(parseInt(requestPosition) === 1) {
                    globalPosition = "F";

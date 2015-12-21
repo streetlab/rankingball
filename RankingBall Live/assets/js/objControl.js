@@ -175,6 +175,8 @@ app.ObjControl = (function () {
                             return (b.rewardValue - a.rewardValue);
                         });
                         
+                        console.log(contestListData);
+                        
                         generateContestList();
                     }
                     else
@@ -203,8 +205,13 @@ app.ObjControl = (function () {
                 
                 contestListData[i]['timeRew'] = timeGenerate(contestListData[i]['startTime']);
                 
+                console.log(contestListData[i]['contestSeq'] + " : " + contestListData[i]['myEntry']);
+                
                 if(contestListData[i]['myEntry'] === 1) 
                 {
+                    
+                    console.log("entryData");
+                    console.log(JSON.stringify(contestListData[i]['entryData']));
                     
                     if (contestListData[i]['featured'] === 1) {
                         contestMyPartList['cf'].push(contestListData[i]);
@@ -239,8 +246,10 @@ app.ObjControl = (function () {
                 }
             }
             
-            //console.log("objControl - contestListData : " + JSON.stringify(contestListData));
-            //console.log("objControl - myEntryByContest : " + JSON.stringify(myEntryByContest));
+            console.log("objControl - contestListData : " + JSON.stringify(contestListData));
+            
+            
+            console.log("objControl - myEntryByContest : " + JSON.stringify(myEntryByContest));
             
             setTimeout(function() {
                 app.mobileApp.navigate('views/playView.html', 'slide:left');

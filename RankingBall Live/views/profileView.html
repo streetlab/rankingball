@@ -3,9 +3,8 @@
     data-role="view" 
     data-title="PROFILE" 
     data-layout="main"
-    data-model="app.Contests"
-    data-init="app.Contests.init"
-    data-transition="slide"
+    data-model="app.Hambugerz"
+    data-init="app.Hambugerz.init"
     data-stretch="true">
     
     <div data-role="header" class="rnkb-wiz">
@@ -21,42 +20,52 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
+                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                     </span>    
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="contents-view">
-   
-        <div class="profile-info">
-            <div class="profile-items">
-            </div>
-            <img src="./assets/resource/profile/bg_profile.png" width="100%">
-        </div>
+    <div class="contents-profile-view">
         
-        <div class="profile-box">
-            <div class="profile-rows">
-                
-                <div class="profile-row">
-                    <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_mail.png" ><br>우편함</a></div>
-                    <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_inventory.png" ><br>보관함</a></div>  
-                    <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_setting.png" ><br>설정</a></div>  
+            <div class="profile-info">
+                <div class="profile-items">
+                    <div class="card-face__avatar">
+                        <!-- Bullet notification -->
+                        <span class="card-face__bullet">2</span>
+                        <!-- User avatar -->
+                        <img src="./assets/resource/profile_photo.png">
+                        
+                    </div>
+                    <div class="card-face__name"></div>
+                    <div class="card-face__pincode"></div>
                 </div>
-                
-                <div class="profile-row">
-                    <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_notice.png" ><br>공지사항 및 이벤트</a></div>
-                    <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_guide.png" ><br>게임 방법</a></div> 
-                    <div class="profile-btns"></div>
-                </div>
-                
             </div>
-        </div>
-        
+       
+            <div class="profile-box">
+                <div class="profile-outline">
+                    <div class="profile-rows">
+                        
+                        <div class="profile-row btLine">
+                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_mail.png" ><br>우편함</a></div>
+                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_inventory.png" ><br>보관함</a></div>  
+                            <div class="profile-btns"><a data-role="button" data-click="app.Hambugerz.gnbSetting"><img src="./assets/resource/profile/ic_setting.png" ><br>설정</a></div>  
+                        </div>
+                        
+                        <div class="profile-row">
+                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_notice.png" ><br>공지사항 및 이벤트</a></div>
+                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_guide.png" ><br>게임 방법</a></div> 
+                            <div class="profile-btns"></div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
     </div>
 
 </div>

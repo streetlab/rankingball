@@ -22,6 +22,8 @@ app.Entry = (function () {
                 
         function init(e) {
             
+            console.log(JSON.stringify(myEntryByContest));
+            
             var param = e.view.params;
                         
             if(param.contest === "") {
@@ -71,9 +73,7 @@ app.Entry = (function () {
         }
         
         function initEntryData() {
-            
-            console.log("haha");
-            
+                        
             observableView();
             
             entryAmount = 0;
@@ -241,6 +241,10 @@ app.Entry = (function () {
             return false;
         }
         
+        function cloeShopModal() {
+            $("#moadl_shop").data("kendoMobileModalView").close();
+        }
+        
         function regEntry() {
             
             if(entryStatus === false) {
@@ -254,11 +258,24 @@ app.Entry = (function () {
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
-            navigator.notification.confirm("현재 지정된 선수로 엔트리를 등록하시겠습니까?", function (confirmed) {
-               if (confirmed === true || confirmed === 1) {
-                    app.Playerz.setFinalEntry(contestNo,contestFee);    
-               }
-            }, '알림', ['확인', '취소']);
+            if( parseInt(contestFee) > parseInt(uu_data.cash) ) {
+                    navigator.notification.confirm("입장료가 부족해서 참가하실 수 없습니다.\n\n캐쉬를 구매하시겠습니까?", function (confirmed) {
+                       if (confirmed === true || confirmed === 1) {
+                            app.Shop.init();
+                            $("#moadl_shop").data("kendoMobileModalView").open();
+                       } else {
+                           closeModal();
+                       }
+                    }, '알림', ['충전하기', '취소']);
+
+            } else {
+            
+                navigator.notification.confirm("현재 지정된 선수로 엔트리를 등록하시겠습니까?", function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                        app.Playerz.setFinalEntry(contestNo,contestFee);    
+                   }
+                }, '알림', ['확인', '취소']);
+            }
             return false;
         }
         
@@ -386,7 +403,8 @@ app.Entry = (function () {
             regEntry: regEntry,
             updateEntry: updateEntry,
             returnContestPlay: returnContestPlay,
-            playerFilterSalary: playerFilterSalary
+            playerFilterSalary: playerFilterSalary,
+            cloeShopModal: cloeShopModal
         };
     }());
 
