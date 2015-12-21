@@ -234,14 +234,30 @@ function Swipe(container, options) {
   var start = {};
   var delta = {};
   var isScrolling;
+  
+  
+  var checkBreak = function(e) {
+    var pl = $(e.target).parents('.sr-splash');
 
+    if(pl.length > 0) return true;
+    else return false;
+  };
+    
+    
+    
   // setup event capturing
   var events = {
 
     handleEvent: function(event) {
 
       switch (event.type) {
-        case 'touchstart': this.start(event); break;
+        case 'touchstart': 
+          
+          if(checkBreak(event)) return false;
+          
+          this.start(event); 
+        
+          break;
         case 'touchmove': this.move(event); break;
         case 'touchend': offloadFn(this.end(event)); break;
         case 'webkitTransitionEnd':

@@ -42,14 +42,13 @@ app.playRTS = (function () {
             swiper = new Swipe(document.getElementById('sliderz'), {
                 startSlide: 0,
                 speed: 400,
-                auto: 3000,
-                continuous: false,
+                auto: 30000,
+                continuous: true,
                 disableScroll: false,
-                stopPropagation: false,
+                stopPropagation: true,
                 callback: function(index, elem) {},
                 transitionEnd: function(index, elem) {
-                    console.log(index, elem);
-                    $('.wc_btn').removeClass('swc');
+                     $('.wc_btn').removeClass('swc');
                     $('#swipeBtn' + index).addClass('swc');
                 }
             });
@@ -66,6 +65,7 @@ app.playRTS = (function () {
                     circle.path.setAttribute('stroke', state.color);
                 }
             });
+            
         }
         
         function rt_init() {
@@ -256,7 +256,7 @@ app.playRTS = (function () {
 
             app.mobileApp.showLoading();
             setTimeout(function() {
-                app.mobileApp.navigate('views/playRTResultVu.html', 'slide');
+                app.mobileApp.navigate('views/playRTresultVu.html', 'slide');
                 app.mobileApp.hideLoading();
                 }
                 ,300);
@@ -445,8 +445,7 @@ app.playRTS = (function () {
             },
             "datauri" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAHCAYAAAD5wDa1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozNDNFMzM5REEyMkUxMUUzOEE3NEI3Q0U1QUIzMTc4NiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozNDNFMzM5RUEyMkUxMUUzOEE3NEI3Q0U1QUIzMTc4NiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM0M0UzMzlCQTIyRTExRTM4QTc0QjdDRTVBQjMxNzg2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM0M0UzMzlDQTIyRTExRTM4QTc0QjdDRTVBQjMxNzg2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+jzOsUQAAANhJREFUeNqsks0KhCAUhW/Sz6pFSc1AD9HL+OBFbdsVOKWLajH9EE7GFBEjOMxcUNHD8dxPBCEE/DKyLGMqraoqcd4j0ChpUmlBEGCFRBzH2dbj5JycJAn90CEpy1J2SK4apVSM4yiKonhePYwxMU2TaJrm8BpykpWmKQ3D8FbX9SOO4/tOhDEG0zRhGAZo2xaiKDLyPGeSyPM8sCxr868+WC/mvu9j13XBtm1ACME8z7AsC/R9r0fGOf+arOu6jUwS7l6tT/B+xo+aDFRo5BykHfav3/gSYAAtIdQ1IT0puAAAAABJRU5ErkJggg=="
         };        
-        
-        
+    
         
         function onTap() {
             sparkle.out();
@@ -482,6 +481,43 @@ app.playRTS = (function () {
                 );
         };
         
+        function sportRada() {
+            
+            var vuHeight = $(window).height() - 248;          
+            //$('.wc-widget').css('height',vuHeight);
+            
+            
+            app.mobileApp.showLoading();
+            $('.wc-widget').empty();
+            
+            SRLive.addWidget("widgets.lmts",{
+                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": 7464782, "showTitle": false, "container": ".wc-widget.wc-10"
+            });
+            SRLive.addWidget("widgets.matchcommentary",{
+              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
+            });
+            SRLive.addWidget("widgets.matchlineups",{
+              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-12"
+            });
+            SRLive.addWidget("widgets.matchstats",{
+              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-13"
+            });
+            SRLive.addWidget("widgets.matchhead2head",{
+              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-14"
+            });
+            SRLive.addWidget("widgets.livetable",{
+              "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
+            });
+
+
+            
+            
+            setTimeout(function() {
+                app.mobileApp.hideLoading();
+                //$('.subwidgeht').removeClass('hide');
+            },1500);
+        }
+        
         return {
             init: init,
             rt_init: rt_init,
@@ -493,7 +529,8 @@ app.playRTS = (function () {
             onTap: onTap,
             confirmBack: confirmBack,
             swipeSlide: swipeSlide,
-            collapseList: collapseList
+            collapseList: collapseList,
+            sportRada: sportRada
         };
         
     }());
