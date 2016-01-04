@@ -4,7 +4,7 @@
     data-title="최근 경기 결과" 
     data-layout="main"
     data-model="app.Resnrnk"
-    data-init="app.Resnrnk.init"
+    data-show="app.Resnrnk.initRecord"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
@@ -22,9 +22,9 @@
         <div class="property-mini-info">
             <div class="property-box-padding">
                 <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
+                    <span class="amount_mini_ruby">0</span>
                     <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
+                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                     </span>    
                 </div>
             </div>
@@ -35,20 +35,24 @@
     
     <div class="contents-view">
         
-        <ul id="gnbMail" class="inboxList">
-            <li>
-                <div class="inboxList-face">
-                    <div class="inboxList-group boxs">
-                        <div class="inboxList-title">총 마일리지 [1,400,000] 경품당첨의 마일리지가 팍팍!</div>
-                        <div class="inboxList-summ"><span><b>0</b> / 100</span><span><b>10</b> / 280,000</span><span>Sat. 21:45 PM</span></div>
-                    </div>
-                    <div class="inboxList-group btns">
-                        
-                    </div>
-                </div>
-            </li>
+        <ul id="recordList" class="recordboxList">
         </ul>
 
     </div>
 
 </div>
+
+<script id="recordListTemplate" type="text/x-kendo-template">
+    <div class="inboxList-face">
+        <div class="inboxList-marker"></div>
+        <div class="inboxList-title"><a data-role="button" data-click="app.Resnrnk.recordView" data-rel="#:contestSeq#">#:contestName#</a></div>
+    </div>
+    <div class="inboxList-summ__outline">
+        <div class="inboxList-summ">
+            <span><b>#:totalJoin#</b> / #:totalEntry#</span>
+            <span><b>#:entryFee#</b> / #:totalReward#</span>
+            <span class="openDateTime">#:roundDate#</span>
+        </div>
+    </div>
+    
+</script>

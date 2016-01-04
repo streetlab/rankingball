@@ -36,6 +36,9 @@ var entryStatus = false;
 var currentContestType = "";
 
 
+var gameLife = 3; // 게임 Life
+var gameLifeTimer = 180;
+
 var errorMessage = {
     game_param: "경기 정보를 확인할 수 없습니다.",
     game_empty: "참가할 수 있는 경기가 없습니다.",
@@ -44,6 +47,20 @@ var errorMessage = {
     game_closed: "게임 결과를 확인 하시겠습니까?",
     game_cash: "입장료가 부족해서 참가하실 수 없습니다.\n\n캐쉬를 구매하시겠습니까?"
 };
+
+var rtMessageDef = "리얼타임 챌린지에 오신것을 환영합니다.";
+var rtMessageRnd = [
+	"골 예측을 한 번 하시게 되면 하트가 하나씩 소모 됩니다.", 
+	"버튼을 눌러 주시면 골예측이 시작됩니다.", 
+	"골 예측 시간이 5초정도 소요되므로 이 시간을 감안해서 예측해주셔야 합니다.", 
+	"골 예측을 맞추시게 되는 경우 많은 보상이 기다리고 있습니다.", 
+	"골 예측 시간은 실제 경기 시간으로 결정됩니다."
+	];
+var rtMessageActivate = "예측을 시작합니다.";
+var rtMessageDeActivate = "초에 예측을 마칩니다.";
+var rtMessagePrediction = "현재 판정중입니다. 잠시만 기다려주세요.";
+var rtMessageSuccess = "예측에 성공하셨습니다. 축하드립니다.";
+var rtMessageFail = "예측에 실패 하셨습니다. 다음 기회를 노려 주세요.";
 
 var observableView = function() {
     $('.amount_mini_ruby').html(numberFormat(uu_data.cash));
@@ -69,7 +86,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.7";
+            that._app_version = "1.0.8";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();

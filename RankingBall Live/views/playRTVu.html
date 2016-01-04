@@ -8,32 +8,66 @@
     data-transition="slide"
     data-stretch="true">
     
-    <div data-role="header" class="rnkb-wiz">
+    <div data-role="header" class="rnkb-wiz-rt">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="button" data-click="app.playRTS.confirmBack">
+            <a class="drawer-btn rnkb-rt" data-align="left" data-role="button" data-click="app.playRTS.confirmBack">
                 <img src="./assets/resource/btn_back.png">
             </a>
-            <a data-role="button" class="drawer-btn" data-align="right">
+            <a data-role="button" class="drawer-btn rnkb-rt" data-align="right">
                 <img src="./assets/resource/btn_help.png">
             </a>
-            <span data-role="view-title"></span>
+            <div id="rt_header__title" data-role="view-title"></div>
+            
+            <div id="rt_header__scoreboard" style="display: none;">
+                <div class="rt-info__stats">
+                    <div class="rt-info__tab rt_emblem">
+                        <img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" />
+                    </div>
+                    <div class="rt-info__tab rt_scoreboard">
+                        <div class="rt_score_flex">
+                            <div class="rt_score">0</div> <div><span class="rt_times">23:45</span></div> <div class="rt_score">0</div>
+                        </div>
+                    </div>
+                    <div class="rt-info__tab rt_emblem">
+                        <img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" />
+                    </div>
+                </div>
+            </div>
+            
         </div>
             
-        <div class="property-info">
-            <div class="property-box-padding">
-                <div id="my-rtpoint" class="property-box bg-point">
-                    <span class="amount_mini_point">123,456,789</span>
+        <div id="rt_slider" class="rt-info">
+            <div id="rt_stats" class="rt-info__stats">
+                <div class="rt-info__tab rt_emblem">
+                    <div><img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" /></div>
+                    <span>NEW CASTLE</span>
                 </div>
-            </div>
-            <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span class="amount_mini_ruby">123,456,789</span>
-                    <span class="proper-add-btn">
-                        <img src="assets/resource/btn_plus.png">
-                    </span>    
+                <div class="rt-info__tab rt_scoreboard">
+                    <div class="rt_score_flex">
+                        <span class="rt_score">0</span> <span class="rt_times">23:45</span> <span class="rt_score">0</span>
+                    </div>
+                </div>
+                <div class="rt-info__tab rt_emblem">
+                    <div><img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" /></div>
+                    <span>ASTONVILLA</span>
                 </div>
             </div>
         </div>
+        
+        <div class="rt-navigation">
+            <div class="sc_menus">
+                <ul class="sc_menu">
+                    <li id="swipeBtn0" class="activate wc_btn"><a data-role="button" data-rel="0" data-click="app.playRTS.swipeSlide">중계화면</a></li>
+                    <li id="swipeBtn1" class="wc_btn"><a data-role="button" data-rel="1" data-click="app.playRTS.swipeSlide">문자중계</a></li>
+                    <li id="swipeBtn2" class="wc_btn"><a data-role="button" data-rel="2" data-click="app.playRTS.swipeSlide">선발선수</a></li>
+                    <li id="swipeBtn3" class="wc_btn"><a data-role="button" data-rel="3" data-click="app.playRTS.swipeSlide">경기기록</a></li>
+                    <li id="swipeBtn4" class="wc_btn"><a data-role="button" data-rel="4" data-click="app.playRTS.swipeSlide">맞대결</a></li>
+                    <li id="swipeBtn5" class="wc_btn"><a data-role="button" data-rel="5" data-click="app.playRTS.swipeSlide">팀순위</a></li>
+                </ul>
+             </div>
+        </div>
+        
+        
     </div>
 
     <style class="widgets"></style>
@@ -41,7 +75,6 @@
     <div class="contents-rt-view">
         
         <div id="liveScoreWidget">
-            
             
             <div id='sliderz' class='swipe'>
                 <div class='swipe-wrap'>
@@ -58,137 +91,59 @@
         
         
         <div id="widgetController">
+            <div class="rt_controller">
             
-            <div id="point_area">
-                <div class="star-fill">
+                <div class="rt_controller_life">
+                    
                     <div id="stars_ani_1" class="star-tab">
-                        <span id="start_pos_1" class="star">☆</span>
+                        <span id="start_pos_1" class="star">●</span>
                     </div>
                     <div id="stars_ani_2" class="star-tab">
-                        <span id="start_pos_2" class="star">☆</span>
+                        <span id="start_pos_2" class="star">●</span>
                     </div>
                     <div id="stars_ani_3" class="star-tab">
-                        <span id="start_pos_3" class="star">☆</span>
+                        <span id="start_pos_3" class="star">●</span>
                     </div>
-                    <div id="stars_ani_4" class="star-tab">
-                        <span id="start_pos_4" class="star">☆</span>
+                    <div class="star-tab">
+                        <span id="rtLife" class="rt_life"></span>
                     </div>
-                    <div id="stars_ani_5" class="star-tab">
-                        <span id="start_pos_5" class="star">☆</span>
+                    <div id="lifeCoolTime" class="star-tab">
+                        <span class="clock">●</span>
+                        <span id="recoverLife" class="recover_life">03:00</span>
                     </div>
                 </div>
+                <div class="rt_progress_time">
+                    <div class="rt_click_time__start">05:00</div>
+                    <div class="rt_click_time__chance">05:05</div>
+                    <div class="rt_click_time__close">05:15</div>
+                </div>
+                <div class="rt_progress_base">
+                    <div class="rt_progress_bar">
+                        <div id="rt_message" class="rt_pg__message">
+                        </div>
+                        <div id="rt_bar" class="rt_pg__bar">
+                            <div class="meter">
+                                <div class="meter_marker__ready"></div>
+                                <div class="meter_marker__chance"></div>
+                            	<span id="meter_bar"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rt_progress_btn_bg">
+                        
+                        <div class="rt_progress_btn_outline">
+                            <a data-role="button" data-click="app.playRTS.rosa">
+                                <div id="ball_label" class="rt_clc_label"></div>
+                                <div id="rt_ball_btn" class="rt_clc_btn readyShoot"></div>
+                            </a>
+                        </div>                        
+                    </div>
+                </div>
+                
             </div>
             
-            <div id="controller_area">
-                <div id="position-box-yahoo" class="hide">
-                    <div class="roate_star"></div>
-                </div>
-                <div id="rt_prediction_message" class="rt_common_messagebox">
-                </div>
-                
-                <div id="rt_prediction" class="rt_predict_effects">
-                    <div class="rt_predict_effect_stars_lr top"></div>
-                    <div class="rt_predict_effect_stars_tb right"></div>
-                    <div class="rt_predict_effect_stars_lr bottom"></div>
-                    <div class="rt_predict_effect_stars_tb left"></div>
-                </div>
-                
-                <div id="progress-box">
-                        
-                        <div id="prediction_message" class="hide rt_predict_result_message">
-                        </div>
-                        <div id="prediction_sub_effect" class="hide rt_predict_sub_effect">
-                        </div>
-                    
-                        <div class="clc_box">
-                            <div class="clc_round">
-                                <a data-role="button" data-click="app.playRTS.rosa">
-                                    <div class="clc_btn">
-                                        
-                                    </div>
-                                    
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div id="svg1" class="clc_marker">
-                            <div class="svgDiv">
-                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
-                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(42,96,68)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 219.523426322258px;"></path>
-                                </svg>
-                            </div>
-                        </div>
-                        <div id="svg2" class="clc_marker">
-                            <div class="svgDiv">
-                                <svg viewBox="0 0 100 100" style="width: 100px; height:100px;">
-                                    <path d="M 50,50 m 0,-40 a 40,40 0 1 1 0,80 a 40,40 0 1 1 0,-80" stroke="rgb(242,242,10)" stroke-width="20" fill-opacity="0" style="stroke-dasharray: 251.362701416016px, 251.362701416016px; stroke-dashoffset: 155.84487613743px;"></path>
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div id="progress_bar" class=""></div>
-                </div>
-                
-                <div id="position-box">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-                
-                <div id="controller-box">
-                    <dl class="controller-box-menu">
-                        <dt>
-                            <a data-role="button" data-rel="0" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn0" class="wc_btn">
-                                    중계화면
-                                </div>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a data-role="button" data-rel="1" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn1" class="wc_btn">
-                                    문자중계
-                                </div>
-                            </a>
-                        </dd>
-                    </dl>
-                    <dl class="controller-box-menu">
-                        <dt>
-                            <a data-role="button" data-rel="2" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn2" class="wc_btn">
-                                    선발선수
-                                </div>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a data-role="button" data-rel="3" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn3" class="wc_btn">
-                                    경기기록
-                                </div>
-                            </a>
-                        </dd>
-                    </dl>
-                    <dl class="controller-box-menu">
-                        <dt>
-                            <a data-role="button" data-rel="4" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn4" class="wc_btn">
-                                    맞대결
-                                </div>
-                            </a>
-                        </dt>
-                        <dd>
-                            <a data-role="button" data-rel="5" data-click="app.playRTS.swipeSlide">
-                                <div id="swipeBtn5" class="wc_btn">
-                                    팀순위
-                                </div>
-                            </a>
-                        </dd>
-                    </dl>
-                </div>
-            </div>
         </div>
             
-        
     </div>
 </div>
 
@@ -200,3 +155,7 @@
         </div>
     </div>
 </div>
+
+<script>
+
+</script>

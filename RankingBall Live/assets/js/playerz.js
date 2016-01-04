@@ -146,6 +146,8 @@ app.Playerz = (function () {
         
         
         function playerAddInfo(e) {
+            /*  
+            * 연동 일시 중지 
             var data = e.button.data();
                        
             app.mobileApp.showLoading();
@@ -157,9 +159,12 @@ app.Playerz = (function () {
             } else {
                 app.showError("잘못된 선수 정보요청입니다.");
             }
+            */
         }
 
         function playerAddInfo2(e) {
+            /*  
+            * 연동 일시 중지 
             var data = e.button.data();
                        
             app.mobileApp.showLoading();
@@ -171,6 +176,7 @@ app.Playerz = (function () {
             } else {
                 app.showError("잘못된 선수 정보요청입니다.");
             }
+            */
         }
 
 

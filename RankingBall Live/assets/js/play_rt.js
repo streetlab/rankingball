@@ -11,9 +11,8 @@ app.playRTS = (function () {
         
         var activePrediction = false;
         
-        var maxCirclePosition = 135;
-        var circlePosition = 0;
-        var circleReadyRange = 0.005166666;
+        var maxTimeCount = 45;
+        var maxCirclePosition = 216;
         
         var startColor = '#2a6044';
         var endColor = '#f2f20a';
@@ -33,72 +32,113 @@ app.playRTS = (function () {
         var vr_predict_count = 0;
         var vr_predict_right = 0;
         var vr_star = 0;
+        
+        var rtSlider = true;
                 
         function init() {
             
             observableView();
-            $('.amount_mini_point').html(numberFormat(vr_point));
+            
+            $('.sc_menus').removeClass('swipeNav');
+            $('.rt-navigation').css('width',$(window).width());
             
             swiper = new Swipe(document.getElementById('sliderz'), {
                 startSlide: 0,
                 speed: 400,
-                auto: 30000,
-                continuous: true,
+                auto: 0,
+                continuous: false,
                 disableScroll: false,
                 stopPropagation: true,
                 callback: function(index, elem) {},
                 transitionEnd: function(index, elem) {
-                     $('.wc_btn').removeClass('swc');
-                    $('#swipeBtn' + index).addClass('swc');
+                    
+                    if(index < 2) {
+                        $('.sc_menus').removeClass('swipeNav');
+                        
+                        if(index === 0) {
+                            if(!rtSlider) {
+                                $('#rt_slider').slideDown();
+                                rtSlider = true;
+                                $('#rt_header__scoreboard').fadeOut();
+                            }
+                        } else {
+                            if(rtSlider) {
+                                $('#rt_slider').slideUp();
+                                rtSlider = false;
+                                $('#rt_header__scoreboard').fadeIn();
+                            }
+                        }
+                    } else {
+                        
+                        if(index > 3) {
+                            $('.sc_menus').addClass('swipeNav');
+                        }
+                        
+                        if(rtSlider) {
+                            $('#rt_slider').slideUp();
+                            rtSlider = false;
+                            $('#rt_header__scoreboard').fadeIn();
+                        }
+                    }
+                    $('.wc_btn').removeClass('activate');
+                    $('#swipeBtn' + index).addClass('activate');
                 }
             });
-            
-            var element = document.getElementById('progress_bar');
-            $('.clc_btn').append('<span id="clc_txt">GO</span>');
-            clc = new ProgressBar.Circle(element, {
-                color: startColor,
-                duration: 100,
-                trailColor: "#454545",
-                strokeWidth: 20,
-                easing: 'easeOut',
-                step: function(state, circle) {
-                    circle.path.setAttribute('stroke', state.color);
+                        
+            $('.sc_menus').kendoTouch({
+                enableSwipe: true,
+                swipe: function (e) {
+                    console.log("User swiped the element");
+                    console.log(e);
+                    handleTouchEvent(e);
+                    
                 }
             });
             
         }
         
+        function flipHeaderTitle() {
+            if(rtSlider) {
+                $('#rt_header__scoreboard').fadeOut();
+            } else {
+                $('#rt_header__scoreboard').fadeIn();
+            }
+        }
+        
+        function dispTitleShow() {
+            console.log("do callback first");
+            $('#rt_header__title').show('slide');
+        }
+        function dispScoreboardShow() {
+            console.log("do callback another");
+            $('#rt_header__scoreboard').show('slide');
+        }
+        
+        function handleTouchEvent(e) {    
+            if(e.direction === "left") {
+                $('.sc_menus').addClass('swipeNav');
+            } else {
+                $('.sc_menus').removeClass('swipeNav');
+            }
+        }
+        
         function rt_init() {
+            console.log(uu_data);
             observableView();
-            $('.amount_mini_point').html(numberFormat(vr_point));
+            //$('.amount_mini_point').html(numberFormat(vr_point));
         }
         
         function init_result() {
             observableView();
-            $('.amount_mini_point').html(numberFormat(vr_point));
-        }
-        
-        function loadRTs() {
-            $('.amount_mini_point').html(numberFormat(vr_point));
-            vr_timer = setInterval(checkFeverTime,60000);
+            //$('.amount_mini_point').html(numberFormat(vr_point));
         }
 
         function swipeSlide(e) {
             var data = e.button.data();
-            console.log(data.rel);
             swiper.slide(data.rel, 300);
         }
         
-        function checkFeverTime() {
-            ++vr_minute_val;
-            if(!activePrediction) {
-                if(vr_minute_val === 5 || vr_minute_val === 40 || vr_minute_val === 50 || vr_minute_val === 85) {
-                    ani();
-                }
-            }
-        }
-        
-        $('#result_effect').one('webkitAnimationEnd animationend', markingStart);
+        //$('#result_effect').one('webkitAnimationEnd animationend', markingStart);
         
         function markingStart() {
             
@@ -110,65 +150,28 @@ app.playRTS = (function () {
         
         function prediction_process() {
             
-            if(activePrediction) reactResult();
-            
             var randomNumber = Math.random() >= 0.5;
-                       
-            var predictDiv = "";
-            
             if(randomNumber) {
-                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/great.png"></div>';
-                ++vr_predict_count;
-                ++vr_predict_right;
-                ++vr_star;
-                
-                $('#stars_ani_' + vr_star).append('<div class="star_ani"></div>');
-                
-                setTimeout(function() {
-                    $('#stars_ani_' + vr_star).children('div').remove();
-                    $('#start_pos_' + vr_star).addClass('full');
-                    }, 2000);
-                
-                if(vr_star === 5) {
-                    predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/perfect.png"></div>';
-                    setTimeout(function() {
-                        app.showAlert('별 다섯개를 모아서 500 포인트를 획득하셨습니다.','안내',function() {
-                            vr_point += 500;
-                            $('.amount_mini_point').html(numberFormat(vr_point));
-                            $.each('.star', function(k,v) {
-                                $(this).removeClass('full');
-                            });
-                        });
-                    }, 2000);
-                }
-                
-                $('#position-box-yahoo').removeClass('hide');
+                //predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/great.png"></div>';
+
+                app.showAlert(rtMessageSuccess,'예측 성공',function() {
+                    uu_data.cash += 500;
+                    observableView();
+                });
+
             } else {
-                predictDiv = '<div id="result_effect" class="animate zoomIn"><img src="./assets/resource/rt/fail.png"></div>';
+                app.showAlert(rtMessageFail,'예측 실패',function() {});
             }
-            
-            $('#prediction_message')
-                .append(predictDiv)
-                .removeClass('hide');
-            
-            setTimeout(markingStart, 5000);
         }
         
         function reactResult() {
             window.clearInterval(reactCLC);
-            clc.animate(0, opts);
-            circlePosition = 0;
-            opts = {
-                from: { color: startColor },
-                to: { color: startColor }
-            };
-            
-            $('.clc_btn').empty();
-            $('.clc_btn').append('<span id="clc_txt">GO</span>');
-            $('.clc_marker').hide();
+            $('#meter_bar').css('width','216px');
             activePrediction = false;
-            
-            $('#prediction_sub_effect').empty().addClass('hide');
+            $('#rt_ball_btn').removeClass('clc_btn_spin').addClass('readyShoot');  
+            $('#ball_label').show();
+            $('#rt_message').html(rtMessageDef);
+            prediction_process();
         }
         
         function predictionCheck() {
@@ -176,80 +179,100 @@ app.playRTS = (function () {
             return true;
         }
         
+        function rtProgressBar(barWidth, loop, pos, $element) {
+            console.log(barWidth, loop * pos);
+        	var progressBarWidth = barWidth - ( loop * pos ) + 'px';
+        	$element.animate({ width: progressBarWidth }, 500);
+        }
+        
+        var rtCoolTimeBar = "";
+        var rtNowTime = "";
+        var rtPredictTimeStart = "";
+        var rtPredictTimeEnd = "";
+        var rtPredictTimeQA = "";
+        
+        function rtCoolTime() {
+            rtCoolTimeBar = setInterval(function() {
+                
+                --gameLifeTimer;
+                console.log(gameLifeTimer);
+                if(gameLifeTimer > 0) {
+                    var cmm = parseInt( gameLifeTimer / 60 );
+                    var chh = parseInt( gameLifeTimer % 60 );
+                    $('#recoverLife').html(zeroFormat(cmm) + " : " + zeroFormat(chh));
+                } else {
+                    ++gameLife;
+                    if(gameLife < 3) {
+                        gameLifeTimer = 180;
+                    } else {
+                        
+                        gameLifeTimer = 180;
+                        window.clearInterval(rtCoolTimeBar);
+                    }
+                    dispGameLife();
+                }
+                
+             }, 1000);
+        }
+        
         function rosa() {
             
             if(activePrediction) {
                 app.showError("골 예측 중입니다.");
                 return false;   
-            }
-            
-            vr_point -= 50;
-            
-            if(vr_point < 0) {
-                vr_point = 0;
-                app.showError("포인트가 부족해서 실행할 수 없습니다.");
-                return false;  
-            }
-            
+            }            
             
             activePrediction = true;
             var loop = 0;
             
-            $('#prediction_sub_effect').append('<div class="rt_txt_effect_fade animated slideOutUp">-50</div>').removeClass('hide');
-            
-            $('.amount_mini_point').html(numberFormat(vr_point));
-            
-            $('.clc_btn').empty();
-            $('.clc_btn').append('<span id="clc_number" class="animated infinite tada"></span>');
-            
-            reactCLC = setInterval(function() {
-                //var second = new Date().getSeconds();
-                var clooTime = 0;
-                if( ++loop > maxCirclePosition ) {
-                    reactResult();
-                } else {
-                    if(loop > 15) {
-                        $('#svg2').show();
-                        //circlePosition = loop / maxCirclePosition;
-                        circlePosition += circleReadyRange;
-                        clc.animate(circlePosition, { 
-                            from: {color : coolTimeColor}, to :{color : coolTimeColor}
-                            }, function() {
-                            console.log( loop + " : " + circlePosition );
-                            //clc.setText('');
-                            clooTime = 120 - (loop - 15);
-                            if(loop > 134) {
-                                prediction_process();
-                            } else {
-                                $('#clc_number').html(clooTime);
-                            }
-                            
-                        });
+            if(gameLife > 0) {
+
+/*
+                var rpm, rps;
+                var rts = rtNowTime.getTime();
+                
+                rpm = rtNowTime % 3600 / 60;
+                rps = rtNowTime % 3600 / 60;
+                
+                //$('.rt_click_time__start').html();
+                //$('.rt_click_time__chance').html();
+                //$('.rt_click_time__close').html();
+*/
+                --gameLife;
+                $('#rt_message').html(rtMessageActivate);
+                $('#ball_label').hide();
+                $('#rt_ball_btn').removeClass('readyShoot').addClass('clc_btn_spin');  
+                
+                dispGameLife();
+                rtCoolTime();
+                reactCLC = setInterval(function() {
+                    if( ++loop > maxTimeCount ) {
+                        reactResult();
                     } else {
-                        if(loop > 5) {
-                            $('#svg1').show();
-                            opts= {
-                                from: { color: endColor },
-                                to: { color: endColor }
-                            };
-                            
-                            clooTime = 10 - (loop - 6);
+                        if(loop > 15) {
+                            //rtProgressBar(loop, 3, $('#meter_bar'));
+                            $('#rt_message').html(rtMessagePrediction);
+                            rtProgressBar(96, (loop - 15), 3.2, $('#meter_bar'));
                         } else {
-                            clooTime = 5 - (loop - 1);
+                            //rtProgressBar(loop, 8, $('#meter_bar'));
+                            rtProgressBar(maxCirclePosition, loop, 8, $('#meter_bar'));
                         }
-                        
-                        circlePosition += 0.025333333;
-                        clc.animate(circlePosition, opts, function() {
-                            console.log( loop + " : " + circlePosition );
-                            //clc.setText(loop);
-                            
-                            $('#clc_number').html(clooTime);
-                        });
                     }
-                }
-            }, 1000);
+                }, 1000);
+            } else {
+                app.showAlert('하트가 충전될 때까지 기다려주세요.','안내');
+            }
+                        
+            
         }
-       
+        
+        function zeroFormat(num) {
+            return (parseInt(num) > 9) ? num : '0' + num; 
+        }
+        
+        function getRandomArbitray(min, max) {
+            return Math.random() * (max - min) + min;
+        }
         
         
         function playRTResult() {
@@ -452,6 +475,26 @@ app.playRTS = (function () {
             $("#ya").data("kendoMobileModalView").close();
         }
         
+        function dispGameLife() {
+            $('.star').removeClass('full');
+            
+            if(gameLife === 3) {
+                
+                $('.star').addClass('full');
+                $('#lifeCoolTime').hide();
+                
+            } else {
+                
+                $('#lifeCoolTime').removeClass('hide');
+                $('#lifeCoolTime').show();
+                for(var i = 1; i <= gameLife; i++) {
+                    $('#start_pos_' + i).addClass('full');
+                }
+            }
+            
+            $('#rtLife').html('x' + gameLife);
+        }
+        
         function confirmBack() {
             
             if(activePrediction) {
@@ -483,15 +526,17 @@ app.playRTS = (function () {
         
         function sportRada() {
             
+            rtNowTime = new Date();
+            
             var vuHeight = $(window).height() - 248;          
             //$('.wc-widget').css('height',vuHeight);
-            
-            
+
             app.mobileApp.showLoading();
+            $('.sc_menus').removeClass('swipeNav');
             $('.wc-widget').empty();
             
             SRLive.addWidget("widgets.lmts",{
-                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": 7464782, "showTitle": false, "container": ".wc-widget.wc-10"
+                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": 7464774, "showTitle": false, "container": ".wc-widget.wc-10"
             });
             SRLive.addWidget("widgets.matchcommentary",{
               "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
@@ -508,9 +553,10 @@ app.playRTS = (function () {
             SRLive.addWidget("widgets.livetable",{
               "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
             });
-
-
             
+            dispGameLife();
+            
+            $('#rt_message').html(rtMessageDef);
             
             setTimeout(function() {
                 app.mobileApp.hideLoading();

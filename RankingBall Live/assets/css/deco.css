@@ -214,6 +214,63 @@
     color: #3c3c3c;    
 }
 
+.contents-view ul.recordboxList {
+  list-style: none;
+  width: 100%;
+  margin: 0;
+  padding: .5em;
+}
+.contents-view ul.recordboxList li {
+    margin-top: .5em;
+    padding: 0;
+    font-size: .9em;
+    color: #9b9b9b;
+    line-height: 1.4em;
+}
+.contents-view ul.recordboxList .inboxList-face {
+    display: table;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+}
+.contents-view ul.recordboxList .inboxList-marker {
+    display: table-cell;
+}
+.contents-view ul.recordboxList .inboxList-title {
+    display: table-cell;
+    font-size: 1em;
+    font-weight: 600;
+    color: #3180a4;
+    white-space: nowrap;;
+    overflow: hidden;
+    padding: .5em;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+.contents-view ul.recordboxList li a {
+    text-decoration: none;
+}
+
+.contents-view ul.recordboxList .inboxList-summ__outline {
+    padding: .5em .8em;
+}
+.contents-view ul.recordboxList .inboxList-summ {
+    width: 100%;
+    display: table;
+}
+.contents-view ul.recordboxList .inboxList-summ span {
+    display: table-cell;
+    font-size: .9em;
+    color: #9b9b9b;
+}
+.contents-view ul.recordboxList b {
+    color: #3c3c3c;
+}
+.contents-view ul.recordboxList span.openDateTime {
+    color: #3c3c3c;
+}
+
 .masker {
     position: absolute;
     right: 300px;
@@ -339,11 +396,8 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 170px;
-    background: #717171; /* Old browsers */
-    background: -moz-linear-gradient(top, #717171 0%, #111111 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top, #717171 0%,#111111 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom, #717171 0%,#111111 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    height: 90px;
+    background: #ebebeb;
 }
 
 #point_area {
@@ -526,34 +580,47 @@
 }
 
 
+
 .star-fill {
     display: table;
-    position: relative;
     width: 100%;
-    background-color: #454545;
 }
 .star-tab {
     display:table-cell;
-    position: relative;
-    width: 20%;
-    padding: 4px 0 8px;
+    padding-right: 5px;
     text-align: center;
 }
 
-.star {
+.star-tab .star {
     display: inline-block;
-    width: 30px;
+    width: 16px;
     font-size: 14px;
     text-indent: -99999px;
     line-height: 18px;
-    background:  url(../resource/ic_star_off.png) center center no-repeat;
+    background:  url(../resource/rt/ball_off.png) center center no-repeat;
     background-size : contain;
 }
-.star.full {
-    background:  url(../resource/ic_star_on.png) center center no-repeat;
+.star-tab .star.full {
+    background:  url(../resource/rt/ball_on.png) center center no-repeat;
     background-size : contain;
 }
-
+.star-tab .clock {
+    display: inline-block;
+    width: 16px;
+    margin-left: .5em;
+    font-size: 14px;
+    text-indent: -99999px;
+    line-height: 18px;
+    background:  url(../resource/rt/clock.png) center center no-repeat;
+    background-size : contain;
+}
+.star-tab .rt_life {
+    margin-left: .5em;
+    font-size: 16px;
+} 
+.star-tab .recover_life {
+    font-size: 16px;
+}
 
 #controller_area .rt_predict_effects {
     display: none;
@@ -830,6 +897,212 @@
     color: #fff;
 }
 
+
+/* RT new */
+.rt_controller {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.rt_controller .rt_controller_life {
+    position: absolute;
+    top: .5em;
+    left: .8em;
+    z-index: 9;
+}
+.rt_controller .rt_progress_base {
+    position: absolute;
+    display: table;
+    bottom: .5em;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 77px;
+    z-index: 5;
+    background: url("../resource/rt/rt_progress_base.png") 0 0 no-repeat;
+    background-size: cover;
+}
+.rt_controller .rt_progress_bar {
+    display: table-cell;
+    width: 225px;
+    height: 77px;
+    vertical-align: bottom;
+}
+.rt_controller .rt_progress_btn_bg {
+    display: table-cell;
+    width: 75px;
+    height: 77px;
+    vertical-align: middle;
+}
+.rt_controller .rt_progress_btn_bg .rt_progress_btn_outline {
+    position: relative;
+    width: 65px;
+    height: 65px;
+    margin: auto 4px;
+    background: url("../resource/rt/bg_ball.png") 0 0 no-repeat;
+    background-size: cover;
+}
+.rt_controller .rt_clc_btn {
+    width: 61px;
+    height: 61px;
+    margin: 1px 0 0 1px;
+    background: url("../resource/rt/ball.png") 0 0 no-repeat;
+    background-size: contain;
+}
+.rt_controller .rt_clc_btn.readyShoot {
+    -webkit-filter: opacity(0.6) brightness(1.3) grayscale(1);
+    filter: opacity(0.6) brightness(1.3) grayscale(1);
+}
+
+.clc_btn_spin {
+
+    -webkit-animation-name: ball_spin;
+    -webkit-animation-duration: 1000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    animation-name: ball_spin;
+    animation-duration: 1200ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+@-webkit-keyframes ball_spin {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-ransform: scale(0.9); }
+    100% { -webkit-ransform: scale(1); }
+}
+@keyframes ball_spin {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.rt_controller .rt_progress_bar .rt_pg__message {
+    position: absolute;
+    top: 26px;
+    left: 3px;
+    z-index: 7;
+    font-size: .7em;
+}
+.rt_controller .rt_progress_bar .rt_pg__bar {
+    width: 100%;
+    padding: 3px 1px 3px 4px;
+    vertical-align: bottom;
+}
+
+.rt_controller .rt_progress_time {
+    position: absolute;
+    display: block;
+    top: 47px;
+    left: 7px;
+    z-index: 8;
+}
+.rt_controller .rt_progress_time > div {
+    display: inline-block;
+    width: 24px;
+    font-size: 0.5em;
+    text-align: center;
+    overflow: hidden;
+}
+.rt_controller .rt_progress_time div.rt_click_time__chance {
+    margin-left: 8px;
+}
+.rt_controller .rt_progress_time div.rt_click_time__close {
+    margin-left: 52px;
+}
+
+
+.meter {
+    position: relative;
+    width: 100%;
+    height: 17px;
+    border: 2px solid #ebebeb;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    padding: 0;
+    overflow: hidden;
+    
+    background-image: linear-gradient(
+        90deg, 
+        #168f32 0,
+        #168f32 40px, 
+        #f8ed20 40px,
+        #f8ed20 120px,
+        #42dc65 120px,
+        #42dc65 216px
+    );
+    background-size: 100% 100%;
+}
+
+.meter > span {
+    display: block;
+    float: right;
+    width: 216px;
+    height: 100%;
+    margin-left:0;
+    background-color: rgba(185,185,185,.7);
+}
+
+.meter_marker__ready {
+    position: absolute;
+    z-index: 8;
+    top: 0;
+    left: 40px;
+    margin-left: -5px;
+    width: 10px;
+    height: 10px;
+    background: url("../resource/rt/mark.png") 0 0 no-repeat;
+    background-size: contain;
+}
+.meter_marker__chance {
+    position: absolute;
+    z-index: 8;
+    top: 0;
+    left: 120px;
+    margin-left: -5px;
+    width: 10px;
+    height: 10px;
+    background: url("../resource/rt/mark.png") 0 0 no-repeat;
+    background-size: contain;
+}
+.meter_play__ready {
+    position: absolute;
+    z-index: 7;
+    top: 0;
+    left: 0;
+    width: 35px;
+    height: 13px;
+    background-color: #168f32;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+.meter_play__chance {
+    position: absolute;
+    z-index: 7;
+    top: 0;
+    left: 35px;
+    width: 70px;
+    height: 13px;
+    background-color: #f8ed20;
+}
+
+.rt_clc_label {
+    position: absolute;
+    z-index: 7;
+    top: 50%;
+    left: 50%;
+    width: 46px;
+    height: 20px;
+    margin: -8px 0 0 -22px;
+    background: url("../resource/rt/shoot.png") 0 0 no-repeat;
+    background-size: contain;
+}
+
+/* RT */
+
+
 .rt_prediction_success {
     color: #fff200;
 }
@@ -950,7 +1223,7 @@ ul.collapseRTList .rt-non {
     background-color: #1a1a1a;
     width: 100%;
     margin: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
 }
 .contents-rt-view .contest-rt-result {
     padding: 0.5em;

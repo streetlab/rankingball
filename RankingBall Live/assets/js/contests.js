@@ -378,6 +378,8 @@ app.Contests = (function () {
             $('#tab_live_result').addClass('hide');
             $('#result_role_rank').removeClass('hide');
             $('#tab_upcomming_result').removeClass('hide');
+            $('#tab_result_team_score').addClass('hide');
+            thisTab = "TR";
         };
         
         var playResultTeam = function() {
@@ -387,6 +389,9 @@ app.Contests = (function () {
             $('#result_role_rank').addClass('hide');
             $('#tab_live_result').removeClass('hide');
             $('#result_role_record').removeClass('hide');
+            $('#tab_result_team_score').removeClass('hide');
+            thisTab = "TS";
+            getTeamScore();
         };
         
         var playResult = function() {
@@ -515,12 +520,284 @@ app.Contests = (function () {
             } else if(contest !== "" && contestStatus === 3) {
                 navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
-                       app.mobileApp.navigate('views/playResultView.html', 'slide');
+                       var resultUrl = 'views/playResultView.html?contest=' + contest;
+                       app.mobileApp.navigate(resultUrl, 'slide');
                    }
                 }, '알림', ['확인', '취소']);
             }
         };
         
+        var thisTab = "TR";
+        var thisContest = "";
+        var nowRank = 0;
+        var totalRank = 0;
+        var contestReward = 0;
+        
+        
+        var rankDataSource = new kendo.data.DataSource({
+            transport: {
+                read: function(options) {
+                    var newArr = rowDataList;
+                    options.success(newArr);                        
+                }
+            }
+        });
+        
+        var rowDataList = [];
+        
+        function doContestReward() {
+            if(contestReward === 0) {
+                app.mobileApp.hideLoading();
+                
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"contestSeq":' + thisContest + '}';
+                var url = init_data.auth + "?callback=?";
+                console.log(param);
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "checkContestReward",
+                        "param":param
+                    },
+                    success: function(response) {
+                        if (response.code === 0) {
+                            var rowData = response.data;
+                            if(rowData.rewardType !== undefined && rowData.rewardType === 1) {
+                                app.showAlert('보상이 지급되었습니다.','안내', function() {
+                                    uu_data.cash = uu_data.cash + rowData.reward;
+                                    observableView();
+                                });
+                            }
+                        }
+                    },
+                    error: function(e) {
+                        console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
+                    },
+                    complete: function() {
+                        app.mobileApp.hideLoading();
+                    }
+                });
+                
+            } else {
+                app.showAlert('이미 보상을 받으셨습니다.','안내');
+            }
+        }
+        
+        function getContestResult() {
+                        
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","contestId":' + thisContest + ',"memSeq":' + uu_data.memSeq + ',"lastId":0}';
+            var url = init_data.auth + "?callback=?";
+            console.log(param);
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "getContestRank",
+                    "param":param
+                },
+                success: function(response) {
+                    if (response.code === 0) {
+                        var rowData = response.data;
+                        var rowLength = rowData.list.length;
+                        console.log(rowData);
+                        if(rowLength > 0) {
+                            var nowRankIndex = rowData.list.length - 1;
+                            nowRank = rowData.list[nowRankIndex]['rank'];
+                        }
+                        else
+                        {
+                            nowRank = 0;
+                        }
+                        
+                        contestReward = rowData.rewardYn;
+                        if(contestReward > 0) {
+                            $('.btn-do-reward').addClass('rewardComplete');
+                        }
+                        $('#contestResult__user').html(uu_data.nick);
+                        $('#contestResult__rank').html(rowData.myRank + "위");
+                        $('#contestResult__reward').html(numberFormat(rowData.reward));
+                        
+                        //rowDataList = [];
+                        $('#play_result_list').empty();
+                        $.each(rowData.list, function (i, p) {
+                            //rowDataList.push({rank: p.rank, nick: p.nick, score: p.score});
+                            var li_el = '<li class="clearfix rank"><div class="listitem_rank">' + p.rank + '</div><div class="listitem_name">' + p.nick + '</div><div class="listitem_point">' + p.score + '</div></li>';
+                            $('#play_result_list').append(li_el);
+                        });
+                        
+                        //console.log(rowDataList);
+                        //$("#play_result_list").empty();
+                        /*
+                        rankDataSource = new kendo.data.DataSource({
+                            data: rowData.list
+                        });
+                        */
+                        //rankListFirst();
+                    }
+                },
+                error: function(e) {
+                    console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
+                    
+                },
+                complete: function() {
+                    app.mobileApp.hideLoading();
+                }
+            });
+        }   
+        
+        function getContestResultRankMore() {
+            
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","contestId":' + thisContest + ',"memSeq":' + uu_data.memSeq + ',"lastId":' + nowRank + '}';
+            var url = init_data.auth + "?callback=?";
+            console.log(param);
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "getContestRank",
+                    "param":param
+                },
+                success: function(response) {
+                    if (response.code === 0) {
+                        var rowData = response.data;
+                        var rowLength = rowData.list.length;
+                        
+                        if(rowLength > 0) {
+                            var nowRankIndex = rowData.list.length - 1;
+                            
+                            if(rowData.totalRanking <= rowData.list[nowRankIndex]['rank']) {
+                                nowRank = 0;
+                            } else {
+                                nowRank = rowData.list[nowRankIndex]['rank'];
+                            }
+                        }
+                        else
+                        {
+                            nowRank = 0;
+                        }
+                        
+                        console.log(rowData.list);
+                        
+                        $('#play_result_list').empty();
+                        $.each(rowData.list, function (i, p) {
+                            //rowDataList.push({rank: p.rank, nick: p.nick, score: p.score});
+                            var li_el = '<li class="clearfix rank"><div class="listitem_rank">' + p.rank + '</div><div class="listitem_name">' + p.nick + '</div><div class="listitem_point">' + p.score + '</div></li>';
+                            $('#play_result_list').append(li_el);
+                        });
+                        /*
+                        rankDataSource = new kendo.data.DataSource({
+                            data: rowData.list
+                        });
+                        */
+                    }
+                },
+                error: function(e) {
+                    console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
+                    app.mobileApp.hideLoading();
+                }
+            });
+        }   
+
+        function getTeamScore() {
+            app.mobileApp.showLoading();
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","contestId":' + thisContest + ',"memSeq":' + uu_data.memSeq + '}';
+            var url = init_data.auth + "?callback=?";
+            console.log(param);
+            $.ajax({
+                url: url,
+                type: "GET",
+                async: false,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "getMyentryScore",
+                    "param":param
+                },
+                success: function(response) {
+                    if (response.code === 0) {
+                         
+                        $('#play_result_teams_core').empty();
+                        console.log(response.data);
+                        $.each(response.data, function (i, p) {
+                            var li_el = '<li class="clearfix rank"><div class="listitem_rank">' + p.posType + '</div><div class="listitem_name">' + p.playerName + '</div><div class="listitem_point">' + p.score + ' <span>PT</span></div></li>';
+                            $('#play_result_teams_core').append(li_el);
+                        });
+                    }
+                },
+                error: function(e) {
+                    console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
+                },
+                complete: function() {
+                    app.mobileApp.hideLoading();
+                }
+            });
+        }
+        
+        function rankListFirst() {
+            //var html = '<ul id="play_result_list" class="tab_result_label resultRankList" data-role="listview"></ul>';
+            $('#tab_upcomming_result')
+                .empty()
+                .append('<ul id="play_result_list" class="tab_result_label resultRankList" data-role="listview"></ul>');
+            
+            $("#play_result_list").kendoMobileListView({
+                dataSource: rankDataSource,
+                template: $("#myContestResult").html(),
+                sort: {
+                    field: "rank",
+                    dir: "desc"
+                }
+            });
+        }        
+        
+        function resultInit(e) {
+            app.mobileApp.showLoading();
+
+            observableView();
+            
+            nowRank = 0;
+            totalRank = 0;
+            contestReward = 0;
+            var param = e.view.params;
+            thisContest = param.contest;
+            if(thisContest) {
+                getContestResult();
+                
+                console.log("do result");
+                //getContestResultRankMore();
+                
+                var scroller = e.view.scroller;
+
+                scroller.setOptions({
+                    pullToRefresh: true,
+                    pull: function(){
+                        console.log("pull event");
+                        if(thisTab === "TR") {
+                            getContestResultRankMore();
+                            
+                        } 
+                        setTimeout(function() { scroller.pullHandled(); }, 400);
+                    }
+                });
+            
+                
+                
+            } else {
+                
+            }
+        }
         
         return {
             init: init,
@@ -543,7 +820,9 @@ app.Contests = (function () {
             joinMatch: joinMatch,
             joinMatchConfirm: joinMatchConfirm,
             listOrder: listOrder,
-            observeMatch: observeMatch
+            observeMatch: observeMatch,
+            resultInit: resultInit,
+            doContestReward: doContestReward
         };
     }());
 
