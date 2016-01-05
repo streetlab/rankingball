@@ -241,6 +241,7 @@ app.Resnrnk = (function () {
                                 guaranteed: p.guaranteed,
                                 rewardCount: p.rewardCount,
                                 contestType: p.contestType,
+                                myRank: p.myRank,
                                 roundDate: timeGenerate(p.roundDate)
                             });
                         });

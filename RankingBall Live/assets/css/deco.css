@@ -237,16 +237,19 @@
 .contents-view ul.recordboxList .inboxList-marker {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 5px;
     z-index: 3;
-    width: 30px;
+    width: 25px;
+    height: 27px;
     background: url(../resource/rank.png) 0 0 no-repeat;
     background-size: contain;
     color: #fff;
+    text-align: center;
+    line-height: 1.6em;
 }
 
 .contents-view ul.recordboxList .inboxList-title {
-    padding: 5px 5px 5px 30px;
+    padding: 5px 5px 5px 32px;
     font-size: 1em;
     font-weight: 600;
     color: #3180a4;
@@ -1001,8 +1004,8 @@
 .rt_controller .rt_progress_time {
     position: absolute;
     display: block;
-    top: 47px;
-    left: 7px;
+    top: 40px;
+    left: 4px;
     z-index: 8;
 }
 .rt_controller .rt_progress_time > div {
