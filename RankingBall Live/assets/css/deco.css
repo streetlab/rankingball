@@ -228,23 +228,30 @@
     line-height: 1.4em;
 }
 .contents-view ul.recordboxList .inboxList-face {
-    display: table;
+    position: relative;
     width: 100%;
     background-color: #fff;
     border-radius: 3px;
     overflow: hidden;
 }
 .contents-view ul.recordboxList .inboxList-marker {
-    display: table-cell;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    width: 30px;
+    background: url(../resource/rank.png) 0 0 no-repeat;
+    background-size: contain;
+    color: #fff;
 }
+
 .contents-view ul.recordboxList .inboxList-title {
-    display: table-cell;
+    padding: 5px 5px 5px 30px;
     font-size: 1em;
     font-weight: 600;
     color: #3180a4;
     white-space: nowrap;;
     overflow: hidden;
-    padding: .5em;
     text-align: left;
     text-overflow: ellipsis;
 }

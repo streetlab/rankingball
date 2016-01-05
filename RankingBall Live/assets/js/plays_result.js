@@ -46,6 +46,9 @@ app.Resnrnk = (function () {
             $('#tabstrip_header_season').addClass('ts');
             $('#tabstrip_week').addClass('hide');
             $('#tabstrip_season').removeClass('hide');
+            $('#rnk_season').removeClass('hide');
+            $('#rnk_week').addClass('hide');
+            
             thisTab = "SR";
             nowRank = 0;
             myRank = 0;
@@ -58,6 +61,8 @@ app.Resnrnk = (function () {
             $('#tabstrip_header_week').addClass('ts');
             $('#tabstrip_season').addClass('hide');
             $('#tabstrip_week').removeClass('hide');
+            $('#rnk_season').addClass('hide');
+            $('#rnk_week').removeClass('hide');
             thisTab = "WR";
             nowRank = 0;
             myRank = 0;
@@ -105,6 +110,7 @@ app.Resnrnk = (function () {
                             nowRank = 0;
                         }
                         
+                        $('#rnk_season').html(rowData.curSeason + " 시즌");
                         $('#ranking_season').empty();
                         
                         if(rowData.myRank > 0) {
@@ -168,6 +174,8 @@ app.Resnrnk = (function () {
                         {
                             nowRank = 0;
                         }
+                        
+                        $('#rnk_week').html(rowData.curSeason + " 시즌 " + rowData.curRound + " 라운드");
                         
                         $('#ranking_week').empty();
                         

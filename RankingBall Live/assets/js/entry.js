@@ -371,16 +371,7 @@ app.Entry = (function () {
                 
                 navigator.notification.confirm("경기 참여를 취소하시겠습니까?", function (confirmed) {
                     if (confirmed === true || confirmed === 1) {
-                        if(currentContestType === "F") {
-                            //app.Contests.joinFeatured;
-                            app.mobileApp.navigate('views/playListView.html?bar=F', 'slide:right');
-                        } else if(currentContestType === "5") {
-                            //app.Contests.joinFF;
-                            app.mobileApp.navigate('views/playListView.html?bar=5', 'slide:right');
-                        } else {
-                            //app.Contests.joinGuarateed;
-                            app.mobileApp.navigate('views/playListView.html?bar=G', 'slide:right');
-                        }
+                        app.mobileApp.navigate('views/playView.html', 'slide:right');
                         $("#po_entry_registration").data("kendoMobileView").destroy();
                         $("#po_entry_registration").remove();
                     }

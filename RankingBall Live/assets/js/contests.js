@@ -18,12 +18,14 @@ app.Contests = (function () {
         function init() {
             observableView();
             matchPlay();
+            liveContestList();
             myContestList();
         }
         
         function onShow(e) {
             
             observableView();
+            liveContestList();
             matchPlay();
             myContestList();
 
@@ -116,6 +118,85 @@ app.Contests = (function () {
             navbar.title(t);
         };
         
+       var liveContestList = function() {
+            
+            var dataSource;
+            
+            if(contestPartList['cf'].length === 0) {
+                $('#cgt_list1').html('');
+                $('#cmath-cnt-f').html(0);
+                $('#acco_cgt1').removeClass('ico-open');
+            } else {
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestPartList['cf']
+                });
+                
+                $("#cgt1").empty();
+                $("#cgt1").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#liveContestListTemplate").html()
+                });
+                
+                //$('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
+                $('#cmath-cnt-f').html(contestPartList['cf'].length);
+                $('#acco_cgt1').addClass('ico-open');
+            }
+            
+            if(contestPartList['c5'].length === 0) {
+                $('#cgt_list2').html('');
+                $('#cmath-cnt-5').html(0);
+                $('#acco_cgt2').removeClass('ico-open');
+            } else {
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestPartList['c5']
+                });
+                $("#cgt2").empty();
+                $("#cgt2").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#liveContestListTemplate").html()
+                });
+                
+                //$('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
+                $('#cmath-cnt-5').html(contestPartList['c5'].length);
+                $('#acco_cgt2').addClass('ico-open');
+            }
+            
+            if(contestPartList['cg'].length === 0) {
+                $('#cgt_list3').html('');
+                $('#cmath-cnt-g').html(0);
+                $('#acco_cgt3').removeClass('ico-open');
+            } else {
+                
+                dataSource = new kendo.data.DataSource({
+                    data: contestPartList['cg']
+                });
+                $("#cgt3").empty();
+                $("#cgt3").kendoMobileListView({
+                    dataSource: dataSource,
+                    template: $("#liveContestListTemplate").html()
+                });
+                
+                //$('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
+                $('#cmath-cnt-g').html(contestPartList['cg'].length);
+                $('#acco_cgt3').addClass('ico-open');
+            }
+        };
+        
+        var contestAccordon = function(e) {
+            var data = e.button.data();
+            var els_this = $('#accoList_' + data.rel);
+            var els_ul = $('#' + data.rel);
+            els_ul.slideToggle( "2500", "swing", function() {
+                        if(els_ul.is(":visible")) {
+                            els_this.find('span.collapse-btn').addClass('ico-open');
+                        } else {
+                            els_this.find('span.collapse-btn').removeClass('ico-open');
+                        }
+                    }
+                );
+        };
         
         var myContestList = function() {
             
@@ -816,6 +897,7 @@ app.Contests = (function () {
             joinFF: joinFF,
             joinGuarateed: joinGuarateed,
             customAccordon: customAccordon,
+            contestAccordon: contestAccordon,
             closeModal: closeModal,
             joinMatch: joinMatch,
             joinMatchConfirm: joinMatchConfirm,
