@@ -213,10 +213,12 @@ app.Signup = (function () {
 
         // Executed after show of the Signup view
         var show = function () {
+            
             dataSource = kendo.observable({
                   Username: ''
               });
             kendo.bind($('#signUp'), dataSource, kendo.mobile.ui);
+            
         };
 
         // Executed after hide of the Signup view

@@ -269,15 +269,67 @@ app.Entry = (function () {
                     }, '알림', ['충전하기', '취소']);
 
             } else {
-            
-                navigator.notification.confirm("현재 지정된 선수로 엔트리를 등록하시겠습니까?", function (confirmed) {
-                   if (confirmed === true || confirmed === 1) {
-                        app.Playerz.setFinalEntry(contestNo,contestFee);    
-                   }
-                }, '알림', ['확인', '취소']);
+                
+                bizJoinRuleCheck(contestNo, contestFee);
+
             }
             return false;
         }
+        
+        var bizJoinRuleCheck = function(contest, fee) {
+            app.mobileApp.showLoading();
+            
+            var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + '}';
+            var url = init_data.auth + "?callback=?";
+            
+            $.ajax({
+                url: url,
+                type: "GET",
+                timeout: 1500,
+                dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
+                data: {
+                    "type": "apps",
+                    "id": "memberProfileGetSimple",
+                    "param":param
+                },
+               success: function(response) {
+                   console.log(JSON.stringify(response));
+                   if (response.code === 0) {
+                       
+                       var resp = response.data;
+                       var purchaseAmount = parseInt(resp.accrdJoinD) + parseInt(fee);
+                       if(parseInt(purchaseAmount) <= parseInt(resp.lmtJoinD)) {
+                           
+                            navigator.notification.confirm("현재 지정된 선수로 엔트리를 등록하시겠습니까?", function (confirmed) {
+                               if (confirmed === true || confirmed === 1) {
+                                    app.Playerz.setFinalEntry(contest, fee);    
+                               }
+                            }, '알림', ['확인', '취소']);
+                           
+                       } else {
+                           
+                           var errorMessage = "일일 베팅 한도는 10만원(14,000,000캐시) 입니다.";
+                           
+                               //"\n일일 결제한도 : " + numberFormat(resp.lmtIapD) +
+                               //"\n오늘 결제한도 : " + numberFormat(parseInt(resp.lmtIapD) - parseInt(resp.accrdIapD));
+                           app.showAlert(errorMessage, "안내", function() {
+                               return false;
+                           });
+                       }
+                       
+                   } else {
+                       app.showAlert('엔트리 정보 초기화 중 오류가 발생하였습니다.', '안내', function() { return false; });
+                   }
+                   app.mobileApp.hideLoading();
+                },
+                error: function(e) {
+                    console.log(JSON.stringify(e));
+                    app.mobileApp.hideLoading();
+                }
+            });  
+        }
+        
         
         function updateEntry() {
             if(entryStatus === false) {

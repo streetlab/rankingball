@@ -56,9 +56,9 @@ var rtMessageRnd = [
 	"골 예측을 맞추시게 되는 경우 많은 보상이 기다리고 있습니다.", 
 	"골 예측 시간은 실제 경기 시간으로 결정됩니다."
 	];
-var rtMessageActivate = "예측을 시작합니다.";
+var rtMessageActivate = "처음 15초 동안은 예측 대기 구간입니다.";
 var rtMessageDeActivate = "초에 예측을 마칩니다.";
-var rtMessagePrediction = "현재 판정중입니다. 잠시만 기다려주세요.";
+var rtMessagePrediction = "골 예측 구간입니다. 30초 동안 진행됩니다.";
 var rtMessageSuccess = "예측에 성공하셨습니다. 축하드립니다.";
 var rtMessageFail = "예측에 실패 하셨습니다. 다음 기회를 노려 주세요.";
 
@@ -113,8 +113,6 @@ var initAppService = {
         
         var that = this;
         var param = '{"osType":' + init_apps.osType + ',"version":"' + version + '"}';
-        
-        console.log("ajax version check : " + param);
         
         $.ajax({
             url: "http://m3.liveball.kr:8080/rankBall/query.frz?callback=?",
@@ -220,10 +218,12 @@ var initAppService = {
                 },
                success: function(response) {
                    
-                   console.log(response);
                    if (response.code === 0) {
                        globalRequestTry = 0;
+                                              
                        uu_data = response.data;
+                       
+                       console.log(JSON.stringify(uu_data));
                        
                        setlocalStorage('push_wiz',init_apps.memUID);
                        $('#start-game').addClass('hide');
@@ -232,6 +232,7 @@ var initAppService = {
                        app.Login.loginAutoim('');
                    } else {
                        navigator.splashscreen.hide();
+                       
                    }
                },
                error: function(e) {

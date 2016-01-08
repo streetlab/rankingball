@@ -1114,6 +1114,8 @@ app.Playerz = (function () {
                 return false;
             }
             
+            app.mobileApp.showLoading();
+            
             var param = '{"osType":' + init_apps.osType + 
                 ',"version":"' + init_apps.version + 
                 '","memSeq":' + uu_data.memSeq + 
@@ -1129,7 +1131,8 @@ app.Playerz = (function () {
                 '}';
             
             var url = init_data.auth + "?callback=?";
-            app.mobileApp.showLoading();
+            
+            console.log(param);
             
             $.ajax({
                 url: url,

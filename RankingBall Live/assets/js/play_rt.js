@@ -14,27 +14,12 @@ app.playRTS = (function () {
         var maxTimeCount = 45;
         var maxCirclePosition = 216;
         
-        var startColor = '#2a6044';
-        var endColor = '#f2f20a';
-        var coolTimeColor = '#11a75b';
-        var opts = {
-            from: { color: startColor },
-            to: { color: startColor }
-        };
-        
-        var clc, reactCLC, sparkle;
-        
-        var swiper;
-        var vr_timer;
-        var vr_point = 1000;
-        var vr_minutes = 900000;
-        var vr_minute_val = 0;
-        var vr_predict_count = 0;
-        var vr_predict_right = 0;
-        var vr_star = 0;
-        
+        var reactCLC;
+        var swiper;       
         var rtSlider = true;
-                
+   
+        var rtRowData = "";
+        
         function init() {
             
             observableView();
@@ -109,6 +94,7 @@ app.playRTS = (function () {
             console.log("do callback first");
             $('#rt_header__title').show('slide');
         }
+
         function dispScoreboardShow() {
             console.log("do callback another");
             $('#rt_header__scoreboard').show('slide');
@@ -122,8 +108,71 @@ app.playRTS = (function () {
             }
         }
         
+        function rt_radar() {
+            
+            app.mobileApp.showLoading();
+            
+            observableView();
+            
+            var url = "http://scv.rankingball.com/rt_fullfeed/soccer";
+            $.ajax({
+                url: url,
+                type: "GET",
+                timeout: 1000,
+                dataType: "jsonp",
+                data: {
+                    "id": "getRadar"
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.result === 200) {
+                        
+                        console.log("start rt bar");
+                        
+                        var rtGroup = Object.keys(response.groups);
+                        
+                        if(rtGroup.length > 0) {
+                            var i=0;
+                            var rtBarArray = [];
+                            for(i=0;i<rtGroup.length;i++) {
+                                var tmpArray = {
+                                    'rt_id':response.groups[rtGroup[i]]['group_id'],
+                                    'rt_len':response.groups[rtGroup[i]]['group_count'],
+                                    'rt_title':response.groups[rtGroup[i]]['group_title']
+                                };
+                                rtBarArray.push(tmpArray);   
+                            }
+                            
+                            $("#rtListBar").kendoMobileListView({
+                                dataSource: rtBarArray,
+                                template: $("#rtGroupListTemplate").html()
+                            });
+                            
+                            rtRowData = response.data;
+                            var rtGroupData = Object.keys(rtRowData);
+                            for(i=0;i<rtGroupData.length;i++) {
+                                var rtData = rtRowData[rtGroupData[i]];
+                                var rt_list = "#rt" + rtGroupData[i];
+                                
+                                $(rt_list).kendoMobileListView({
+                                    dataSource: rtData,
+                                    template: $("#rtDataListTemplate").html()
+                                });
+                            }
+
+                            
+                        }
+                    }
+                    
+                    app.mobileApp.hideLoading();
+                },
+                error: function(e) {
+                    app.mobileApp.hideLoading();
+                }
+            });
+        }
+        
         function rt_init() {
-            console.log(uu_data);
             observableView();
             //$('.amount_mini_point').html(numberFormat(vr_point));
         }
@@ -250,13 +299,17 @@ app.playRTS = (function () {
                         reactResult();
                     } else {
                         if(loop > 15) {
-                            //rtProgressBar(loop, 3, $('#meter_bar'));
+                            $('#rt_message').html(rtMessagePrediction);
+                        }
+                        rtProgressBar(maxCirclePosition, loop, 4.8, $('#meter_bar'));
+                        /*
+                        if(loop > 15) {
                             $('#rt_message').html(rtMessagePrediction);
                             rtProgressBar(96, (loop - 15), 3.2, $('#meter_bar'));
                         } else {
-                            //rtProgressBar(loop, 8, $('#meter_bar'));
-                            rtProgressBar(maxCirclePosition, loop, 8, $('#meter_bar'));
+                            rtProgressBar(maxCirclePosition, loop, 5.4, $('#meter_bar'));
                         }
+                        */
                     }
                 }, 1000);
             } else {
@@ -285,194 +338,22 @@ app.playRTS = (function () {
                 ,300);
         }
         
-        function nowPlayRT() {
+        function nowPlayRT(e) {
+            
+            var data = e.button.data();
+            
+            console.log(data.rel);
+            console.log(data.gol);
             
             $("#moadl_loading").data("kendoMobileModalView").open();
             $("#moadl_loading").children('.km-content').addClass('opacity_zero');
                         
             setTimeout(function() {
-                app.mobileApp.navigate('views/playRTVu.html', 'slide');
+                app.mobileApp.navigate('views/playRTVu.html?matchId=' + data.rel + '&group=' + data.gol, 'slide');
                 $("#moadl_loading").data("kendoMobileModalView").close();
                 }
                 ,1000);
             
-        }
-        
-        function ani() {
-            $("#ya").data("kendoMobileModalView").open();
-            $("#ya").children('.km-content').addClass('opacity_zero');
-            
-            $("#ya").sparkleh({
-                count: 80,
-                color: ["#ff0080","#ff0080","#0000FF"]
-            });
-            
-            setTimeout(onTap,8000);
-        }        
-
-        $.fn.sparkleh = function( options ) {
-            return this.each( function(k,v) {
-                var $this = $(v).css("position","relative");
-                var settings = $.extend({
-                    width: $this.outerWidth(),
-                    height: $this.outerHeight(),
-                    color: "#FFFFFF",
-                    count: 30,
-                    overlap: 0,
-                    speed: 1
-                    }, options );
-                sparkle = new Sparkle( $this, settings );
-                sparkle.over();
-            });
-        }
-
-        function Sparkle( $parent, options ) {
-            this.options = options;
-            this.init( $parent );
-        }
-
-        Sparkle.prototype = {
-            "init" : function( $parent ) {
-                var _this = this;
-                this.$canvas = 
-                $("<canvas>")
-                    .addClass("sparkle-canvas")
-                    .css({
-                        position: "absolute",
-                        top: "-"+_this.options.overlap+"px",
-                        left: "-"+_this.options.overlap+"px",
-                        "pointer-events": "none"
-                    })
-                    .appendTo($parent);
-
-                this.canvas = this.$canvas[0];
-                this.context = this.canvas.getContext("2d");
-
-                this.sprite = new Image();
-                this.sprites = [0,6,13,20];
-                this.sprite.src = this.datauri;
-
-                this.canvas.width = this.options.width + ( this.options.overlap * 2);
-                this.canvas.height = this.options.height + ( this.options.overlap * 2);
-                this.particles = this.createSparkles( this.canvas.width , this.canvas.height );
-                this.anim = null;
-                this.fade = false;
-            },
-            "createSparkles" : function( w , h ) {
-                var holder = [];
-                for( var i = 0; i < this.options.count; i++ ) {
-                    var color = this.options.color;
-                    if( this.options.color == "rainbow" ) {
-                        color = '#'+ ('000000' + Math.floor(Math.random()*16777215).toString(16)).slice(-6);
-                    } else if( $.type(this.options.color) === "array" ) {
-                        color = this.options.color[ Math.floor(Math.random()*this.options.color.length) ];
-                    }
-                    holder[i] = {
-                        position: {
-                            x: Math.floor(Math.random()*w),
-                            y: Math.floor(Math.random()*h)
-                        },
-                        style: this.sprites[ Math.floor(Math.random()*4) ],
-                        delta: {
-                            x: Math.floor(Math.random() * 1000) - 500,
-                            y: Math.floor(Math.random() * 1000) - 500
-                        },
-                        size: parseFloat((Math.random()*2).toFixed(2)),
-                        color: color
-                    };
-                }
-                return holder;
-            },
-            "draw" : function( time, fade ) {
-                var ctx = this.context;
-                ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-                for( var i = 0; i < this.options.count; i++ ) {
-                    var derpicle = this.particles[i];
-                    var modulus = Math.floor(Math.random()*7);
-                    if( Math.floor(time) % modulus === 0 ) {
-                        derpicle.style = this.sprites[ Math.floor(Math.random()*4) ];
-                    }
-                    ctx.save();
-                    ctx.globalAlpha = derpicle.opacity;
-                    ctx.drawImage(this.sprite, derpicle.style, 0, 7, 7, derpicle.position.x, derpicle.position.y, 7, 7);
-                    if( this.options.color ) {  
-                        ctx.globalCompositeOperation = "source-atop";
-                        ctx.globalAlpha = 0.5;
-                        ctx.fillStyle = derpicle.color;
-                        ctx.fillRect(derpicle.position.x, derpicle.position.y, 7, 7);
-                    }
-                    ctx.restore();
-                }
-            },
-            "update" : function() {
-                var _this = this;
-                this.anim = window.requestAnimationFrame( function(time) {
-                    for( var i = 0; i < _this.options.count; i++ ) {
-                        var u = _this.particles[i];
-                        var randX = ( Math.random() > Math.random()*2 );
-                        var randY = ( Math.random() > Math.random()*3 );
-                        if( randX ) {
-                            u.position.x += ((u.delta.x * _this.options.speed) / 1500); 
-                        }
-                        if( !randY ) {
-                            u.position.y -= ((u.delta.y * _this.options.speed) / 800);
-                        }
-                        if( u.position.x > _this.canvas.width ) {
-                            u.position.x = -7;
-                        } else if ( u.position.x < -7 ) {
-                            u.position.x = _this.canvas.width; 
-                        }
-                        if( u.position.y > _this.canvas.height ) {
-                            u.position.y = -7;
-                            u.position.x = Math.floor(Math.random()*_this.canvas.width);
-                            } else if ( u.position.y < -7 ) {
-                            u.position.y = _this.canvas.height; 
-                            u.position.x = Math.floor(Math.random()*_this.canvas.width);
-                        }
-                        if( _this.fade ) {
-                            u.opacity -= 0.02;
-                        } else {
-                            u.opacity -= 0.005;
-                        }
-                        if( u.opacity <= 0 ) {
-                            u.opacity = ( _this.fade ) ? 0 : 1;
-                        }
-                    }
-                    _this.draw( time );
-                    if( _this.fade ) {
-                        _this.fadeCount -= 1;
-                        if( _this.fadeCount < 0 ) {
-                            window.cancelAnimationFrame( _this.anim );
-                        } else {
-                            _this.update(); 
-                        }
-                    } else {
-                        _this.update();
-                    }
-                });
-            },
-            "cancel" : function() {
-                this.fadeCount = 100;
-            },
-            "over" : function() {
-                window.cancelAnimationFrame( this.anim );
-                for( var i = 0; i < this.options.count; i++ ) {
-                    this.particles[i].opacity = Math.random();
-                }
-                this.fade = false;
-                this.update();
-            },
-            "out" : function() {
-                this.fade = true;
-                this.cancel();
-            },
-            "datauri" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABsAAAAHCAYAAAD5wDa1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozNDNFMzM5REEyMkUxMUUzOEE3NEI3Q0U1QUIzMTc4NiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozNDNFMzM5RUEyMkUxMUUzOEE3NEI3Q0U1QUIzMTc4NiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjM0M0UzMzlCQTIyRTExRTM4QTc0QjdDRTVBQjMxNzg2IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjM0M0UzMzlDQTIyRTExRTM4QTc0QjdDRTVBQjMxNzg2Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+jzOsUQAAANhJREFUeNqsks0KhCAUhW/Sz6pFSc1AD9HL+OBFbdsVOKWLajH9EE7GFBEjOMxcUNHD8dxPBCEE/DKyLGMqraoqcd4j0ChpUmlBEGCFRBzH2dbj5JycJAn90CEpy1J2SK4apVSM4yiKonhePYwxMU2TaJrm8BpykpWmKQ3D8FbX9SOO4/tOhDEG0zRhGAZo2xaiKDLyPGeSyPM8sCxr868+WC/mvu9j13XBtm1ACME8z7AsC/R9r0fGOf+arOu6jUwS7l6tT/B+xo+aDFRo5BykHfav3/gSYAAtIdQ1IT0puAAAAABJRU5ErkJggg=="
-        };        
-    
-        
-        function onTap() {
-            sparkle.out();
-            $("#ya").data("kendoMobileModalView").close();
         }
         
         function dispGameLife() {
@@ -513,7 +394,7 @@ app.playRTS = (function () {
             var data = e.button.data();
             console.log(data.rel);
             var els_this = $('#accoList_rt_' + data.rel);
-            var els_ul = $('#rt' + data.rel);
+            var els_ul = $('#rtChild_' + data.rel);
             els_ul.slideToggle( "2500", "swing", function() {
                         if(els_ul.is(":visible")) {
                             els_this.find('span.collapse-btn').addClass('ico-open');
@@ -524,7 +405,8 @@ app.playRTS = (function () {
                 );
         };
         
-        function sportRada() {
+        function sportRada(e) {
+            var param = e.view.params;
             
             rtNowTime = new Date();
             
@@ -536,23 +418,37 @@ app.playRTS = (function () {
             $('.wc-widget').empty();
             
             SRLive.addWidget("widgets.lmts",{
-                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": 7464774, "showTitle": false, "container": ".wc-widget.wc-10"
+                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": param.matchId, "showTitle": false, "container": ".wc-widget.wc-10"
             });
             SRLive.addWidget("widgets.matchcommentary",{
-              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
+              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
             });
             SRLive.addWidget("widgets.matchlineups",{
-              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-12"
+              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-12"
             });
             SRLive.addWidget("widgets.matchstats",{
-              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-13"
+              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-13"
             });
             SRLive.addWidget("widgets.matchhead2head",{
-              "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-14"
+              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-14"
             });
             SRLive.addWidget("widgets.livetable",{
-              "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": 7464774, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
-            });
+              "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
+            });z
+            
+            
+            var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });
+            
+            var home_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['home_code'] + '.png';
+            var away_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['away_code'] + '.png';
+            var playingTime = groupObj[0]['game_time'];
+            
+            $('.rt_home_emblem').attr('src',home_img);
+            $('#rt_home_label').html(groupObj[0]['home_team']);
+            $('.is_home_score').html(groupObj[0]['home_score']);
+            $('.rt_away_emblem').attr('src',away_img);
+            $('#rt_away_label').html(groupObj[0]['away_team']);
+            $('.is_away_score').html(groupObj[0]['away_score']);
             
             dispGameLife();
             
@@ -564,15 +460,15 @@ app.playRTS = (function () {
             },1500);
         }
         
+        
         return {
             init: init,
+            rt_radar: rt_radar,
             rt_init: rt_init,
             init_result: init_result,
             rosa: rosa,
             nowPlayRT: nowPlayRT,
-            ani: ani,
             playRTResult: playRTResult,
-            onTap: onTap,
             confirmBack: confirmBack,
             swipeSlide: swipeSlide,
             collapseList: collapseList,

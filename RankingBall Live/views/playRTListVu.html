@@ -4,6 +4,7 @@
     data-title="REAL TIME"
     data-layout="main"
     data-init="app.playRTS.rt_init"
+    data-show="app.playRTS.rt_radar"
     data-transition="slide">
     
     <div data-role="header" class="rnkb-wiz">
@@ -35,268 +36,6 @@
             <div class="contest-match-group">
                 
                 <ul id="rtListBar" class="contest-inboxList">
-                    <li>
-                        <a id="accoList_rt_20" class="btn-match-lead" data-role="button" data-rel="20" data-click="app.playRTS.collapseList"><span>17라운드 12월 20일</span> <span id="acco_rt1" class="collapse-btn ico-open"></span></a>
-                        <div id="rt_list20">
-                            <ul id="rt20" class="collapseRTList">
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>첼시</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>선덜랜드</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>에버턴</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>레스터</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>맨유</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>노리치</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>사우샘프턴</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>토트넘</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>스토크시티</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>크리스탈 팰리스</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>00:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>웨스트 브롬</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>본머스</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>02:30</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>뉴캐슬</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>애스턴 빌라</span>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>22:30</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>왓포드</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>리버풀</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a id="accoList_rt_21" class="btn-match-lead" data-role="button" data-rel="21" data-click="app.playRTS.collapseList"><span>17라운드 12월 21일</span> <span id="acco_rt2" class="collapse-btn ico-open"></span></a>
-                        <div id="rt_list21">
-                            <ul id="rt21" class="collapseRTList">
-                                <li data-role="button" data-click="app.playRTS.nowPlayRT">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>01:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>스완지</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>웨스트햄</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <a id="accoList_rt_22" class="btn-match-lead" data-role="button" data-rel="22" data-click="app.playRTS.collapseList"><span>17라운드 12월 22일</span> <span id="acco_rt3" class="collapse-btn ico-open"></span></a>
-                        <div id="rt_list22">
-                            <ul id="rt22" class="collapseRTList">
-                                <li data-role="button" data-click="app.playRTS.playRTResult">
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-label rt-list-home font-red">
-                                            <span>[HOME]</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-info">
-                                            <span>05:00</span>
-                                        </div>
-                                        <div class="rt-games-label rt-list-away font-cyan">
-                                            <span>[AWAY]</span>
-                                        </div>
-                                    </div>
-                                    <div class="rt-games-row">
-                                        <div class="rt-games-data rt-list-home">
-                                            <span>아스널</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-info">
-                                            <span>0</span> <span class="rt-status-badge rt-non">경기전</span> <span>0</span>
-                                        </div>
-                                        <div class="rt-games-data rt-list-away">
-                                            <span>맨시티</span>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    
                 </ul>
 
             </div>
@@ -311,3 +50,58 @@
         <div class="loading_enter_txt">경기에 입장중입니다..</div>
     </div>
 </div>
+
+<script id="rtGroupListTemplate" type="text/x-kendo-template">
+    # 
+        if(rt_len > 0) {
+            collapse_ico = "ico-open";
+        } else {
+            collapse_ico = "";
+        }
+        
+    #
+    <a id="accoList_rt_#:rt_id#" class="btn-match-lead" data-role="button" data-rel="#:rt_id#" data-click="app.playRTS.collapseList"><span>#:rt_title#</span> <span id="acco_#:rt_id#" class="collapse-btn #=collapse_ico#"></span></a>
+    <div id="rtChild_#=rt_id#">
+        <ul id="rt#=rt_id#" class="collapseRTList"></ul>
+    </div>
+    
+</script>
+
+<script id="rtDataListTemplate" type="text/x-kendo-template">
+    #
+        if(game_status === "2") {
+            rt_game_status = "경기중";
+            rt_status_badge = "rt-on";
+        } else if(game_status === "3") {
+            rt_game_status = "경기종료";
+            rt_status_badge = "rt-off";
+        } else {
+            rt_game_status = "경기전";
+            rt_status_badge = "rt-non";
+        }
+    #
+    <div class="rtListDiv" data-role="button" data-rel="#:match_id#" data-gol="#:game_group#" data-click="app.playRTS.nowPlayRT">
+        <div class="rt-games-row">
+            <div class="rt-games-label rt-list-home font-red">
+                <span>[HOME]</span>
+            </div>
+            <div class="rt-games-label rt-list-info">
+                <span>00:00</span>
+            </div>
+            <div class="rt-games-label rt-list-away font-cyan">
+                <span>[AWAY]</span>
+            </div>
+        </div>
+        <div class="rt-games-row">
+            <div class="rt-games-data rt-list-home">
+                <span>#:home_team#</span>
+            </div>
+            <div class="rt-games-data rt-list-info">
+                <span>#:home_score#</span> <span class="rt-status-badge #=rt_status_badge#">#=rt_game_status#</span> <span>#:away_score#</span>
+            </div>
+            <div class="rt-games-data rt-list-away">
+                <span>#:away_team#</span>
+            </div>
+        </div>
+    </div>
+</script>

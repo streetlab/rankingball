@@ -1292,6 +1292,7 @@ a.rnkb-rt img {
 }
 .contest-match-list ul.contest-inboxList li {
     padding: 0.8em .4em;
+    background-color: rgba(255,255,255,0);
 }
 
 .contest-match-list a.btn-match-lead

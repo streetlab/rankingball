@@ -1016,7 +1016,7 @@
     overflow: hidden;
 }
 .rt_controller .rt_progress_time div.rt_click_time__chance {
-    margin-left: 8px;
+    margin-left: 34px;
 }
 .rt_controller .rt_progress_time div.rt_click_time__close {
     margin-left: 52px;
@@ -1037,11 +1037,9 @@
     background-image: linear-gradient(
         90deg, 
         #168f32 0,
-        #168f32 40px, 
-        #f8ed20 40px,
-        #f8ed20 120px,
-        #42dc65 120px,
-        #42dc65 216px
+        #168f32 72px, 
+        #f8ed20 72px,
+        #f8ed20 216px
     );
     background-size: 100% 100%;
 }
@@ -1059,7 +1057,7 @@
     position: absolute;
     z-index: 8;
     top: 0;
-    left: 40px;
+    left: 72px;
     margin-left: -5px;
     width: 10px;
     height: 10px;
@@ -1157,23 +1155,28 @@
     background-color: #fff;
     border-radius: 3px;
 }
+ul.collapseRTList .rtListDiv {
+    width: 100%;
+}
 ul.collapseRTList .rt-games-row {
     display: table;
     width: 100%;
-    min-height: 32px;
+    min-height: 30px;
     padding: 0 .3em;
 }
 ul.collapseRTList .rt-games-row .rt-games-label {
     display: table-cell;
     font-size: 0.7em;
+    text-align: center;
     vertical-align: bottom;
-    padding-bottom: .4em;
+    padding-bottom: .6em;
     border-bottom: 1px solid #e9e9e9;
 }
 ul.collapseRTList .rt-games-row .rt-games-data {
     display: table-cell;
     font-size: 1.1em;
     padding-top: .5em;
+    text-align: center;
 }
 ul.collapseRTList .rt-games-row .rt-list-home {
     width: 35%;    
@@ -1187,6 +1190,7 @@ ul.collapseRTList .rt-games-row .rt-list-away {
 ul.collapseRTList .rt-status-badge {
     display: inline-block;
     min-width: 32px;
+    min-height: 16px;
     padding: 0px 2px;
     font-size: 7px;
     color: #fff;

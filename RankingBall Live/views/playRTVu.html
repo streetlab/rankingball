@@ -21,15 +21,15 @@
             <div id="rt_header__scoreboard" style="display: none;">
                 <div class="rt-info__stats">
                     <div class="rt-info__tab rt_emblem">
-                        <img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" />
+                        <img class="rt_home_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" />
                     </div>
                     <div class="rt-info__tab rt_scoreboard">
                         <div class="rt_score_flex">
-                            <div class="rt_score">0</div> <div><span class="rt_times">23:45</span></div> <div class="rt_score">0</div>
+                            <div class="rt_score is_home_score">0</div> <div><span class="rt_times">23:45</span></div> <div class="rt_score is_away_score">0</div>
                         </div>
                     </div>
                     <div class="rt-info__tab rt_emblem">
-                        <img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" />
+                        <img class="rt_away_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" />
                     </div>
                 </div>
             </div>
@@ -39,17 +39,17 @@
         <div id="rt_slider" class="rt-info">
             <div id="rt_stats" class="rt-info__stats">
                 <div class="rt-info__tab rt_emblem">
-                    <div><img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" /></div>
-                    <span>NEW CASTLE</span>
+                    <div><img class="rt_home_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" /></div>
+                    <span id="rt_home_label">NEW CASTLE</span>
                 </div>
                 <div class="rt-info__tab rt_scoreboard">
                     <div class="rt_score_flex">
-                        <span class="rt_score">0</span> <span class="rt_times">23:45</span> <span class="rt_score">0</span>
+                        <span class="rt_score is_home_score">0</span> <span id="rt_playing_times" class="rt_times">23:45</span> <span class="rt_score is_away_score">0</span>
                     </div>
                 </div>
                 <div class="rt-info__tab rt_emblem">
-                    <div><img src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" /></div>
-                    <span>ASTONVILLA</span>
+                    <div><img class="rt_away_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" /></div>
+                    <span id="rt_away_label">ASTONVILLA</span>
                 </div>
             </div>
         </div>
@@ -117,14 +117,12 @@
                     <div class="rt_progress_bar">
                         <div id="rt_message" class="rt_pg__message"></div>
                         <div class="rt_progress_time">
-                            <div class="rt_click_time__start">05:00</div>
-                            <div class="rt_click_time__chance">05:05</div>
-                            <div class="rt_click_time__close">05:15</div>
+                            <div class="rt_click_time__start">00:00</div>
+                            <div class="rt_click_time__chance">00:15</div>
                         </div>
                         <div id="rt_bar" class="rt_pg__bar">
                             <div class="meter">
                                 <div class="meter_marker__ready"></div>
-                                <div class="meter_marker__chance"></div>
                             	<span id="meter_bar"></span>
                             </div>
                         </div>
@@ -146,16 +144,3 @@
             
     </div>
 </div>
-
-<div data-role="modalview" id="ya" data-modal="false" style="width:100%;height:100%">
-    <div id="ya_sparkle" class="ani_body" data-role="touch" data-tap="onTap">
-        <div class="fever_box">
-            <div class="fever_image animated pulse"><img src="./assets/resource/rt/fever_time.png"></div>
-            <p>피버 타임이 발동했어요!<br>피버 타임이 발동하는 사이에 예측을 성공하면 더 높은 점수를 획득할 수 있어요.</p>
-        </div>
-    </div>
-</div>
-
-<script>
-
-</script>
