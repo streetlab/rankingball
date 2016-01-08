@@ -309,10 +309,9 @@ app.Entry = (function () {
                            
                        } else {
                            
-                           var errorMessage = "일일 베팅 한도는 10만원(14,000,000캐시) 입니다.";
-                           
-                               //"\n일일 결제한도 : " + numberFormat(resp.lmtIapD) +
-                               //"\n오늘 결제한도 : " + numberFormat(parseInt(resp.lmtIapD) - parseInt(resp.accrdIapD));
+                           var errorMessage = "일일 베팅 한도는 10만원(" + numberFormat(parseInt(resp.lmtJoinD) + "캐시) 입니다.\n" +
+                               "\n오늘 베팅금액 : " + parseInt(resp.accrdJoinD)) + "캐시" +
+                               "\n오늘 베팅한도 : " + numberFormat(parseInt(resp.lmtJoinD) - parseInt(resp.accrdJoinD));
                            app.showAlert(errorMessage, "안내", function() {
                                return false;
                            });
