@@ -1147,13 +1147,12 @@ app.Playerz = (function () {
                 },
                success: function(response) {
                    
-                    console.log(response);
-
                     if (response.code === 0) {
                         alert("엔트리가 등록되었습니다.");
                         uu_data.cash -= fee;
                         entryAmount = 0;
-                        app.ObjControl.reloadContest('#po_entry_registration','views/playListView.html?bar=' + currentContestType);
+                        //app.ObjControl.reloadContest('#po_entry_registration','views/playListView.html?bar=' + currentContestType);
+                        app.ObjControl.reloadContest('#po_entry_registration','views/playView.html');
                     } else {
                         app.showError(response.message);
                     }

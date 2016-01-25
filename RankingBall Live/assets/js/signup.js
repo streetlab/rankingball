@@ -150,6 +150,8 @@ app.Signup = (function () {
                 jsonpCallback: "jsonCallback",
                 data: {"type": "apps","id": "memberLoginDevice","param": param},
                 success: function(response) {
+                    
+                    console.log(JSON.stringify(response));
                     if(response.code === 0) {
                         uu_data = response.data;
                         uu_data.osType = init_apps.osType;

@@ -347,8 +347,8 @@ app.Contests = (function () {
                     modalHtml = '<dt>플레이 방 이름</dt><dd>' + v.contestName + '</dd>' + 
                     '<dt>경기방식</dt><dd>' + contestTypeLabel(v.contestType) + '</dd>' +
                     '<dt>참여 인원 및 참여가능 인원</dt><dd>' + v.totalEntry + '명 / ' + v.maxEntry + '명</dd>' +
-                    '<dt>입장료</dt><dd>' + v.entryFee + '</dd>' +
-                    '<dt>경기보상</dt><dd class="esp">' + v.contestReward + '</dd>';
+                    '<dt>입장료</dt><dd>' + numberFormat(v.entryFee) + '</dd>' +
+                    '<dt>경기보상</dt><dd class="esp">' + numberFormat(v.rewardValue) + '</dd>';
                     checkedData = v;
                     joinMatchNo = rel;
                     return;
@@ -596,7 +596,7 @@ app.Contests = (function () {
                    }
                 }, '알림', ['확인', '취소']);
             } else if(contest !== "" && contestStatus === 2) {
-                app.showError("게임 진행 중에는 들어갈 수 없습니다.");
+                app.showError("게임 진행 중에는 입장하실 수 없습니다.");
                 return false;
             } else if(contest !== "" && contestStatus === 3) {
                 navigator.notification.confirm("게임 결과를 확인하시겠습니까?", function (confirmed) {

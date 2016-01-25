@@ -130,9 +130,11 @@ app.Login = (function () {
         };
 
         var loginAutoim = function (passw) {
+            
+            /*
             var localData = getlocalStorage('appd');
             var storageObject;
-                        
+            console.log( JSON.stringify(uu_data));
             if (localData && localData !== 'undefined') {
                 
                 storageObject = $.parseJSON(localData);
@@ -141,7 +143,8 @@ app.Login = (function () {
                 console.log("use uu_data");
                 storageObject = uu_data;
             }
-                if (storageObject.status === 1) {    
+            */
+                if (uu_data.status === 1) {    
                     var param, callerID, pushKey;
                     
                     pushKey = ( typeof (init_apps.memUID) === undefined ||  init_apps.memUID === "" ) ? getlocalStorage('push_wiz') : init_apps.memUID;
@@ -165,7 +168,7 @@ app.Login = (function () {
                         callerID = "memberLogin";
                         param = '{"osType":' + init_apps.osType + 
                                  ',"version":"' + init_apps.version + 
-                                 '","email":"' + storageObject.email + 
+                                 '","email":"' + uu_data.email + 
                                  '","memPwd":"' + passw + 
                                  '","registType":' + registType +
                                  ',"memUID":"' + pushKey + 
@@ -187,8 +190,6 @@ app.Login = (function () {
                             "param":param
                         },
                        success: function(response) {
-                           console.log("auto login" + param);
-                           console.log(response);
                            if (response.code === 0) {
                                uu_data = response.data;
                                setlocalStorage('appd', JSON.stringify(uu_data));
@@ -266,13 +267,13 @@ app.Login = (function () {
                     var pathParam = pathname.split("/");
                     if(pathParam.length > 3 && pathParam[2] === "kmcert_result_f") {
                         console.log(pathParam[3])
-                        if(pathParam[3] === 100) {
+                        if(pathParam[3] === "100") {
                             app.showAlert('암호화모듈 호출이 정상적으로 실행되지 않았습니다.','안내',function() { aw.close(); });
-                        } else if(pathParam[3] === 101) {
+                        } else if(pathParam[3] === "101") {
                             app.showAlert('비정상적인 접근입니다.','안내',function() { aw.close(); });
-                        } else if(pathParam[3] === 102) {
+                        } else if(pathParam[3] === "102") {
                             app.showAlert('중복된 정보를 요청하셨습니다.','안내',function() { aw.close(); });
-                        } else if(pathParam[3] === 103) {
+                        } else if(pathParam[3] === "103") {
                             app.showAlert('18세 이상만 서비스 이용가능합니다.','안내',function() { aw.close(); });
                         }
                         autosetAuth = "fail";

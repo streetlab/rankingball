@@ -118,7 +118,7 @@ var initAppService = {
             url: "http://m3.liveball.kr:8080/rankBall/query.frz?callback=?",
             type: "GET",
             dataType: "jsonp",
-            timeout: 3000,
+            timeout: 1500,
             jsonpCallback: "jsonCallback",
             data: {
                 "type": "apps",
@@ -126,7 +126,7 @@ var initAppService = {
                 "param":param
             },
             success: function(response) {
-                
+                                
                 if (response.code === 0) {
                     var inits = response.data;
                     init_data = {
@@ -202,9 +202,7 @@ var initAppService = {
         if (init_data.status === 1) {
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","deviceID":"' + init_apps.deviceID + '"}';
             var url = init_data.auth + "?callback=?";
-            
-            console.log("ajax appDeviceCheck check : " + param);
-            
+
             $.ajax({
                 url: url,
                 type: "GET",
@@ -222,8 +220,6 @@ var initAppService = {
                        globalRequestTry = 0;
                                               
                        uu_data = response.data;
-                       
-                       console.log(JSON.stringify(uu_data));
                        
                        setlocalStorage('push_wiz',init_apps.memUID);
                        $('#start-game').addClass('hide');

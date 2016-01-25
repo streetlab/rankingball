@@ -434,7 +434,7 @@ app.playRTS = (function () {
             });
             SRLive.addWidget("widgets.livetable",{
               "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
-            });z
+            });
             
             
             var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });

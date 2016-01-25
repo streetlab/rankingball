@@ -7,8 +7,11 @@ app.Shop = (function () {
     'use strict';
     
     var shopProcess = (function () {        
+        
+        //var store;
+        
         function init() {
-            console.log('init shop!');
+            
             observableView();
             if (window.navigator.simulator === true) {
             } else {
@@ -40,6 +43,7 @@ app.Shop = (function () {
                                    alias: 'cash30000',
                                    type:   store.CONSUMABLE
                                });      
+
                 store.register({
                                    id:    'com.streetlab.cash50000',
                                    alias: 'cash50000',
@@ -55,7 +59,7 @@ app.Shop = (function () {
                     } else if (p.valid) {
                     }
                 });
-  
+
                 // When purchase of 100 coins is approved, show an alert
                 store.when("cash5000").approved(function (order) {
                     console.log(order.alias + 'approved!');
@@ -202,7 +206,6 @@ app.Shop = (function () {
         function buy(e) {
             var data = e.button.data();
             
-            console.log(data.rel);
             bizPurchaseRuleCheck(data.rel, data.pid);
             //var checkAmount = bizPurchaseRuleCheck(data.rel);
             /*
@@ -214,7 +217,7 @@ app.Shop = (function () {
             
         }
         
-        var bizPurchaseRuleCheck = function(price) {
+        var bizPurchaseRuleCheck = function(price, pid) {
             app.mobileApp.showLoading();
             
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + '}';
@@ -232,37 +235,19 @@ app.Shop = (function () {
                     "param":param
                 },
                success: function(response) {
-                   console.log(JSON.stringify(response));
                    
                    app.mobileApp.hideLoading();
                    
                    if (response.code === 0) {
                        
                        var resp = response.data;
-                       var purchaseAmount = parseInt(resp.accrdIapD) + parseInt(price);
+                       var mothlyAmount = parseInt(resp.accrdIapM) + parseInt(price); // 월결제
                        
-                       console.log('purchase amount : ' + purchaseAmount);
-                       console.log('limit amount : ' + resp.lmtIapD);
-                       
-                       if(parseInt(purchaseAmount) <= parseInt(resp.lmtIapD)) {
-                           console.log("normal : " + resp.accrdIapD);
-                           
-                           var mothlyAmount = parseInt(resp.accrdIapM) + parseInt(price);
-                           
-                           if(parseInt(mothlyAmount) <= parseInt(resp.lmtIapM)) {
-                               store.order('' + data.pid);
-                           } else {
-                               var errorMessage = "계정당 월 결제 한도는 " + numberFormat(resp.lmtIapM) + "원 입니다.\n" + 
-                               "\n이번달 결제한도 : " + numberFormat(parseInt(resp.lmtIapM) - parseInt(resp.accrdIapM));
-                               app.showAlert(errorMessage, "안내", function() {
-                                   return false;
-                               });
-                           }
-                           
+                       if(parseInt(mothlyAmount) <= parseInt(resp.lmtIapM)) {
+                           store.order('' + pid);
                        } else {
-                           
-                           var errorMessage = "계정당 일일 결제 한도는 " + numberFormat(resp.lmtIapD) + "원 입니다.\n" + 
-                               "\n오늘 결제한도 : " + numberFormat(parseInt(resp.lmtIapD) - parseInt(resp.accrdIapD));
+                           var errorMessage = "계정당 월 결제 한도는 " + numberFormat(resp.lmtIapM) + "원 입니다.\n" + 
+                           "\n이번달 결제한도 : " + numberFormat(parseInt(resp.lmtIapM) - parseInt(resp.accrdIapM));
                            app.showAlert(errorMessage, "안내", function() {
                                return false;
                            });

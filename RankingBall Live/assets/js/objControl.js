@@ -203,7 +203,7 @@ app.ObjControl = (function () {
                 
                 contestListData[i]['timeRew'] = timeGenerate(contestListData[i]['startTime']);
                 
-                if(contestListData[i]['myEntry'] === 1) 
+                if(contestListData[i]['myEntry'] > 0) 
                 {
                                         
                     if (contestListData[i]['featured'] === 1) {
@@ -344,7 +344,7 @@ app.ObjControl = (function () {
                 
                 contestListData[i]['timeRew'] = timeGenerate(contestListData[i]['startTime']);
                 
-                if(contestListData[i]['myEntry'] === 1) 
+                if(contestListData[i]['myEntry'] > 0) 
                 {
                     
                     if (contestListData[i]['featured'] === 1) {
