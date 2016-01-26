@@ -91,42 +91,84 @@
         
         
         <div id="widgetController">
-            <div class="rt_controller">
             
-                <div class="rt_controller_life">
-                    
-                    <div id="stars_ani_1" class="star-tab">
-                        <span id="start_pos_1" class="star">●</span>
-                    </div>
-                    <div id="stars_ani_2" class="star-tab">
-                        <span id="start_pos_2" class="star">●</span>
-                    </div>
-                    <div id="stars_ani_3" class="star-tab">
-                        <span id="start_pos_3" class="star">●</span>
-                    </div>
-                    <div class="star-tab">
-                        <span id="rtLife" class="rt_life"></span>
-                    </div>
-                    <div id="lifeCoolTime" class="star-tab">
-                        <span class="clock">●</span>
-                        <span id="recoverLife" class="recover_life">03:00</span>
-                    </div>
-                </div>
-
-                <div class="rt_progress_base">
-                    <div class="rt_progress_bar">
-                        <div id="rt_message" class="rt_pg__message"></div>
-                        <div class="rt_progress_time">
-                            <div class="rt_click_time__start">00:00</div>
-                            <div class="rt_click_time__chance">00:15</div>
+            <div class="rt_message"><span id="txt_message">리얼타임 챌린지에 오신 것을 환영합니다.</span></div>
+            
+            <div class="rt_controller">
+                
+                <div class="rt_controller_stage">
+                    <div class="rt_controller_life">
+                        <div class="star-fill">
+                            <div id="stars_ani_1" class="star-tab">
+                                <span id="start_pos_1" class="star">●</span>
+                            </div>
+                            <div id="stars_ani_2" class="star-tab">
+                                <span id="start_pos_2" class="star">●</span>
+                            </div>
+                            <div id="stars_ani_3" class="star-tab">
+                                <span id="start_pos_3" class="star">●</span>
+                            </div>
+                            <div id="lifeCoolTime" class="star-tab__ext">
+                                <span id="recoverLife" class="recover_life">00:00</span>
+                            </div>
                         </div>
+                    </div>
+                    
+                    <div class="rt_progress_bar">
                         <div id="rt_bar" class="rt_pg__bar">
                             <div class="meter">
-                                <div class="meter_marker__ready"></div>
+                                <div id="predictionCount" class="rt_pre_count">0 / 10</div>
                             	<span id="meter_bar"></span>
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="rt_combo_show">
+                        
+                    </div>
+                    
+                </div>
+                
+                <div class="rt_timeline">
+                    <div class="rt_timeline_pre">
+                        <div id="predctionTimeRew" class="rt_timeline_cell">0min</div>
+                        <div id="predctionTimeNow" class="rt_timeline_cell rt_timeline_now">1min</div>
+                        <div id="predctionTimePre" class="rt_timeline_cell">2min</div>
+                    </div>
+                </div>
+                
+                
+                <div class="rt_prediction_area">
+                                       
+                    <div id="predictionArrowBtn" class="rt_prediction_drag_element">
+                        <div class="draggable"></div>       
+                    </div>
+                    <div class="rt_prediction_home rt_prediction_amblem">
+                        <div id="predictionHomeAmblem">
+                            <img class="rt_home_emblem" src="" />
+                        </div>
+                        <div id="predictionHomeTimeFlow" class="hide"></div>
+                    </div>
+                    <div class="rt_prediction_away rt_prediction_amblem">
+                        <div id="predictionAwayAmblem">
+                            <img class="rt_away_emblem" src="" />
+                        </div>
+                        <div id="predictionAwayTimeFlow" class="hide"></div>
+                    </div>
+                    
+                    <div class="rt_prediction_arrow_control">
+                        <div class="rt_prediction_arrow_home">
+                            <div class="rt_arrow_animation_r2l"></div>
+                        </div>
+                        <div class="rt_prediction_drag_btn"></div>
+                        <div class="rt_prediction_arrow_away">
+                            <div class="rt_arrow_animation_l2r"></div>
+                        </div>                        
+                    </div>
+                    
+                </div>
+                
+                <div class="rt_progress_base">
                     <div class="rt_progress_btn_bg">
                         
                         <div class="rt_progress_btn_outline">

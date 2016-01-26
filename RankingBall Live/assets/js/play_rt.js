@@ -11,8 +11,8 @@ app.playRTS = (function () {
         
         var activePrediction = false;
         
-        var maxTimeCount = 45;
-        var maxCirclePosition = 216;
+        var maxTimeCount = 11;
+        var maxCirclePosition = 200;
         
         var reactCLC;
         var swiper;       
@@ -80,6 +80,19 @@ app.playRTS = (function () {
                 }
             });
             
+            $("#predictionArrowBtn").kendoDraggable({
+                axis: "x",
+                hint: function() {
+                    return $('#predictionArrowBtn').clone();
+                },
+                drag: function(e) {
+                    console.log("x: ", e.screenX);
+                }
+                
+            });
+            
+            $('#meter_bar').css('width','0px');
+
         }
         
         function flipHeaderTitle() {
@@ -215,7 +228,7 @@ app.playRTS = (function () {
         
         function reactResult() {
             window.clearInterval(reactCLC);
-            $('#meter_bar').css('width','216px');
+            //$('#meter_bar').css('width','0px');
             activePrediction = false;
             $('#rt_ball_btn').removeClass('clc_btn_spin').addClass('readyShoot');  
             $('#ball_label').show();
@@ -230,7 +243,8 @@ app.playRTS = (function () {
         
         function rtProgressBar(barWidth, loop, pos, $element) {
             console.log(barWidth, loop * pos);
-        	var progressBarWidth = barWidth - ( loop * pos ) + 'px';
+        	//var progressBarWidth = barWidth - ( loop * pos ) + 'px';
+            var progressBarWidth = barWidth * 10 + '%';
         	$element.animate({ width: progressBarWidth }, 500);
         }
         
@@ -272,7 +286,7 @@ app.playRTS = (function () {
             }            
             
             activePrediction = true;
-            var loop = 0;
+            var loop = 1;
             
             if(gameLife > 0) {
 
@@ -298,18 +312,11 @@ app.playRTS = (function () {
                     if( ++loop > maxTimeCount ) {
                         reactResult();
                     } else {
-                        if(loop > 15) {
+                        if(loop > 10) {
                             $('#rt_message').html(rtMessagePrediction);
                         }
-                        rtProgressBar(maxCirclePosition, loop, 4.8, $('#meter_bar'));
-                        /*
-                        if(loop > 15) {
-                            $('#rt_message').html(rtMessagePrediction);
-                            rtProgressBar(96, (loop - 15), 3.2, $('#meter_bar'));
-                        } else {
-                            rtProgressBar(maxCirclePosition, loop, 5.4, $('#meter_bar'));
-                        }
-                        */
+                        rtProgressBar(maxCirclePosition, loop, 20, $('#meter_bar'));
+
                     }
                 }, 1000);
             } else {
@@ -360,20 +367,12 @@ app.playRTS = (function () {
             $('.star').removeClass('full');
             
             if(gameLife === 3) {
-                
                 $('.star').addClass('full');
-                $('#lifeCoolTime').hide();
-                
             } else {
-                
-                $('#lifeCoolTime').removeClass('hide');
-                $('#lifeCoolTime').show();
                 for(var i = 1; i <= gameLife; i++) {
                     $('#start_pos_' + i).addClass('full');
                 }
             }
-            
-            $('#rtLife').html('x' + gameLife);
         }
         
         function confirmBack() {
@@ -438,7 +437,7 @@ app.playRTS = (function () {
             
             
             var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });
-            
+            console.log(groupObj);
             var home_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['home_code'] + '.png';
             var away_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['away_code'] + '.png';
             var playingTime = groupObj[0]['game_time'];
@@ -452,7 +451,9 @@ app.playRTS = (function () {
             
             dispGameLife();
             
-            $('#rt_message').html(rtMessageDef);
+            $('#txt_message').html(rtMessageDef);
+            
+
             
             setTimeout(function() {
                 app.mobileApp.hideLoading();
