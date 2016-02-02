@@ -20,8 +20,15 @@ app.playRTS = (function () {
    
         var rtRowData = "";
         
+        function langExchange() 
+        {
+            //console.log(laf);
+            app.langExchange.exchangeLanguage(laf);    
+        }
+        
         function init() {
             
+            langExchange();
             observableView();
             
             $('.sc_menus').removeClass('swipeNav');
@@ -37,6 +44,8 @@ app.playRTS = (function () {
                 callback: function(index, elem) {},
                 transitionEnd: function(index, elem) {
                     
+                    //console.log(index);
+                    //console.log(elem);
                     if(index < 2) {
                         $('.sc_menus').removeClass('swipeNav');
                         
@@ -55,8 +64,12 @@ app.playRTS = (function () {
                         }
                     } else {
                         
-                        if(index > 3) {
-                            $('.sc_menus').addClass('swipeNav');
+                        if(index > 2) {
+                            if(laf === "en") {
+                                $('.sc_menus').addClass('swipeNavEx');
+                            } else {
+                                $('.sc_menus').addClass('swipeNav');
+                            }
                         }
                         
                         if(rtSlider) {
@@ -73,26 +86,18 @@ app.playRTS = (function () {
             $('.sc_menus').kendoTouch({
                 enableSwipe: true,
                 swipe: function (e) {
-                    console.log("User swiped the element");
-                    console.log(e);
+                    //console.log("User swiped the element");
+                    //console.log(e);
                     handleTouchEvent(e);
                     
                 }
             });
-            
-            $("#predictionArrowBtn").kendoDraggable({
-                axis: "x",
-                hint: function() {
-                    return $('#predictionArrowBtn').clone();
-                },
-                drag: function(e) {
-                    console.log("x: ", e.screenX);
-                }
-                
-            });
-            
+                        
             $('#meter_bar').css('width','0px');
 
+            var mqruqeeStr = $.langScript[laf]['noti_056'] + "  " + $.langScript[laf]['noti_057'] + "  " + $.langScript[laf]['noti_058']  + "  " + $.langScript[laf]['noti_059'] + "  " + $.langScript[laf]['noti_060'] + "  " + $.langScript[laf]['noti_061'];
+            $('#txt_message').html(mqruqeeStr);
+            
         }
         
         function flipHeaderTitle() {
@@ -104,12 +109,12 @@ app.playRTS = (function () {
         }
         
         function dispTitleShow() {
-            console.log("do callback first");
+            //console.log("do callback first");
             $('#rt_header__title').show('slide');
         }
 
         function dispScoreboardShow() {
-            console.log("do callback another");
+            //console.log("do callback another");
             $('#rt_header__scoreboard').show('slide');
         }
         
@@ -121,18 +126,20 @@ app.playRTS = (function () {
             }
         }
         
+        /* do RT match list generate */
         function rt_radar() {
             
             app.mobileApp.showLoading();
             
             observableView();
             
-            var url = "http://scv.rankingball.com/rt_fullfeed/soccer";
+            var url = "http://scv.rankingball.com/rt_fullfeed/soccer/" + laf;
             $.ajax({
                 url: url,
                 type: "GET",
-                timeout: 1000,
+                async: false,
                 dataType: "jsonp",
+                jsonpCallback: "jsonCallback",
                 data: {
                     "id": "getRadar"
                 },
@@ -186,6 +193,7 @@ app.playRTS = (function () {
         }
         
         function rt_init() {
+            langExchange();
             observableView();
             //$('.amount_mini_point').html(numberFormat(vr_point));
         }
@@ -242,23 +250,26 @@ app.playRTS = (function () {
         }
         
         function rtProgressBar(barWidth, loop, pos, $element) {
-            console.log(barWidth, loop * pos);
-        	//var progressBarWidth = barWidth - ( loop * pos ) + 'px';
+            //console.log(barWidth, loop * pos);
             var progressBarWidth = barWidth * 10 + '%';
         	$element.animate({ width: progressBarWidth }, 500);
         }
         
         var rtCoolTimeBar = "";
-        var rtNowTime = "";
+        
         var rtPredictTimeStart = "";
         var rtPredictTimeEnd = "";
         var rtPredictTimeQA = "";
         
         function rtCoolTime() {
+            console.log("init cool time");
+            window.clearInterval(rtCoolTimeBar);
             rtCoolTimeBar = setInterval(function() {
                 
                 --gameLifeTimer;
+                
                 console.log(gameLifeTimer);
+                
                 if(gameLifeTimer > 0) {
                     var cmm = parseInt( gameLifeTimer / 60 );
                     var chh = parseInt( gameLifeTimer % 60 );
@@ -266,14 +277,22 @@ app.playRTS = (function () {
                 } else {
                     ++gameLife;
                     if(gameLife < 3) {
+                        console.log("GAME LIFE: " + gameLife);
                         gameLifeTimer = 180;
                     } else {
-                        
+                        console.log("GAME LIFE: " + gameLife);
                         gameLifeTimer = 180;
                         window.clearInterval(rtCoolTimeBar);
+                        $('#recoverLife').html("00:00");
                     }
                     dispGameLife();
                 }
+                
+                var rtNowTime = new Date();
+                
+                setlocalStorage('rtLife',gameLife);
+                setlocalStorage('rtRegen',gameLifeTimer);
+                setlocalStorage('rtTimer',rtNowTime.getTime());
                 
              }, 1000);
         }
@@ -356,10 +375,10 @@ app.playRTS = (function () {
             $("#moadl_loading").children('.km-content').addClass('opacity_zero');
                         
             setTimeout(function() {
-                app.mobileApp.navigate('views/playRTVu.html?matchId=' + data.rel + '&group=' + data.gol, 'slide');
+                app.mobileApp.navigate('views/playRTVu.html?matchId=' + data.rel + '&group=' + data.gol + '&enet=' + data.rol + '&stat=' + data.stat, 'slide');
                 $("#moadl_loading").data("kendoMobileModalView").close();
                 }
-                ,1000);
+            ,1000);
             
         }
         
@@ -375,18 +394,23 @@ app.playRTS = (function () {
             }
         }
         
+        /* 실시간 경기 빠져나가기 => 소켓 끊기 */
         function confirmBack() {
-            
+            /*
             if(activePrediction) {
                 app.showError("골 예측 중에는 나올 수 없습니다.");
                 return false;   
             }
-            
-            navigator.notification.confirm("경기를 나오시겠습니까?", function (confirmed) {
+            */
+            navigator.notification.confirm($.langScript[laf]['noti_008'], function (confirmed) {
                if (confirmed === true || confirmed === 1) {
+                   if(matchStatus !== "3") {
+                       ws.close();
+                   }
+                   
                    app.mobileApp.navigate('#:back', 'slide');
                }
-            }, '알림', ['확인', '취소']);
+            }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
         }
         
         var collapseList = function(e) {
@@ -404,17 +428,106 @@ app.playRTS = (function () {
                 );
         };
         
-        function sportRada(e) {
+        
+        var matchStatus = "";
+        var predictionFollow = "";
+        var enetId = "";
+        var betCount = 0;
+        
+        /* prediction result */
+        var predictionResultList = {
+            appendList: function() {
+                var that = this;
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + enetId + '}';
+                var url = init_data.apps + "?callback=?";
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "getGameIncidentResult",
+                        "param":param
+                    },
+                   success: function(response) {
+
+                       if (response.code === 0) {
+                           
+                           var rtData = response.data;
+                           
+                           $('#tryTotalCount').html(parseInt(rtData.totaljoin));
+                           $('#trySuccessCount').html(parseInt(rtData.totalSuccess));
+                           $('#trySuccessRate').html(parseInt(rtData.successRatio) + "%");
+                           
+                           var rtHistory = rtData.history;
+                           var trData = "";
+                           
+                           for(var i=0;i<rtHistory.length;i++) {
+                               trData = '<tr><td>' + that.exchangeTime(rtHistory[i]['gameTime']) + '</td><td>' + rtHistory[i]['teamName'] + '</td><td>' + that.exchangeStatus(rtHistory[i]['eventDesc']) + '</td><td>' + that.exchangeResult(rtHistory[i]['myPoint']) + '</td></tr>';
+                               $('#myRTPredictionResult').append(trData);
+                           }
+                           
+                       } else {
+                           console.log("RT 결과 오류");
+                       }  
+                   },
+                   error: function(e) {
+                       
+                   }
+                });
+            },
+            exchangeTime: function(t) {
+                var msec = t;
+                var mm = Math.floor(msec / 60);
+                msec -= mm * 60;
+                var ss = Math.floor(msec);
+
+                return zeroFormat(mm) + ":" + zeroFormat(ss);
+            },
+            exchangeStatus: function(t) {
+                
+                var statusType = "";
+                if(t === "goal") {
+                    statusType = "Goal";
+                } else if(t === "shooton") {
+                    statusType = "Shoot";
+                } else {
+                    statusType = "ShootOff";
+                }
+                
+                return statusType;
+            },
+            exchangeResult: function(t) {               
+                
+                return (parseInt(t) > 0) ? '<span class="success">success</span>' : '<span class="fail">fail</span>';
+            }
+        }
+        
+        /* RT init!! */
+        function sportRada(e) 
+        {
             var param = e.view.params;
             
-            rtNowTime = new Date();
+            gameCrush = (getlocalStorage('rtGameCrush')) ? parseInt(getlocalStorage('rtGameCrush')) : 0;
             
-            var vuHeight = $(window).height() - 248;          
+            window.clearInterval(elapsedTimer);
+            //delete elapsedTimer;
+            
+            enetId = param.enet;
+            matchStatus = param.stat;
+            gameRepo[enetId] = {};
+            
+            // height: 248
+            var vuHeight = $(window).height() - 102;
             //$('.wc-widget').css('height',vuHeight);
-
+            
             app.mobileApp.showLoading();
+            
             $('.sc_menus').removeClass('swipeNav');
-            $('.wc-widget').empty();
+            $('.livescore').empty();
             
             SRLive.addWidget("widgets.lmts",{
                 "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": param.matchId, "showTitle": false, "container": ".wc-widget.wc-10"
@@ -437,7 +550,7 @@ app.playRTS = (function () {
             
             
             var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });
-            console.log(groupObj);
+
             var home_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['home_code'] + '.png';
             var away_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['away_code'] + '.png';
             var playingTime = groupObj[0]['game_time'];
@@ -448,19 +561,592 @@ app.playRTS = (function () {
             $('.rt_away_emblem').attr('src',away_img);
             $('#rt_away_label').html(groupObj[0]['away_team']);
             $('.is_away_score').html(groupObj[0]['away_score']);
+
+            if(matchStatus === "3") {
+                $('.rt_times').html("--:--");
+                predictionResultList.appendList();
+                $('.playResultContent').removeClass('hide');
+                $('.rt_times').addClass('game_end');
+            } else if(matchStatus === "0") {
+                $('.rt_times').html("--:--");
+                $('.rt_times').removeClass('game_end');
+                ws_init(enetId);
+            } else {
+                $('.rt_times').removeClass('game_end');
+                $('.playResultContent').addClass('hide');
+                ws_init(enetId);
+                
+                interact('#predictionArrowBtn')
+                .draggable({
+                    inertia: false,
+                    axis: 'x',
+                    onmove: dragMoveListener,
+                    onend: function (event) {
+                        var el = document.getElementById('predictionArrowBtn');
+                        el.style.webkitTransform = el.style.transform = 'translate(0px)';
+                        event.target.setAttribute('data-x', 0);
+                        if(predictionFollow) rt_ws_feed.myprediction(predictionFollow);
+                        predictionFollow = "";
+                    }
+                });
+                
+                // this is used later in the resizing and gesture demos
+                window.dragMoveListener = dragMoveListener;
+            }
             
+            
+            
+            initLife();
             dispGameLife();
             
-            $('#txt_message').html(rtMessageDef);
-            
-
+            //$('#txt_message').html($.langScript[laf]['noti_055']);
             
             setTimeout(function() {
                 app.mobileApp.hideLoading();
-                //$('.subwidgeht').removeClass('hide');
             },1500);
+            
+            //$("#moadl_reward").data("kendoMobileModalView").open();
+            //$("#moadl_reward").children('.km-content').addClass('opacity_zero');
+            
+            
+            $('.rt_reward_card').kendoTouch({
+                tap: handleCardTouchEvent,
+                touchstart: handleCardTouchEvent,
+                touchend: handleCardTouchEvent,
+            });
+        }
+
+        function handleCardTouchEvent(e) 
+        {    
+            var t = e.event.type;
+            var ti = e.touch.currentTarget.id;
+            if(t === "touchend") {
+                console.log(ti);
+                $('#' + ti).addClass('rt_reward_crad__flipped');
+            }
+            
         }
         
+        function dragMoveListener (event) 
+        {
+            var target = event.target,
+            x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+            if(x > 20) {
+                predictionFollow = "away";
+            } else if(x < -20) {
+                predictionFollow = "home";
+            }
+            target.style.webkitTransform = target.style.transform = 'translate(' + x + 'px)';
+            target.setAttribute('data-x', x);
+        }
+
+        function initLife() 
+        {
+            
+            gameLife = (getlocalStorage('rtLife')) ? parseInt(getlocalStorage('rtLife')) : 3;
+            
+            console.log("Game Life : " + gameLife);
+            
+            if(gameLife < 3) {
+                
+                var rtNowTime = new Date();
+                var diff = Math.floor((rtNowTime.getTime() - parseInt(getlocalStorage('rtTimer'))) / 1000);
+                console.log(rtNowTime.getTime() + " : " + getlocalStorage('rtTimer'));
+                console.log("Diff : " + diff);
+                if(gameLife === 2) {
+                    if(diff >= 180) {
+                        gameLife = 3;
+                        gameLifeTimer = 180;
+                        return true;
+                    }
+                } else if(gameLife === 1) {
+                    if(diff >= 360) {
+                        gameLife = 3;
+                        gameLifeTimer = 180;
+                        return true;
+                    } else if(diff >= 180) {
+                        gameLife = 2;
+                    } 
+                } else {
+                    console.log(diff);
+                    if(diff >= 540) {
+                        gameLife = 3;
+                        gameLifeTimer = 180;
+                        return true;
+                    } else if(diff >= 360) {
+                        gameLife = 2;
+                    } else if(diff >= 180) {
+                        gameLife = 1;
+                    }
+                }
+                                    
+                gameLifeTimer = getlocalStorage('rtRegen');
+                rtCoolTime();
+            } else {
+                console.log(gameLife);
+                window.clearInterval(rtCoolTimeBar);
+                
+            }
+        }
+        
+        function timerz(diff)
+        {
+            var msec = diff;
+            var hh = Math.floor(msec / 1000 / 60 / 60);
+            msec -= hh * 1000 * 60 * 60;
+            var mm = Math.floor(msec / 1000 / 60);
+            msec -= mm * 1000 * 60;
+            var ss = Math.floor(msec / 1000);
+            msec -= ss * 1000;
+            
+            console.log(msec);
+            console.log(hh);
+            console.log(mm);
+            console.log(ss);
+        }
+        
+        var preSec = 0;
+        var preMin = 0;
+        
+        function elapseTimeFn(diff)
+        {
+            var msec = diff;
+            preMin = Math.floor(msec / 60);
+            msec -= preMin * 60;
+            preSec = Math.floor(msec);
+            
+            if(preMin > 2) {
+                $('#predctionTimeRew').html((preMin + 1) + "min");
+                $('#predctionTimeNow').html((preMin + 2) + "min");
+                $('#predctionTimePre').html((preMin + 3) + "min");
+            } else {
+                $('#predctionTimeRew').html("1min");
+                $('#predctionTimeNow').html("2min");
+                $('#predctionTimePre').html("3min");
+            }            
+            return zeroFormat(preMin) + ":" + zeroFormat(preSec);
+        }
+
+        
+        var ws;
+        var elapseTime = 0;
+        var elapsedTimer; // 경기 진행시간 표시용
+        var gamePlaying = false;
+        var playType = 0;
+        
+        var predictionRound = 0;
+        var nowPredictionFlow = "";
+        var lastPredictionFlow = "";
+        var predictionTimer = "";
+        var predictionTimerBar = "";
+        
+        function ws_init(match_id)
+        {
+            console.log("WS Start");
+            
+            var ws_address = "ws://" + init_data.extr +":" + init_data.port +"/websocket";
+            var send_params = "{" + '"type":5001' + ',"id":"' + uu_data.memSeq + '"' + ',"game":"' + match_id + '"' + "}";
+            
+            if ("WebSocket" in window)
+            {
+               ws = new WebSocket(ws_address);           	
+               ws.onopen = function()
+               {
+                  ws.send(send_params);
+                  console.log("Message is sent...");
+               };
+            	
+               ws.onmessage = function (evt) 
+               { 
+                    var received_msg = evt.data;
+                    console.log("Message is received...");
+                    rt_ws_feed.wsParse(received_msg);
+               };
+            	
+               ws.onclose = function()
+               { 
+                  // websocket is closed.
+                  console.log("Connection is closed..."); 
+               };
+            }
+
+            else
+            {
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+        }
+
+        function rtElapsedTime(t) {
+            elapseTime = t;
+            elapsedTimer = setInterval(function() {
+                ++elapseTime;
+                $('.rt_times').html(elapseTimeFn(elapseTime));
+                
+             }, 1000);
+        }
+        
+        var rt_ws_feed = {
+            /*
+            var that = this;
+            var param = "";
+            if(type === "predict") {
+                //param = '{"osType":' + init_apps.osType + ',"version":"' + version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + version + ',"hNa":' + event + '}';
+            } else if(type === "result") {
+                //param = '{"osType":' + init_apps.osType + ',"version":"' + version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + event + '}';
+            }
+            */
+            initUX: function() {
+                
+            },
+            wsParse: function(jdata) {
+                console.log(jdata);
+                var that = this;
+                jdata = JSON.parse(jdata);
+                switch(parseInt(jdata['type'])) {
+                    case 5001:
+                        that.initGameTime(jdata['data']);
+                        break;
+                    case 5003:
+                        that.getPredictionResult(jdata['data']);
+                        break;
+                    case 5011:
+                        that.updateTime(jdata['data']);
+                        break;
+                    case 7000:
+                        that.updateTime(jdata['data']);
+                        break;
+                    default:
+                        console.log("none type");
+                        break;
+                }
+            },
+            initGameTime: function(data) {
+                playType = parseInt(data['play']);
+                if(playType === 1 || playType === 4) {
+                    console.log("now playing");
+                    rtElapsedTime(parseInt(data['elapsed']));
+                    gamePlaying = true;
+                } else if(playType === 0) {
+                    console.log("not started");
+                    gamePlaying = false;
+                    $('#recoverLife').html("00:00");
+                    $('.rt_times').html("--:--");
+                    window.clearInterval(elapsedTimer);
+                } else if(playType === 6) {
+                    gamePlaying = false;
+                    interact('#predictionArrowBtn')
+                        .draggable({enabled: false});
+                    
+                    that.stopGame();
+                } else {
+                    gamePlaying = false;
+                    $('#recoverLife').html("00:00");
+                    window.clearInterval(elapsedTimer);
+                }
+            },
+            updateTime: function(data) {
+                var that = this;
+                playType = parseInt(data['play']);
+                
+                var hscore = (data['aScore']) ? data['aScore'] : 0;
+                var ascore = (data['bScore']) ? data['bScore'] : 0;
+                
+                $('.is_home_score').html(parseInt(hscore));
+                $('.is_away_score').html(parseInt(ascore));
+                
+                if(playType === 1 || playType === 4) {
+                    
+                    elapseTime = parseInt(data['elapsed']);
+                    if(gamePlaying === false) {
+                        gamePlaying = true;
+                        rtElapsedTime(parseInt(data['elapsed']));
+                    }
+                    
+                } else {
+
+                    that.stopGame();
+                    
+                    if(playType === 6) {
+                        predictionResultList.appendList();
+                        
+                    }
+                }
+            },
+            stopGame: function() {
+                var nowTime= "";
+                if(playType === 0) {
+                    nowTime = "--:--";
+                } else if(playType < 4) {
+                    nowTime = "45:00";
+                } else {
+                    nowTime = "90:00";
+                } 
+                $('.rt_times').html(nowTime);
+                window.clearInterval(elapsedTimer);
+            },
+            switchUX: function(arr) {
+                var that = this;
+                if(arr === "home") {
+                    $('#predictionHomeStage').addClass('bestanswer').removeClass('rt_arrow_animation_r2l');
+                    $('#predictionHomeLabel').addClass('bestanswer').removeClass('IsBestAnswer');
+                    that.myprediction(1);
+                } else {
+                    $('#predictionAwayStage').addClass('bestanswer').removeClass('rt_arrow_animation_l2r');
+                    $('#predictionAwayLabel').addClass('bestanswer').removeClass('IsBestAnswer');
+                    that.myprediction(2);
+                }
+            },
+            myprediction: function(arr) {
+                var that = this;
+                nowPredictionFlow = arr;
+                
+                if(gameLife > 0) {
+                    
+                    ++betCount;
+                    
+                    if(preMin === predictionRound) {
+                        
+                        if(betCount > 3) {
+                            console.log("동일한 예측 시간에 3번 이상 시도 - " + betCount + " ( " + preMin + " : " + predictionRound + " )");
+                            return false;
+
+                        } else {
+                            if(nowPredictionFlow === lastPredictionFlow) {
+                                --gameLife;
+                                
+                            } else {
+                                console.log("동일한 예측 시간에서 팀 선택 방향이 다름 - " + lastPredictionFlow + " : " + nowPredictionFlow + " ( " + preMin + " : " + predictionRound + " )");
+                                --betCount;
+                                return false;
+                            }
+                        }
+                        
+                    } else {
+                        console.log("다른 예측시간 - " + preMin + " : " + predictionRound);
+                        --gameLife;
+                        betCount = 1;
+                        predictionRound = preMin;
+                        lastPredictionFlow = nowPredictionFlow;
+                        
+                    }
+                    
+                    console.log("챌린지 볼: " + gameLife);
+                    console.log("챌린지 횟수: " + betCount);
+                    
+                    $('#betCount').html("x" + betCount);
+                    
+                    that.resetGameLife();
+                    that.setCoolTime();
+                    
+                    that.sendFeed(arr);
+                    that.predictionProgress(preSec, nowPredictionFlow);
+                    
+                } else {
+
+                    app.showAlert($.langScript[laf]['noti_049'],'Notice');
+                }
+            },            
+            sendFeed: function(arr) {
+                var hNaIS = (arr === "home") ? 1 : 2;
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + enetId + ',"hNa":' + hNaIS + '}';
+                var url = init_data.apps + "?callback=?";
+                app.mobileApp.showLoading();
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "checkinEventIncident",
+                        "param":param
+                    },
+                   success: function(response) {
+                       //console.log(response);
+                       if (response.code === 0) {
+                           var data = response.data;
+                           gameRepo[data.eventId][data.elapsed] = 0;
+                           
+                       } else {
+                           //console.log("RT 참여 오류");
+                       }  
+                   },
+                   error: function(e) {
+                       
+                   },
+                   complete: function() {
+                       app.mobileApp.hideLoading();
+                   }
+                });
+            },
+            predictionProgress: function(ss, fw) {
+                console.log(ss);
+                predictionTimer = 60 - ss;
+                var fillTimer = "";
+                
+                if(fw === "away") {
+                    $('#predictionHomeAmblem').addClass('hide');
+                    $('#predictionHomeTimeFlow').removeClass('hide');
+                    $('#predictionAwayAmblem').removeClass('hide');
+                    $('#predictionAwayTimeFlow').addClass('hide');
+                    
+                    $('.predictionHomeClass').addClass('hide');
+                    $('#predictionHomeActivate').removeClass('hide');
+                    $('.predictionAwayClass').removeClass('hide');
+                    $('#predictionAwayActivate').addClass('hide');
+                    
+                    fillTimer = $('#predictionHomeTimeFlow');
+                    
+                } else {
+                    $('#predictionHomeAmblem').removeClass('hide');
+                    $('#predictionHomeTimeFlow').addClass('hide');
+                    $('#predictionAwayAmblem').addClass('hide');
+                    $('#predictionAwayTimeFlow').removeClass('hide');
+                    
+                    $('.predictionHomeClass').removeClass('hide');
+                    $('#predictionHomeActivate').addClass('hide');
+                    $('.predictionAwayClass').addClass('hide');
+                    $('#predictionAwayActivate').removeClass('hide');
+                    
+                    fillTimer = $('#predictionAwayTimeFlow');
+                }
+                
+                var fillData = "";
+                predictionTimerBar = setInterval(function() {                        
+                    --predictionTimer;
+                    if(predictionTimer > 0) {
+                        
+                        fillData = '<div>' + predictionTimer + '</div><span>sec</span>';
+                        fillTimer.html(fillData);
+                        
+                    } else {
+
+                        window.clearInterval(predictionTimerBar);
+                        
+                        $('#predictionHomeAmblem').removeClass('hide');
+                        $('#predictionHomeTimeFlow').addClass('hide');
+                        $('#predictionAwayAmblem').removeClass('hide');
+                        $('#predictionAwayTimeFlow').addClass('hide');
+
+                        $('.predictionHomeClass').removeClass('hide');
+                        $('#predictionHomeActivate').addClass('hide');
+                        $('.predictionAwayClass').removeClass('hide');
+                        $('#predictionAwayActivate').addClass('hide');
+                        
+                        $('#betCount').html('');
+                    }                     
+                 }, 1000);
+            },
+            getPredictionResult: function(data) {
+                               
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + enetId + ',"round":' + data.round + '}';
+                var url = init_data.apps + "?callback=?";
+                app.mobileApp.showLoading();
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "getEventIncidentResult",
+                        "param":param
+                    },
+                   success: function(response) {
+                        console.log(response);
+                        if (response.code === 0) {
+                            var resData = response.data;
+                            if(parseInt(resData.myPoint) > 0) {
+                                ++gameCrush;
+                                setlocalStorage('rtGameCrush',gameCrush);   
+                            } else {
+                                console.log("fail");    
+                            }
+                           
+                        } else {
+                           //console.log("RT 결과 오류");
+                        }  
+                   },
+                   error: function(e) {
+                       
+                   },
+                   complete: function() {
+                       app.mobileApp.hideLoading();
+                   }
+                });
+            },
+            resetGameLife: function() {
+                $('.star').removeClass('full');
+                
+                if(gameLife === 3) {
+                    $('.star').addClass('full');
+                } else {
+                    for(var i = 1; i <= gameLife; i++) {
+                        $('#start_pos_' + i).addClass('full');
+                    }
+                }
+            },
+            setCoolTime: function() {
+
+                var that = this;
+                if(gameLife === 2) {
+                    rtCoolTimeBar = setInterval(function() {
+                        
+                        --gameLifeTimer;
+                        if(gameLifeTimer > 0) {
+                            var cmm = parseInt( gameLifeTimer / 60 );
+                            var chh = parseInt( gameLifeTimer % 60 );
+                            $('#recoverLife').html(zeroFormat(cmm) + " : " + zeroFormat(chh));
+                        } else {
+                            ++gameLife;
+                            if(gameLife < 3) {
+                                gameLifeTimer = 180;
+                            } else {
+                                gameLifeTimer = 180;
+                                window.clearInterval(rtCoolTimeBar);
+                                $('#recoverLife').html("00:00");
+                            }
+                            that.resetGameLife();
+                        }
+                        
+                        var rtNowTime = new Date();
+                        
+                        setlocalStorage('rtLife',gameLife);
+                        setlocalStorage('rtRegen',gameLifeTimer);
+                        setlocalStorage('rtTimer',rtNowTime.getTime());
+                        
+                     }, 1000);
+                }
+            },
+            emptyUX: function() {
+                    $('#predictionArrowBtn').addClass('ball_off');
+                    $('#predictionHomeStage').addClass('rt_arrow_animation_r2l__reverse').removeClass('rt_arrow_animation_r2l');
+                    $('#predictionHomeLabel').addClass('empty_life');
+                    $('#predictionAwayStage').addClass('rt_arrow_animation_l2r__reverse').removeClass('rt_arrow_animation_l2r');
+                    $('#predictionAwayLabel').addClass('empty_life');
+            }
+        };
+        
+        function successCountBar()
+        {
+            var percent = 0;
+            var progressBarWidth = 0;
+            //$element.animate({ width: progressBarWidth }, 500);
+            
+            if(gameCrush >= 10) {
+                progressBarWidth = $('.meter').width();
+            } else {
+                percent = (gameCrush / 10) * 100;
+                progressBarWidth = percent * $('#rt_bar').width() / 100;
+            }
+
+            $('#predictionCount').html(gameCrush + " / 10");
+            $('.meter').animate({ width: progressBarWidth }, 500);
+                    
+        }
         
         return {
             init: init,

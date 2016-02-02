@@ -22,8 +22,15 @@ app.Playerz = (function () {
         
         var paging = 0;
  
+        function langExchange() 
+        {
+            console.log(laf);
+            app.langExchange.exchangeLanguage(laf);    
+        }
         
         function init(e) {
+            langExchange();
+            
             var param = e.view.params;
             requestSlot = param.slot;
             requestPosition = param.pos;
@@ -48,7 +55,9 @@ app.Playerz = (function () {
         }
 
         function vwParam(e) {
-                        
+
+            e.view.options.title = $.langTitle[laf][5];
+            
             var param = e.view.params;
             requestSlot = param.slot;
             requestPosition = param.pos;
@@ -129,7 +138,7 @@ app.Playerz = (function () {
                 var vwURL = 'views/entryPlayerDataView.html?player=' + rel;
                 app.mobileApp.navigate(vwURL); 
             } else {
-                app.showError("잘못된 선수 정보요청입니다.");
+                app.showAlert($.langScript[laf]['noti_044'],"Notice");
             }
         }
         
@@ -140,7 +149,7 @@ app.Playerz = (function () {
                 var vwURL = 'views/entryUpdatePlayerDataView.html?player=' + rel;
                 app.mobileApp.navigate(vwURL); 
             } else {
-                app.showError("잘못된 선수 정보요청입니다.");
+                app.showAlert($.langScript[laf]['noti_044'],"Notice");
             }
         }
         
@@ -157,7 +166,7 @@ app.Playerz = (function () {
                 app.mobileApp.navigate('views/entryPlayerDataView.html?player=' + data.rel, 'slide'); 
                 app.mobileApp.hideLoading();
             } else {
-                app.showError("잘못된 선수 정보요청입니다.");
+                app.showError("잘못된 선수 정보보요청입니다.");
             }
             */
         }
@@ -221,6 +230,8 @@ app.Playerz = (function () {
         
         function init4update(e) {
             
+            langExchange();
+            
             var param = e.view.params;
             requestSlot = param.slot;
             requestPosition = param.pos;
@@ -240,6 +251,7 @@ app.Playerz = (function () {
         }
         
         function vwParam4update(e) {
+            e.view.options.title = $.langTitle[laf][5];
             var param = e.view.params;
             requestSlot = param.slot;
             console.log(requestSlot);
@@ -287,14 +299,14 @@ app.Playerz = (function () {
             console.log(data);
             switch(orderType) {
                 case 1:
-                    $('#sort-player-label2').html("포지션");
+                    $('#sort-player-label2').html($.langScript[laf]['label_position']);
                     $('#sort-player-ico2').addClass(orderIco);
                     $('#orderLabelPosition2').addClass('sort-l');
                     $('#orderByPosition2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
                     sort_field = "posType";
                     break;
                 case 2:
-                    $('#sort-player-label2').html("네임");
+                    $('#sort-player-label2').html($.langScript[laf]['label_name']);
                     $('#sort-player-ico2').addClass(orderIco);
                     $('#orderLabelPlayer2').addClass('sort-l');                  
                     $('#orderByPlayer2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
@@ -308,7 +320,7 @@ app.Playerz = (function () {
                     sort_field = "fppg";
                     break;
                 case 4:
-                    $('#sort-player-label2').html("샐러리");
+                    $('#sort-player-label2').html($.langScript[laf]['label_salary']);
                     $('#sort-player-ico2').addClass(orderIco);
                     $('#orderLabelSalary2').addClass('sort-l');
                     $('#orderBySalary2').find('span').removeClass('ic-triangle-n').addClass(orderIco);
@@ -347,14 +359,14 @@ app.Playerz = (function () {
             console.log(data);
             switch(orderType) {
                 case 1:
-                    $('#sort-player-label').html("포지션");
+                    $('#sort-player-label').html($.langScript[laf]['label_position']);
                     $('#sort-player-ico').addClass(orderIco);
                     $('#orderLabelPosition').addClass('sort-l');
                     $('#orderByPosition').find('span').removeClass('ic-triangle-n').addClass(orderIco);
                     sort_field = "posType";
                     break;
                 case 2:
-                    $('#sort-player-label').html("네임");
+                    $('#sort-player-label').html($.langScript[laf]['label_name']);
                     $('#sort-player-ico').addClass(orderIco);
                     $('#orderLabelPlayer').addClass('sort-l');                  
                     $('#orderByPlayer').find('span').removeClass('ic-triangle-n').addClass(orderIco);
@@ -368,7 +380,7 @@ app.Playerz = (function () {
                     sort_field = "fppg";
                     break;
                 case 4:
-                    $('#sort-player-label').html("샐러리");
+                    $('#sort-player-label').html($.langScript[laf]['label_salary']);
                     $('#sort-player-ico').addClass(orderIco);
                     $('#orderLabelSalary').addClass('sort-l');
                     $('#orderBySalary').find('span').removeClass('ic-triangle-n').addClass(orderIco);
@@ -386,7 +398,7 @@ app.Playerz = (function () {
             var salaryLimit = max_salarycap_amount - entryAmount;         
 
             if(init_data.auth === undefined) {
-                app.showError("잘못된 요청입니다.");
+                app.showAlert($.langScript[laf]['noti_045'],"Notice");
                 app.mobileApp.navigate('#landing');
             }
            
@@ -487,7 +499,7 @@ app.Playerz = (function () {
             salaryLimit = max_salarycap_amount - entryAmount;
                         
             if(init_data.auth === undefined) {
-                app.showError("잘못된 요청입니다.");
+                app.showAlert($.langScript[laf]['noti_045'],"Notice");
                 app.mobileApp.navigate('#landing');
             }
             
@@ -669,14 +681,14 @@ app.Playerz = (function () {
                 if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === data.rel) {
                     
                     console.log(playerSlot[requestSlot]);
-                    navigator.notification.confirm("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n선수를 교체하시겠습니까?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_051'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
                            addPlayerProceed(data.rel,data.salary,oldPlayer,requestSlot);
                        } else {
                            return false;
                        }
-                    }, '알림', ['교체하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_substitute'], $.langScript[laf]['btn_maintain']]);
                     
                     return false;
                 }
@@ -714,7 +726,7 @@ app.Playerz = (function () {
             console.log("2");
             
             if(tempAmount > max_salarycap_amount) {
-                app.showError("샐러리캡 한도를 벗어났습니다.");
+                app.showAlert($.langScript[laf]['noti_018'],"Notice");
             } else {
                 
                 console.log(player + " : " + salary);
@@ -753,7 +765,7 @@ app.Playerz = (function () {
                 $('#player-' + requestSlot).html(researchPlayer.playerName);
                 
                 progressBar(entryAmount, $('.salarycap-gage'));
-                app.Entry.updateBar();
+                app.Entry.updateGage('gae_salarycap');
                 checkSlot();
                 //app.mobileApp.navigate('#po_entry_registration','slide:right');
                 app.mobileApp.navigate('#:back');
@@ -765,14 +777,14 @@ app.Playerz = (function () {
             var tempAmount = entryAmount - salary;
      
             if(tempAmount < 0) {
-                app.showError("샐러리캡 설정 범위가 잘못 되었습니다.");
+                app.showError($.langScript[laf]['noti_017']);
             } else {
                                 
                 if( playerSlot[requestSlot] === "" || playerSlot[requestSlot] !== player) {
-                    app.showError("엔트리 등록된 선수가 잘못 저장 되었습니다.\n\n동일한 포지션일 경우 선수를 확인해주세요.");
+                    app.showAlert($.langScript[laf]['noti_026'],"Notice");
                 } else {
                         
-                    navigator.notification.confirm("선택한 엔트리 등록 선수를 취소할까요?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_023'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                           
                             playerSlot[requestSlot] = "";
@@ -802,7 +814,7 @@ app.Playerz = (function () {
                             app.mobileApp.navigate('#po_entry_registration','slide:right');
                            
                        }
-                    }, '알림', ['취소하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_cancel'], $.langScript[laf]['btn_maintain']]);
                     return false;
                     
                 }
@@ -816,7 +828,7 @@ app.Playerz = (function () {
                 if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === data.rel) {
                     //var playerOnslot = searchPlayerName(playerData[globalPosition],player);
                     console.log(playerSlot[requestSlot]);
-                    navigator.notification.confirm("해당 슬롯에 등록된 선수를 교체하시겠습니까?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_050'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
                              
@@ -827,7 +839,7 @@ app.Playerz = (function () {
                        } else {
                            return false;
                        }
-                    }, '알림', ['교체하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_substitute'], $.langScript[laf]['btn_maintain']]);
                     
                     return false;
                 }
@@ -866,7 +878,7 @@ app.Playerz = (function () {
                 console.log(tmpEntryAmount + " : "  + salary + " : " + tempAmount + " : "  + max_salarycap_amount);
                 
                 if(tempAmount > max_salarycap_amount) {
-                    app.showError("샐러리캡 한도를 벗어났습니다.");
+                    app.showError($.langScript[laf]['noti_018']);
                     return false;                    
                 } else {
                     var arr_index = entryData.indexOf(oldPlayer);                
@@ -882,7 +894,7 @@ app.Playerz = (function () {
             }         
             
             if(tempAmount > max_salarycap_amount) {
-                app.showError("샐러리캡 한도를 벗어났습니다.");
+                app.showError($.langScript[laf]['noti_018']);
             } else {
                 playerSlot[requestSlot] = player;
                 entryData.push(player);
@@ -917,7 +929,7 @@ app.Playerz = (function () {
                 $('#update-player-' + requestSlot).html(researchPlayer.playerName);
                 
                 progressBar(entryAmount, $('.salarycap-gage'));
-                app.Entry.updateBar();
+                app.Entry.updateGage('gae_salarycap_update');
                 
                 checkSlot4up();
                 app.mobileApp.navigate('#po_entry_update','slide:right');
@@ -931,14 +943,14 @@ app.Playerz = (function () {
             console.log(entryAmount + " : " + salary);
             
             if(tempAmount < 0) {
-                app.showError("샐러리캡 설정 범위가 잘못 되었습니다.");
+                app.showError($.langScript[laf]['noti_017']);
             } else {
                                 
                 if( playerSlot[requestSlot] === "" || playerSlot[requestSlot] !== player) {
-                    app.showError("엔트리 등록된 선수를 잘못 선핵하셨습니다.\n\n동일한 포지션일 경우 선수 이름을 확인해주세요.");
+                    app.showError($.langScript[laf]['noti_026']);
                 } else {
                         
-                    navigator.notification.confirm("선택한 엔트리 등록 선수를 취소할까요?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_023'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                           
                             playerSlot[requestSlot] = "";
@@ -968,7 +980,7 @@ app.Playerz = (function () {
                             app.mobileApp.navigate('#po_entry_update','slide:right');
                            
                        }
-                    }, '알림', ['취소하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_cancel'], $.langScript[laf]['btn_maintain']]);
                     return false;
                     
                 }
@@ -1009,14 +1021,14 @@ app.Playerz = (function () {
                 if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
                     
                     console.log(playerSlot[requestSlot]);
-                    navigator.notification.confirm("해당 슬롯에 이미 선수가 등록되어있습니다.\n\n선수를 교체하시겠습니까?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_051'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
                            addPlayerProceed(player,salary,oldPlayer,requestSlot);
                        } else {
                            return false;
                        }
-                    }, '알림', ['교체하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_substitute'], $.langScript[laf]['btn_maintain']]);
                     
                     return false;
                 }
@@ -1034,13 +1046,13 @@ app.Playerz = (function () {
                 if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === player) {
                     
                     console.log(playerSlot[requestSlot]);
-                    navigator.notification.confirm("해당 슬롯에 등록된 선수를 교체하시겠습니까?", function (confirmed) {
+                    navigator.notification.confirm($.langScript[laf]['noti_050'], function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                            var oldPlayer = playerSlot[requestSlot];
 
                             addPlayer4UpProceed(player, salary, oldPlayer, requestSlot);
                        }
-                    }, '알림', ['교체하기', '유지하기']);
+                    }, 'Notice', [$.langScript[laf]['btn_substitute'], $.langScript[laf]['btn_maintain']]);
                 }
             } else {
                 console.log("add more");
@@ -1107,10 +1119,11 @@ app.Playerz = (function () {
             playerSlot.slot8 = slot.s8;
         }
         
+        /* 엔트리 등록 처리하기 */   
         var setFinalEntry = function(contest,fee) {
 
             if(contest === "") {
-                console.log("no contst");
+                console.log("no contest");
                 return false;
             }
             
@@ -1148,7 +1161,7 @@ app.Playerz = (function () {
                success: function(response) {
                    
                     if (response.code === 0) {
-                        alert("엔트리가 등록되었습니다.");
+                        app.showAlert($.langScript[laf]['noti_032'],"Notice");
                         uu_data.cash -= fee;
                         entryAmount = 0;
                         //app.ObjControl.reloadContest('#po_entry_registration','views/playListView.html?bar=' + currentContestType);
@@ -1213,7 +1226,7 @@ app.Playerz = (function () {
                     console.log(response);
 
                     if (response.code === 0) {
-                        alert("엔트리가 수정되었습니다.");
+                        app.showAlert($.langScript[laf]['noti_033'],"Notice");
                         //uu_data.cash -= fee;
                         entryAmount = 0;
                         app.ObjControl.reloadContest('#po_entry_update','views/playView.html?tab=m');
@@ -1289,15 +1302,15 @@ app.Playerz = (function () {
         }
         
         var record = function() {
-            app.showAlert("서버스 준비중입니다.","안내");
+            app.showAlert($.langScript[laf]['noti_019'],"Notice");
         }
         
         var news = function() {
-            app.showAlert("서버스 준비중입니다.", "안내");    
+            app.showAlert($.langScript[laf]['noti_019'], "Notice");    
         }
         
         var overPlayer = function() {
-            app.showAlert("이 선수는 사용할 수 없습니다.", "안내"); 
+            app.showAlert($.langScript[laf]['noti_088'], "Notice"); 
         }
         
         function tempCheckup() {
@@ -1314,7 +1327,7 @@ app.Playerz = (function () {
             console.log(count);
                         
             if(count !== 8) {
-                app.showError("선수 엔트리 등록 상태를 확인해주세요.");
+                app.showAlert($.langScript[laf]['noti_022'], "Notice");
                 return false;
             } else {
                 return true;

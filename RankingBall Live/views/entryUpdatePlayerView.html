@@ -31,7 +31,7 @@
         <div class="salarycap-position">
             
             <div class="salarycap-box">
-                <h4>사용가능 샐러리 캡</h4>
+                <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
                 <div class="salarycap-gage">
                     <p></p>
                     <div>
@@ -42,7 +42,7 @@
         
             <div class="salarycap-box-padding">
                 <div class="salarycap-box-moz-vw">   
-                    <a data-role="button" href="#do-popover-pos2" data-rel="popover"><span id="sort-player-label2">샐러리</span> <span id="sort-player-ico2" class="bg-box ic-triangle-n-on"></span></a>
+                    <a data-role="button" href="#do-popover-pos2" data-rel="popover"><span id="sort-player-label2" data-labelnum="16">샐러리</span> <span id="sort-player-ico2" class="bg-box ic-triangle-n-on"></span></a>
                 </div>
             </div>
         </div>
@@ -50,10 +50,10 @@
         <div id="do-popover-pos2" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
             <div data-role="view" id="popover-play-vw2">
                 <ul>
-                    <li><a id="orderByPosition2" data-role="button" data-rel="off" data-val="1" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelPosition" class="sortClass2">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><a id="orderByPlayer2" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelPlayer" class="sortClass2">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPosition2" data-role="button" data-rel="off" data-val="1" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelPosition" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPlayer2" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelPlayer" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
                     <li><a id="orderByFPPG2" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><a id="orderBySalary2" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelSalary" class="sortClass2 sort-l">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><a id="orderBySalary2" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort4up"><label id="orderLabelSalary" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -61,10 +61,10 @@
         
         <ul class="player_list_header">
             <li class="clearfix header">
-                <div class="listitem_position">포지션</div>
-                <div class="listitem_name">네임</div>
+                <div class="listitem_position" data-labelnum="38">포지션</div>
+                <div class="listitem_name" data-labelnum="8">네임</div>
                 <div class="listitem_fppg">FPPG</div>
-                <div class="listitem_salary">샐러리</div>
+                <div class="listitem_salary" data-labelnum="16">샐러리</div>
                 <div class="listitem_btns"></div>
             </li>
         </ul>

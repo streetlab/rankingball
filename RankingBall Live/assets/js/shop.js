@@ -206,14 +206,11 @@ app.Shop = (function () {
         function buy(e) {
             var data = e.button.data();
             
-            bizPurchaseRuleCheck(data.rel, data.pid);
-            //var checkAmount = bizPurchaseRuleCheck(data.rel);
-            /*
-            if(bizPurchaseRuleCheck(data.rel) === true) {
-                console.log("keep going");
-                store.order('' + data.pid);
-            }
-            */
+            app.showAlert($.enScript.alert_rtPurchaseBeta, "Notice");
+            
+            //bizPurchaseRuleCheck(data.rel, data.pid);
+            
+            //store.order('' + data.pid);
             
         }
         

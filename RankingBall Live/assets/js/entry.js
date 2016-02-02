@@ -19,15 +19,27 @@ app.Entry = (function () {
         var ps = {};
         var playerFilter = [];
         var playerFilterSalary = [];
-                
+        
+        var gageWidth = 0;
+        
+        function langExchange() 
+        {
+            console.log(laf);
+            app.langExchange.exchangeLanguage(laf);    
+        }
+        
         function init(e) {
             
+            langExchange();
             console.log(JSON.stringify(myEntryByContest));
+            
+            gageWidth = $('.salarycap-gage').width();
+            console.log(gageWidth);
             
             var param = e.view.params;
                         
             if(param.contest === "") {
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showAlert($.langScript[laf]['noti_027'],"Notice");
                 return false;
             }
 
@@ -50,23 +62,33 @@ app.Entry = (function () {
             console.log(param);
             contestNo = param.contest;
             if(!contestNo) {
-                app.showError("엔트리 수정을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showAlert($.langScript[laf]['noti_029'],"Notice");
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
             if(param.mode === "ed") {
                 //initEntryDataUpdate(contestNo);
             } else {
-                app.showError("잘못된 요청입니다.");
+                app.showAlert($.langScript[laf]['noti_045'],"Notice");
             }            
             
             //progressBar(entryAmount, $('.salarycap-gage'));
         }
         
-        function updateBar() {
-            observableView();
-            progressBar(entryAmount, $('.salarycap-gage'));
+        function updateBar(e) {
+            e.view.options.title = $.langTitle[laf][4];
         }
+        
+        function updateBarEd(e) {
+            e.view.options.title = $.langTitle[laf][13];
+        }
+        
+        function updateGage(el) {
+            observableView();
+            console.log(entryAmount);
+            progressBar(entryAmount, $('#' + el));
+        }
+        
         
         function return2playList() {
             
@@ -224,20 +246,20 @@ app.Entry = (function () {
         }
                 
         function allClear() {
-            navigator.notification.confirm("엔트리 등록을 초기화 할까요?", function (confirmed) {
+            navigator.notification.confirm($.langScript[laf]['noti_028'], function (confirmed) {
                if (confirmed === true || confirmed === 1) {
                     initEntryData();          
                }
-            }, '알림', ['확인', '취소']);
+            }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
             return false;
         }
         
         function allClearUpdate() {
-            navigator.notification.confirm("엔트리 수정을 초기화 할까요?", function (confirmed) {
+            navigator.notification.confirm($.langScript[laf]['noti_030'], function (confirmed) {
                if (confirmed === true || confirmed === 1) {
                     initUpdateData();          
                }
-            }, '알림', ['확인', '취소']);
+            }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
             return false;
         }
         
@@ -245,20 +267,24 @@ app.Entry = (function () {
             $("#moadl_shop").data("kendoMobileModalView").close();
         }
         
+        /* 엔트리 등록하기 */        
         function regEntry() {
             
             if(entryStatus === false) {
-                app.showError("엔트리에 등록되는 선수들을 확인해주세요.");
+                app.showError($.langScript[laf]['noti_035']);
                 return false;
             }
             
             if(!contestNo) {
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showError($.langScript[laf]['noti_027']);
                 return false;
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
             if( parseInt(contestFee) > parseInt(uu_data.cash) ) {
+                
+                app.showAlert($.enScript.alert_caughtShort, "Notice");
+                /*
                     navigator.notification.confirm("입장료가 부족해서 참가하실 수 없습니다.\n\n캐쉬를 구매하시겠습니까?", function (confirmed) {
                        if (confirmed === true || confirmed === 1) {
                             app.Shop.init();
@@ -267,14 +293,21 @@ app.Entry = (function () {
                            closeModal();
                        }
                     }, '알림', ['충전하기', '취소']);
+                */
 
             } else {
+                navigator.notification.confirm($.langScript[laf]['noti_052'], function (confirmed) {
+                   if (confirmed === true || confirmed === 1) {
+                        app.Playerz.setFinalEntry(contestNo, contestFee);
+                   }
+                }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
                 
-                bizJoinRuleCheck(contestNo, contestFee);
+                //bizJoinRuleCheck(contestNo, contestFee);
 
             }
             return false;
         }
+        
         
         var bizJoinRuleCheck = function(contest, fee) {
             app.mobileApp.showLoading();
@@ -301,24 +334,25 @@ app.Entry = (function () {
                        var purchaseAmount = parseInt(resp.accrdJoinD) + parseInt(fee);
                        if(parseInt(purchaseAmount) <= parseInt(resp.lmtJoinD)) {
                            
-                            navigator.notification.confirm("현재 지정된 선수로 엔트리를 등록하시겠습니까?", function (confirmed) {
+                            navigator.notification.confirm($.langScript[laf]['noti_052'], function (confirmed) {
                                if (confirmed === true || confirmed === 1) {
                                     app.Playerz.setFinalEntry(contest, fee);    
                                }
-                            }, '알림', ['확인', '취소']);
+                            }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
                            
                        } else {
                            
-                           var errorMessage = "일일 베팅 한도는 10만원(" + numberFormat(parseInt(resp.lmtJoinD) + "캐시) 입니다.\n" +
-                               "\n오늘 베팅금액 : " + parseInt(resp.accrdJoinD)) + "캐시" +
-                               "\n오늘 베팅한도 : " + numberFormat(parseInt(resp.lmtJoinD) - parseInt(resp.accrdJoinD));
-                           app.showAlert(errorMessage, "안내", function() {
+
+                           var errorMessage = $.langScript[laf]['noti_042'] +
+                               "\n" + $.langScript[laf]['noti_038'] + " : " + numberFormat(parseInt(resp.accrdJoinD)) + " cash" +
+                               "\n" + $.langScript[laf]['noti_039'] + " : " + numberFormat(parseInt(resp.lmtJoinD) - parseInt(resp.accrdJoinD));
+                           app.showAlert(errorMessage, "Notice", function() {
                                return false;
                            });
                        }
                        
                    } else {
-                       app.showAlert('엔트리 정보 초기화 중 오류가 발생하였습니다.', '안내', function() { return false; });
+                       app.showAlert($.langScript[laf]['noti_031'], 'Notice', function() { return false; });
                    }
                    app.mobileApp.hideLoading();
                 },
@@ -332,12 +366,12 @@ app.Entry = (function () {
         
         function updateEntry() {
             if(entryStatus === false) {
-                app.showError("엔트리에 등록되는 선수들을 확인해주세요.");
+                app.showError($.langScript[laf]['noti_035']);
                 return false;
             }
             
             if(!contestNo) {
-                app.showError("엔트리 등록을 위한 경기 정보를 확인할 수 없습니다.");
+                app.showError($.langScript[laf]['noti_029']);
                 return false;
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
@@ -353,14 +387,14 @@ app.Entry = (function () {
             }
                         
             if(count !== 8) {
-                app.showError("선수 엔트리 등록 상태를 확인해주세요.");
+                app.showError($.langScript[laf]['noti_022']);
                 return false;
             } else {
-                navigator.notification.confirm("현재 지정된 선수로 엔트리를 수정하시겠습니까?", function (confirmed) {
+                navigator.notification.confirm($.langScript[laf]['noti_053'], function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
                         app.Playerz.setFinalUpdateEntry(contestNo,entryNo);    
                    }
-                }, '알림', ['확인', '취소']);
+                }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
             }
             
         }
@@ -374,7 +408,7 @@ app.Entry = (function () {
                 progressBarWidth = $element.width();
             } else {
                 percent = amount / max_salarycap_amount * 100;
-                progressBarWidth = percent * $element.width() / 100;
+                progressBarWidth = percent * gageWidth / 100;
             }
 
             
@@ -420,14 +454,14 @@ app.Entry = (function () {
                 $("#po_entry_update").remove();
             } else {
                 
-                navigator.notification.confirm("경기 참여를 취소하시겠습니까?", function (confirmed) {
+                navigator.notification.confirm($.langScript[laf]['noti_007'], function (confirmed) {
                     if (confirmed === true || confirmed === 1) {
                         app.mobileApp.navigate('views/playView.html', 'slide:right');
                         $("#po_entry_registration").data("kendoMobileView").destroy();
                         $("#po_entry_registration").remove();
                     }
                     
-                }, '알림', ['확인', '취소']);
+                }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
                 
             }
         };
@@ -435,6 +469,7 @@ app.Entry = (function () {
         return {
             init: init,
             updateBar: updateBar,
+            updateBarEd: updateBarEd,
             setPbAmount: setPbAmount,
             setPlayerEntry: setPlayerEntry,
             setPlayerEntry4up: setPlayerEntry4up,
@@ -446,7 +481,8 @@ app.Entry = (function () {
             updateEntry: updateEntry,
             returnContestPlay: returnContestPlay,
             playerFilterSalary: playerFilterSalary,
-            cloeShopModal: cloeShopModal
+            cloeShopModal: cloeShopModal,
+            updateGage: updateGage
         };
     }());
 

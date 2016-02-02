@@ -5,6 +5,10 @@ html, body
     overflow: hidden;
 }
 
+.str_lang_ko {
+    display: none;
+}
+
 .rnkb-wiz .km-content
 {
     color: #9b9b9b;
@@ -84,7 +88,7 @@ html, body
     width: 100%;
     margin: 0;
     padding: 0;
-    background: #484557 url(../resource/landing/bg_rankingball.png);
+    background: #484557 url(../resource/landing/bg_ffl.png);
     background-position: center top;
     background-size: cover;
     background-repeat: no-repeat;
@@ -134,7 +138,6 @@ html, body
     text-align: center;
 }
 #landing .landing-screen .landing-point span {
-    display: block;
     font-size: 1.2em;
     font-weight: 700;
 }
@@ -1037,6 +1040,9 @@ a.rnkb-rt img {
     color: #fff;
     background-color: #168f32;
 }
+.rt-info .rt-info__stats .rt_scoreboard .rt_times.game_end {
+    background-color: #adadad;
+}
 .rt-info .rt-info__stats .rt_scoreboard .rt_score_flex {
     display: flex;
     flex-wrap: nowrap;
@@ -1103,6 +1109,9 @@ a.rnkb-rt img {
 }
 .rt-navigation .swipeNav {
     left: -180px;
+}
+.rt-navigation .swipeNavEx {
+    left: -420px;
 }
 
 .outerDiv {
@@ -2169,7 +2178,6 @@ span.ic-end {
     color: #fff;
 }
 .box-menu-grider .wrap-silver .box-label em {
-    display: block;
     line-height: 2em;
     font-size: .9em;
     color: #999;
@@ -2177,7 +2185,6 @@ span.ic-end {
     font-style: normal;
 }
 .box-menu-grider .wrap-silver .box-label-sm em {
-    display: block;
     line-height: 1.5em;
     font-size: .8em;
     color: #999;
@@ -2215,7 +2222,6 @@ span.ic-end {
     color: #fff;
 }
 .box-menu-grider-quard .wrap-silver .box-label-lm em {
-    display: block;
     line-height: 2em;
     font-size: .9em;
     color: #999;
@@ -2246,7 +2252,6 @@ span.ic-end {
     max-height: 40%;
 }
 .box-menu-grider-quard .wrap-silver .box-label em {
-    display: block;
     line-height: 2em;
     font-size: .9em;
     color: #999;
@@ -2254,7 +2259,6 @@ span.ic-end {
     font-style: normal;
 }
 .box-menu-grider-quard .wrap-silver .box-label-sm em {
-    display: block;
     line-height: 1.5em;
     font-size: .8em;
     color: #999;

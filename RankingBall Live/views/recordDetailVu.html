@@ -4,6 +4,7 @@
     data-title="결과 확인" 
     data-layout="main"
     data-model="app.Resnrnk"
+    data-init="app.Resnrnk.langExchange"
     data-show="app.Resnrnk.resultInit"
     data-transition="slide">
     
@@ -31,35 +32,35 @@
         
         <div class="tapstrip-group">
             <div id="tabstrip_upcoming_result__d" class="tabstrip-moz ts">
-                <a class="ts" data-role="button" data-click="app.Resnrnk.playResultTotal">전체 순위</a>
+                <a class="ts" data-role="button" data-click="app.Resnrnk.playResultTotal" data-labelnum="28">전체 순위</a>
             </div>
             <div id="tabstrip_live_result__d" class="tabstrip-moz">
-                <a data-role="button" data-click="app.Resnrnk.playResultTeam">팀 성적</a>
+                <a data-role="button" data-click="app.Resnrnk.playResultTeam" data-labelnum="36">팀 성적</a>
             </div>
         </div>
         
         <div id="result_role_rank__d" class="tap_result_box">
             <div class="tab_result_reward">
-                <div class="control-box">
+                <div class="control-box" data-labelnum="35">
                     최종순위 및 보상
                 </div>
                 <div class="control-box">
-                    <a class="btn-do-reward" data-role="button" data-click="app.Resnrnk.doContestReward">보상 받기</a>
+                    <a class="btn-do-reward" data-role="button" data-click="app.Resnrnk.doContestReward" data-labelnum="62">보상 받기</a>
                 </div>
             </div>
             
             <div class="tab_result_rank">
                 <div class="result_rank_line">
                     <div class="control-box">
-                        <span>이름</span>
+                        <span data-labelnum="8">이름</span>
                         <div id="contestResult__user__d"></div>
                     </div>
                     <div class="control-box">
-                        <span>순위</span>
+                        <span data-labelnum="20">순위</span>
                         <div id="contestResult__rank__d"></div>
                     </div>
                     <div class="control-box">
-                        <span>보상</span>
+                        <span data-labelnum="63">보상</span>
                         <div id="contestResult__reward__d"></div>
                     </div>
                 </div>
@@ -68,9 +69,9 @@
             <div class="tab_result_label">
                 <ul>
                     <li class="clearfix header">
-                        <div class="listitem_rank">순위</div>
-                        <div class="listitem_name">네임</div>
-                        <div class="listitem_point">랭킹 포인트</div>
+                        <div class="listitem_rank" data-labelnum="20">순위</div>
+                        <div class="listitem_name" data-labelnum="8">네임</div>
+                        <div class="listitem_point" data-labelnum="10">랭킹 포인트</div>
                     </li>
                 </ul>
             </div>
@@ -80,9 +81,9 @@
            <div class="tab_result_label">
                 <ul>
                     <li class="clearfix header">
-                        <div class="listitem_position">포지션</div>
-                        <div class="listitem_name">네임</div>
-                        <div class="listitem_point">총점</div>
+                        <div class="listitem_position" data-labelnum="38">포지션</div>
+                        <div class="listitem_name" data-labelnum="8">네임</div>
+                        <div class="listitem_point" data-labelnum="34">총점</div>
                     </li>
                 </ul>
             </div>

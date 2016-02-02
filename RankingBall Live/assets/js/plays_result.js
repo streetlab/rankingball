@@ -14,9 +14,20 @@ app.Resnrnk = (function () {
             return Math.ceil((((this - onejean) / 86400000) + onejan.getDay() + 1) / 7);
         }
         
+        function langExchange() 
+        {
+            console.log(laf);
+            app.langExchange.exchangeLanguage(laf);    
+        }
+        
         function init(e) {
             
+            langExchange();
+            
+            e.view.options.title = $.langTitle[laf][2];
+            
             var scroller = e.view.scroller;
+            
             scroller.setOptions({
                 pullToRefresh: true,
                 pull: function(){
@@ -36,7 +47,10 @@ app.Resnrnk = (function () {
             generateRank();            
         }
         
-        function initRecord() {
+        function initRecord(e) {
+            
+            e.view.options.title = $.langTitle[laf][3];
+            
             observableView();
             generateRecordList();
         }
@@ -110,7 +124,7 @@ app.Resnrnk = (function () {
                             nowRank = 0;
                         }
                         
-                        $('#rnk_season').html(rowData.curSeason + " 시즌");
+                        $('#rnk_season').html(rowData.curSeason + " " + $.langScript[laf]['label_season']);
                         $('#ranking_season').empty();
                         
                         if(rowData.myRank > 0) {
@@ -175,7 +189,7 @@ app.Resnrnk = (function () {
                             nowRank = 0;
                         }
                         
-                        $('#rnk_week').html(rowData.curSeason + " 시즌 " + rowData.curRound + " 라운드");
+                        $('#rnk_week').html(rowData.curSeason + " " + $.langScript[laf]['label_season'] + rowData.curRound + " " + $.langScript[laf]['label_round']);
                         
                         $('#ranking_week').empty();
                         
@@ -329,7 +343,7 @@ app.Resnrnk = (function () {
                         if (response.code === 0) {
                             var rowData = response.data;
                             if(rowData.rewardType !== undefined && rowData.rewardType === 1) {
-                                app.showAlert('보상이 지급되었습니다.','안내', function() {
+                                app.showAlert($.langScript[laf]['noti_015'],'Notice', function() {
                                     uu_data.cash = uu_data.cash + rowData.reward;
                                     observableView();
                                 });
@@ -345,7 +359,7 @@ app.Resnrnk = (function () {
                 });
                 
             } else {
-                app.showAlert('이미 보상을 받으셨습니다.','안내');
+                app.showAlert($.langScript[laf]['noti_040'],'Notice');
             }
         }
         
@@ -384,7 +398,7 @@ app.Resnrnk = (function () {
                             $('.btn-do-reward').addClass('rewardComplete');
                         }
                         $('#contestResult__user__d').html(uu_data.nick);
-                        $('#contestResult__rank__d').html(rowData.myRank + "위");
+                        $('#contestResult__rank__d').html(rowData.myRank);
                         $('#contestResult__reward__d').html(numberFormat(rowData.reward));
                         
                         //rowDataList = [];
@@ -495,6 +509,8 @@ app.Resnrnk = (function () {
         
         function resultInit(e) {
             
+            e.view.options.title = $.langTitle[laf][6];
+            
             observableView();
             
             nowRecordRank = 0;
@@ -550,6 +566,7 @@ app.Resnrnk = (function () {
         
         
         return {
+            langExchange: langExchange,
             init: init,
             initRank: initRank,
             initRecord: initRecord,

@@ -3,7 +3,8 @@ var app = (function (win) {
     'use strict';
     
     // Remote Server Used
-    //var timeInMs = Date.now();    
+    var timeInMs = Date.now();
+    document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/lang.js?'" + timeInMs + "><"+"/script>");
     //document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/rankingball.js?'" + timeInMs + "><"+"/script>");
 
     
@@ -14,7 +15,7 @@ var app = (function (win) {
     };
 
     var showError = function(message) {
-        showAlert(message, '이용안내');
+        showAlert(message, 'Notice');
     };
 
     win.addEventListener('error', function (e) {
@@ -32,7 +33,7 @@ var app = (function (win) {
     // Global confirm dialog
     var showConfirm = function(message, title, callback) {
         navigator.notification.confirm(message, callback || function () {
-        }, title, ['확인', '취소']);
+        }, title, [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
     };
 
     var isNullOrEmpty = function (value) {
@@ -48,32 +49,68 @@ var app = (function (win) {
     var onBackKeyDown = function(e) {
         e.preventDefault();
 
-        navigator.notification.confirm('라이브볼-사커를 종료하시겠습니까?', function (confirmed) {
+        navigator.notification.confirm($.langScript[laf]['noti_013'], function (confirmed) {
             var exit = function () {
                 navigator.app.exitApp();
             };
 
             if (confirmed === true || confirmed === 1) {
                //AppHelper.logout().then(exit, exit);
-                exit();
+                exit();    
             }
-        }, '종료', ['확인', '취소']);
+        }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
     };
 
     var onOffline = function(e) {
         e.preventDefault();
 
-        navigator.notification.confirm('네트워크 접속이 끊어졌습니다.\n\n라이브볼-사커를 종료하시겠습니까?', function (confirmed) {
+        navigator.notification.confirm($.langScript[laf]['noti_087'], function (confirmed) {
             if (confirmed === true || confirmed === 1) {
                 navigator.app.exitApp();
             }
-        }, '종료', ['확인', '취소']);
+        }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
     }
+    
+    var langExchange = {
+        exchangeLanguage: function() {
+            var that = this;
+            that.exchangeTitle();
+            that.exchangeLabel();
+        },
+        exchangeTitle: function() {
+            //console.log('setLanguage', arguments);
+            $('[data-langNum]').each(function() {
+                var $this = $(this); 
+                $this.html($.langTitle[laf][$this.data('langnum')]); 
+            });
+        },
+        exchangeLabel: function() {
+            //console.log('setLanguage', arguments);
+            $('[data-labelNum]').each(function() {
+                var $this = $(this);
+                $this.html($.langLabel[laf][$this.data('labelnum')]); 
+            });
+        }
+    };
+    
     
     var onDeviceReady = function() {
         //StatusBar.overlaysWebView(false);        
         navigator.splashscreen.show();
+        
+        var locLang = getlocalStorage('lang');
+        if( locLang && locLang !== 'undefined' ) {
+            laf = locLang;
+        } else {
+            var lang = navigator.language || navigator.userLanguage;
+            var langData = lang.split("-");
+            laf = langData[0];
+            // ko-KR
+        }
+        laf = "en";
+        langExchange.exchangeLanguage(laf);
 
+        
         StatusBar.hide();
         
         var locUID = getlocalStorage('push_wiz');
@@ -163,6 +200,8 @@ var app = (function (win) {
     var os = kendo.support.mobileOS,
         statusBarStyle = os.ios && os.flatVersion >= 700 ? 'black-translucent' : 'balck';
 
+ 
+    
     init_apps.osType = (os.ios) ? 2 : 1;
     
     // Initialize KendoUI mobile application
@@ -180,6 +219,7 @@ var app = (function (win) {
         isKeySet: isKeySet,
         mobileApp: mobileApp,
         helper: AppHelper,
-        everlive: el
+        everlive: el,
+        langExchange: langExchange
     };
 }(window));

@@ -2,12 +2,12 @@
   "ProjectName": "RankingBall Live",
   "ProjectGuid": "cad777a8-89f1-4c32-a3a0-84bfdab3d6bd",
   "projectVersion": 1,
-  "AppIdentifier": "com.streetlab.lb.soccer",
-  "DisplayName": "LiveBall Soccer",
+  "AppIdentifier": "com.stlb.ffl",
+  "DisplayName": "Fantasy Football Live",
   "Author": "streetlab",
   "Description": "DFS Global Service",
-  "BundleVersion": "1.0.8",
-  "AndroidVersionCode": "108",
+  "BundleVersion": "1.1.1",
+  "AndroidVersionCode": "111",
   "iOSDeviceFamily": [
     "1",
     "2"
@@ -61,8 +61,8 @@
     }
   },
   "CorePlugins": [
-    "cc.fovea.cordova.purchase@3.11.1.1",
-    "com.phonegap.plugins.PushPlugin@2.5.8",
+    "cc.fovea.cordova.purchase@4.0.0",
+    "com.phonegap.plugins.PushPlugin@3.0.6",
     "org.apache.cordova.camera",
     "org.apache.cordova.console",
     "org.apache.cordova.device",

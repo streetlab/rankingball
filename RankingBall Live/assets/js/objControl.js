@@ -74,7 +74,7 @@ app.ObjControl = (function () {
         
         function launchPlay() {
            if( uu_data.memSeq === "" ) {
-                app.showAlert('서비스 초기화에 실패하여 자동 종료됩니다.','안내',function() {
+                app.showAlert($.langScript[laf]['noti_020'],'Notice',function() {
                     navigator.app.exitApp();
                 });
             } else {
@@ -92,7 +92,8 @@ app.ObjControl = (function () {
         }
         
         function launchShop() {
-            app.mobileApp.navigate('views/shopView.html', 'slide');
+            app.showAlert($.enScript.alert_rtPurchaseBeta, "Notice");
+            //app.mobileApp.navigate('views/shopView.html', 'slide');
         }
         
         function launchProfile() {
@@ -235,9 +236,9 @@ app.ObjControl = (function () {
                             contestPartList['cg'].push(contestListData[i]);
                         }                        
                     }
-                    
                 }
             }
+             
                         
             setTimeout(function() {
                 app.mobileApp.navigate('views/playView.html', 'slide:left');
@@ -291,10 +292,11 @@ app.ObjControl = (function () {
             return dateLabel;
         };
         
+        /* 컨테스트 리스트 새로 가져오기 */
         function reloadContest(killView, moveto) {
             
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
-            var url = init_data.auth + "?callback=?";
+            var url = init_data.apps + "?callback=?";
             console.log(JSON.stringify(param));
             $.ajax({
                 url: url,
@@ -382,7 +384,8 @@ app.ObjControl = (function () {
             
             setTimeout(function() {
                 app.mobileApp.hideLoading();   
-                app.mobileApp.navigate(m, 'slide');
+                //app.mobileApp.navigate(m, 'slide');
+                app.mobileApp.navigate('views/playView.html', 'slide');
                 if(v) {
                     $(v).data("kendoMobileView").destroy();
                     $(v).remove();

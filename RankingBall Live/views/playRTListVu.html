@@ -47,7 +47,7 @@
 <div data-role="modalview" id="moadl_loading" data-modal="false">
     <div class="loading_enter">
         <div class="loading_enter_bar"></div>
-        <div class="loading_enter_txt">경기에 입장중입니다..</div>
+        <div class="loading_enter_txt" data-labelnum="68">경기에 입장중입니다..</div>
     </div>
 </div>
 
@@ -66,27 +66,27 @@
     </div>
     
 </script>
-
+<!-- 경기중/경기종료/경기전 //-->
 <script id="rtDataListTemplate" type="text/x-kendo-template">
     #
         if(game_status === "2") {
-            rt_game_status = "경기중";
+            rt_game_status = "Live";
             rt_status_badge = "rt-on";
         } else if(game_status === "3") {
-            rt_game_status = "경기종료";
+            rt_game_status = "End";
             rt_status_badge = "rt-off";
         } else {
-            rt_game_status = "경기전";
+            rt_game_status = "-";
             rt_status_badge = "rt-non";
         }
     #
-    <div class="rtListDiv" data-role="button" data-rel="#:match_id#" data-gol="#:game_group#" data-click="app.playRTS.nowPlayRT">
+    <div class="rtListDiv" data-role="button" data-rel="#:match_id#" data-rol="#:match_id_enet#" data-gol="#:game_group#" data-stat="#:game_status#" data-click="app.playRTS.nowPlayRT">
         <div class="rt-games-row">
             <div class="rt-games-label rt-list-home font-red">
                 <span>[HOME]</span>
             </div>
             <div class="rt-games-label rt-list-info">
-                <span>00:00</span>
+                <span class="hide">00:00</span>
             </div>
             <div class="rt-games-label rt-list-away font-cyan">
                 <span>[AWAY]</span>

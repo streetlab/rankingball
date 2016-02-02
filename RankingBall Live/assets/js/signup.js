@@ -110,7 +110,7 @@ app.Signup = (function () {
             
             var userNick = dataSource.Username;
             if(userNick === "") {
-                app.showAlert("닉네임을 입력해주세요");
+                app.showAlert($.langScript[laf]['noti_090'],"Notice");
                 return false;
             }
             
@@ -167,7 +167,7 @@ app.Signup = (function () {
                     }
                     else
                     {
-                        app.showAlert(response.message,"안내");
+                        app.showAlert(response.message,"Notice");
                     }
                     app.mobileApp.hideLoading();
                 },
@@ -193,6 +193,38 @@ app.Signup = (function () {
         // Executed after Signup view initialization
         // init form validator
         var init = function () {
+            
+            app.langExchange.exchangeLanguage(laf);
+            
+            app.mobileApp.showLoading();
+            
+            if (temrsService && termsPersonal) {
+                $('#termOfUse').html(temrsService);
+                $('#termOfPersonal').html(termsPersonal);
+                
+                app.mobileApp.hideLoading();
+            } else {
+                
+                var url = "http://scv.rankingball.com/terms_rnkb/" + laf;
+                
+                $.ajax({
+                   url: url,
+                   type: "GET",
+                   dataType: "json",
+                   success: function(response) {
+                       console.log(response);
+                       temrsService = response.service;
+                       termsPersonal = response.personal;
+                       $('#termOfUse').html(temrsService);
+                       $('#termOfPersonal').html(termsPersonal);
+                   },
+                   complete: function() {
+                       app.mobileApp.hideLoading();
+                   }
+               });   
+            }
+            
+            
             $signUpForm = $('#signUp');
             $formFields = $signUpForm.find('input');
             $signupBtnWrp = $('#guestBtnWrp');

@@ -36,11 +36,13 @@
         <script src="assets/js/ext_progressbar.js"></script>
         <script src="assets/js/play_rt.js"></script>
         
-        <script src="assets/js/shop.js"></script>
         <script src="assets/js/hambugerz.js"></script>
         <script src="assets/js/ext_swiper.js"></script>
+        <script src="assets/js/shop.js"></script>
+        <script src="assets/js/ws.js"></script>
+        <script src="assets/js/interact.js"></script>
         
-        <script src="https://cs.betradar.com/ls/widgets/?/streetlab/ko/Asia:Tokyo/widgetloader/widgets/whitelabel1"></script>
+        <script src="https://cs.betradar.com/ls/widgets/?/streetlab/en/Europe:London/widgetloader/widgets/whitelabel1"></script>
 
     <body>
         <!--Laning View -->
@@ -48,11 +50,11 @@
             <div class="landing-screen">
                 <div id="start-game" class="landing-point">
                    <a id="launchBtnImg" data-click="app.Login.joinGame" data-role="button" class="animated infinite rubberBand"><img src="./assets/resource/landing/ic_gamestart.png" /></a>
-                    <span>게임시작하기</span>
+                    <span class="str_lang_ko">게임시작하기</span>
                 </div>
                 <div class="landing-bottom">    
                     <div class="landing-btns">
-                        <div id="processing-message" class="hide">게임에 접속중입니다.</div>
+                        <div id="processing-message" class="hide">connecting..</div>
                         <!--
                         <a class="btn" data-role="touch" data-bind="events: { tap: loginWithFacebook }">
                             <img src="assets/resource/ic_facebook.png" align="absmiddle"><span class="button-content">Sign In With Facebook</span>

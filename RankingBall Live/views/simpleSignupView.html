@@ -6,14 +6,11 @@
      data-init="app.Signup.init" 
      data-show="app.Signup.show" 
      data-hide="app.Signup.hide"
-     data-before-show="afterShowTerms"
      data-transition="slide">
 
-
-    
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            게임 시작하기
+            <div data-langNum="12">Game Start</div>
             <a class="nav-button nav-button-icon nav-button-back-d hide-text" data-align="left" data-role="backbutton" href="#landing" data-transition="slide:right">
                 <img src="./assets/resource/btn_back.png">
             </a>
@@ -35,13 +32,13 @@
         </div>
         <div class="termsDivLast">
             <form id="signUp">
-                <label>게임 내에서 사용할 닉네임을 입력해주세요.</label>
-                <input type="text" id="signupUsername" data-bind="value: Username" class="signup-field" placeholder="닉네임" required validationMessage="닉네임을 입력하세요!">
+                <label>Nick Name</label>
+                <input type="text" id="signupUsername" data-bind="value: Username" class="signup-field" placeholder="nickname" required validationMessage="input nickname">
             </form>
         </div>
         <div id="guestBtnWrp" class="signup-btn-wrp disabled">
-            <div class="confirmTxt">약관에 동의하며 게임을 시작합니다.</div>
-            <a class="btn-signup" data-role="button" data-bind="click: simpleSignup">게임 시작하기</a>
+            <div class="confirmTxt" data-labelnum="78">약관에 동의하며 게임을 시작합니다.</div>
+            <a class="btn-signup" data-role="button" data-bind="click: simpleSignup">Game Start</a>
         </div>
     </div>
 </div>

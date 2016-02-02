@@ -1,9 +1,10 @@
 <div
     id="mv_play_contest"
     data-role="view" 
-    data-title="컨테스트 플레이" 
+    data-title="Contests" 
     data-layout="main"
     data-model="app.Contests"
+    data-init="app.Contests.langExchange"
     data-show="app.Contests.onShow"
     data-transition="slide">
     
@@ -31,10 +32,10 @@
         
         <div class="tapstrip-group">
             <div id="tabstrip_upcoming" class="tabstrip-moz ts">
-                <a class="ts" data-role="button" data-click="app.Contests.matchPlay">경기 참여</a>
+                <a class="ts" data-role="button" data-click="app.Contests.matchPlay" data-labelnum="3">경기 참여</a>
             </div>
             <div id="tabstrip_live" class="tabstrip-moz">
-                <a data-role="button" data-click="app.Contests.matchParticipating">참여 중 경기</a>
+                <a data-role="button" data-click="app.Contests.matchParticipating" data-labelnum="33">참여 중 경기</a>
             </div>
 
         </div>
@@ -48,7 +49,7 @@
                         
                         <ul class="contest-inboxList">
                             <li>
-                                <a id="accoList_cgt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>featured</span> (<span id="cmath-cnt-f">1</span>) <span id="acco_cgt1" class="collapse-btn"></span></a>
+                                <a id="accoList_cgt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>Featured</span> (<span id="cmath-cnt-f">1</span>) <span id="acco_cgt1" class="collapse-btn"></span></a>
                                 <div id="cgt_list1">
                                     <ul id="cgt1" class="collapseInboxList"></ul>
                                 </div>
@@ -60,7 +61,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a id="accoList_cgt3" class="btn-match-lead" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt3"><span>랭킹전</span> (<span id="cmath-cnt-g">1</span>) <span id="acco_cgt3" class="collapse-btn"></span></a>
+                                <a id="accoList_cgt3" class="btn-match-lead" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt3"><span>Rank match</span> (<span id="cmath-cnt-g">1</span>) <span id="acco_cgt3" class="collapse-btn"></span></a>
                                 <div id="cgt_list3">
                                     <ul id="cgt3" class="collapseInboxList"></ul>
                                 </div>
@@ -70,8 +71,7 @@
 
                     </div>
                 </div>
-                
-                
+ 
             </div>
 
             <div id="tab_live" class="tabDiv hide">
@@ -81,7 +81,7 @@
                         
                         <ul id="panelbar" class="contest-inboxList">
                             <li>
-                                <a id="accoList_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>featured</span> (<span id="math-cnt-f">1</span>) <span id="acco_gt1" class="collapse-btn"></span></a>
+                                <a id="accoList_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>Featured</span> (<span id="math-cnt-f">1</span>) <span id="acco_gt1" class="collapse-btn"></span></a>
                                 <div id="gt_list1">
                                     <ul id="gt1" class="collapseInboxList"></ul>
                                 </div>
@@ -93,7 +93,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a id="accoList_gt3" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt3"><span>랭킹전</span> (<span id="math-cnt-g">1</span>) <span id="acco_gt3" class="collapse-btn"></span></a>
+                                <a id="accoList_gt3" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt3"><span>Rank match</span> (<span id="math-cnt-g">1</span>) <span id="acco_gt3" class="collapse-btn"></span></a>
                                 <div id="gt_list3">
                                     <ul id="gt3" class="collapseInboxList"></ul>
                                 </div>
@@ -112,28 +112,28 @@
 <div data-role="modalview" id="join-match" data-modal="false" style="min-width: 300px;">
     <div class="modal-layer">
         <div class="modal-body">
-            <h4>[경기 입장 정보]</h4>
+            <h4 data-labelnum="2">[경기 입장 정보]</h4>
             <dl id="modal-info">
-                <dt>플레이 방 이름</dt>
+                <dt data-labelnum="69">플레이 방 이름</dt>
                 <dd id="mo_title"></dd>
-                <dt>경기방식</dt>
+                <dt data-labelnum="70">경기방식</dt>
                 <dd id="mo_title"></dd>
-                <dt>참여 인원 및 참여가능 인원</dt>
-                <dd>0명 / 0명</dd>
-                <dt>입장료</dt>
+                <dt data-labelnum="71">참여 인원 및 참여가능 인원</dt>
+                <dd>0 / 0</dd>
+                <dt data-labelnum="72">입장료</dt>
                 <dd></dd>
-                <dt>경기보상</dt>
+                <dt data-labelnum="73">경기보상</dt>
                 <dd class="esp"></dd>
-                <dt>순위별 보상</dt>
+                <dt data-labelnum="74">순위별 보상</dt>
                 <dd></dd>
             </dl>
         </div>
         <div class="modal-footer">
             <div class="modalBtnWrp">
-                <a class="btn-close" data-role="button" data-click="app.Contests.closeModal">취소</a>
+                <a class="btn-close" data-role="button" data-click="app.Contests.closeModal" data-labelnum="60">취소</a>
             </div>
             <div class="modalBtnWrp">
-                <a class="btn-join" data-role="button" data-click="app.Contests.joinMatchConfirm">확인</a>
+                <a class="btn-join" data-role="button" data-click="app.Contests.joinMatchConfirm" data-labelnum="61">확인</a>
             </div>
         </div>
     </div>

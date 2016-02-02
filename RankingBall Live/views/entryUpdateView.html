@@ -5,7 +5,7 @@
     data-layout="main"
     data-model="app.Entry"
     data-init="app.Entry.init"
-    data-show="app.Entry.updateBar"
+    data-show="app.Entry.updateBarEd"
     data-transition="slide">
 
     <div data-role="header" data-reload="true" class="rnkb-wiz">
@@ -30,8 +30,8 @@
 
         <div class="salarycap-position">
             <div class="salarycap-box">
-                <h4>사용가능 샐러리 캡</h4>
-                <div class="salarycap-gage">
+                <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
+                <div id="gae_salarycap_update" class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
@@ -166,10 +166,10 @@
 
     <div class="entry-control-box">
         <div class="control-box">
-            <a class="btn-close" data-role="button" data-click="app.Entry.allClearUpdate">초기화</a>
+            <a class="btn-close" data-role="button" data-click="app.Entry.allClearUpdate" data-labelnum="64">초기화</a>
         </div>
         <div class="control-box">
-            <a id="entryUpdate" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.updateEntry">엔트리 수정 완료</a>
+            <a id="entryUpdate" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.updateEntry" data-labelnum="65">엔트리 수정 완료</a>
         </div>
     </div>
 

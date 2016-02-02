@@ -198,14 +198,14 @@ app.Login = (function () {
                                app.mobileApp.navigate('views/landingVu.html', 'slide');
                            } else {
                                
-                                app.showAlert('[101] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                                app.showAlert('[101] ' + $.langScript[laf]['noti_020'],'Notice',function() {
                                     navigator.app.exitApp();
                                 });
                            }
                            
                        },
                        error: function(e) {
-                            app.showAlert('[102] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                            app.showAlert('[102] ' + $.langScript[laf]['noti_020'],'Notice',function() {
                                 navigator.app.exitApp();
                             });
                        },
@@ -216,14 +216,15 @@ app.Login = (function () {
 
                     
                 } else {
-                    app.showAlert('[103] 서비스 초기화에 실패하여 자동 종료됩니다.','로그인 안내',function() {
+                    app.showAlert('[103] ' + $.langScript[laf]['noti_020'],'Notice',function() {
                         navigator.app.exitApp();
                     });
                 }
 
         }
         
-        var autosetAuth = "";
+        /* 본인인증 유무 */
+        var autosetAuth = "success";
         var aw;
         
         var joinGame = function() {
@@ -231,12 +232,14 @@ app.Login = (function () {
             if(app_status === 1) {
                 
                 if(autosetAuth === "success") {
+                    app.mobileApp.showLoading();
                     app.mobileApp.navigate('views/simpleSignupView.html', 'slide');
+
                 } else {
                     //var auth_url = "http://scv.rankingball.com/auth/cert_frames?client=" + init_apps.deviceID;
                     var auth_url = "http://scv.rankingball.com/auth/kmcert?client=" + init_apps.deviceID;
                     
-                    app.showAlert("정보통신망 이용촉진법, 청소년 보호법 등의 규정에 의하여 성인인증 절차를 거쳐야합니다.","안내",function() {
+                    app.showAlert($.langScript[laf]['noti_046'],"Notice",function() {
                         aw = window.open(auth_url, '_blank', 'location=yes');
                         aw.addEventListener('loadstop', function(event) {
                             //console.log(event.type + ' - ' + event.url);
@@ -252,7 +255,7 @@ app.Login = (function () {
                 }
                 
             } else if(app_status === 2) {
-                app.showAlert('서비스를 이용하시기 위해서는 업그레이드가 필요합니다.','안내',function() {
+                app.showAlert($.langScript[laf]['noti_021'],'Notice',function() {
                     return false;
                 });
             }
@@ -262,19 +265,19 @@ app.Login = (function () {
             if(pathname !== "") {
                 if(pathname === "/auth/kmcert_result_s/200") {
                     autosetAuth = "success";
-                    app.showAlert('감사합니다.\n성인인증이 완료되었습니다.','안내',function() { aw.close(); });
+                    app.showAlert($.langScript[laf]['noti_002'],'Notice',function() { aw.close(); });
                 } else {
                     var pathParam = pathname.split("/");
                     if(pathParam.length > 3 && pathParam[2] === "kmcert_result_f") {
                         console.log(pathParam[3])
                         if(pathParam[3] === "100") {
-                            app.showAlert('암호화모듈 호출이 정상적으로 실행되지 않았습니다.','안내',function() { aw.close(); });
+                            app.showAlert($.langScript[laf]['noti_024'],'Notice',function() { aw.close(); });
                         } else if(pathParam[3] === "101") {
-                            app.showAlert('비정상적인 접근입니다.','안내',function() { aw.close(); });
+                            app.showAlert($.langScript[laf]['noti_016'],'Notice',function() { aw.close(); });
                         } else if(pathParam[3] === "102") {
-                            app.showAlert('중복된 정보를 요청하셨습니다.','안내',function() { aw.close(); });
+                            app.showAlert($.langScript[laf]['noti_047'],'Notice',function() { aw.close(); });
                         } else if(pathParam[3] === "103") {
-                            app.showAlert('18세 이상만 서비스 이용가능합니다.','안내',function() { aw.close(); });
+                            app.showAlert($.langScript[laf]['noti_001'],'Notice',function() { aw.close(); });
                         }
                         autosetAuth = "fail";
                     }
@@ -303,7 +306,7 @@ app.Login = (function () {
                     if(response.result === 200) {
                         app.mobileApp.navigate('views/simpleSignupView.html', 'slide');
                     } else {
-                        app.showAlert(response.str,'안내');
+                        app.showAlert(response.str,'Notice');
                     }
                 },
                 error: function(e) {

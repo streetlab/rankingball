@@ -25,7 +25,7 @@
                     </div>
                     <div class="rt-info__tab rt_scoreboard">
                         <div class="rt_score_flex">
-                            <div class="rt_score is_home_score">0</div> <div><span class="rt_times">23:45</span></div> <div class="rt_score is_away_score">0</div>
+                            <div class="rt_score is_home_score">0</div> <div><span class="rt_times">--:--</span></div> <div class="rt_score is_away_score">0</div>
                         </div>
                     </div>
                     <div class="rt-info__tab rt_emblem">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="rt-info__tab rt_scoreboard">
                     <div class="rt_score_flex">
-                        <span class="rt_score is_home_score">0</span> <span id="rt_playing_times" class="rt_times">23:45</span> <span class="rt_score is_away_score">0</span>
+                        <span class="rt_score is_home_score">0</span> <span id="rt_playing_times" class="rt_times">--:--</span> <span class="rt_score is_away_score">0</span>
                     </div>
                 </div>
                 <div class="rt-info__tab rt_emblem">
@@ -57,12 +57,13 @@
         <div class="rt-navigation">
             <div class="sc_menus">
                 <ul class="sc_menu">
-                    <li id="swipeBtn0" class="activate wc_btn"><a data-role="button" data-rel="0" data-click="app.playRTS.swipeSlide">중계화면</a></li>
-                    <li id="swipeBtn1" class="wc_btn"><a data-role="button" data-rel="1" data-click="app.playRTS.swipeSlide">문자중계</a></li>
-                    <li id="swipeBtn2" class="wc_btn"><a data-role="button" data-rel="2" data-click="app.playRTS.swipeSlide">선발선수</a></li>
-                    <li id="swipeBtn3" class="wc_btn"><a data-role="button" data-rel="3" data-click="app.playRTS.swipeSlide">경기기록</a></li>
-                    <li id="swipeBtn4" class="wc_btn"><a data-role="button" data-rel="4" data-click="app.playRTS.swipeSlide">맞대결</a></li>
-                    <li id="swipeBtn5" class="wc_btn"><a data-role="button" data-rel="5" data-click="app.playRTS.swipeSlide">팀순위</a></li>
+                    <li id="swipeBtn0" class="activate wc_btn"><a data-role="button" data-rel="0" data-click="app.playRTS.swipeSlide" data-labelnum="31">중계화면</a></li>
+                    <li id="swipeBtn1" class="wc_btn"><a data-role="button" data-rel="1" data-click="app.playRTS.swipeSlide" data-labelnum="13">문자중계</a></li>
+                    <li id="swipeBtn2" class="wc_btn"><a data-role="button" data-rel="2" data-click="app.playRTS.swipeSlide" data-labelnum="17">선발선수</a></li>
+                    <li id="swipeBtn3" class="wc_btn"><a data-role="button" data-rel="3" data-click="app.playRTS.swipeSlide" data-labelnum="4">경기기록</a></li>
+                    <li id="swipeBtn4" class="wc_btn"><a data-role="button" data-rel="4" data-click="app.playRTS.swipeSlide" data-labelnum="12">맞대결</a></li>
+                    <li id="swipeBtn5" class="wc_btn"><a data-role="button" data-rel="5" data-click="app.playRTS.swipeSlide" data-labelnum="37">팀순위</a></li>
+                    <li id="swipeBtn6" class="wc_btn playResultContent hide"><a data-role="button" data-rel="6" data-click="app.playRTS.swipeSlide" data-labelnum="24">챌린지결과</a></li>
                 </ul>
              </div>
         </div>
@@ -78,12 +79,57 @@
             
             <div id='sliderz' class='swipe'>
                 <div class='swipe-wrap'>
-                    <div class="wc-widget wc-10"></div>
-                    <div class="wc-widget wc-11"></div>
-                    <div class="wc-widget wc-12"></div>
-                    <div class="wc-widget wc-13"></div>
-                    <div class="wc-widget wc-14"></div>
-                    <div class="wc-widget wc-15"></div>
+                    <div class="wc-widget livescore wc-10"></div>
+                    <div class="wc-widget livescore wc-11"></div>
+                    <div class="wc-widget livescore wc-12"></div>
+                    <div class="wc-widget livescore wc-13"></div>
+                    <div class="wc-widget livescore wc-14"></div>
+                    <div class="wc-widget livescore wc-15"></div>
+                    <div class="wc-widget wc-16 playResultContent hide">
+                        
+                        <div class="contest-rt-result">       
+                            <div class="rt_14_label_bar" data-labelnum="51">플레이 결과 확인</div>
+                            <div class="rt_14_result_table">
+                                <div class="rt_14_result_summary">
+                                    <div class="rt_14_result_dls">
+                                        <dl>
+                                            <dt data-labelnum="52">총시도 횟수</dt>
+                                            <dd id="tryTotalCount">10회</dd>
+                                        </dl>
+                                    </div>
+                                    <div class="rt_14_result_dls">
+                                        <dl>
+                                            <dt data-labelnum="53">성공 횟수</dt>
+                                            <dd id="trySuccessCount">1회</dd>   
+                                        </dl>
+                                    </div>
+                                    <div class="rt_14_result_dls">
+                                        <dl>
+                                            <dt data-labelnum="54">성공 확률</dt>
+                                            <dd id="trySuccessRate">10%</dd>   
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="rt_14_result_timeline">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th data-labelnum="55">경기 시간</th>
+                                        <th>Team</th>
+                                        <th data-labelnum="56">득점 현황</th>
+                                        <th data-labelnum="57">예측 결과</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="myRTPredictionResult">
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
             
@@ -92,7 +138,11 @@
         
         <div id="widgetController">
             
-            <div class="rt_message"><span id="txt_message">리얼타임 챌린지에 오신 것을 환영합니다.</span></div>
+            <div class="rt_message">
+                <marquee behavior="scroll" scrollamount="3" direction="left">
+                    <span id="txt_message">리얼타임 챌린지에 오신 것을 환영합니다.</span>
+                </marquee>
+            </div>
             
             <div class="rt_controller">
                 
@@ -140,49 +190,111 @@
                 
                 <div class="rt_prediction_area">
                                        
-                    <div id="predictionArrowBtn" class="rt_prediction_drag_element">
-                        <div class="draggable"></div>       
-                    </div>
+                    <div id="predictionArrowBtn" class="rt_prediction_drag_element"></div>
+                    
                     <div class="rt_prediction_home rt_prediction_amblem">
                         <div id="predictionHomeAmblem">
                             <img class="rt_home_emblem" src="" />
                         </div>
-                        <div id="predictionHomeTimeFlow" class="hide"></div>
+                        <div id="predictionHomeTimeFlow" class="hide selectedTimer">
+                            
+                        </div>
                     </div>
                     <div class="rt_prediction_away rt_prediction_amblem">
                         <div id="predictionAwayAmblem">
                             <img class="rt_away_emblem" src="" />
                         </div>
-                        <div id="predictionAwayTimeFlow" class="hide"></div>
+                        <div id="predictionAwayTimeFlow" class="hide selectedTimer">
+                            
+                        </div>
                     </div>
                     
                     <div class="rt_prediction_arrow_control">
                         <div class="rt_prediction_arrow_home">
-                            <div class="rt_arrow_animation_r2l"></div>
+                            <div id="predictionHomeStage" class="predictionHomeClass rt_arrow_animation_r2l"></div>
+                            <div id="predictionHomeLabel" class="predictionHomeClass rt_arrow_team rt_arrow_home">home</div>
+                            <div id="predictionHomeActivate" class="rt_arrow_team_activate str_right hide">Activating Time</div>
                         </div>
                         <div class="rt_prediction_drag_btn"></div>
                         <div class="rt_prediction_arrow_away">
-                            <div class="rt_arrow_animation_l2r"></div>
+                            <div id="predictionAwayStage" class="predictionAwayClass rt_arrow_animation_l2r"></div>
+                            <div id="predictionAwayLabel" class="predictionAwayClass rt_arrow_team rt_arrow_away">away</div>
+                            <div id="predictionAwayActivate" class="rt_arrow_team_activate str_left hide">Activating Time</div>
+                            <div id="betCount" class="rt_prediction_count"></div>
                         </div>                        
                     </div>
                     
                 </div>
                 
-                <div class="rt_progress_base">
-                    <div class="rt_progress_btn_bg">
-                        
-                        <div class="rt_progress_btn_outline">
-                            <a data-role="button" data-click="app.playRTS.rosa">
-                                <div id="ball_label" class="rt_clc_label"></div>
-                                <div id="rt_ball_btn" class="rt_clc_btn readyShoot"></div>
-                            </a>
-                        </div>                        
-                    </div>
-                </div>
                 
             </div>
             
         </div>
             
+    </div>
+</div>
+
+
+<div data-role="modalview" id="moadl_reward" data-modal="false" data-close="onRewardModalClose" style="width:100%;text-align:center;">
+    <div class="rt_reward">
+        <div class="rt_reward__str" data-labelnum="0">보상을 선택해주세요!!</div>
+        <div class="rt_reward_box">
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardL" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardC" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardR" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-role="modalview" id="moadl_rtResult" data-modal="false" style="width:100%;text-align:center;">
+    <div class="rt_reward">
+        <div class="rt_reward__str" data-labelnum="0">보상을 선택해주세요!!</div>
+        <div class="rt_reward_box">
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardL" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardC" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+            <div class="rt_reward_box__grid">
+                <div id="rewardCardR" class="rt_reward_card">
+                    <figure class="rt_reward_card__front"></figure>
+                    <figure class="rt_reward_card__back">
+                        
+                    </figure>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

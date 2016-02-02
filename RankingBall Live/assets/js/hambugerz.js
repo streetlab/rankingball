@@ -8,7 +8,15 @@ app.Hambugerz = (function () {
 
     var funcz = (function () {
         
+        function langExchange() 
+        {
+            console.log(laf);
+            app.langExchange.exchangeLanguage(laf);    
+        }
+        
         function init() {
+                
+                langExchange();
             
                 var docHeight = $(document).height() - 78.75;
                 $('.contents-profile-view').css('height', docHeight + 'px');
@@ -33,12 +41,13 @@ app.Hambugerz = (function () {
         
         function gnbSetting() {
             
-            app.mobileApp.navigate('views/gnbSettingView.html');
+            //app.mobileApp.navigate('views/gnbSettingView.html');
         }
         
         
         
         return {
+            langExchange: langExchange,
             init: init,
             initGNB: initGNB,
             gnbSetting: gnbSetting
