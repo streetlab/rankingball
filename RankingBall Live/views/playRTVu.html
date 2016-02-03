@@ -189,39 +189,41 @@
                 
                 
                 <div class="rt_prediction_area">
-                                       
-                    <div id="predictionArrowBtn" class="rt_prediction_drag_element"></div>
-                    
-                    <div class="rt_prediction_home rt_prediction_amblem">
-                        <div id="predictionHomeAmblem">
-                            <img class="rt_home_emblem" src="" />
-                        </div>
-                        <div id="predictionHomeTimeFlow" class="hide selectedTimer">
+
+
+                    <div class="rt_prediction_table">
+                        <div class="rt_prediction_home">
+
+                                <div class="rt_pannel_emblems rt__home">
+                                    <div id="predictionHomeClicker" class="rt_clicker rt__home">
+                                        <a data-role="button" data-rel="home" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_home_emblem" /></a>
+                                    </div>
+                                    <div id="predictionHomeTimeFlow" class="rt_time_flow rt__home hide"></div>
+                                </div>
+                                <div id="predictionHomeStage" class="rt_pannel_arrows rt__home predictionHomeClass">
+                                    <div class="rt_arrow_animation_r2l"></div>
+                                </div>
+                                <div id="predictionHomeStr" class="rt_pannel_arrows_str_home hide"><span>Activating Time</span></div>
                             
+                                <div id="betCountHome" class="rt_pannel_bets rt__home"><span>x</span></div>
+                                <div id="rt_pannel_bg_home" class="rt_pannels rt_pannel_home"></div>
                         </div>
-                    </div>
-                    <div class="rt_prediction_away rt_prediction_amblem">
-                        <div id="predictionAwayAmblem">
-                            <img class="rt_away_emblem" src="" />
-                        </div>
-                        <div id="predictionAwayTimeFlow" class="hide selectedTimer">
+                        <div class="rt_prediction_away">
+
+                                <div class="rt_pannel_emblems rt__away">
+                                    <div id="predictionAwayClicker" class="rt_clicker rt__away">
+                                        <a data-role="button" data-rel="away" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_away_emblem" /></a>
+                                    </div>
+                                    <div id="predictionAwayTimeFlow" class="rt_time_flow rt__away hide"></div>
+                                </div>
+                                <div id="predictionAwayStage" class="rt_pannel_arrows rt__away predictionAwayClass">
+                                    <div class="rt_arrow_animation_l2r"></div>
+                                </div>
+                                <div id="predictionAwayStr" class="rt_pannel_arrows_str_away hide"><span>Activating Time</span></div>
                             
+                                <div id="betCountAway" class="rt_pannel_bets rt__away"><span>x</span></div>
+                                <div id="rt_pannel_bg_away" class="rt_pannels rt_pannel_away"></div>
                         </div>
-                    </div>
-                    
-                    <div class="rt_prediction_arrow_control">
-                        <div class="rt_prediction_arrow_home">
-                            <div id="predictionHomeStage" class="predictionHomeClass rt_arrow_animation_r2l"></div>
-                            <div id="predictionHomeLabel" class="predictionHomeClass rt_arrow_team rt_arrow_home">home</div>
-                            <div id="predictionHomeActivate" class="rt_arrow_team_activate str_right hide">Activating Time</div>
-                        </div>
-                        <div class="rt_prediction_drag_btn"></div>
-                        <div class="rt_prediction_arrow_away">
-                            <div id="predictionAwayStage" class="predictionAwayClass rt_arrow_animation_l2r"></div>
-                            <div id="predictionAwayLabel" class="predictionAwayClass rt_arrow_team rt_arrow_away">away</div>
-                            <div id="predictionAwayActivate" class="rt_arrow_team_activate str_left hide">Activating Time</div>
-                            <div id="betCount" class="rt_prediction_count"></div>
-                        </div>                        
                     </div>
                     
                 </div>

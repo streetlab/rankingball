@@ -26,7 +26,8 @@ app.playRTS = (function () {
             app.langExchange.exchangeLanguage(laf);    
         }
         
-        function init() {
+        function init() 
+        {
             
             langExchange();
             observableView();
@@ -34,7 +35,8 @@ app.playRTS = (function () {
             $('.sc_menus').removeClass('swipeNav');
             $('.rt-navigation').css('width',$(window).width());
             
-            swiper = new Swipe(document.getElementById('sliderz'), {
+            swiper = new Swipe(document.getElementById('sliderz'), 
+            {
                 startSlide: 0,
                 speed: 400,
                 auto: 0,
@@ -127,7 +129,8 @@ app.playRTS = (function () {
         }
         
         /* do RT match list generate */
-        function rt_radar() {
+        function rt_radar() 
+        {
             
             app.mobileApp.showLoading();
             
@@ -144,7 +147,7 @@ app.playRTS = (function () {
                     "id": "getRadar"
                 },
                 success: function(response) {
-                    console.log(response);
+                    //console.log(response);
                     if (response.result === 200) {
                         
                         console.log("start rt bar");
@@ -261,14 +264,14 @@ app.playRTS = (function () {
         var rtPredictTimeEnd = "";
         var rtPredictTimeQA = "";
         
-        function rtCoolTime() {
-            console.log("init cool time");
+        /* 챌린지 볼 대기 */
+        function rtCoolTime() 
+        {
+            //console.log("init cool time");
             window.clearInterval(rtCoolTimeBar);
             rtCoolTimeBar = setInterval(function() {
                 
                 --gameLifeTimer;
-                
-                console.log(gameLifeTimer);
                 
                 if(gameLifeTimer > 0) {
                     var cmm = parseInt( gameLifeTimer / 60 );
@@ -277,10 +280,10 @@ app.playRTS = (function () {
                 } else {
                     ++gameLife;
                     if(gameLife < 3) {
-                        console.log("GAME LIFE: " + gameLife);
+                        //console.log("GAME LIFE: " + gameLife);
                         gameLifeTimer = 180;
                     } else {
-                        console.log("GAME LIFE: " + gameLife);
+                        //console.log("GAME LIFE: " + gameLife);
                         gameLifeTimer = 180;
                         window.clearInterval(rtCoolTimeBar);
                         $('#recoverLife').html("00:00");
@@ -510,7 +513,7 @@ app.playRTS = (function () {
         function sportRada(e) 
         {
             var param = e.view.params;
-            
+                        
             gameCrush = (getlocalStorage('rtGameCrush')) ? parseInt(getlocalStorage('rtGameCrush')) : 0;
             
             window.clearInterval(elapsedTimer);
@@ -518,6 +521,19 @@ app.playRTS = (function () {
             
             enetId = param.enet;
             matchStatus = param.stat;
+            
+            console.log(predictionTimer);
+            
+            var lastMatchz = (getlocalStorage('lastMatch')) ? parseInt(getlocalStorage('lastMatch')) : 0;
+            if(lastMatchz === parseInt(enetId)) {
+                console.log("same match");
+                var lastFlowz = (getlocalStorage('lastFlow')) ? parseInt(getlocalStorage('lastFlow')) : "";
+                rt_ws_feed.keepUx(lastFlowz);
+            } else {
+                console.log("no same match : " + lastMatchz + "=" + enetId);
+                rt_ws_feed.initUX();
+            }
+            
             gameRepo[enetId] = {};
             
             // height: 248
@@ -526,6 +542,7 @@ app.playRTS = (function () {
             
             app.mobileApp.showLoading();
             
+            $('.rt_pannel_bets').html('');
             $('.sc_menus').removeClass('swipeNav');
             $('.livescore').empty();
             
@@ -567,31 +584,24 @@ app.playRTS = (function () {
                 predictionResultList.appendList();
                 $('.playResultContent').removeClass('hide');
                 $('.rt_times').addClass('game_end');
+                
+                $('#predctionTimeRew').html("1min");
+                $('#predctionTimeNow').html("2min");
+                $('#predctionTimePre').html("3min");
+                
             } else if(matchStatus === "0") {
                 $('.rt_times').html("--:--");
                 $('.rt_times').removeClass('game_end');
+                
+                $('#predctionTimeRew').html("1min");
+                $('#predctionTimeNow').html("2min");
+                $('#predctionTimePre').html("3min");
+                
                 ws_init(enetId);
             } else {
                 $('.rt_times').removeClass('game_end');
                 $('.playResultContent').addClass('hide');
                 ws_init(enetId);
-                
-                interact('#predictionArrowBtn')
-                .draggable({
-                    inertia: false,
-                    axis: 'x',
-                    onmove: dragMoveListener,
-                    onend: function (event) {
-                        var el = document.getElementById('predictionArrowBtn');
-                        el.style.webkitTransform = el.style.transform = 'translate(0px)';
-                        event.target.setAttribute('data-x', 0);
-                        if(predictionFollow) rt_ws_feed.myprediction(predictionFollow);
-                        predictionFollow = "";
-                    }
-                });
-                
-                // this is used later in the resizing and gesture demos
-                window.dragMoveListener = dragMoveListener;
             }
             
             
@@ -777,7 +787,8 @@ app.playRTS = (function () {
             }
         }
 
-        function rtElapsedTime(t) {
+        function rtElapsedTime(t) 
+        {
             elapseTime = t;
             elapsedTimer = setInterval(function() {
                 ++elapseTime;
@@ -787,17 +798,50 @@ app.playRTS = (function () {
         }
         
         var rt_ws_feed = {
-            /*
-            var that = this;
-            var param = "";
-            if(type === "predict") {
-                //param = '{"osType":' + init_apps.osType + ',"version":"' + version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + version + ',"hNa":' + event + '}';
-            } else if(type === "result") {
-                //param = '{"osType":' + init_apps.osType + ',"version":"' + version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + event + '}';
-            }
-            */
+
             initUX: function() {
                 
+                $('#predictionHomeClicker').removeClass('hide');
+                $('#predictionHomeTimeFlow').addClass('hide');
+                $('#predictionAwayClicker').removeClass('hide');
+                $('#predictionAwayTimeFlow').addClass('hide');
+                
+                $('#predictionHomeStage').removeClass('hide');
+                $('#predictionAwayStage').removeClass('hide');
+                $('#predictionHomeStr').addClass('hide');
+                $('#predictionAwayStr').addClass('hide'); 
+            },
+            keepUx: function(f) {
+                var that = this;
+                if(predictionTimerBar) {
+                    
+                    if(f === "home") {
+                        console.log("open home");
+                        $('#predictionHomeClicker').removeClass('hide');
+                        $('#predictionHomeTimeFlow').addClass('hide');
+                        $('#predictionAwayClicker').addClass('hide');
+                        $('#predictionAwayTimeFlow').removeClass('hide');
+                        
+                        $('#predictionHomeStage').removeClass('hide');
+                        $('#predictionAwayStage').addClass('hide');
+                        $('#predictionHomeStr').addClass('hide');
+                        $('#predictionAwayStr').removeClass('hide'); 
+                        
+                    } else {
+                        console.log("open away");
+                        $('#predictionHomeClicker').addClass('hide');
+                        $('#predictionHomeTimeFlow').removeClass('hide');
+                        $('#predictionAwayClicker').removeClass('hide');
+                        $('#predictionAwayTimeFlow').addClass('hide');
+                        
+                        $('#predictionHomeStage').addClass('hide');
+                        $('#predictionAwayStage').removeClass('hide');
+                        $('#predictionHomeStr').removeClass('hide');
+                        $('#predictionAwayStr').addClass('hide');   
+                    }
+                } else {
+                    that.initUX();
+                }
             },
             wsParse: function(jdata) {
                 console.log(jdata);
@@ -905,7 +949,8 @@ app.playRTS = (function () {
                     
                     ++betCount;
                     
-                    if(preMin === predictionRound) {
+                    if(preMin === predictionRound) 
+                    {
                         
                         if(betCount > 3) {
                             console.log("동일한 예측 시간에 3번 이상 시도 - " + betCount + " ( " + preMin + " : " + predictionRound + " )");
@@ -914,7 +959,11 @@ app.playRTS = (function () {
                         } else {
                             if(nowPredictionFlow === lastPredictionFlow) {
                                 --gameLife;
+                                that.resetGameLife();
+                                that.setCoolTime();
                                 
+                                that.sendFeed(arr);
+                                //that.predictionProgress(preSec, nowPredictionFlow);
                             } else {
                                 console.log("동일한 예측 시간에서 팀 선택 방향이 다름 - " + lastPredictionFlow + " : " + nowPredictionFlow + " ( " + preMin + " : " + predictionRound + " )");
                                 --betCount;
@@ -922,25 +971,39 @@ app.playRTS = (function () {
                             }
                         }
                         
-                    } else {
+                    } 
+                    else 
+                    {
                         console.log("다른 예측시간 - " + preMin + " : " + predictionRound);
                         --gameLife;
+                        that.resetGameLife();
+                        that.setCoolTime();
+                        
+                        that.sendFeed(arr);
+                        that.predictionProgress(preSec, nowPredictionFlow);
+                        
                         betCount = 1;
                         predictionRound = preMin;
                         lastPredictionFlow = nowPredictionFlow;
                         
+                        setlocalStorage('lastMatch',enetId);
+                        setlocalStorage('lastFlow',nowPredictionFlow);
+                        
+                        $('.rt_pannel_bets').html('');
                     }
                     
                     console.log("챌린지 볼: " + gameLife);
                     console.log("챌린지 횟수: " + betCount);
                     
-                    $('#betCount').html("x" + betCount);
-                    
-                    that.resetGameLife();
-                    that.setCoolTime();
-                    
-                    that.sendFeed(arr);
-                    that.predictionProgress(preSec, nowPredictionFlow);
+                    if(predictionFollow === "home") {
+                        $('#betCountHome').html("<span>x" + betCount + "</span>");
+                        $('#rt_pannel_bg_home').addClass('now_on');
+                        $('#rt_pannel_bg_away').removeClass('now_on');
+                    } else {
+                        $('#rt_pannel_bg_home').removeClass('now_on');
+                        $('#rt_pannel_bg_away').addClass('now_on');
+                        $('#betCountAway').html("<span>x" + betCount + "</span>");
+                    }
                     
                 } else {
 
@@ -985,33 +1048,36 @@ app.playRTS = (function () {
                 console.log(ss);
                 predictionTimer = 60 - ss;
                 var fillTimer = "";
+                var that = this;
                 
                 if(fw === "away") {
-                    $('#predictionHomeAmblem').addClass('hide');
+                    $('#predictionHomeClicker').addClass('hide');
                     $('#predictionHomeTimeFlow').removeClass('hide');
-                    $('#predictionAwayAmblem').removeClass('hide');
+                    $('#predictionAwayClicker').removeClass('hide');
                     $('#predictionAwayTimeFlow').addClass('hide');
                     
-                    $('.predictionHomeClass').addClass('hide');
-                    $('#predictionHomeActivate').removeClass('hide');
-                    $('.predictionAwayClass').removeClass('hide');
-                    $('#predictionAwayActivate').addClass('hide');
+                    $('#predictionHomeStage').addClass('hide');
+                    $('#predictionAwayStage').removeClass('hide');
+                    $('#predictionHomeStr').removeClass('hide');
+                    $('#predictionAwayStr').addClass('hide');                    
                     
                     fillTimer = $('#predictionHomeTimeFlow');
                     
                 } else {
-                    $('#predictionHomeAmblem').removeClass('hide');
+                    $('#predictionHomeClicker').removeClass('hide');
                     $('#predictionHomeTimeFlow').addClass('hide');
-                    $('#predictionAwayAmblem').addClass('hide');
+                    $('#predictionAwayClicker').addClass('hide');
                     $('#predictionAwayTimeFlow').removeClass('hide');
                     
-                    $('.predictionHomeClass').removeClass('hide');
-                    $('#predictionHomeActivate').addClass('hide');
-                    $('.predictionAwayClass').addClass('hide');
-                    $('#predictionAwayActivate').removeClass('hide');
+                    $('#predictionHomeStage').removeClass('hide');
+                    $('#predictionAwayStage').addClass('hide');
+                    $('#predictionHomeStr').addClass('hide');
+                    $('#predictionAwayStr').removeClass('hide'); 
                     
                     fillTimer = $('#predictionAwayTimeFlow');
                 }
+                
+                
                 
                 var fillData = "";
                 predictionTimerBar = setInterval(function() {                        
@@ -1024,18 +1090,30 @@ app.playRTS = (function () {
                     } else {
 
                         window.clearInterval(predictionTimerBar);
+                        console.log(predictionTimerBar);
+                        fillTimer.addClass('hide');
+                        fillTimer.html('');
                         
-                        $('#predictionHomeAmblem').removeClass('hide');
+                        $('.rt_pannel_bets').html('');
+                        $('.rt_pannels').removeClass('now_on');
+                        
+                        setlocalStorage('lastMatch','');
+                        setlocalStorage('lastFlow','');
+                        
+                        that.initUX();
+                        
+                        /*
+                        $('#predictionHomeClicker').removeClass('hide');
                         $('#predictionHomeTimeFlow').addClass('hide');
-                        $('#predictionAwayAmblem').removeClass('hide');
+                        $('#predictionAwayClicker').removeClass('hide');
                         $('#predictionAwayTimeFlow').addClass('hide');
-
-                        $('.predictionHomeClass').removeClass('hide');
-                        $('#predictionHomeActivate').addClass('hide');
-                        $('.predictionAwayClass').removeClass('hide');
-                        $('#predictionAwayActivate').addClass('hide');
                         
-                        $('#betCount').html('');
+                        $('#predictionHomeStage').removeClass('hide');
+                        $('#predictionAwayStage').removeClass('hide');
+                        $('#predictionHomeStr').addClass('hide');
+                        $('#predictionAwayStr').addClass('hide'); 
+                        */
+                        
                     }                     
                  }, 1000);
             },
@@ -1056,7 +1134,7 @@ app.playRTS = (function () {
                         "param":param
                     },
                    success: function(response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response.code === 0) {
                             var resData = response.data;
                             if(parseInt(resData.myPoint) > 0) {
@@ -1130,6 +1208,14 @@ app.playRTS = (function () {
             }
         };
         
+        function setPredictionByClick(e)
+        {
+            var data = e.button.data();
+            
+            predictionFollow = data.rel;
+            if(predictionFollow) rt_ws_feed.myprediction(predictionFollow);
+        }
+        
         function successCountBar()
         {
             var percent = 0;
@@ -1159,7 +1245,8 @@ app.playRTS = (function () {
             confirmBack: confirmBack,
             swipeSlide: swipeSlide,
             collapseList: collapseList,
-            sportRada: sportRada
+            sportRada: sportRada,
+            doPrediction: setPredictionByClick
         };
         
     }());

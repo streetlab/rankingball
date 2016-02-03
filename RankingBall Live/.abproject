@@ -6,8 +6,8 @@
   "DisplayName": "Fantasy Football Live",
   "Author": "streetlab",
   "Description": "DFS Global Service",
-  "BundleVersion": "1.1.1",
-  "AndroidVersionCode": "111",
+  "BundleVersion": "1.1.2",
+  "AndroidVersionCode": "112",
   "iOSDeviceFamily": [
     "1",
     "2"
