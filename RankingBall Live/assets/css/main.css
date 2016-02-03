@@ -1062,15 +1062,14 @@ a.rnkb-rt img {
     color: #6e6e6e;
 }
 
-.rt-navigation {
+.rnkb-wiz-rt .km-widget.rt-navigation {
     position: relative;
     height: 36px;
     white-space: nowrap;
-    overflow-y: hidden;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    color: #fff;
     background-color: #2a2a2a;
 }
+
 .rt-navigation .sc_menus {
     position: absolute;
     z-index: 1;
@@ -1084,7 +1083,6 @@ a.rnkb-rt img {
     padding: 0;
     margin: 0;
     list-style-type: none;
-    
 }
 
 .rt-navigation ul.sc_menu li {
@@ -1108,10 +1106,10 @@ a.rnkb-rt img {
     color: #fff;
 }
 .rt-navigation .swipeNav {
-    left: -180px;
+    /*left: -180px;*/
 }
 .rt-navigation .swipeNavEx {
-    left: -420px;
+    /*left: -420px;*/
 }
 
 .outerDiv {

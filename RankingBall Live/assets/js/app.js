@@ -15,7 +15,7 @@ var app = (function (win) {
     };
 
     var showError = function(message) {
-        showAlert(message, 'Notice');
+        showAlert(message, 'Alert');
     };
 
     win.addEventListener('error', function (e) {

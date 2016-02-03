@@ -17,7 +17,7 @@ app.playRTS = (function () {
         var reactCLC;
         var swiper;       
         var rtSlider = true;
-   
+        var navWidth = [];
         var rtRowData = "";
         
         function langExchange() 
@@ -35,21 +35,27 @@ app.playRTS = (function () {
             $('.sc_menus').removeClass('swipeNav');
             $('.rt-navigation').css('width',$(window).width());
             
+            $('ul.sc_menu li').each(function () {
+                navWidth.push($(this).outerWidth(true));
+            });
+            
+            //var scroller = $("#scrollnav").data("kendoMobileScroller");
+            
             swiper = new Swipe(document.getElementById('sliderz'), 
             {
                 startSlide: 0,
                 speed: 400,
                 auto: 0,
-                continuous: false,
+                continuous: true,
                 disableScroll: false,
                 stopPropagation: true,
                 callback: function(index, elem) {},
                 transitionEnd: function(index, elem) {
                     
-                    //console.log(index);
-                    //console.log(elem);
+                    console.log(index);
+                    console.log(elem);
                     if(index < 2) {
-                        $('.sc_menus').removeClass('swipeNav');
+                       // $('.sc_menus').removeClass('swipeNav');
                         
                         if(index === 0) {
                             if(!rtSlider) {
@@ -64,14 +70,27 @@ app.playRTS = (function () {
                                 $('#rt_header__scoreboard').fadeIn();
                             }
                         }
+                        
+                        $("#scrollnav").data("kendoMobileScroller").animatedScrollTo(0, 0);
+                        
                     } else {
                         
                         if(index > 2) {
                             if(laf === "en") {
-                                $('.sc_menus').addClass('swipeNavEx');
+                                //$('.sc_menus').addClass('swipeNavEx');
                             } else {
-                                $('.sc_menus').addClass('swipeNav');
+                                //$('.sc_menus').addClass('swipeNav');
                             }
+                            console.log("move index: " + index);
+                            
+                            var scrollLeft = 0;
+                            for(var i = 2; i <= index; i++) {
+                                scrollLeft += navWidth[i];  // Iterate over your first array and then grab the second element add the values up
+                            }
+                            
+                            scrollLeft = scrollLeft * -1;
+                            $("#scrollnav").data("kendoMobileScroller").animatedScrollTo(scrollLeft, 0);
+                            
                         }
                         
                         if(rtSlider) {
@@ -84,7 +103,8 @@ app.playRTS = (function () {
                     $('#swipeBtn' + index).addClass('activate');
                 }
             });
-                        
+
+            /*
             $('.sc_menus').kendoTouch({
                 enableSwipe: true,
                 swipe: function (e) {
@@ -94,7 +114,7 @@ app.playRTS = (function () {
                     
                 }
             });
-                        
+            */
             $('#meter_bar').css('width','0px');
 
             var mqruqeeStr = $.langScript[laf]['noti_056'] + "  " + $.langScript[laf]['noti_057'] + "  " + $.langScript[laf]['noti_058']  + "  " + $.langScript[laf]['noti_059'] + "  " + $.langScript[laf]['noti_060'] + "  " + $.langScript[laf]['noti_061'];
@@ -582,7 +602,7 @@ app.playRTS = (function () {
             if(matchStatus === "3") {
                 $('.rt_times').html("--:--");
                 predictionResultList.appendList();
-                $('.playResultContent').removeClass('hide');
+                //$('.playResultContent').removeClass('hide');
                 $('.rt_times').addClass('game_end');
                 
                 $('#predctionTimeRew').html("1min");
@@ -600,7 +620,7 @@ app.playRTS = (function () {
                 ws_init(enetId);
             } else {
                 $('.rt_times').removeClass('game_end');
-                $('.playResultContent').addClass('hide');
+                //$('.playResultContent').addClass('hide');
                 ws_init(enetId);
             }
             
@@ -879,9 +899,10 @@ app.playRTS = (function () {
                     window.clearInterval(elapsedTimer);
                 } else if(playType === 6) {
                     gamePlaying = false;
+                    /*
                     interact('#predictionArrowBtn')
                         .draggable({enabled: false});
-                    
+                    */
                     that.stopGame();
                 } else {
                     gamePlaying = false;

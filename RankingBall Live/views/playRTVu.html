@@ -54,7 +54,7 @@
             </div>
         </div>
         
-        <div class="rt-navigation">
+        <div id="scrollnav" class="rt-navigation" data-role="scroller">
             <div class="sc_menus">
                 <ul class="sc_menu">
                     <li id="swipeBtn0" class="activate wc_btn"><a data-role="button" data-rel="0" data-click="app.playRTS.swipeSlide" data-labelnum="31">중계화면</a></li>
@@ -63,7 +63,7 @@
                     <li id="swipeBtn3" class="wc_btn"><a data-role="button" data-rel="3" data-click="app.playRTS.swipeSlide" data-labelnum="4">경기기록</a></li>
                     <li id="swipeBtn4" class="wc_btn"><a data-role="button" data-rel="4" data-click="app.playRTS.swipeSlide" data-labelnum="12">맞대결</a></li>
                     <li id="swipeBtn5" class="wc_btn"><a data-role="button" data-rel="5" data-click="app.playRTS.swipeSlide" data-labelnum="37">팀순위</a></li>
-                    <li id="swipeBtn6" class="wc_btn playResultContent hide"><a data-role="button" data-rel="6" data-click="app.playRTS.swipeSlide" data-labelnum="24">챌린지결과</a></li>
+                    <li id="swipeBtn6" class="wc_btn"><a data-role="button" data-rel="6" data-click="app.playRTS.swipeSlide" data-labelnum="24">챌린지결과</a></li>
                 </ul>
              </div>
         </div>
@@ -85,28 +85,28 @@
                     <div class="wc-widget livescore wc-13"></div>
                     <div class="wc-widget livescore wc-14"></div>
                     <div class="wc-widget livescore wc-15"></div>
-                    <div class="wc-widget wc-16 playResultContent hide">
+                    <div class="wc-widget wc-16">
                         
-                        <div class="contest-rt-result">       
+                        <div class="contest-rt-result playResultContent">       
                             <div class="rt_14_label_bar" data-labelnum="51">플레이 결과 확인</div>
                             <div class="rt_14_result_table">
                                 <div class="rt_14_result_summary">
                                     <div class="rt_14_result_dls">
                                         <dl>
                                             <dt data-labelnum="52">총시도 횟수</dt>
-                                            <dd id="tryTotalCount">10회</dd>
+                                            <dd id="tryTotalCount">-</dd>
                                         </dl>
                                     </div>
                                     <div class="rt_14_result_dls">
                                         <dl>
                                             <dt data-labelnum="53">성공 횟수</dt>
-                                            <dd id="trySuccessCount">1회</dd>   
+                                            <dd id="trySuccessCount">-</dd>   
                                         </dl>
                                     </div>
                                     <div class="rt_14_result_dls">
                                         <dl>
                                             <dt data-labelnum="54">성공 확률</dt>
-                                            <dd id="trySuccessRate">10%</dd>   
+                                            <dd id="trySuccessRate">-</dd>   
                                         </dl>
                                     </div>
                                 </div>

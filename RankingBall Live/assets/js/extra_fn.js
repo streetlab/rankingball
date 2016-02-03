@@ -52,7 +52,7 @@ var observableView = function() {
 
 var openAppStore = function() {
     //var url = "market://details?id=com.streetlab.lb.soccer";
-    var url = "http://play.google.com/store/apps/details?id=com.streetlab.lb.soccer";
+    var url = "https://play.google.com/store/apps/details?id=com.stlb.ffl";
     //window.open(url, '_blank');
     
     var location= window.location.href;
@@ -68,7 +68,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.0.9";
+            that._app_version = "1.1.2";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
