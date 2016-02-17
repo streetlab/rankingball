@@ -7,6 +7,7 @@ var autoLogin = false;
 
 var globalRequestTry = 0;
 var salaryLimit = 0;
+var slotSalary = 0;
 
 var contestListData = ""; // Total Game List
 var contestPartList = [];
@@ -39,7 +40,7 @@ var currentContestType = "";
 
 var gameLife = 3; // 게임 Life
 var gameLifeTimer = 180;
-var gameCrush = 0; // success count
+var gameCrush = 0; // success point
 var gameRepo = {};
 var laf;    // Language flag
 
@@ -68,7 +69,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.1.2";
+            that._app_version = "1.1.4";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
@@ -184,7 +185,6 @@ var initAppService = {
         if (init_data.status === 1) {
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","deviceID":"' + init_apps.deviceID + '"}';
             var url = init_data.auth + "?callback=?";
-            console.log(param);
             $.ajax({
                 url: url,
                 type: "GET",

@@ -17,7 +17,6 @@ app.Contests = (function () {
  
         function langExchange() 
         {
-            console.log(laf);
             app.langExchange.exchangeLanguage(laf);    
         }
         
@@ -127,9 +126,6 @@ app.Contests = (function () {
        var liveContestList = function() {
             
             var dataSource;
-            
-            console.log(contestPartList);
-            console.log(contestMyPartList);
            
             if(contestPartList['cf'].length === 0) {
                 $('#cgt_list1').html('');
@@ -296,6 +292,7 @@ app.Contests = (function () {
             app.mobileApp.navigate('views/shopView.html', 'slide');
         };
         
+        /* 엔트리 등록 입장 */
         var joinMatchConfirm = function() {
             
             //console.log( JSON.stringify(checkedData) );
@@ -341,10 +338,7 @@ app.Contests = (function () {
         
         var joinMatch = function(e) {
             var data = e.button.data();
-            var rel = parseInt(data.rel);
-            
-            console.log(rel);
-            
+            var rel = parseInt(data.rel);            
             var modalHtml = "";
             checkedData = "";
             joinMatchNo = "";

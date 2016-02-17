@@ -32,12 +32,13 @@
             
             <div class="salarycap-box">
                 <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
-                <div class="salarycap-gage">
+                <div id="gae_salarycap_p" class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
                     </div>
                 </div>
+                <div class="salarycap-overflow"></div>
             </div>
             
             <div class="salarycap-box-padding">
@@ -77,27 +78,34 @@
     </div>
 //-->    
     <div id="players-box">
-        <ul id="players_list" class="player_detail" data-role="listview">
-        </ul>
+        <ul id="players_list" class="player_detail" data-role="listview"></ul>
     </div>
 </div>
 
 
 
 <script id="playerListTemplate" type="text/x-kendo-template">
-    # if(salaryLimit > salary) { 
-            entryStatus = "";
-            entryImg = "btn_plus_02.png";
-            controlClass = "addPlayer";
+    #
+        //salaryLimit
+        tmpSalary = (parseInt(slotSalary) === 0) ? salaryLimit : parseInt(salaryLimit + slotSalary);
+        if(tmpSalary >= salary) { 
             salaryColor = "";
-            entryBtn = "app.Playerz.addPlayer";
         } else {
+            salaryColor = "warning";
+        }
+    
+        if(playerSelected === 2) {
             entryStatus = "on";
             entryImg = "btn_minus_02.png";
             controlClass = "removePlayer";
-            salaryColor = "warning";
             entryBtn = "app.Playerz.overPlayer";
+        } else {
+            entryStatus = "";
+            entryImg = "btn_plus_02.png";
+            controlClass = "addPlayer";
+            entryBtn = "app.Playerz.addPlayer";
         }
+    
         if(posType === 1) {
             playerPostionLabel = "F";
         } else if(posType === 2) {
@@ -114,6 +122,6 @@
     <div class="listitem_position">#:playerPostionLabel#</div>
     <div class="listitem_name"><a data-role="button" data-rel="#:playerID#" data-val="" data-click="app.Playerz.playerAddInfo">#:playerName#<br><span>#:teamName#</span></a></div>
     <div class="listitem_fppg">#:fppg#</div><div class="listitem_salary #:salaryColor#">$#:kendo.toString(salary,"n0")#</div>
-    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
+    <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-tmp="#:slotSalary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a></div>
     
 </script>

@@ -20,14 +20,15 @@ app.Entry = (function () {
         var playerFilter = [];
         var playerFilterSalary = [];
         
-        var gageWidth = 0;
+        var gageWidth = 0; // 샐러리캡 영역 너비
         
+        /* 한-영 변환 */
         function langExchange() 
         {
-            console.log(laf);
             app.langExchange.exchangeLanguage(laf);    
         }
         
+        /* 엔트리 초기화 */
         function init(e) {
             
             langExchange();
@@ -52,8 +53,32 @@ app.Entry = (function () {
             } else {
                 initEntryData();
             }
-            //initEntryData();
-            //updateBar();
+            
+            prePlayerList();
+        }
+        
+        function prePlayerList() {
+            console.log("preset array");
+            console.log(playerOnLeague);
+            playerData['F'] = new Array();
+            playerData['M'] = new Array();    
+            playerData['D'] = new Array();
+            playerData['G'] = new Array();
+            
+            for (var i=0 ; i < playerOnLeague.length ; i++) {
+                if (parseInt(playerOnLeague[i]['posType']) === 1) {
+                    playerData['F'].push(playerOnLeague[i]);
+                } else if (parseInt(playerOnLeague[i]['posType']) === 2) {
+                    playerData['M'].push(playerOnLeague[i]);
+                } else if (parseInt(playerOnLeague[i]['posType']) === 4) {
+                    playerData['D'].push(playerOnLeague[i]);
+                } else if (parseInt(playerOnLeague[i]['posType']) === 8) {
+                    playerData['G'].push(playerOnLeague[i]);
+                } else {
+                    console.log("Error: none position type"); 
+                    console.log(playerOnLeague[i]);
+                }
+            }
         }
         
         function updateInit(e) {
@@ -76,6 +101,7 @@ app.Entry = (function () {
         }
         
         function updateBar(e) {
+            console.log("On Show :" + $.langTitle[laf][4]);
             e.view.options.title = $.langTitle[laf][4];
         }
         
@@ -94,6 +120,7 @@ app.Entry = (function () {
             
         }
         
+        /* 선수 리스트업 */
         function initEntryData() {
                         
             observableView();
@@ -281,6 +308,11 @@ app.Entry = (function () {
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
             
+            if(entryAmount >= max_salarycap_amount) {
+                app.showAlert("It has exceeded the salary value.", "Notice");
+                return false;
+            }
+            
             if( parseInt(contestFee) > parseInt(uu_data.cash) ) {
                 
                 app.showAlert($.enScript.alert_caughtShort, "Notice");
@@ -296,6 +328,9 @@ app.Entry = (function () {
                 */
 
             } else {
+                
+                
+                
                 navigator.notification.confirm($.langScript[laf]['noti_052'], function (confirmed) {
                    if (confirmed === true || confirmed === 1) {
                         app.Playerz.setFinalEntry(contestNo, contestFee);
@@ -400,7 +435,7 @@ app.Entry = (function () {
         }
         
         function progressBar(amount, $element) {
-           console.log("Entry set salary cap with " + amount);
+            console.log("Entry set salary cap with " + amount);
             var percent = 0;
             var progressBarWidth = 0;
             
@@ -423,6 +458,7 @@ app.Entry = (function () {
             pb.value( e );
         };
         
+        /* 엔트리 선수 리스트 보기 */
         var setPlayerEntry = function(e) {
             var data = e.button.data();
             app.mobileApp.showLoading();

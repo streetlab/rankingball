@@ -146,88 +146,114 @@
             
             <div class="rt_controller">
                 
-                <div class="rt_controller_stage">
-                    <div class="rt_controller_life">
-                        <div class="star-fill">
-                            <div id="stars_ani_1" class="star-tab">
-                                <span id="start_pos_1" class="star">●</span>
+                <div class="rt_controller_scoreboard rt_padding">
+                    <div class="rt_controller_stage">
+                        <div class="rt_controller_life">
+                            <div class="life_box">
+                                <div class="star-str">CHALLENGE BALL</div>
+                                <div class="star-fill">
+                                    <div id="stars_ani_1" class="star-tab">
+                                        <span id="start_pos_1" class="star">●</span>
+                                    </div>
+                                    <div id="stars_ani_2" class="star-tab">
+                                        <span id="start_pos_2" class="star">●</span>
+                                    </div>
+                                    <div id="stars_ani_3" class="star-tab">
+                                        <span id="start_pos_3" class="star">●</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="stars_ani_2" class="star-tab">
-                                <span id="start_pos_2" class="star">●</span>
+                            <div id="rechargeTime" class="life_box_recharge recharge_hidden">
+                                <div class="star-str">RECHARGE TIME</div>
+                                <div class="star-cooltime">
+                                    <span id="recoverLife" class="recover_life">00:00</span>
+                                </div>
                             </div>
-                            <div id="stars_ani_3" class="star-tab">
-                                <span id="start_pos_3" class="star">●</span>
-                            </div>
-                            <div id="lifeCoolTime" class="star-tab__ext">
-                                <span id="recoverLife" class="recover_life">00:00</span>
-                            </div>
+                            
+                            
                         </div>
-                    </div>
-                    
-                    <div class="rt_progress_bar">
-                        <div id="rt_bar" class="rt_pg__bar">
-                            <div class="meter">
-                                <div id="predictionCount" class="rt_pre_count">0 / 10</div>
-                            	<span id="meter_bar"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="rt_combo_show">
                         
-                    </div>
-                    
-                </div>
-                
-                <div class="rt_timeline">
-                    <div class="rt_timeline_pre">
-                        <div id="predctionTimeRew" class="rt_timeline_cell">0min</div>
-                        <div id="predctionTimeNow" class="rt_timeline_cell rt_timeline_now">1min</div>
-                        <div id="predctionTimePre" class="rt_timeline_cell">2min</div>
-                    </div>
-                </div>
-                
-                
-                <div class="rt_prediction_area">
-
-
-                    <div class="rt_prediction_table">
-                        <div class="rt_prediction_home">
-
-                                <div class="rt_pannel_emblems rt__home">
-                                    <div id="predictionHomeClicker" class="rt_clicker rt__home">
-                                        <a data-role="button" data-rel="home" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_home_emblem" /></a>
+                        <div class="rt_progress_bar">
+                            <div id="rt_bar" class="rt_pg__bar">
+                                <div class="rt_bar_gage">
+                                    <div class="meter">
+                                        <div id="predictionCount" class="rt_pre_count">0 / 10</div>
+                                    	<span id="meter_bar"></span>
                                     </div>
-                                    <div id="predictionHomeTimeFlow" class="rt_time_flow rt__home hide"></div>
                                 </div>
-                                <div id="predictionHomeStage" class="rt_pannel_arrows rt__home predictionHomeClass">
-                                    <div class="rt_arrow_animation_r2l"></div>
-                                </div>
-                                <div id="predictionHomeStr" class="rt_pannel_arrows_str_home hide"><span>Activating Time</span></div>
-                            
-                                <div id="betCountHome" class="rt_pannel_bets rt__home"><span>x</span></div>
-                                <div id="rt_pannel_bg_home" class="rt_pannels rt_pannel_home"></div>
-                        </div>
-                        <div class="rt_prediction_away">
-
-                                <div class="rt_pannel_emblems rt__away">
-                                    <div id="predictionAwayClicker" class="rt_clicker rt__away">
-                                        <a data-role="button" data-rel="away" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_away_emblem" /></a>
+                                <div class="rt_bar_helper">
+                                    <div class="i_helper">
+                                        <a data-role="button"></a>
                                     </div>
-                                    <div id="predictionAwayTimeFlow" class="rt_time_flow rt__away hide"></div>
                                 </div>
-                                <div id="predictionAwayStage" class="rt_pannel_arrows rt__away predictionAwayClass">
-                                    <div class="rt_arrow_animation_l2r"></div>
-                                </div>
-                                <div id="predictionAwayStr" class="rt_pannel_arrows_str_away hide"><span>Activating Time</span></div>
+                                <div class="rt_bar_present"></div>
+                            </div>
+                            <div></div>
                             
-                                <div id="betCountAway" class="rt_pannel_bets rt__away"><span>x</span></div>
-                                <div id="rt_pannel_bg_away" class="rt_pannels rt_pannel_away"></div>
                         </div>
                     </div>
-                    
                 </div>
                 
+                <div class="rt_controller_pannel rt_padding">
+                    
+                    <section class="rt_controller_pannel__box container">
+                        <div id="card">
+                            <figure class="front">
+                                <div class="pannel_box">
+                                    <div class="pannel_box_front">
+                                        <div class="pannel_box_team rt__home">
+                                            <div id="predictionHomeClicker" class="rt_clicker">
+                                                <a data-role="button" data-rel="home" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_home_emblem" /></a>
+                                            </div>
+                                        </div>
+                                        <div class="pannel_box_st">
+                                            <div class="pannel_box_guide">
+                                                <div class="rt_arrow">
+                                                    <div class="rt_arrow_animation_r2l"></div>
+                                                </div>
+                                                <div class="rt_guide">
+                                                    <div class="rt_guide__script">
+                                                        <strong>shot</strong><br /><span>select</span>
+                                                    </div>
+                                                </div>
+                                                <div class="rt_arrow">
+                                                    <div class="rt_arrow_animation_l2r"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pannel_box_team rt__away">
+                                            <div id="predictionAwayClicker" class="rt_clicker">
+                                                <a data-role="button" data-rel="away" data-click="app.playRTS.doPrediction"><img src="about:blank;" class="rt_away_emblem" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                            <figure class="back">
+                                <div class="pannel_box">
+                                    <div class="pannel_box_back">
+                                        <div class="pannel_box__els">
+                                            <div class="pannel_box__label">Shot select Team</div>
+                                            <div class="pannel_box__data">
+                                                <img id="predictionSelectedTeam" src="about:blank;" />
+                                            </div>
+                                        </div>
+                                        <div class="pannel_box__els">
+                                            <div class="pannel_box__label">Shot target Time</div>
+                                            <div id="predictionTime" class="pannel_box__data prediction_strs"></div>
+                                        </div>
+                                        <div class="pannel_box__els">
+                                            <div class="pannel_box__label">Waiting time</div>
+                                            <div id="predictionTimeRemain" class="pannel_box__data prediction_strs"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </figure>
+                        </div>
+                    </section>
+                    
+                </div>
+   
                 
             </div>
             

@@ -29,8 +29,7 @@ app.playRTS = (function () {
         function init() 
         {
             
-            langExchange();
-            observableView();
+            langExchange(); // 한영변환
             
             $('.sc_menus').removeClass('swipeNav');
             $('.rt-navigation').css('width',$(window).width());
@@ -38,9 +37,8 @@ app.playRTS = (function () {
             $('ul.sc_menu li').each(function () {
                 navWidth.push($(this).outerWidth(true));
             });
-            
-            //var scroller = $("#scrollnav").data("kendoMobileScroller");
-            
+
+            // 위젯 swipe
             swiper = new Swipe(document.getElementById('sliderz'), 
             {
                 startSlide: 0,
@@ -52,8 +50,6 @@ app.playRTS = (function () {
                 callback: function(index, elem) {},
                 transitionEnd: function(index, elem) {
                     
-                    console.log(index);
-                    console.log(elem);
                     if(index < 2) {
                        // $('.sc_menus').removeClass('swipeNav');
                         
@@ -76,11 +72,7 @@ app.playRTS = (function () {
                     } else {
                         
                         if(index > 2) {
-                            if(laf === "en") {
-                                //$('.sc_menus').addClass('swipeNavEx');
-                            } else {
-                                //$('.sc_menus').addClass('swipeNav');
-                            }
+
                             console.log("move index: " + index);
                             
                             var scrollLeft = 0;
@@ -104,19 +96,7 @@ app.playRTS = (function () {
                 }
             });
 
-            /*
-            $('.sc_menus').kendoTouch({
-                enableSwipe: true,
-                swipe: function (e) {
-                    //console.log("User swiped the element");
-                    //console.log(e);
-                    handleTouchEvent(e);
-                    
-                }
-            });
-            */
             $('#meter_bar').css('width','0px');
-
             var mqruqeeStr = $.langScript[laf]['noti_056'] + "  " + $.langScript[laf]['noti_057'] + "  " + $.langScript[laf]['noti_058']  + "  " + $.langScript[laf]['noti_059'] + "  " + $.langScript[laf]['noti_060'] + "  " + $.langScript[laf]['noti_061'];
             $('#txt_message').html(mqruqeeStr);
             
@@ -153,8 +133,6 @@ app.playRTS = (function () {
         {
             
             app.mobileApp.showLoading();
-            
-            observableView();
             
             var url = "http://scv.rankingball.com/rt_fullfeed/soccer/" + laf;
             $.ajax({
@@ -217,12 +195,10 @@ app.playRTS = (function () {
         
         function rt_init() {
             langExchange();
-            observableView();
             //$('.amount_mini_point').html(numberFormat(vr_point));
         }
         
         function init_result() {
-            observableView();
             //$('.amount_mini_point').html(numberFormat(vr_point));
         }
 
@@ -249,7 +225,6 @@ app.playRTS = (function () {
 
                 app.showAlert(rtMessageSuccess,'예측 성공',function() {
                     uu_data.cash += 500;
-                    observableView();
                 });
 
             } else {
@@ -280,15 +255,12 @@ app.playRTS = (function () {
         
         var rtCoolTimeBar = "";
         
-        var rtPredictTimeStart = "";
-        var rtPredictTimeEnd = "";
-        var rtPredictTimeQA = "";
-        
         /* 챌린지 볼 대기 */
         function rtCoolTime() 
         {
-            //console.log("init cool time");
+            console.log("init cool time");
             window.clearInterval(rtCoolTimeBar);
+            $('#rechargeTime').removeClass('recharge_hidden');
             rtCoolTimeBar = setInterval(function() {
                 
                 --gameLifeTimer;
@@ -304,6 +276,7 @@ app.playRTS = (function () {
                         gameLifeTimer = 180;
                     } else {
                         //console.log("GAME LIFE: " + gameLife);
+                        $('#rechargeTime').addClass('recharge_hidden');
                         gameLifeTimer = 180;
                         window.clearInterval(rtCoolTimeBar);
                         $('#recoverLife').html("00:00");
@@ -426,13 +399,31 @@ app.playRTS = (function () {
             }
             */
             navigator.notification.confirm($.langScript[laf]['noti_008'], function (confirmed) {
-               if (confirmed === true || confirmed === 1) {
-                   if(matchStatus !== "3") {
+                if (confirmed === true || confirmed === 1) {
+                    app.mobileApp.showLoading();
+                    if(matchStatus !== "3") {
                        ws.close();
-                   }
-                   
-                   app.mobileApp.navigate('#:back', 'slide');
-               }
+                    }
+                    
+                    var id = window.setInterval(function() {}, 0);
+                    while (id--) {
+                        //console.log("window interval: " + id);
+                        window.clearInterval(id); // will do nothing if no timeout with id is present
+                    }
+                    app.mobileApp.hideLoading();
+                    //SRLive.removeWidget("widgets");
+                    /*
+                    SRLive.removeWidget("widgets.lmts",{"container": ".wc-widget.wc-10"});
+                    SRLive.removeWidget("widgets.matchcommentary",{"container": ".wc-widget.wc-11"});
+                    SRLive.removeWidget("widgets.matchlineups",{"container": ".wc-widget.wc-12"});
+                    SRLive.removeWidget("widgets.matchstats",{"container": ".wc-widget.wc-13"});
+                    SRLive.removeWidget("widgets.matchhead2head",{"container": ".wc-widget.wc-14"});
+                    SRLive.removeWidget("widgets.livetable",{"container": ".wc-widget.wc-15"});
+                    */
+                    //$('#play_rt').data("kendoMobileView").destroy();
+                    //$('#play_rt').remove();
+                    app.mobileApp.navigate('#:back', 'slide');
+                }
             }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
         }
         
@@ -456,6 +447,9 @@ app.playRTS = (function () {
         var predictionFollow = "";
         var enetId = "";
         var betCount = 0;
+        
+        var amblemHome = "";
+        var amblemAway = "";
         
         /* prediction result */
         var predictionResultList = {
@@ -533,20 +527,18 @@ app.playRTS = (function () {
         function sportRada(e) 
         {
             var param = e.view.params;
-                        
+            // gameCrush : 예측 시도 중 획한득 포인트
             gameCrush = (getlocalStorage('rtGameCrush')) ? parseInt(getlocalStorage('rtGameCrush')) : 0;
             
             window.clearInterval(elapsedTimer);
-            //delete elapsedTimer;
-            
-            enetId = param.enet;
+            enetId = param.enet; // 현재 경기 seq
             matchStatus = param.stat;
             
-            console.log(predictionTimer);
-            
+            // lastMatch : 유저가 마지막으로 조인한 경기 seq
             var lastMatchz = (getlocalStorage('lastMatch')) ? parseInt(getlocalStorage('lastMatch')) : 0;
             if(lastMatchz === parseInt(enetId)) {
                 console.log("same match");
+                // lastFlow : 유저가 마지막으로 예측한 팀
                 var lastFlowz = (getlocalStorage('lastFlow')) ? parseInt(getlocalStorage('lastFlow')) : "";
                 rt_ws_feed.keepUx(lastFlowz);
             } else {
@@ -588,14 +580,14 @@ app.playRTS = (function () {
             
             var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });
 
-            var home_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['home_code'] + '.png';
-            var away_img = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['away_code'] + '.png';
+            amblemHome = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['home_code'] + '.png';
+            amblemAway = 'http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_' + groupObj[0]['away_code'] + '.png';
             var playingTime = groupObj[0]['game_time'];
             
-            $('.rt_home_emblem').attr('src',home_img);
+            $('.rt_home_emblem').attr('src',amblemHome);
             $('#rt_home_label').html(groupObj[0]['home_team']);
             $('.is_home_score').html(groupObj[0]['home_score']);
-            $('.rt_away_emblem').attr('src',away_img);
+            $('.rt_away_emblem').attr('src',amblemAway);
             $('#rt_away_label').html(groupObj[0]['away_team']);
             $('.is_away_score').html(groupObj[0]['away_score']);
 
@@ -605,17 +597,9 @@ app.playRTS = (function () {
                 //$('.playResultContent').removeClass('hide');
                 $('.rt_times').addClass('game_end');
                 
-                $('#predctionTimeRew').html("1min");
-                $('#predctionTimeNow').html("2min");
-                $('#predctionTimePre').html("3min");
-                
             } else if(matchStatus === "0") {
                 $('.rt_times').html("--:--");
                 $('.rt_times').removeClass('game_end');
-                
-                $('#predctionTimeRew').html("1min");
-                $('#predctionTimeNow').html("2min");
-                $('#predctionTimePre').html("3min");
                 
                 ws_init(enetId);
             } else {
@@ -635,15 +619,13 @@ app.playRTS = (function () {
                 app.mobileApp.hideLoading();
             },1500);
             
-            //$("#moadl_reward").data("kendoMobileModalView").open();
-            //$("#moadl_reward").children('.km-content').addClass('opacity_zero');
-            
-            
             $('.rt_reward_card').kendoTouch({
                 tap: handleCardTouchEvent,
                 touchstart: handleCardTouchEvent,
                 touchend: handleCardTouchEvent,
             });
+            
+            
         }
 
         function handleCardTouchEvent(e) 
@@ -685,14 +667,19 @@ app.playRTS = (function () {
                 console.log("Diff : " + diff);
                 if(gameLife === 2) {
                     if(diff >= 180) {
+                        console.log("over cooltime");
                         gameLife = 3;
                         gameLifeTimer = 180;
+                        setlocalStorage('rtRegen',180);
+                        setlocalStorage('rtLife',3)
                         return true;
                     }
                 } else if(gameLife === 1) {
                     if(diff >= 360) {
                         gameLife = 3;
                         gameLifeTimer = 180;
+                        setlocalStorage('rtRegen',180);
+                        setlocalStorage('rtLife',3)
                         return true;
                     } else if(diff >= 180) {
                         gameLife = 2;
@@ -700,8 +687,11 @@ app.playRTS = (function () {
                 } else {
                     console.log(diff);
                     if(diff >= 540) {
+                        console.log("fill");
                         gameLife = 3;
                         gameLifeTimer = 180;
+                        setlocalStorage('rtRegen',180);
+                        setlocalStorage('rtLife',3);
                         return true;
                     } else if(diff >= 360) {
                         gameLife = 2;
@@ -714,6 +704,7 @@ app.playRTS = (function () {
                 rtCoolTime();
             } else {
                 console.log(gameLife);
+                $('#rechargeTime').addClass('recharge_hidden');
                 window.clearInterval(rtCoolTimeBar);
                 
             }
@@ -745,14 +736,14 @@ app.playRTS = (function () {
             msec -= preMin * 60;
             preSec = Math.floor(msec);
             
-            if(preMin > 2) {
-                $('#predctionTimeRew').html((preMin + 1) + "min");
-                $('#predctionTimeNow').html((preMin + 2) + "min");
-                $('#predctionTimePre').html((preMin + 3) + "min");
+            if(preMin > 1) {
+                $('#predctionTimeRew').html((preMin + 0) + "min");
+                $('#predctionTimeNow').html((preMin + 1) + "min");
+                $('#predctionTimePre').html((preMin + 2) + "min");
             } else {
-                $('#predctionTimeRew').html("1min");
-                $('#predctionTimeNow').html("2min");
-                $('#predctionTimePre').html("3min");
+                $('#predctionTimeRew').html("0min");
+                $('#predctionTimeNow').html("1min");
+                $('#predctionTimePre').html("2min");
             }            
             return zeroFormat(preMin) + ":" + zeroFormat(preSec);
         }
@@ -761,7 +752,7 @@ app.playRTS = (function () {
         var ws;
         var elapseTime = 0;
         var elapsedTimer; // 경기 진행시간 표시용
-        var gamePlaying = false;
+        var gamePlaying = false; // 경기 진행 유무
         var playType = 0;
         
         var predictionRound = 0;
@@ -820,45 +811,21 @@ app.playRTS = (function () {
         var rt_ws_feed = {
 
             initUX: function() {
-                
-                $('#predictionHomeClicker').removeClass('hide');
-                $('#predictionHomeTimeFlow').addClass('hide');
-                $('#predictionAwayClicker').removeClass('hide');
-                $('#predictionAwayTimeFlow').addClass('hide');
-                
-                $('#predictionHomeStage').removeClass('hide');
-                $('#predictionAwayStage').removeClass('hide');
-                $('#predictionHomeStr').addClass('hide');
-                $('#predictionAwayStr').addClass('hide'); 
+                console.log("INIT UX");
+                $('#card').removeClass('flipped');
+                $('#predictionTime').html('');
+                $('#predictionTimeRemain').html('');
             },
             keepUx: function(f) {
                 var that = this;
                 if(predictionTimerBar) {
-                    
-                    if(f === "home") {
-                        console.log("open home");
-                        $('#predictionHomeClicker').removeClass('hide');
-                        $('#predictionHomeTimeFlow').addClass('hide');
-                        $('#predictionAwayClicker').addClass('hide');
-                        $('#predictionAwayTimeFlow').removeClass('hide');
-                        
-                        $('#predictionHomeStage').removeClass('hide');
-                        $('#predictionAwayStage').addClass('hide');
-                        $('#predictionHomeStr').addClass('hide');
-                        $('#predictionAwayStr').removeClass('hide'); 
-                        
+                    if(fw === "away") {
+                        $('#predictionSelectedTeam').attr('src',amblemAway);                    
                     } else {
-                        console.log("open away");
-                        $('#predictionHomeClicker').addClass('hide');
-                        $('#predictionHomeTimeFlow').removeClass('hide');
-                        $('#predictionAwayClicker').removeClass('hide');
-                        $('#predictionAwayTimeFlow').addClass('hide');
-                        
-                        $('#predictionHomeStage').addClass('hide');
-                        $('#predictionAwayStage').removeClass('hide');
-                        $('#predictionHomeStr').removeClass('hide');
-                        $('#predictionAwayStr').addClass('hide');   
+                        $('#predictionSelectedTeam').attr('src',amblemHome);
                     }
+                    
+                    
                 } else {
                     that.initUX();
                 }
@@ -886,7 +853,10 @@ app.playRTS = (function () {
                 }
             },
             initGameTime: function(data) {
+                console.log(data);
+                
                 playType = parseInt(data['play']);
+                                
                 if(playType === 1 || playType === 4) {
                     console.log("now playing");
                     rtElapsedTime(parseInt(data['elapsed']));
@@ -912,6 +882,12 @@ app.playRTS = (function () {
             },
             updateTime: function(data) {
                 var that = this;
+                
+                if(matchStatus === "2") {
+                    data['play'] = 4;
+                    data['elapsed'] = 124;
+                }
+                
                 playType = parseInt(data['play']);
                 
                 var hscore = (data['aScore']) ? data['aScore'] : 0;
@@ -972,7 +948,10 @@ app.playRTS = (function () {
                     
                     if(preMin === predictionRound) 
                     {
-                        
+                        $('#card').toggleClass('flipped');
+                        console.log("동일한 시간에 예측 시도 - " + betCount + " ( " + preMin + " : " + predictionRound + " )");
+                        return false;
+                        /*
                         if(betCount > 3) {
                             console.log("동일한 예측 시간에 3번 이상 시도 - " + betCount + " ( " + preMin + " : " + predictionRound + " )");
                             return false;
@@ -991,6 +970,7 @@ app.playRTS = (function () {
                                 return false;
                             }
                         }
+                        */
                         
                     } 
                     else 
@@ -1009,22 +989,14 @@ app.playRTS = (function () {
                         
                         setlocalStorage('lastMatch',enetId);
                         setlocalStorage('lastFlow',nowPredictionFlow);
+                        $('#predictionTime').html(zeroFormat(predictionRound) + 'min');
+                        //$('.rt_pannel_bets').html('');
                         
-                        $('.rt_pannel_bets').html('');
+                        $('#card').addClass('flipped');
                     }
                     
                     console.log("챌린지 볼: " + gameLife);
                     console.log("챌린지 횟수: " + betCount);
-                    
-                    if(predictionFollow === "home") {
-                        $('#betCountHome').html("<span>x" + betCount + "</span>");
-                        $('#rt_pannel_bg_home').addClass('now_on');
-                        $('#rt_pannel_bg_away').removeClass('now_on');
-                    } else {
-                        $('#rt_pannel_bg_home').removeClass('now_on');
-                        $('#rt_pannel_bg_away').addClass('now_on');
-                        $('#betCountAway').html("<span>x" + betCount + "</span>");
-                    }
                     
                 } else {
 
@@ -1068,73 +1040,32 @@ app.playRTS = (function () {
             predictionProgress: function(ss, fw) {
                 console.log(ss);
                 predictionTimer = 60 - ss;
-                var fillTimer = "";
                 var that = this;
                 
                 if(fw === "away") {
-                    $('#predictionHomeClicker').addClass('hide');
-                    $('#predictionHomeTimeFlow').removeClass('hide');
-                    $('#predictionAwayClicker').removeClass('hide');
-                    $('#predictionAwayTimeFlow').addClass('hide');
-                    
-                    $('#predictionHomeStage').addClass('hide');
-                    $('#predictionAwayStage').removeClass('hide');
-                    $('#predictionHomeStr').removeClass('hide');
-                    $('#predictionAwayStr').addClass('hide');                    
-                    
-                    fillTimer = $('#predictionHomeTimeFlow');
-                    
+                    $('#predictionSelectedTeam').attr('src',amblemAway);                    
                 } else {
-                    $('#predictionHomeClicker').removeClass('hide');
-                    $('#predictionHomeTimeFlow').addClass('hide');
-                    $('#predictionAwayClicker').addClass('hide');
-                    $('#predictionAwayTimeFlow').removeClass('hide');
-                    
-                    $('#predictionHomeStage').removeClass('hide');
-                    $('#predictionAwayStage').addClass('hide');
-                    $('#predictionHomeStr').addClass('hide');
-                    $('#predictionAwayStr').removeClass('hide'); 
-                    
-                    fillTimer = $('#predictionAwayTimeFlow');
+                    $('#predictionSelectedTeam').attr('src',amblemHome);
                 }
-                
-                
-                
+                                
                 var fillData = "";
                 predictionTimerBar = setInterval(function() {                        
                     --predictionTimer;
                     if(predictionTimer > 0) {
                         
-                        fillData = '<div>' + predictionTimer + '</div><span>sec</span>';
-                        fillTimer.html(fillData);
+                        fillData = '<div>' + predictionTimer + '<span>sec</span></div>';
+                        $('#predictionTimeRemain').html(fillData);
                         
                     } else {
 
                         window.clearInterval(predictionTimerBar);
                         console.log(predictionTimerBar);
-                        fillTimer.addClass('hide');
-                        fillTimer.html('');
-                        
-                        $('.rt_pannel_bets').html('');
-                        $('.rt_pannels').removeClass('now_on');
+                        $('#predictionTimeRemain').html('0');
                         
                         setlocalStorage('lastMatch','');
                         setlocalStorage('lastFlow','');
                         
-                        that.initUX();
-                        
-                        /*
-                        $('#predictionHomeClicker').removeClass('hide');
-                        $('#predictionHomeTimeFlow').addClass('hide');
-                        $('#predictionAwayClicker').removeClass('hide');
-                        $('#predictionAwayTimeFlow').addClass('hide');
-                        
-                        $('#predictionHomeStage').removeClass('hide');
-                        $('#predictionAwayStage').removeClass('hide');
-                        $('#predictionHomeStr').addClass('hide');
-                        $('#predictionAwayStr').addClass('hide'); 
-                        */
-                        
+                        that.initUX();                        
                     }                     
                  }, 1000);
             },
@@ -1181,8 +1112,10 @@ app.playRTS = (function () {
                 $('.star').removeClass('full');
                 
                 if(gameLife === 3) {
+                    $('#rechargeTime').addClass('recharge_hidden');
                     $('.star').addClass('full');
                 } else {
+                    $('#rechargeTime').removeClass('recharge_hidden');
                     for(var i = 1; i <= gameLife; i++) {
                         $('#start_pos_' + i).addClass('full');
                     }
@@ -1231,10 +1164,14 @@ app.playRTS = (function () {
         
         function setPredictionByClick(e)
         {
-            var data = e.button.data();
-            
-            predictionFollow = data.rel;
-            if(predictionFollow) rt_ws_feed.myprediction(predictionFollow);
+            if(playType === 1 || playType === 4) {
+                    
+                var data = e.button.data();
+                predictionFollow = data.rel;
+                if(predictionFollow) rt_ws_feed.myprediction(predictionFollow);
+            } else {
+                
+            }
         }
         
         function successCountBar()
