@@ -101,6 +101,7 @@ app.playRTS = (function () {
             $('#txt_message').html(mqruqeeStr);
             
         }
+
         
         function flipHeaderTitle() {
             if(rtSlider) {
@@ -546,7 +547,7 @@ app.playRTS = (function () {
                 rt_ws_feed.initUX();
             }
             
-            gameRepo[enetId] = {};
+            gameRepo[enetId] = new Array();
             
             // height: 248
             var vuHeight = $(window).height() - 102;
@@ -592,19 +593,22 @@ app.playRTS = (function () {
             $('.is_away_score').html(groupObj[0]['away_score']);
 
             if(matchStatus === "3") {
+                console.log("Stoped Game : " + matchStatus);
                 $('.rt_times').html("--:--");
                 predictionResultList.appendList();
-                //$('.playResultContent').removeClass('hide');
                 $('.rt_times').addClass('game_end');
+                $('#rtStatusStr').html($.langScript[laf]['noti_094']);
+                //$('#rtStatusPannel').removeClass('hide');
                 
             } else if(matchStatus === "0") {
                 $('.rt_times').html("--:--");
                 $('.rt_times').removeClass('game_end');
-                
+                $('#rtStatusStr').html($.langScript[laf]['noti_092']);
+                //$('#rtStatusPannel').removeClass('hide');
                 ws_init(enetId);
             } else {
                 $('.rt_times').removeClass('game_end');
-                //$('.playResultContent').addClass('hide');
+                $('#rtStatusPannel').addClass('hide');
                 ws_init(enetId);
             }
             
@@ -761,6 +765,7 @@ app.playRTS = (function () {
         var predictionTimer = "";
         var predictionTimerBar = "";
         
+        /* web socket */
         function ws_init(match_id)
         {
             console.log("WS Start");
@@ -774,13 +779,11 @@ app.playRTS = (function () {
                ws.onopen = function()
                {
                   ws.send(send_params);
-                  console.log("Message is sent...");
                };
             	
                ws.onmessage = function (evt) 
                { 
                     var received_msg = evt.data;
-                    console.log("Message is received...");
                     rt_ws_feed.wsParse(received_msg);
                };
             	
@@ -815,6 +818,10 @@ app.playRTS = (function () {
                 $('#card').removeClass('flipped');
                 $('#predictionTime').html('');
                 $('#predictionTimeRemain').html('');
+        
+                window.clearInterval(predictionTimerBar);
+                console.log(predictionTimerBar);
+                $('#predictionTimeRemain').html('0');
             },
             keepUx: function(f) {
                 var that = this;
@@ -848,18 +855,19 @@ app.playRTS = (function () {
                         that.updateTime(jdata['data']);
                         break;
                     default:
-                        console.log("none type");
+                        //console.log("none type");
                         break;
                 }
             },
             initGameTime: function(data) {
                 console.log(data);
-                
+                var that = this;
                 playType = parseInt(data['play']);
-                                
+                console.log("Play Type : " + playType);
                 if(playType === 1 || playType === 4) {
                     console.log("now playing");
                     rtElapsedTime(parseInt(data['elapsed']));
+                    $('#rtStatusPannel').addClass('hide');
                     gamePlaying = true;
                 } else if(playType === 0) {
                     console.log("not started");
@@ -869,24 +877,22 @@ app.playRTS = (function () {
                     window.clearInterval(elapsedTimer);
                 } else if(playType === 6) {
                     gamePlaying = false;
-                    /*
-                    interact('#predictionArrowBtn')
-                        .draggable({enabled: false});
-                    */
+                    $('#rtStatusStr').html($.langScript[laf]['noti_094']);
+                    predictionResultList.appendList();
                     that.stopGame();
                 } else {
+                    
+                    if(playType === 3 || parseInt(data['injury']) > 0) {
+                        $('#rtStatusStr').html($.langScript[laf]['noti_093']);
+                    }
+                    
                     gamePlaying = false;
                     $('#recoverLife').html("00:00");
-                    window.clearInterval(elapsedTimer);
+                    that.stopGame();
                 }
             },
             updateTime: function(data) {
                 var that = this;
-                
-                if(matchStatus === "2") {
-                    data['play'] = 4;
-                    data['elapsed'] = 124;
-                }
                 
                 playType = parseInt(data['play']);
                 
@@ -898,20 +904,24 @@ app.playRTS = (function () {
                 
                 if(playType === 1 || playType === 4) {
                     
+                    gamePlaying = true;
+                    //rtElapsedTime(parseInt(data['elapsed']));
                     elapseTime = parseInt(data['elapsed']);
-                    if(gamePlaying === false) {
-                        gamePlaying = true;
-                        rtElapsedTime(parseInt(data['elapsed']));
-                    }
+                    
                     
                 } else {
-
-                    that.stopGame();
+                    console.log("Game Status : " + playType);
+                    
+                    if(playType === 3 || parseInt(data['injury']) > 0) {
+                        $('#rtStatusStr').html($.langScript[laf]['noti_093']);
+                    }
                     
                     if(playType === 6) {
+                        $('#rtStatusStr').html($.langScript[laf]['noti_094']);
                         predictionResultList.appendList();
-                        
                     }
+                    
+                    that.stopGame();
                 }
             },
             stopGame: function() {
@@ -924,7 +934,9 @@ app.playRTS = (function () {
                     nowTime = "90:00";
                 } 
                 $('.rt_times').html(nowTime);
+                window.clearInterval(predictionTimerBar);
                 window.clearInterval(elapsedTimer);
+                $('#rtStatusPannel').removeClass('hide');
             },
             switchUX: function(arr) {
                 var that = this;
@@ -948,7 +960,7 @@ app.playRTS = (function () {
                     
                     if(preMin === predictionRound) 
                     {
-                        $('#card').toggleClass('flipped');
+                        //$('#card').toggleClass('flipped');
                         console.log("동일한 시간에 예측 시도 - " + betCount + " ( " + preMin + " : " + predictionRound + " )");
                         return false;
                         /*
@@ -975,6 +987,7 @@ app.playRTS = (function () {
                     } 
                     else 
                     {
+
                         console.log("다른 예측시간 - " + preMin + " : " + predictionRound);
                         --gameLife;
                         that.resetGameLife();
@@ -989,9 +1002,8 @@ app.playRTS = (function () {
                         
                         setlocalStorage('lastMatch',enetId);
                         setlocalStorage('lastFlow',nowPredictionFlow);
-                        $('#predictionTime').html(zeroFormat(predictionRound) + 'min');
-                        //$('.rt_pannel_bets').html('');
-                        
+                        $('#predictionTime').html(zeroFormat(predictionRound + 2) + 'min');
+
                         $('#card').addClass('flipped');
                     }
                     
@@ -1020,10 +1032,11 @@ app.playRTS = (function () {
                         "param":param
                     },
                    success: function(response) {
-                       //console.log(response);
+                       console.log(response);
                        if (response.code === 0) {
                            var data = response.data;
-                           gameRepo[data.eventId][data.elapsed] = 0;
+                           gameRepo[enetId].push(data.elapsed);
+                           console.log(gameRepo);
                            
                        } else {
                            //console.log("RT 참여 오류");
@@ -1058,19 +1071,25 @@ app.playRTS = (function () {
                         
                     } else {
 
-                        window.clearInterval(predictionTimerBar);
-                        console.log(predictionTimerBar);
-                        $('#predictionTimeRemain').html('0');
                         
                         setlocalStorage('lastMatch','');
                         setlocalStorage('lastFlow','');
-                        
+                        console.log(predictionTimer);
                         that.initUX();                        
                     }                     
                  }, 1000);
             },
             getPredictionResult: function(data) {
-                               
+                console.log(data);
+                console.log(gameRepo);
+                var arr_index = gameRepo[data.eventId].indexOf(data.round);                
+                if( arr_index >= 0 ) {
+                   console.log("found round : " + data.round);
+                } else {
+                   console.log("not found round : " + data.round);
+                }
+                
+                var that = this;
                 var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"eventId":' + enetId + ',"round":' + data.round + '}';
                 var url = init_data.apps + "?callback=?";
                 app.mobileApp.showLoading();
@@ -1091,9 +1110,11 @@ app.playRTS = (function () {
                             var resData = response.data;
                             if(parseInt(resData.myPoint) > 0) {
                                 ++gameCrush;
-                                setlocalStorage('rtGameCrush',gameCrush);   
+                                setlocalStorage('rtGameCrush',gameCrush);
+                                that.myPoint();
+                                that.eventsOpen("SUCCESS");
                             } else {
-                                console.log("fail");    
+                                that.eventsOpen("FAIL");
                             }
                            
                         } else {
@@ -1107,6 +1128,37 @@ app.playRTS = (function () {
                        app.mobileApp.hideLoading();
                    }
                 });
+            },
+            eventsOpen: function(tf) {
+                console.log(tf);
+                if(tf === "SUCCESS") {
+                    $("#predictionEventsGreate").removeClass('hide');
+                    $("#predictionEventsSorry").addClass('hide');
+                } else {
+                    $("#predictionEventsGreate").addClass('hide');
+                    $("#predictionEventsSorry").removeClass('hide');
+                }
+                
+                $("#moadl_result_events").data("kendoMobileModalView").open();
+                
+                setTimeout(function() {
+                    $("#moadl_result_events").data("kendoMobileModalView").close();
+                    }
+                    ,1200);
+            },
+            myPoint: function() {
+                var progressBarWidth = 0;
+                
+                if(gameCrush >= 10) {
+                    progressBarWidth = $('#rtMeter').width();
+                    gameCrush = 0;
+                } else {
+                    var percent = (gameCrush / 10) * 100;
+                    progressBarWidth = percent * $('#rtMeter').width() / 100;
+                }
+
+                $('#predictionCount').html(gameCrush + " / 10");
+                $('#meter_bar').animate({ width: progressBarWidth }, 500);
             },
             resetGameLife: function() {
                 $('.star').removeClass('full');
@@ -1192,6 +1244,56 @@ app.playRTS = (function () {
                     
         }
         
+        
+        /* modal messages */
+        function rtOpenGuide()
+        {
+            $("#moadl_guide_rt").data("kendoMobileModalView").open();
+        }
+        function rtCloseGuide()
+        {
+            $("#moadl_guide_rt").data("kendoMobileModalView").close();
+        }
+        
+        function rtResultSuccess()
+        {
+            var ratio = 1.144736842;
+            var width = $("body").width();
+            var resizeWidth = 456;
+            var resizeHeight = 522;
+            
+            if(width < 456) {
+                resizeWidth = width - (width * .3);
+                resizeHeight = resizeWidth * ratio;
+            }
+            
+            $('.rt_result_box__success').css('width',resizeWidth + 'px');
+            $('.rt_result_box__success').css('height',resizeHeight + 'px');
+            
+            $('.rt_result_box__success').removeClass('hide');
+            $('.rt_result_box__fail').addClass('hide');
+            $('#moadl_rtResult').data("kendoMobileModalView").open();
+        }
+        
+        function rtResultFail()
+        {
+            var ratio = 0.903508772;
+            var width = $("body").width();
+            var resizeWidth = 456;
+            var resizeHeight = 412;
+            
+            if(width < 456) {
+                resizeWidth = width - (width * .3);
+                resizeHeight = resizeWidth * ratio;
+            }
+            
+            $('.rt_result_box__fail').css('width',resizeWidth + 'px');
+            $('.rt_result_box__fail').css('height',resizeHeight + 'px');
+            $('.rt_result_box__fail').removeClass('hide');
+            $('.rt_result_box__success').addClass('hide');
+            $('#moadl_rtResult').data("kendoMobileModalView").open();
+        }
+        
         return {
             init: init,
             rt_radar: rt_radar,
@@ -1204,7 +1306,9 @@ app.playRTS = (function () {
             swipeSlide: swipeSlide,
             collapseList: collapseList,
             sportRada: sportRada,
-            doPrediction: setPredictionByClick
+            doPrediction: setPredictionByClick,
+            rtGuide: rtOpenGuide,
+            rtGuideX: rtCloseGuide
         };
         
     }());

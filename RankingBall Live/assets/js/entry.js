@@ -100,11 +100,12 @@ app.Entry = (function () {
             //progressBar(entryAmount, $('.salarycap-gage'));
         }
         
+        /* 등록 화면 타이틀 변경 */
         function updateBar(e) {
             console.log("On Show :" + $.langTitle[laf][4]);
             e.view.options.title = $.langTitle[laf][4];
         }
-        
+        /* 수정 화면 타이틀 변경 */
         function updateBarEd(e) {
             e.view.options.title = $.langTitle[laf][13];
         }
@@ -114,7 +115,21 @@ app.Entry = (function () {
             console.log(entryAmount);
             progressBar(entryAmount, $('#' + el));
         }
-        
+        function updateGage2($element) {
+            
+            var salarycapWidth = $('#gae_salarycap_update_p').width();
+            var progressBarWidth = 0;
+            
+            if(entryAmount >= max_salarycap_amount) {
+                progressBarWidth = salarycapWidth;
+            } else {
+                var percent = entryAmount / max_salarycap_amount * 100;
+                progressBarWidth = percent * salarycapWidth / 100;
+            }
+            
+            $element.find('div').width(progressBarWidth);
+            $element.find('p').html("$" + numberFormat(entryAmount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
+        }
         
         function return2playList() {
             
@@ -127,7 +142,7 @@ app.Entry = (function () {
             
             entryAmount = 0;
             progressBar(entryAmount, $('.salarycap-gage'));
-            
+            $('.salarycap-overflow').addClass('hide');
             /* reset entry view */
             $('.btn-slots').each(function() {
                 $(this).prop('src','./assets/resource/btn_player_plus.png');
@@ -157,36 +172,12 @@ app.Entry = (function () {
         }
         
         function initUpdateData() {
-/*
-            observableView();
-            entryAmount = myEntryByContest[contestNo]['mySalaryTotal'];
-            progressBar(entryAmount, $('.salarycap-gage'));
-            
-            $('.btn-slots').each(function() {
-                $(this).prop('src','./assets/resource/btn_player_change.png');
-            });
-            $('#img-slot4').prop('src','./assets/resource/btn_player_change_02.png');
-            $('#img-slot8').prop('src','./assets/resource/btn_player_change_02.png');
-            
-            $('#update-player-slot1').html(playerFilter[ps.s1]);
-            console.log(playerFilter[ps.s1]);
-            $('#update-player-slot2').html(playerFilter[ps.s2]);
-            $('#update-player-slot3').html(playerFilter[ps.s3]);
-            $('#update-player-slot4').html(playerFilter[ps.s4]);
-            $('#update-player-slot5').html(playerFilter[ps.s5]);
-            $('#update-player-slot6').html(playerFilter[ps.s6]);
-            $('#update-player-slot7').html(playerFilter[ps.s7]);
-            $('#update-player-slot8').html(playerFilter[ps.s8]);
-            console.log(playerFilter[ps.s8]);
-            $('#entryUpdate').removeClass('disabled');
-            
-            app.Playerz.clearVariables2Update();
-*/
+
             observableView();
             
             entryAmount = 0;
             progressBar(entryAmount, $('.salarycap-gage'));
-            
+            $('.salarycap-overflow').addClass('hide');
             /* reset entry view */
             $('.btn-slots').each(function() {
                 $(this).prop('src','./assets/resource/btn_player_plus.png');
@@ -246,8 +237,8 @@ app.Entry = (function () {
             
             observableView();
             entryAmount = myEntryByContest[c]['mySalaryTotal'];
-            progressBar(entryAmount, $('.salarycap-gage'));
-
+            progressBar(entryAmount, $('#gae_salarycap_update'));
+            //updateGage2($('#gae_salarycap_update_p'));
 
             /* reset entry view */
             $('.btn-slots').each(function() {
@@ -270,8 +261,9 @@ app.Entry = (function () {
             app.Playerz.presetPlayer4up(ps);
             
             app.mobileApp.hideLoading();
-        }
-                
+        }      
+        
+        
         function allClear() {
             navigator.notification.confirm($.langScript[laf]['noti_028'], function (confirmed) {
                if (confirmed === true || confirmed === 1) {
@@ -309,7 +301,7 @@ app.Entry = (function () {
             }
             
             if(entryAmount >= max_salarycap_amount) {
-                app.showAlert("It has exceeded the salary value.", "Notice");
+                app.showAlert($.langScript[laf]['noti_018'], "Notice");
                 return false;
             }
             
@@ -410,6 +402,12 @@ app.Entry = (function () {
                 return false;
                 //app.mobileApp.navigate('views/entryPlayerzView.html');
             }
+            
+            if(entryAmount >= max_salarycap_amount) {
+                app.showAlert($.langScript[laf]['noti_018'], "Notice");
+                return false;
+            }
+            
             var chkPlayerSlot = app.Playerz.playerSlot;
 
             var key, count = 0;
@@ -443,7 +441,8 @@ app.Entry = (function () {
                 progressBarWidth = $element.width();
             } else {
                 percent = amount / max_salarycap_amount * 100;
-                progressBarWidth = percent * gageWidth / 100;
+                //progressBarWidth = percent * gageWidth / 100;
+                progressBarWidth = percent * $element.width() / 100;
             }
 
             
@@ -474,7 +473,7 @@ app.Entry = (function () {
 
             app.mobileApp.showLoading();
             setTimeout(function() {
-                var url = 'views/entryUpdatePlayerView.html?pos=' + data.rel + "&slot=" + data.slot;
+                var url = 'views/entryUpdatePlayerView.html?pos=' + data.rel + "&slot=" + data.slot + "&contest=" + contestNo;
                 app.mobileApp.navigate(url,'slide');  
             }, 500);
             

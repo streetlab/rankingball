@@ -32,12 +32,13 @@
             
             <div class="salarycap-box">
                 <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
-                <div class="salarycap-gage">
+                <div id="gae_salarycap_update_p" class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
                     </div>
                 </div>
+                <div class="salarycap-update-overflow hide"></div>
             </div>
         
             <div class="salarycap-box-padding">
@@ -82,11 +83,25 @@
 
 <script id="playerListUpdateTemplate" type="text/x-kendo-template">
     #
-        entryStatus = "";
-        entryImg = "btn_plus_02.png";
-        controlClass = "addPlayer";
-        salaryColor = "";
-        entryBtn = "app.Playerz.addPlayer4Up";
+        //salaryLimit
+        tmpSalary = (parseInt(slotSalary) === 0) ? salaryLimit : parseInt(salaryLimit + slotSalary);
+        if(tmpSalary >= salary) { 
+            salaryColor = "";
+        } else {
+            salaryColor = "warning";
+        }
+    
+        if(playerSelected === 2) {
+            entryStatus = "on";
+            entryImg = "btn_minus_02.png";
+            controlClass = "removePlayer";
+            entryBtn = "app.Playerz.overPlayer";
+        } else {
+            entryStatus = "";
+            entryImg = "btn_plus_02.png";
+            controlClass = "addPlayer";
+            entryBtn = "app.Playerz.addPlayer4Up";
+        }
 
         if(posType === 1) {
             playerPostionLabel = "F";

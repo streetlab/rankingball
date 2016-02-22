@@ -8,7 +8,7 @@ app.Playerz = (function () {
 
     var playerProcess = (function () {
         
-
+        var contestNo = "";
         var playerSlot = {};
         var requestPosition = "";
         var requestSlot = "";
@@ -121,9 +121,10 @@ app.Playerz = (function () {
             //console.log("Player set salary cap with " + amount);
             var percent = 0;
             var progressBarWidth = 0;
-            
+            console.log(amount + " : " + max_salarycap_amount);
             if(amount >= max_salarycap_amount) {
                 progressBarWidth = $element.width();
+                console.log(progressBarWidth);
             } else {
                 percent = amount / max_salarycap_amount * 100;
                 progressBarWidth = percent * $element.width() / 100;
@@ -242,6 +243,7 @@ app.Playerz = (function () {
             var param = e.view.params;
             requestSlot = param.slot;
             requestPosition = param.pos;
+            contestNo = param.contest;
             
             sort_order = "asc";
             paging = 1;
@@ -249,9 +251,11 @@ app.Playerz = (function () {
             var preset = prePlayerList();
             
             if(preset) {
+                /*
                 if(requestPosition) playerList4up(requestPosition);
                 else
                 console.log("Error : Request postion.");
+                */
             } else {
                 console.log("Error : Player preset fail.");
             }
@@ -261,19 +265,17 @@ app.Playerz = (function () {
             e.view.options.title = $.langTitle[laf][5];
             var param = e.view.params;
             requestSlot = param.slot;
-            console.log(requestSlot);
-            //if(requestPosition !== param.pos) {
-                requestPosition = param.pos;
-                //commonInit(requestPosition);
-                console.log(requestPosition);
-                playerList4up(requestPosition);
-            //}
+            requestPosition = param.pos;
+            contestNo = param.contest;
             
             console.log(playerSlot);
-            console.log(entryData);
-            
-            console.log(entryAmount);
-            progressBar(entryAmount, $('.salarycap-gage'));
+            console.log(requestSlot);
+            console.log(requestPosition);
+            console.log(contestNo);
+            observableView();
+            //progressBar(entryAmount, $('#gae_salarycap_update_p'));
+            updateGage2($('#gae_salarycap_update_p'));
+            playerList4up(requestPosition);
         }
         
         
@@ -398,7 +400,8 @@ app.Playerz = (function () {
             playerList(requestPosition);
         }
 
-        
+        var filterdArray = "";
+        var sortData = "";
         var playerList4up = function(p) {
             
             
@@ -414,11 +417,13 @@ app.Playerz = (function () {
             $('#players_list4update').empty();              
                 
             sort_field = (sort_field) ? sort_field : "salary";
-
-            var sortData;
+    
+            sortData = "";
+            console.log(sortData);
             if(parseInt(requestPosition) === 15) {
                 globalPosition = "A";
-                 sortData = playerOnLeague.sort(function(a, b) {
+                filterdArray = playerData['F'].concat(playerData['M'], playerData['D']);
+                sortData = filterdArray.sort(function(a, b) {
                     if (sort_order === "asc") return (a[sort_field] - b[sort_field]);
                     else return (b[sort_field] - a[sort_field]);
                 });
@@ -451,8 +456,18 @@ app.Playerz = (function () {
                     console.log("ERROR :");  
                 }
             }
-                            
-            //console.log(entryStatus, salaryLimit);
+              
+            //console.log(v.playerID);
+            $.each(playerSlot, function(k, p) {
+                console.log(k + " : " + p);
+                $.each(sortData, function(i, v) {                    
+                    if (parseInt(v.playerID) === parseInt(p)) {
+                        v.playerSelected = 2;
+                        console.log(" : eq");
+                        return;
+                    }
+                });
+            });
             
             var dataRange = parseInt(sortData.length / 10);
             var end;
@@ -478,10 +493,11 @@ app.Playerz = (function () {
                         
                         options.success(newArr);                        
                     }
-                },
-
-                filter: { field: "playerSelected", operator: "eq", value: 1}
+                }
             });
+            
+            // selected player filter
+            // ,filter: { field: "playerSelected", operator: "eq", value: 1}
             
             $('.km-flat .km-scroller-pull .km-template').html('');
             
@@ -490,7 +506,7 @@ app.Playerz = (function () {
                 pullToRefresh: true,
                 template: $("#playerListUpdateTemplate").html(),
                 pullParameters: function(item) {
-                    //console.log(item); // the last item currently displayed
+                    console.log(item); // the last item currently displayed
                     paging++;
                     return { since_id: item.playerID };
                 }
@@ -666,6 +682,17 @@ app.Playerz = (function () {
             });
         }
         
+        function entryPlayer(obj, player,val) {
+            $.each(obj, function(i, v) {
+                $.each(player, function(k, p) {
+                    if (parseInt(v.playerID) === parseInt(p)) {
+                        v.playerSelected = val;
+                    }
+                });
+            });
+        }
+        
+        
         function searchPlayerName(obj, player) {
             $.each(obj, function(i, v) {
                 if (parseInt(v.playerID) === parseInt(player)) {
@@ -744,7 +771,7 @@ app.Playerz = (function () {
                 overflowSalary = parseInt(tempAmount - max_salarycap_amount);
                 $('#gae_salarycap_p').find('div').addClass('salary_over');
                 $('#gae_salarycap').find('div').addClass('salary_over');
-                $('.salarycap-overflow').html('salarycap over : ' + numberFormat(overflowSalary)).removeClass('hide');
+                $('.salarycap-overflow').html('+' + numberFormat(overflowSalary) + ' salary over').removeClass('hide');
             } else {
                 $('#gae_salarycap_p').find('div').removeClass('salary_over');
                 $('#gae_salarycap').find('div').removeClass('salary_over');
@@ -814,7 +841,21 @@ app.Playerz = (function () {
             $element.find('div').width(progressBarWidth);
             $element.find('p').html("$" + numberFormat(entryAmount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
         }
-        
+        function updateGage2($element) {
+            
+            var salarycapWidth = $('#gae_salarycap_update_p').width();
+            var progressBarWidth = 0;
+            
+            if(entryAmount >= max_salarycap_amount) {
+                progressBarWidth = salarycapWidth;
+            } else {
+                var percent = entryAmount / max_salarycap_amount * 100;
+                progressBarWidth = percent * salarycapWidth / 100;
+            }
+            
+            $element.find('div').width(progressBarWidth);
+            $element.find('p').html("$" + numberFormat(entryAmount) + "&nbsp; /&nbsp;$" +numberFormat(max_salarycap_amount));
+        }
         
         var removePlayer = function(player, salary) {
             
@@ -866,7 +907,7 @@ app.Playerz = (function () {
         }
 
         var addPlayer4Up = function(e) {
-           var data = e.button.data();
+            var data = e.button.data();
             
             if(playerSlot[requestSlot] !== undefined) {
                 if( playerSlot[requestSlot] !== "" || playerSlot[requestSlot] === data.rel) {
@@ -901,83 +942,83 @@ app.Playerz = (function () {
                 
                 console.log(oldPlayer + " : " + oldSlot);
                 
-
-                
-                /*
-                if(globalPosition === "A") {
-                    resetPlayerSalary(playerOnLeague,oldPlayer);   
-                } else {
-                    resetPlayerSalary(playerData[globalPosition],oldPlayer);   
-                }
-                */
-                
                 var salaryTable = app.Entry.playerFilterSalary;
                 var oldPlayerSalary = salaryTable[oldPlayer];
+                /*
                 var tmpEntryAmount = entryAmount;
                 console.log("salary : " + oldPlayerSalary);
                 tmpEntryAmount -= parseInt(oldPlayerSalary);
-                
                 tempAmount = tmpEntryAmount + parseInt(salary);
-                
                 console.log(tmpEntryAmount + " : "  + salary + " : " + tempAmount + " : "  + max_salarycap_amount);
-                
-                if(tempAmount > max_salarycap_amount) {
-                    app.showError($.langScript[laf]['noti_018']);
-                    return false;                    
-                } else {
-                    var arr_index = entryData.indexOf(oldPlayer);                
-                    if( arr_index >= 0 ) {
-                       entryData.splice(arr_index, 1);
-                    }
-                    
-                    entryAmount -= parseInt(oldPlayerSalary);
+                */
+                var arr_index = entryData.indexOf(oldPlayer);                
+                if( arr_index >= 0 ) {
+                   entryData.splice(arr_index, 1);
                 }
+                
+                entryAmount -= parseInt(oldPlayerSalary);
+                
             } else {
                 console.log("no change");
-                tempAmount = entryAmount + parseInt(salary);
+                //tempAmount = entryAmount + parseInt(salary);
             }         
             
-            if(tempAmount > max_salarycap_amount) {
-                app.showError($.langScript[laf]['noti_018']);
+            playerSlot[requestSlot] = player;
+            entryData.push(player);
+            entryAmount += parseInt(salary);
+            
+            if(entryAmount > max_salarycap_amount) {
+                //app.showAlert($.langScript[laf]['noti_018'],"Notice");
+                overflowSalary = parseInt(entryAmount - max_salarycap_amount);
+                $('#gae_salarycap_update_p').find('div').addClass('salary_over');
+                $('#gae_salarycap_update').find('div').addClass('salary_over');
+                $('.salarycap-update-overflow').html('+' + numberFormat(overflowSalary) + ' salary over').removeClass('hide');
             } else {
-                playerSlot[requestSlot] = player;
-                entryData.push(player);
-                entryAmount += parseInt(salary);
-                
-                //$('#up-entry-' + player).prop('src','./assets/resource/btn_minus_02.png');
-                $('#up-entry-' + player).parent('a').attr('data-status','on');
-                
-                if(requestSlot === "slot4" || requestSlot === "slot8") {
-                    $('#update-img-' + requestSlot).prop('src','./assets/resource/btn_player_change_02.png');
-                } else {
-                    $('#update-img-' + requestSlot).prop('src','./assets/resource/btn_player_change.png');
-                }
-                
-                
-                console.log(entryAmount);
-                
-                if(globalPosition === "A") {
-                    researchPlayer = playerOnLeague.filter(function ( obj ) {
-                        return parseInt(obj.playerID) === parseInt(player);
-                    })[0];
-                    
-                } else {
-                                        
-                    researchPlayer = playerData[globalPosition].filter(function ( obj ) {
-                        return parseInt(obj.playerID) === parseInt(player);
-                    })[0];
-                    
-                    hideOnOffPlayerData(playerData[globalPosition],player,2);
-                }
+                $('#gae_salarycap_update_p').find('div').removeClass('salary_over');
+                $('#gae_salarycap_update').find('div').removeClass('salary_over');
+                $('.salarycap-update-overflow').addClass('hide');
+            }
+            
+            //$('#up-entry-' + player).prop('src','./assets/resource/btn_minus_02.png');
+            //$('#up-entry-' + player).parent('a').attr('data-status','on');
+            
+            if(requestSlot === "slot4" || requestSlot === "slot8") {
+                $('#update-img-' + requestSlot).prop('src','./assets/resource/btn_player_change_02.png');
+            } else {
+                $('#update-img-' + requestSlot).prop('src','./assets/resource/btn_player_change.png');
+            }
+            
+            
+            console.log(entryAmount);
+            
+            if(globalPosition === "A") {
+                researchPlayer = playerOnLeague.filter(function ( obj ) {
+                    return parseInt(obj.playerID) === parseInt(player);
+                })[0];
+                hideOnOffPlayerData(playerData,oldPlayer,1);
+                hideOnOffPlayerData(playerData,player,2);
+            } else {
+                                    
+                researchPlayer = playerData[globalPosition].filter(function ( obj ) {
+                    return parseInt(obj.playerID) === parseInt(player);
+                })[0];
+                console.log(oldPlayer + " : " + player);
+                hideOnOffPlayerData(playerData[globalPosition],oldPlayer,1);
+                hideOnOffPlayerData(playerData[globalPosition],player,2);
+            }
 
-                $('#update-player-' + requestSlot).html(researchPlayer.playerName);
-                
-                progressBar(entryAmount, $('.salarycap-gage'));
-                app.Entry.updateGage('gae_salarycap_update');
-                
-                checkSlot4up();
-                app.mobileApp.navigate('#po_entry_update','slide:right');
-           }
+            $('#update-player-' + requestSlot).html(researchPlayer.playerName);
+            
+            //progressBar(entryAmount, $('.salarycap-gage'));
+            //app.Entry.updateGage('gae_salarycap_update');
+            
+            progressBar(entryAmount, $('#gae_salarycap_update_p'));
+            updateGage2($('#gae_salarycap_update'));
+            
+            
+            checkSlot4up();
+            app.mobileApp.navigate('#po_entry_update','slide:right');
+            console.log(playerSlot);
         }
         
         var removePlayer4Up = function(player, salary) {
@@ -1159,7 +1200,7 @@ app.Playerz = (function () {
             playerSlot.slot4 = slot.s4;
             playerSlot.slot5 = slot.s5;
             playerSlot.slot6 = slot.s6;
-            playerSlot.slot7 = slot.s1;
+            playerSlot.slot7 = slot.s7;
             playerSlot.slot8 = slot.s8;
         }
         

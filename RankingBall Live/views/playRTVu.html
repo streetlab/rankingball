@@ -169,21 +169,19 @@
                                     <span id="recoverLife" class="recover_life">00:00</span>
                                 </div>
                             </div>
-                            
-                            
                         </div>
                         
                         <div class="rt_progress_bar">
                             <div id="rt_bar" class="rt_pg__bar">
                                 <div class="rt_bar_gage">
-                                    <div class="meter">
+                                    <div id="rtMeter" class="meter">
                                         <div id="predictionCount" class="rt_pre_count">0 / 10</div>
                                     	<span id="meter_bar"></span>
                                     </div>
                                 </div>
                                 <div class="rt_bar_helper">
                                     <div class="i_helper">
-                                        <a data-role="button"></a>
+                                        <a data-role="button" data-click="app.playRTS.rtGuide"></a>
                                     </div>
                                 </div>
                                 <div class="rt_bar_present"></div>
@@ -195,7 +193,13 @@
                 </div>
                 
                 <div class="rt_controller_pannel rt_padding">
-                    
+                    <div id="rtStatusPannel" class="rt_status_div">
+                        <div class="rt_status_box">
+                            <div class="rt_status__bg">
+                                <div class="rt_status__str"><p id="rtStatusStr">The match has not started yet.<br />Please wait until it begins.</p></div>
+                            </div>
+                        </div>
+                    </div>
                     <section class="rt_controller_pannel__box container">
                         <div id="card">
                             <figure class="front">
@@ -233,18 +237,24 @@
                                 <div class="pannel_box">
                                     <div class="pannel_box_back">
                                         <div class="pannel_box__els">
-                                            <div class="pannel_box__label">Shot select Team</div>
-                                            <div class="pannel_box__data">
-                                                <img id="predictionSelectedTeam" src="about:blank;" />
+                                            <div class="pannel_box__block">
+                                                <div class="pannel_box__label">Shot select Team</div>
+                                                <div class="pannel_box__data">
+                                                    <img id="predictionSelectedTeam" src="about:blank;" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="pannel_box__els">
-                                            <div class="pannel_box__label">Shot target Time</div>
-                                            <div id="predictionTime" class="pannel_box__data prediction_strs"></div>
+                                            <div class="pannel_box__block">
+                                                <div class="pannel_box__label">Shot target Time</div>
+                                                <div id="predictionTime" class="pannel_box__data prediction_strs"></div>
+                                            </div>
                                         </div>
                                         <div class="pannel_box__els">
-                                            <div class="pannel_box__label">Waiting time</div>
-                                            <div id="predictionTimeRemain" class="pannel_box__data prediction_strs"></div>
+                                            <div class="pannel_box__block">
+                                                <div class="pannel_box__label">Waiting time</div>
+                                                <div id="predictionTimeRemain" class="pannel_box__data prediction_strs"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -260,8 +270,54 @@
         </div>
             
     </div>
+
+    
 </div>
 
+
+<div data-role="modalview" id="moadl_result_events" data-modal="false" style="width:100%;height:100%;">
+    <div id="predictionEventsGreate" class="prediction_events hide">
+        <div class="prediction_events__box"><img src="./assets/resource/rts/GREAT.png"></div>
+    </div>
+    <div id="predictionEventsSorry" class="prediction_events hide">
+        <div class="prediction_events__box"><img src="./assets/resource/rts/SORRY.png"></div>
+    </div>
+</div>
+
+<div data-role="modalview" id="moadl_guide_rt" data-modal="false" style="width:100%;height:100%;padding:15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <a data-align="right" data-role="button" data-click="app.playRTS.rtGuideX" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="guide_box">
+        <div class="guide_box__body">
+            <div class="guide_box__scroller">
+                <h3>Real Time Challenge?</h3>
+                <p> Real Time Challenge is a prediction game which team will make shot in upcoming next minute.<br />For example, you expect a shot by team A at 9 minute during a match, you press team A button at 8 minute before it happen.<br />You will get points if the prediction is correct.</p>
+                <h3>How to play</h3>
+                <ol>
+                    <li>Select a team you expect to make a shot next minute. If a team is selected between 8’00’’ and 8’59’’ in a match, it means that your targeted time is from 9’00’’ to 9’59’’.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_001.png" /></li>
+                    <li>Each attempt consumes a Challenge Ball which is recharged every 3 minutes. Challenge Balls are recharged no more than 3.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_002.png" class="piece" /></li>
+                    <li>
+                        Wait result. Your attempt time and team are displayed on screen. 
+                        <br /><img src="http://scv.rankingball.com/asset/fragments/htp_003.png" />
+                        <br /><span class="sub_list">① Selected team</span>
+                        <br /><span class="sub_list">② Targeted time</span>
+                        <br /><span class="sub_list">③ Cool down till next attempt</span>
+                    </li>
+                    <li>4. If your attempt was successful, you would obtain points by situation: 
+                        <br /><span class="sub_list">Goal</span> <span class="point">(+5)</span>
+                        <br /><span class="sub_list">Shot on target</span> <span class="point">(+3)</span>
+                        <br /><span class="sub_list">Shot off target</span> <span class="point">(+1)</span>
+                    </li>
+                    <li>5. Fill up 10 points and get a reward.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_004.png" class="piece" /></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer"></div>
+</div>
 
 <div data-role="modalview" id="moadl_reward" data-modal="false" data-close="onRewardModalClose" style="width:100%;text-align:center;">
     <div class="rt_reward">
@@ -296,33 +352,27 @@
 </div>
 
 <div data-role="modalview" id="moadl_rtResult" data-modal="false" style="width:100%;text-align:center;">
-    <div class="rt_reward">
-        <div class="rt_reward__str" data-labelnum="0">보상을 선택해주세요!!</div>
-        <div class="rt_reward_box">
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardL" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
-                </div>
+    <div class="rt_result_box__success">
+        <div class="rt_result_box__message">
+            <div class="messages">
+                <div class="result_str">Attempt success. Congratulations!</div>
+                <div>Team : <span id="predictionResultTeam"></span></div>
+                <div>Shot : <span id="predictionResultShot"></span></div>
+                <div>Shot on Goal : <span id="predictionResultShotOn"></span></div>
+                <div>Goal : <span id="predictionResultGoal"></span></div>
+                <div class="get_point">RT Point : <span id="predictionResultPoint"></span></div>
             </div>
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardC" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
-                </div>
-            </div>
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardR" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
-                </div>
-            </div>
+        </div>
+        <div class="rt_result_box__confirm">
+            <a data-role="button" data-click="app.playRTS.rtGuideX" class="btn_modal_confirm">OK</a>
+        </div>
+    </div>
+    <div class="rt_result_box__fail hide">
+        <div class="rt_result_box__message">
+            <div class="messages">Attempt failure.<br />Please try again.</div>
+        </div>
+        <div class="rt_result_box__confirm">
+            <a data-role="button" data-click="app.playRTS.rtGuideX" class="btn_modal_confirm">OK</a>
         </div>
     </div>
 </div>

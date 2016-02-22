@@ -41,7 +41,7 @@ var currentContestType = "";
 var gameLife = 3; // 게임 Life
 var gameLifeTimer = 180;
 var gameCrush = 0; // success point
-var gameRepo = {};
+var gameRepo = [];
 var laf;    // Language flag
 
 

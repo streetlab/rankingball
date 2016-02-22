@@ -2796,7 +2796,7 @@ span.ic-end {
 .salarycap-gage > div.salary_over {
     background-color: #ff0000;
 }
-.salarycap-overflow {
+.salarycap-overflow, .salarycap-update-overflow {
     padding: 2px 0;
     font-size: 10px;
     color: #fff;
