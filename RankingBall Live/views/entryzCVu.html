@@ -1,0 +1,298 @@
+<div
+    id="po_entry_players"
+    data-role="view" 
+    data-title="Players"
+    data-layout="main"
+    data-model="app.Playerz"
+    data-init="app.Playerz.init"
+    data-show="app.Playerz.vwParam"
+    data-transition="slide">
+
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a class="drawer-btn" data-align="left" data-role="backbutton" href="#:back" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span id="play-title" data-role="view-title"></span>
+        </div>
+
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="salarycap-position">
+            
+            <div class="salarycap-box">
+                <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
+                <div id="gae_salarycap_p" class="salarycap-gage">
+                    <p></p>
+                    <div>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="salarycap-overflow"></div>
+            </div>
+            
+            <div class="salarycap-box-padding">
+                <div class="salarycap-box-moz-vw">   
+                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label" data-labelnum="16">샐러리</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="do-popover-pos" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-play-vw">
+                <ul>
+                    <li><a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-click="app.Playerz.playerListSort"><label id="orderLabelPosition" data-align="left" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelPlayer" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Playerz.playerListSort"><label id="orderLabelSalary" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="players-box">
+        <ul id="players_list" class="player_card_list" data-role="listview"></ul>
+    </div>
+</div>
+
+<div data-role="modalview" id="moadlCardInfo" data-modal="false" style="width:100%;height:100%;padding:30px 15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <div data-labelnum="79">선수정보</div>
+            <a data-align="right" data-role="button" data-rel="moadlCardInfo" data-click="app.Playerz.closeModaler" class="close_modal_win"></a>
+        </div>
+        <div class="card_face">
+            <div class="card_face__amblem">
+                <div id="cardAmblem" class="card_face__amblem-bg amblem__8678"></div>
+            </div>
+            <div id="cardRating" class="card_face__rating-num">+3</div>
+            <div class="card_face__featured">
+                <ul>
+                    <li class="card_face__featured-lv">
+                        <div class="star_lv">
+                            <span class="star-on">*</span>
+                            <span class="star-on">*</span>
+                            <span class="star-on">*</span>
+                            <span class="star-on">*</span>
+                            <span class="star-on">*</span>
+                            <span>*</span>
+                            
+                        </div>
+                    </li>
+                    <li class="card_face__featured-item">
+                        <span id="player-info-number">FW 10</span>
+                    </li>
+                    <li class="card_face__featured-item card_player_name">
+                        <span id="player-info-name">Wayne Rooney</span>
+                    </li>
+                    <li class="card_face__featured-item">
+                        <span id="player-info-team">Man Utd</span>
+                    </li>
+                    <li class="card_face__featured-skills">
+                        <div class="card_skill_box">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </li>
+                    <li class="card_face__featured-amount">
+                        <span id="player-info-salary" class="card_amount_">$4,400</span>
+                        <span id="player-info-fppg">19.66 FPPG</span>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="card_face__activity">
+                <a data-role="button" data-click="app.Playerz.rtGuideX" class="close_card_modal"></a>
+            </div>
+            <div class="card_face__body"></div>
+            <div class="card_face__body-end bg_by_rating__2"></div>
+        </div>
+        <div class="tapstrip-group">
+            <div id="tabstripGameRecord" class="tabstrip-moz ts">
+                <a class="ts" data-role="button" data-click="app.Entry.tab" data-labelnum="40">경기 성적</a>
+            </div>
+            <div id="tabstripGameRecord" class="tabstrip-moz">
+                <a data-role="button" data-click="app.Entry.playResultTeam" data-labelnum="41">특수 능력</a>
+            </div>
+        </div>
+    </div>
+    <div class="card_box">
+        <div class="card_box__body">
+            <div class="card_box__scroller">
+                <div id="card_info__record">
+                    <h4>2014~2015 <span data-labelnum="42">시즌성적</span></h4>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th>MP</th>
+                            <th>MIN</th>
+                            <th>G</th>
+                            <th>GA</th>
+                            <th>SHO</th>
+                            <th>SOG</th>
+                            <th>PAS%</th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                        </tr>
+                        <tr>
+                            <th>TA</th>
+                            <th>FC</th>
+                            <th>FS</th>
+                            <th>YC</th>
+                            <th>RC</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <h4>2014~2015 <span data-labelnum="43">최근 5경기 성적</span></h4>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="11" class="likeH4">11.22 VS Man Utd</td>
+                        </tr>
+                        <tr>
+                            <th>G</th>
+                            <th>GA</th>
+                            <th>SHO</th>
+                            <th>SOG</th>
+                            <th>CR</th>
+                            <th>SAV</th>
+                            <th>SAVCK</th>
+                            <th>FC</th>
+                            <th>FS</th>
+                            <th>YC</th>
+                            <th>RC</th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="card_info__skill">
+                    <h4 data-labelnum="44">샐러리 값 할인율</h4>
+                    <div class="card_skill__info">
+                        <div class="card_skill__info-item">$50,60 -> $4,400</div>
+                        <div class="card_skill__info-rate">DC15%</div>
+                    </div>
+                    <h4 data-labelnum="45">스킬효과</h4>
+                    <div class="card_skill__info">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer">
+        <div class="card_fnc">
+            <div class="card_fnc__btns btn_def"><a data-role="button" data-click="app.Entry.cardEnhance"><div class="card_btn__act" data-labelnum="80">강화</div></a></div>
+            <div class="card_fnc__btns btn_center"><a data-role="button" data-click="app.Entry.cardCompose"><div class="card_btn__act" data-labelnum="81">합성</div></a></div>
+            <div class="card_fnc__btns btn_def"><a data-role="button" data-click="app.Entry.cardSkill"><div class="card_btn__act" data-labelnum="82">스킬</div></a></div>
+        </div>
+    </div>
+</div>
+
+
+<script id="playerListTemplate" type="text/x-kendo-template">
+    #
+        //salaryLimit
+        tmpSalary = (parseInt(slotSalary) === 0) ? salaryLimit : parseInt(salaryLimit + slotSalary);
+        if(tmpSalary >= salary) { 
+            salaryColor = "";
+        } else {
+            salaryColor = "warning";
+        }
+    
+        if(playerSelected === 2) {
+            entryStatus = "on";
+            entryImg = "btn_minus_04.png";
+            controlClass = "removePlayer";
+            entryBtn = "app.Playerz.overPlayer";
+        } else {
+            entryStatus = "";
+            entryImg = "btn_plus_04.png";
+            controlClass = "addPlayer";
+            entryBtn = "app.Playerz.addPlayer";
+        }
+    
+        if(posType === 1) {
+            playerPostionLabel = "F";
+        } else if(posType === 2) {
+            playerPostionLabel = "M";
+        } else if(posType === 4) {
+            playerPostionLabel = "D";
+        } else if(posType === 8) {
+            playerPostionLabel = "G";
+        } else {
+            playerPostionLabel = "";
+        }
+    
+        amblem = 'amblem__' + team;
+    #
+    <div class="triangle_top"></div>
+    <div class="triangle_bottom"></div>
+    <div class="player_card_list__box">
+        <div class="player_card_list__box-retlative">
+            <div class="listitem_position"><div>#:playerPostionLabel#</div></div>
+            <div class="listitem_rating"><div>+2</div></div>
+            <div class="listitem_amblem"><div class="amblem__pos #:amblem#"></div></div>
+            <div class="listitem_btns"><a data-role="button" data-salary="#:salary#" data-tmp="#:slotSalary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/club/#:entryImg#"></a></div>
+            <div class="player_card_list__box-info">
+                <a data-role="button" data-rel="#:playerID#" data-val="" data-click="app.Playerz.playerAddInfo">
+                    <div class="player_card_list__table">
+                        <div class="player_card__def">
+                            <div class="listitem_name">#:playerName#</div>
+                            <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                        </div>
+                        <div class="player_card__sub">
+                            <div class="player_card__sub-color"><span>#:teamName#</span></div>
+                            <div class="player_card__sub-color">FPPG <span>#:fppg#</span></div>
+                            <div class="player_card__sub-color">Salary <span class="#:salaryColor#">#:kendo.toString(salary,"n0")#</span></div>
+                        </div>
+                    </div>
+                </a>
+            </div>            
+        </div>
+    </div>
+</script>

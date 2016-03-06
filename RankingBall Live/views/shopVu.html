@@ -1,0 +1,121 @@
+<div 
+    id="shop_main" 
+    data-role="view"
+    data-title="SHOP" 
+    data-layout="main"
+    data-transition="slide"
+    data-model="app.Shop"
+    data-init="app.Shop.init"
+    data-show="app.Shop.initRegen">
+    
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" data-click="app.Shop.backToMenu" data-transition="slide:right">
+                <img src="./assets/resource/btn_home.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+        
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="shop_static_banner">
+            <div id="shopBanner" class="shop_static_banner__box"></div>
+        </div>
+        
+    </div>
+    
+    <div id="shopMainBox" class="shop_box">
+        
+        <div class="shop_box_body">
+
+            <ul id="shopItems" class="inboxList"></ul>
+            
+            
+        </div>
+    </div>
+
+    <div data-role="footer" class="static_menus">
+        <div class="static_menus__boxs">
+            <div class="static_menus__box box_lr_padding">
+                <div id="box-touchCard" class="menu_box_deco">
+                    <a data-role="button" data-rel="touchCard" data-click="app.Shop.staticMenu">
+                        <div class="box_btn with_cards"></div>
+                        <div class="box_str">RECRUIT</div>
+                    </a>
+                </div>
+                <div class="menu_box_deco-shadow">
+                    <div class="menu_box_deco-shadowon"></div>
+                </div>
+            </div>
+            <div class="static_menus__box box_lr_padding">
+                <div id="box-touchJem" class="menu_box_deco">
+                    <a data-role="button" data-rel="touchJem" data-click="app.Shop.staticMenu">
+                        <div class="box_btn with_jem"></div>
+                        <div class="box_str">SKILL GEM</div>
+                    </a>
+                </div>
+                <div class="menu_box_deco-shadow">
+                    <div class="menu_box_deco-shadowon"></div>
+                </div>
+            </div>
+            <div class="static_menus__box box_lr_padding">
+                <div id="box-touchAdd" class="menu_box_deco">
+                    <a data-role="button" data-rel="touchAdd" data-click="app.Shop.staticMenu">
+                        <div class="box_btn with_service"></div>
+                        <div class="box_str">MISCELLANY</div>
+                    </a>
+                </div>
+                <div class="menu_box_deco-shadow">
+                    <div class="menu_box_deco-shadowon"></div>
+                </div>
+            </div>
+            <div class="static_menus__box box_lr_padding">
+                <div id="box-touchGold" class="menu_box_deco">
+                    <a data-role="button" data-rel="touchGold" data-click="app.Shop.buy">
+                        <div class="box_btn with_gold"></div>
+                        <div class="box_str">RECHARGE</div>
+                    </a>
+                </div>
+                <div class="menu_box_deco-shadow">
+                    <div class="menu_box_deco-shadowon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script id="goodsListTemplate" type="text/x-kendo-template">
+    #
+        img_src = init_data.path + path + image;
+    #
+    <a data-role="button" data-inf="#:productFK#" data-rel="#:productCode#" data-sep="#:category#" data-bun="#:bundle#" data-click="app.Shop.buyItems">
+        <div class="inboxList_face">
+            <div class="inboxList_face__ico">
+                <div class="marker_hot"></div>
+                <div class="item_ico"><img src="#=img_src#" /></div>
+            </div>
+            <div class="inboxList_face__desc">
+                <div class="item_label">#:productName#</div>
+                <div class="item_gold"><span>#:priceDesc#</span></div>
+            </div>
+        </div>
+    </a>
+</script>

@@ -131,28 +131,23 @@ app.Login = (function () {
 
         var loginAutoim = function (passw) {
             
-            /*
-            var localData = getlocalStorage('appd');
-            var storageObject;
-            console.log( JSON.stringify(uu_data));
-            if (localData && localData !== 'undefined') {
-                
-                storageObject = $.parseJSON(localData);
-                console.log("use local data");
-            } else {
-                console.log("use uu_data");
-                storageObject = uu_data;
-            }
-            */
-                if (uu_data.status === 1) {    
-                    var param, callerID, pushKey;
+            loginProcess.autoLogin();
+        };
+        
+        var loginProcess = {
+            
+            autoLogin: function() 
+            {
+                if (uu_data.status === 1) 
+                {
+                    app.mobileApp.showLoading();
                     
+                    var that = this;
+                    var param, callerID, pushKey;
                     pushKey = ( typeof (init_apps.memUID) === undefined ||  init_apps.memUID === "" ) ? getlocalStorage('push_wiz') : init_apps.memUID;
                     
                     if(pushKey === "" ) {
                         init_apps.deviceID = device.uuid;
-                        //console.log("pushkey call");
-                        //initAppService.initAppVersion();
                     } else {
                         
                     }
@@ -177,14 +172,13 @@ app.Login = (function () {
                     
                     var url = init_data.auth + "?callback=?";
                     
-                    app.mobileApp.showLoading();
                     $.ajax({
-                               url: url,
-                               type: "GET",
-                               async: false,
-                               dataType: "jsonp",
-                               jsonpCallback: "jsonCallback",
-                               data: {
+                            url: url,
+                            type: "GET",
+                            async: false,
+                            dataType: "jsonp",
+                            jsonpCallback: "jsonCallback",
+                            data: {
                             "type": "apps",
                             "id": callerID,
                             "param":param
@@ -194,8 +188,9 @@ app.Login = (function () {
                                uu_data = response.data;
                                setlocalStorage('appd', JSON.stringify(uu_data));
                                setlocalStorage('doLogin', true);
-                                setlocalStorage('push_wiz', init_apps.memUID);
-                               app.mobileApp.navigate('views/landingVu.html', 'slide');
+                               setlocalStorage('push_wiz', init_apps.memUID);
+                               //app.mobileApp.navigate('views/landing2Vu.html', 'slide');
+                               that.getRT();
                            } else {
                                
                                 app.showAlert('[101] ' + $.langScript[laf]['noti_020'],'Notice',function() {
@@ -215,13 +210,223 @@ app.Login = (function () {
                    });
 
                     
-                } else {
+                } 
+                else 
+                {
                     app.showAlert('[103] ' + $.langScript[laf]['noti_020'],'Notice',function() {
                         navigator.app.exitApp();
                     });
                 }
+            },
+            getRT: function()
+            {
+                var that = this;
+                var url = "http://scv.rankingball.com/rt_fullfeed/soccer_recent/" + laf;
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "id": "getRadar"
+                    },
+                    success: function(response) {
+                        //console.log(response);
+                        if (response.result === 200) {
+                            rtWeekList = response.data;
+                        }
+                        that.getPlayer();
+                    },
+                    error: function(e) {
+                        that.getPlayer();
+                    }
+                });
+            },
+            getPlayer: function()
+            {
+                var that = this;
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","position":15,"organ":1}';
+                var url = init_data.auth + "?callback=?";
+                
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "contestGetEntry",
+                        "param":param
+                    },
+                    success: function(response) {
+                        if (response.code === 0) {
+                      
+                            $.each(response.data, function (i, p) {
+                                playerOnLeague.push({
+                                    teamName: p.teamName,
+                                    position: p.position,
+                                    fppg: p.fppg,
+                                    playerID: p.playerID,
+                                    playerName: p.playerName,
+                                    posDesc: p.posDesc,
+                                    number: p.number,
+                                    posId: p.posId,
+                                    team: p.team,
+                                    salary: p.salary,
+                                    posCode: p.posCode,
+                                    posType: p.posType,
+                                    playerSelected:1
+                                });
+                            });
 
-        }
+                        }
+                        that.getDFS();
+                    },
+                    error: function(e) {
+                        console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
+                        that.getDFS();
+                    }
+                });
+            },
+            getDFS: function() 
+            {
+                var that = this;
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"organ":1}';
+                var url = init_data.auth + "?callback=?";
+
+                $.ajax({
+                    url: url,
+                    type: "GET",
+                    async: false,
+                    dataType: "jsonp",
+                    jsonpCallback: "jsonCallback",
+                    data: {
+                        "type": "apps",
+                        "id": "contestGetList",
+                        "param":param
+                    },
+                    success: function(response) {
+                        if (response.code === 0) {
+                            contestListData = response.data;
+                            contestListData  = contestListData.sort(function(a, b) {
+                                return (b.rewardValue - a.rewardValue);
+                            });
+                                                    
+                            that.resetDFSList(contestListData);
+                        }
+                        else
+                        {
+                            console.log("no match data");
+                        }
+                    },
+                    error: function(e) {
+                        console.log("error - requestContestList Contest : " + JSON.stringify(e));
+                    }
+                });  
+            },
+            resetDFSList: function(dfsData)
+            {
+                var that = this;
+                
+                contestPartList['cf'] = new Array();
+                contestPartList['c5'] = new Array();
+                contestPartList['cg'] = new Array();
+                contestMyPartList['cf'] = new Array();
+                contestMyPartList['c5'] = new Array();
+                contestMyPartList['cg'] = new Array();
+                                
+                for (var i=0 ; i < dfsData.length ; i++)
+                {
+                    
+                    dfsData[i]['timeRew'] = that.timeGenerate(dfsData[i]['startTime']);
+                    if(dfsData[i]['myEntry'] > 0) 
+                    {
+                                            
+                        if (dfsData[i]['featured'] === 1) {
+                            contestMyPartList['cf'].push(dfsData[i]);
+                            featuredList.push(dfsData[i]);
+                        } else if (parseInt(dfsData[i]['contestType']) === 1) {
+                            contestMyPartList['c5'].push(dfsData[i]);
+                        } else if (parseInt(dfsData[i]['contestType']) === 2) {
+                            contestMyPartList['cg'].push(dfsData[i]);
+                        }
+                        
+                        if(dfsData[i]['entryData'] !== null) {
+                            var $tmpSlots = [];
+                            $.each(dfsData[i]['entryData'],function(k,x) {
+                                $tmpSlots[k] = x;
+                            });
+
+                            myEntryByContest[dfsData[i]['contestSeq']] = $tmpSlots;
+                        }
+
+                    } else {
+                        
+                        if(dfsData[i]['contestStatus'] === 1) {
+                            
+                            if (dfsData[i]['featured'] === 1) {
+                                contestPartList['cf'].push(dfsData[i]);
+                                featuredList.push(dfsData[i]);
+                            } else if (parseInt(dfsData[i]['contestType']) === 1) {
+                                contestPartList['c5'].push(dfsData[i]);
+                            } else if (parseInt(dfsData[i]['contestType']) === 2) {
+                                contestPartList['cg'].push(dfsData[i]);
+                            }                        
+                        }
+                    }
+                }
+                    
+                setTimeout(function() {
+                    app.mobileApp.navigate('views/landing2Vu.html', 'slide');
+                    app.mobileApp.hideLoading();   
+                },500);
+            },
+            timeGenerate: function(timeValue)
+            {
+                var today = new Date();
+                var weekDay = new Array("Sun.","Mon.","Tue.","Wed.","Thu.","Fri.","Sat.");
+                
+                var yy = timeValue.substring(0,4);
+                var mm = timeValue.substring(4,6);
+                var dd = timeValue.substring(6,8);
+                var h = timeValue.substring(8,10);
+                var m = timeValue.substring(10,12);
+                var s = timeValue.substring(12,14);
+                
+                
+                var startDate = new Date(yy,Number(mm)-1,dd,h,m,s);
+                var dateLabel = "";
+                var timeLabel = "";
+                
+                var dateDiff = Math.round( (startDate.getTime() - today.getTime())  / (1000*60*60*24) );
+                
+                timeLabel = h + ":" + m;
+                
+                if(dateDiff > 0) {
+                                    
+                    if(dateDiff === 1) {
+                        dateLabel = "tommorow " + timeLabel;
+                    }
+                    else
+                    {
+                        dateLabel = weekDay[startDate.getDay()] + " " + timeLabel;
+                    }   
+                }
+                else
+                {
+                    if(dateDiff === 0) {
+                        dateLabel = "today " + timeLabel;
+                    } else {
+                        dateLabel = Math.abs(dateDiff) + " days ago ";
+                    }   
+                }
+                
+                return dateLabel;
+            }
+            
+        };
         
         /* 본인인증 유무 */
         var autosetAuth = "success";

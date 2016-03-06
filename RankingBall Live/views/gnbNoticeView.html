@@ -1,13 +1,15 @@
 <div
     id="gnb_notice"
     data-role="view" 
-    data-title="공지사항 및 이벤트" 
+    data-title="ANNOUNCEMNT" 
     data-layout="main"
-    data-transition="slide">
+    data-transition="slide"
+    data-model="app.Hambugerz"
+    data-init="app.Hambugerz.gnbDefInit">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#mv_profile" data-transition="slide:right">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -18,20 +20,91 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
-                    </span>    
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
                 </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="gnb_tapstrip_groups">
+            <div id="tabstripNotice" class="gnb_tab_main ts">
+                <a class="ts" data-role="button" data-rel="noti" data-click="app.Hambugerz.tapStriper">Announcement</a>
+            </div>
+            <div id="tabstripEvents" class="gnb_tab_main">
+                <a data-role="button" data-rel="event" data-click="app.Hambugerz.tapStriper">Events</a>
             </div>
         </div>
     </div>
     
-    <div class="contents-view">
-        <ul id="gnbNotice" class="inboxList">
-
-        </ul>
-    
+    <div class="gnb_contents">
+        <ul id="gnbNotice" class="inboxList"></ul>
+        
+        <ul id="gnbEvents" class="inboxList hide"></ul>
+        
+        
     </div>
 </div>
+
+<div data-role="modalview" id="moadl_notice" data-modal="false" class="gnb_modaless" style="width:100%;height:100%;margin-left:1px;padding:0;border:0;">
+    <div data-role="header">
+        <div data-role="navbar">
+            ANNOUNCEMNT
+            <a data-align="right" data-role="button" data-rel="moadl_notice" data-click="app.Hambugerz.modalClose" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="guide_box">
+        <div class="guide_box__body">
+            <div class="guide_box__scroller">
+                <div id="noticeContent" class="innerHTMLs"></div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer"></div>
+</div>
+<div data-role="modalview" id="moadl_event" data-modal="false" class="gnb_modaless" style="width:100%;height:100%;margin-left:1px;padding:0;border:0;">
+    <div data-role="header">
+        <div data-role="navbar">
+            Events
+            <a data-align="right" data-role="button" data-rel="moadl_event" data-click="app.Hambugerz.modalClose" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="guide_box">
+        <div class="guide_box__body">
+            <div class="guide_box__scroller">
+                <div id="eventContent" class="innerHTMLs"></div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer"></div>
+</div>
+
+
+<script id="gnbNoticeListTemplate" type="text/x-kendo-template">
+    <div class="inboxList-face">
+        <div class="inboxList-group">
+            <a data-role="button" data-rel="#:id#" data-mol="moadl_notice" data-click="app.Hambugerz.modalOpen">
+                <div class="inboxList-title">#:subject#</div>
+            </a>
+        </div>
+        <div class="inboxList-group wday">#:wdate#</div>
+    </div>
+</script>
+
+<script id="gnbEventListTemplate" type="text/x-kendo-template">
+    <div class="inboxList-face">
+        <div class="inboxList-group">
+            <a data-role="button" data-rel="#:id#" data-mol="moadl_event" data-click="app.Hambugerz.modalOpen">
+                <div class="inboxList-title">#:subject#</div>
+            </a>
+        </div>
+        <div class="inboxList-group wday">#:wdate#</div>
+    </div>
+</script>
+

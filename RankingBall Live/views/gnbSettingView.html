@@ -1,14 +1,16 @@
 <div
     id="gnb_setting"
     data-role="view" 
-    data-title="설정" 
+    data-title="SETTINGS" 
     data-layout="main"
     data-model="app.Hambugerz"
-    data-init="app.Hambugerz.initGNB">
+    data-transition="slide"
+    data-init="app.Hambugerz.gnbDefInit"
+    data-stretch="true">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="backbutton" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#mv_profile" data-transition="slide:right">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -19,11 +21,15 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
                 <div class="property-box bg-ruby">
                     <span class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
-                    </span>    
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                 </div>
             </div>
         </div>
@@ -33,42 +39,42 @@
         
         <div class="gnb-out">
             <div class="gnb-inner">
-                <h4>설정</h4>
+                <h4>Settings</h4>
                 <dl>
-                    <dt>진동</dt>
+                    <dt>Vibration</dt>
                     <dd><input id="gnb_setting_vibrator" type="checkbox" data-role="switch" data-checked="true" /></dd>
                 </dl>
-                <dl>
-                    <dt>시청방식</dt>
+                <dl class="hide">
+                    <dt>Viewing mode</dt>
                     <dd>
                         <label>TV</label><input type="radio">
-                        <label>인터넷</label><input type="radio">
+                        <label>Internet</label><input type="radio">
                     </dd>
                 </dl>
                 <dl>
-                    <dt>배경 / 효과음</dt>
+                    <dt>BGM / Sound effects</dt>
                     <dd><input id="gnb_setting_sound" type="checkbox" data-role="switch" data-checked="true" /></dd>
                 </dl>
                 <dl>
-                    <dt>알림 받기</dt>
+                    <dt>Notifications</dt>
                     <dd><input id="gnb_setting_subscription" type="checkbox" data-role="switch" data-checked="true" /></dd>
                 </dl>
             </div>
             <div class="gnb-inner">
-                <h4>닉네임 변경</h4>
+                <h4>Change Nickname</h4>
                 <dl>
-                    <dt><span id="setting_nick">스트리트랩</span></dt>
+                    <dt><span id="setting_nick"></span></dt>
                     <dd>
-                        <a data-role="button" data-click="app.Contests.observeMatch" class="btnNickChange">변경</a>
+                        <a data-role="button"><div class="btnNickChange">Change</div></a>
                     </dd>
                 </dl>
             </div>
             <div class="gnb-inner">
-                <h4>계정</h4>
+                <h4>Account</h4>
                 <dl>
-                    <dt>회원탈퇴</dt>
+                    <dt>Withdrawal</dt>
                     <dd>
-                        <a data-role="button" data-click="app.Contests.observeMatch" class="btnNickChange">탈퇴</a>
+                        <a data-role="button"><div class="btnWithdrawal">Request</div></a>
                     </dd>
                 </dl>
              </div>

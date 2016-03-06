@@ -8,12 +8,12 @@
     data-transition="slide"
     data-stretch="true">
     
-    <div data-role="header" class="rnkb-wiz-rt">
+    <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn rnkb-rt" data-align="left" data-role="button" data-click="app.playRTS.confirmBack">
+            <a class="drawer-btn" data-align="left" data-role="button" data-click="app.playRTS.confirmBack">
                 <img src="./assets/resource/btn_back.png">
             </a>
-            <a data-role="button" class="drawer-btn rnkb-rt" data-align="right">
+            <a data-role="button" class="drawer-btn" data-align="right">
                 <img src="./assets/resource/btn_help.png">
             </a>
             <div id="rt_header__title" data-role="view-title"></div>
@@ -37,19 +37,21 @@
         </div>
             
         <div id="rt_slider" class="rt-info">
-            <div id="rt_stats" class="rt-info__stats">
-                <div class="rt-info__tab rt_emblem">
-                    <div><img class="rt_home_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" /></div>
-                    <span id="rt_home_label">NEW CASTLE</span>
-                </div>
-                <div class="rt-info__tab rt_scoreboard">
-                    <div class="rt_score_flex">
-                        <span class="rt_score is_home_score">0</span> <span id="rt_playing_times" class="rt_times">--:--</span> <span class="rt_score is_away_score">0</span>
+            <div class="rt-info_box">
+                <div id="rt_stats" class="rt-info__stats">
+                    <div class="rt-info__tab rt_emblem">
+                        <div><img class="rt_home_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10261_NEWCASTLE.png" /></div>
+                        <span id="rt_home_label">NEW CASTLE</span>
                     </div>
-                </div>
-                <div class="rt-info__tab rt_emblem">
-                    <div><img class="rt_away_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" /></div>
-                    <span id="rt_away_label">ASTONVILLA</span>
+                    <div class="rt-info__tab rt_scoreboard">
+                        <div class="rt_score_flex">
+                            <span class="rt_score is_home_score">0</span> <span id="rt_playing_times" class="rt_times">--:--</span> <span class="rt_score is_away_score">0</span>
+                        </div>
+                    </div>
+                    <div class="rt-info__tab rt_emblem">
+                        <div><img class="rt_away_emblem" src="http://scv.rankingball.com/asset/contents/dfs/EPL_10252_ASTONVILLA.png" /></div>
+                        <span id="rt_away_label">ASTONVILLA</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -274,17 +276,7 @@
     
 </div>
 
-
-<div data-role="modalview" id="moadl_result_events" data-modal="false" style="width:100%;height:100%;">
-    <div id="predictionEventsGreate" class="prediction_events hide">
-        <div class="prediction_events__box"><img src="./assets/resource/rts/GREAT.png"></div>
-    </div>
-    <div id="predictionEventsSorry" class="prediction_events hide">
-        <div class="prediction_events__box"><img src="./assets/resource/rts/SORRY.png"></div>
-    </div>
-</div>
-
-<div data-role="modalview" id="moadl_guide_rt" data-modal="false" style="width:100%;height:100%;padding:15px;">
+<div data-role="modalview" id="moadl_guide_rt" data-modal="false" class="modaless" style="width:100%;height:100%;padding:15px;">
     <div data-role="header">
         <div data-role="navbar">
             <a data-align="right" data-role="button" data-click="app.playRTS.rtGuideX" class="close_modal_win"></a>
@@ -306,12 +298,12 @@
                         <br /><span class="sub_list">② Targeted time</span>
                         <br /><span class="sub_list">③ Cool down till next attempt</span>
                     </li>
-                    <li>4. If your attempt was successful, you would obtain points by situation: 
+                    <li>If your attempt was successful, you would obtain points by situation: 
                         <br /><span class="sub_list">Goal</span> <span class="point">(+5)</span>
                         <br /><span class="sub_list">Shot on target</span> <span class="point">(+3)</span>
                         <br /><span class="sub_list">Shot off target</span> <span class="point">(+1)</span>
                     </li>
-                    <li>5. Fill up 10 points and get a reward.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_004.png" class="piece" /></li>
+                    <li>Fill up 10 points and get a reward.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_004.png" class="piece" /></li>
                 </ol>
             </div>
         </div>
@@ -319,60 +311,65 @@
     <div data-role="footer"></div>
 </div>
 
-<div data-role="modalview" id="moadl_reward" data-modal="false" data-close="onRewardModalClose" style="width:100%;text-align:center;">
-    <div class="rt_reward">
-        <div class="rt_reward__str" data-labelnum="0">보상을 선택해주세요!!</div>
-        <div class="rt_reward_box">
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardL" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
-                </div>
-            </div>
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardC" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
-                </div>
-            </div>
-            <div class="rt_reward_box__grid">
-                <div id="rewardCardR" class="rt_reward_card">
-                    <figure class="rt_reward_card__front"></figure>
-                    <figure class="rt_reward_card__back">
-                        
-                    </figure>
+<div data-role="modalview" id="moadl_reward" data-modal="false" data-close="onRewardModalClose" style="width:100%;height:100%;text-align:center;">
+    <div class="rt_reward_box">
+        <div class="rt_reward_pos">
+            <div class="rt_reward">
+                <div class="rt_reward__str" data-labelnum="0">Please choose your reward.</div>
+                <div class="rt_reward_box">
+                    <div class="rt_reward_box__grid">
+                        <div id="rewardCardL" class="rt_reward_card">
+                            <figure class="rt_reward_card__front"></figure>
+                            <figure class="rt_reward_card__back">
+                                <div id="rewardCardL-bonus" class="reward_value"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="rt_reward_box__grid">
+                        <div id="rewardCardC" class="rt_reward_card">
+                            <figure class="rt_reward_card__front"></figure>
+                            <figure class="rt_reward_card__back">
+                                <div id="rewardCardC-bonus" class="reward_value"></div>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="rt_reward_box__grid">
+                        <div id="rewardCardR" class="rt_reward_card">
+                            <figure class="rt_reward_card__front"></figure>
+                            <figure class="rt_reward_card__back">
+                                <div id="rewardCardR-bonus" class="reward_value"></div>
+                            </figure>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<div data-role="modalview" id="moadl_rtResult" data-modal="false" style="width:100%;text-align:center;">
-    <div class="rt_result_box__success">
-        <div class="rt_result_box__message">
-            <div class="messages">
-                <div class="result_str">Attempt success. Congratulations!</div>
-                <div>Team : <span id="predictionResultTeam"></span></div>
-                <div>Shot : <span id="predictionResultShot"></span></div>
-                <div>Shot on Goal : <span id="predictionResultShotOn"></span></div>
-                <div>Goal : <span id="predictionResultGoal"></span></div>
-                <div class="get_point">RT Point : <span id="predictionResultPoint"></span></div>
+<div data-role="modalview" id="moadl_rtResult" data-modal="false" class="modaless" style="width:100%;height:100%;text-align:center;">
+    <div class="rt_result_box">
+        <div class="rt_result_box__success">
+            <div class="rt_result_box__message">
+                <div class="messages">
+                    <div class="result_str"><span id="predictionResultTime"></span> Attempt success. Congratulations!</div>
+                    <div>Team : <span id="predictionResultTeam"></span></div>
+                    <div>Shot : <span id="predictionResultShot"></span></div>
+                    <div>Shot on Goal : <span id="predictionResultShotOn"></span></div>
+                    <div>Goal : <span id="predictionResultGoal"></span></div>
+                    <div class="get_point">RT Point : <span id="predictionResultPoint"></span></div>
+                </div>
+            </div>
+            <div class="rt_result_box__confirm">
+                <a data-role="button" data-click="app.playRTS.rtResSX" class="btn_modal_confirm">OK</a>
             </div>
         </div>
-        <div class="rt_result_box__confirm">
-            <a data-role="button" data-click="app.playRTS.rtGuideX" class="btn_modal_confirm">OK</a>
-        </div>
-    </div>
-    <div class="rt_result_box__fail hide">
-        <div class="rt_result_box__message">
-            <div class="messages">Attempt failure.<br />Please try again.</div>
-        </div>
-        <div class="rt_result_box__confirm">
-            <a data-role="button" data-click="app.playRTS.rtGuideX" class="btn_modal_confirm">OK</a>
+        <div class="rt_result_box__fail hide">
+            <div class="rt_result_box__message">
+                <div class="messages"><span id="predictionResultTime2"></span> Attempt failure.<br />Please try again.</div>
+            </div>
+            <div class="rt_result_box__confirm">
+                <a data-role="button" data-click="app.playRTS.rtResCX" class="btn_modal_confirm">OK</a>
+            </div>
         </div>
     </div>
 </div>

@@ -1,0 +1,129 @@
+<div 
+    id="shop_vu" 
+    data-role="view"
+    data-title="SHOP" 
+    data-layout="main"
+    data-transition="slide"
+    data-model="app.Shop"
+    data-init="app.Shop.initPurchase"
+    data-show="app.Shop.showPurchase"
+    data-stretch="true">
+        
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#shop_main" data-transition="slide:right">
+                <img src="./assets/resource/btn_back.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+        
+        <div class="property-mini-info">
+            <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
+                </div>
+            </div>
+        </div>        
+    </div>
+    
+    <div class="shop_pak">
+        
+        <div class="pak_box">
+            <div class="pak_box__basic">
+                <div class="pak_box__table">
+                    <div class="pak_box__img"><img id="goodsImg" src="./assets/resource/shop/items/skill_blue_pak.png" /></div>
+                    <div class="pak_box__info">
+                        <div class="goods_label goods_title"></div>
+                        <div class="goods_price">
+                            <div class="price_label">Price</div>
+                            <div id="goodsPrice" class="price_amount">100,000</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pak_box__featured">
+                <div class="pak_label"><span class="goods_title"></span> Composition</div>
+                <ul id="goodsOptions"></ul>
+            </div>
+            
+            <div class="pak_box__items hide">
+                <div class="skill_item">
+                    <div class="skill_item_box box_left">
+                        <div class="skill_item_box__outlet">
+                            <div class="item_img"><img src="./assets/resource/skill/blue_gem_goal allowed.png" /></div>
+                            <div class="item_label">A등급 멋진 펀칭</div>
+                        </div>
+                    </div>
+                    <div class="skill_item_box box_center">
+                        <div class="skill_item_box__outlet">
+                            <div class="item_img"><img src="./assets/resource/skill/blue_gem_002.png" /></div>
+                            <div class="item_label">B등급 멋진 펀칭</div>
+                        </div>
+                    </div>
+                    <div class="skill_item_box box_right">
+                        <div class="skill_item_box__outlet">
+                            <div class="item_img"><img src="./assets/resource/skill/blue_gem_001.png" /></div>
+                            <div class="item_label">C등급 멋진 펀칭</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="pak_purchase">
+            <div class="pak_orders">
+                <div class="pak_order">
+                    <a data-role="button" data-click="app.Shop.return2List"><div class="pak_button order_cancel">Cancel</div></a>
+                </div>
+                <div class="pak_order">
+                    <a data-role="button" data-click="app.Shop.purchasGoods"><div class="pak_button order_ok">Purchase</div></a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+<div data-role="modalview" id="moadl_purchaseEffect" data-modal="false" data-close="onRewardModalClose" style="width:100%;height:100%;margin-left:1px;padding:0;text-align:center;">
+    <div class="purchase_box">
+        <div id="purchaseResultVu" class="purchase_box__card">
+            <div class="card_pack">
+                <div class="card_pack__label">
+                    <div class="playercard">
+                        <div class="playercard__lv">+6</div>
+                        <div class="playercard__no">12</div>
+                    </div>
+                    <div class="playercard_name">
+                        Aaron Ramsey
+                    </div>
+                </div>
+                <div class="card_pack__husks"></div>
+                <div class="card_pack__stat">
+                    <div class="playercard__grade">
+                        <span class="star-on">*</span>
+                        <span class="star-on">*</span>
+                        <span class="star-on">*</span>
+                        <span class="star-on">*</span>
+                        <span class="star-on">*</span>
+                        <span>*</span>
+                    </div>
+                    <div class="playercard__emblem"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

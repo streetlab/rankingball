@@ -1,8 +1,19 @@
+@font-face {
+    font-family: "nanumgothic";
+    src: url("../resource/fonts/NanumBarunGothic.ttf");
+}
+@font-face {
+    font-family: "nanumgothic-bold";
+    src: url("../resource/fonts/NanumBarunGothicBold.ttf");
+}
+
 html, body
 {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: "nanumgothic";
+    font-size: 12px;
 }
 
 .str_lang_ko {
@@ -943,23 +954,37 @@ a.rnkb-rt img {
 
 .property-mini-info {
     position: relative;
+    display: table;
     width: 100%;
     background-color: #2a2a2a;
 }
 .property-mini-info .property-box-padding {
+    display: table-cell;
+    width: 50%;
     padding: .3em .4em;
 }
-
+.property-mini-info .property-box-padding .nothing_used {
+    font-size: 11px;
+    font-style: italic;
+    font-weight: bold;
+    color: #8ccc3e;
+}
 .property-mini-info .property-box-padding .property-box {
-    text-align: right;
+    position: relative;
     padding: .1em .3em;
     line-height: 1.3em;
     background-color: #1e1e1e;
 }
-.property-mini-info .property-box span {
+.property-mini-info .property-box span.amount_mini_ruby {
+    font-size: 12px;
+    margin-left: 20px;
+    line-height: 10px;
     color: #fff568;
-    font-size: 0.9em;
-    padding-right: .3em;
+}
+.property-mini-info .property-box a {
+    position: absolute;
+    right: 3px;
+    z-index: 9;
 }
 .property-mini-info .property-box img {
     width: 14px;
@@ -968,7 +993,7 @@ a.rnkb-rt img {
 }
 
 .bg-ruby {
-    background: #1e1e1e url(../resource/shop/ic_cash.png) .5em center no-repeat;
+    background: #1e1e1e url(../resource/common/ic_gold.png) .5em center no-repeat;
     background-size: 14px;
 }
 .bg-point {
@@ -1011,12 +1036,23 @@ a.rnkb-rt img {
 
 
 .rt-info {
+    /*
     background-color: #ebebeb;
+    */
+    background: url(../resource/rts/bg_005.png) 0 center no-repeat;
+    background-size: 100%;
+    padding: 5px;
+}
+.rt-info_box {
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    background-color: rgba(255,255,255,.1);
 }
 .rt-info .rt-info__stats {
     display: table;
     width: 100%;
-    padding: 0.6em 0;
+    padding: 5px 0;
 }
 .rt-info .rt-info__stats .rt-info__tab {
     display: table-cell;
@@ -1038,7 +1074,7 @@ a.rnkb-rt img {
     border-radius: 3px;
     font-size: 0.7em;
     color: #fff;
-    background-color: #168f32;
+    background-color: #0088d3;
 }
 .rt-info .rt-info__stats .rt_scoreboard .rt_times.game_end {
     background-color: #adadad;
@@ -1051,6 +1087,7 @@ a.rnkb-rt img {
 .rt-info .rt-info__stats .rt_scoreboard .rt_score_flex span {
     order: 1;
     align-self: center;
+    color: #fff;
 }
 
 .rt-info .rt-info__stats .rt_emblem img {
@@ -1059,10 +1096,10 @@ a.rnkb-rt img {
 .rt-info .rt-info__stats .rt_emblem span {
     display: inline-block;
     font-size: 0.7em;
-    color: #6e6e6e;
+    color: #fff;
 }
 
-.rnkb-wiz-rt .km-widget.rt-navigation {
+.rnkb-wiz .km-widget.rt-navigation {
     position: relative;
     height: 36px;
     white-space: nowrap;
@@ -1143,7 +1180,7 @@ a.rnkb-rt img {
     width: 200px;
     top: 0;
     left: 50%;
-    background-color: #dddddd;
+    background-color: #3c3c3c;
     /* margin: 0 auto; */
     margin-left: -100px;
 }
@@ -1170,11 +1207,11 @@ a.rnkb-rt img {
     font-size: 1em;
 }
 #rt_header__scoreboard .rt-info__stats .rt_scoreboard .rt_times {
-    padding: 0 .3em;
+    padding: 3px 3px 1px 3px;
     border-radius: 3px;
-    font-size: 0.7em;
+    font-size: 12px;
     color: #fff;
-    background-color: #168f32;
+    background-color: #0088d3;
 }
 #rt_header__scoreboard .rt-info__stats .rt_scoreboard .rt_score_flex {
     display: flex;
@@ -1290,7 +1327,7 @@ a.rnkb-rt img {
 /* Contest Match List */
 .contest-match-list {
     position: relative;    
-    margin-top: .8em;
+    /* margin-top: 5px; */
 }
 .contest-match-list ul {
     margin: 0;
@@ -1298,7 +1335,7 @@ a.rnkb-rt img {
     list-style: none;
 }
 .contest-match-list ul.contest-inboxList li {
-    padding: 0.8em .4em;
+    padding: 8px 5px;
     background-color: rgba(255,255,255,0);
 }
 
@@ -1334,13 +1371,13 @@ a.rnkb-rt img {
 .contest-match-list ul.collapseInboxList li {
     font-size: .9em;
     color: #9b9b9b;
-    padding: .4em .1em 0 .1em;
+    padding: .5em .1em 0 .1em;
     line-height: 1.8em;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-face {
     display: table;
     width: 100%;
-    padding: .5em;
+    padding: .5em .5em 0.7em .5em;
     background-color: #fff;
     border-radius: 3px;
 }
@@ -1350,11 +1387,14 @@ a.rnkb-rt img {
     vertical-align: middle;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-btn {
-    min-width: 49px;
-    padding: 1em .4em;
-    font-size: .9em;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 38px;
+    font-size: 8px;
     color: #fff;
-    border-radius: 3px;
+    border-radius: 50%;
     background-color: #3180a4;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-off-btn {
@@ -1372,15 +1412,18 @@ a.rnkb-rt img {
 
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-title {
-    font-size: 1.2em;
+    font-size: 12px;
     font-weight: 600;
-    color: #3180a4;
-      word-break: break-all;
+    color: #3c3c3c;
+    word-break: break-all;
     display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
+    line-height: 24px;
+    margin-bottom: 3px;
+
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-50,
 .contest-match-list ul.collapseInboxList .collapseInboxList-title span.ic-ranking,
@@ -1394,7 +1437,7 @@ a.rnkb-rt img {
 }
 #contest-bar ul.collapseInboxList .collapseInboxList-summ span {
     display: table-cell;
-    font-size: .9em;
+    font-size: 9px;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-summ b {
     color: #3c3c3c;    
@@ -2708,6 +2751,7 @@ span.ic-end {
 }
 
 .salarycap-position .salarycap-box-padding .salarycap-box-moz-vw {
+  font-size: 12px;
   text-align: right;
   padding-right: .8em;
   color: #3180a4;
@@ -3021,6 +3065,10 @@ ul.player_detail li div.listitem_name {
 }
 ul.player_detail li div.listitem_name a {
     text-align: left;
+    color: #9b9b9b;
+}
+ul.player_detail li div.listitem_name a:active {
+    color: #666666;
 }
 ul.player_detail li div.listitem_name span {
     font-size: .8em;

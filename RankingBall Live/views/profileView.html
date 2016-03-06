@@ -5,11 +5,12 @@
     data-layout="main"
     data-model="app.Hambugerz"
     data-init="app.Hambugerz.init"
+    data-show="app.Hambugerz.showOn"
     data-stretch="true">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu2" data-transition="slide:right">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -20,18 +21,22 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
                 <div class="property-box bg-ruby">
                     <span class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
-                    </span>    
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="contents-profile-view">
-        
+    <div id="hamburgers">
+        <div class="contents-profile-view">
             <div class="profile-info">
                 <div class="profile-items">
                     <div class="card-face__avatar">
@@ -51,21 +56,21 @@
                     <div class="profile-rows">
                         
                         <div class="profile-row btLine">
-                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_mail.png" ><br><span data-labelnum="25">우편함</span></a></div>
-                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_inventory.png" ><br><span data-labelnum="14">보관함</span></a></div>  
-                            <div class="profile-btns"><a data-role="button" data-click="app.Hambugerz.gnbSetting"><img src="./assets/resource/profile/ic_setting.png" ><br><span data-labelnum="19">설정</span></a></div>  
+                            <div class="profile-btns"><a data-role="button" data-rel="mail" data-click="app.Hambugerz.gnbNavi"><div class="ham-ic"><img src="./assets/resource/profile/ic_mail.png" ></div><span data-labelnum="25">우편함</span></a></div>
+                            <div class="profile-btns"><a data-role="button" data-rel="inven" data-click="app.Hambugerz.gnbNavi"><div class="ham-ic"><img src="./assets/resource/profile/ic_inventory.png" ></div><span data-labelnum="14">보관함</span></a></div>  
+                            <div class="profile-btns"><a data-role="button" data-rel="conf" data-click="app.Hambugerz.gnbNavi"><div class="ham-ic"><img src="./assets/resource/profile/ic_setting.png" ></div><span data-labelnum="19">설정</span></a></div>  
                         </div>
                         
                         <div class="profile-row">
-                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_notice.png" ><br><span data-labelnum="7">공지사항 및 이벤트</span></a></div>
-                            <div class="profile-btns"><a data-role="button"><img src="./assets/resource/profile/ic_guide.png" ><br><span data-labelnum="1">게임 방법</span></a></div> 
+                            <div class="profile-btns"><a data-role="button" data-rel="noti" data-click="app.Hambugerz.gnbNavi"><div class="ham-ic"><img src="./assets/resource/profile/ic_notice.png" ></div><span data-labelnum="7">공지사항 및 이벤트</span></a></div>
+                            <div class="profile-btns"><a data-role="button" data-rel="know" data-click="app.Hambugerz.gnbNavi"><div class="ham-ic"><img src="./assets/resource/profile/ic_guide.png" ></div><span data-labelnum="1">게임 방법</span></a></div> 
                             <div class="profile-btns"></div>
                         </div>
                         
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
 
 </div>

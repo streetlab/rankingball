@@ -9,7 +9,7 @@
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu2" data-transition="slide:right">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -20,14 +20,41 @@
             
         <div class="property-mini-info">
             <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
                 <div class="property-box bg-ruby">
                     <span class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <a data-role="button" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
-                    </span>    
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                 </div>
             </div>
         </div>
+        
+        <div id="rtPreviewBox" class="rt_preview">
+            <div class="rt_preview_box">
+
+                <h3>ENGLAND PREMIER LEAGUE</h3>
+                <div class="rt_preview_box__table">
+                    <div class="rt_preview_box__table-cell">
+                        <div class="preview__amblem amblem__8678"></div>
+                        <span class="preview__team">ChaFFF</span>
+                    </div>
+                    <div class="rt_preview_box__table-cell">
+                        <div class="preview__time">11.21 11:00</div>
+                        <span class="preview__vs">VS</span>
+                    </div>
+                    <div class="rt_preview_box__table-cell">
+                        <div class="preview__amblem amblem__9850"></div>
+                        <span class="preview__team">Norwich</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
     </div>
 
     <div class="contents-view">
@@ -60,7 +87,7 @@
         }
         
     #
-    <a id="accoList_rt_#:rt_id#" class="btn-match-lead" data-role="button" data-rel="#:rt_id#" data-click="app.playRTS.collapseList"><span>#:rt_title#</span> <span id="acco_#:rt_id#" class="collapse-btn #=collapse_ico#"></span></a>
+    <a id="accoList_rt_#:rt_id#" class="btn-match-lead" data-role="button" data-rel="#:rt_id#" data-click="app.playRTS.collapseList"><span>#:rt_title#</span> <span id="acco_#:rt_id#" class="hide collapse-btn #=collapse_ico#"></span></a>
     <div id="rtChild_#=rt_id#">
         <ul id="rt#=rt_id#" class="collapseRTList"></ul>
     </div>
@@ -79,28 +106,24 @@
             rt_game_status = "-";
             rt_status_badge = "rt-non";
         }
+    
+        home_amblem = "http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_" + home_code + ".png";
+        away_amblem = "http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_" + away_code + ".png";
     #
     <div class="rtListDiv" data-role="button" data-rel="#:match_id#" data-rol="#:match_id_enet#" data-gol="#:game_group#" data-stat="#:game_status#" data-click="app.playRTS.nowPlayRT">
         <div class="rt-games-row">
-            <div class="rt-games-label rt-list-home font-red">
-                <span>[HOME]</span>
-            </div>
-            <div class="rt-games-label rt-list-info">
-                <span class="hide">00:00</span>
-            </div>
-            <div class="rt-games-label rt-list-away font-cyan">
-                <span>[AWAY]</span>
-            </div>
-        </div>
-        <div class="rt-games-row">
             <div class="rt-games-data rt-list-home">
-                <span>#:home_team#</span>
+                <div class="rt-list_teamamblem"><img src="#:home_amblem#" /></div>
+                <span class="rt-list_teamname">#:home_team#</span>
             </div>
             <div class="rt-games-data rt-list-info">
-                <span>#:home_score#</span> <span class="rt-status-badge #=rt_status_badge#">#=rt_game_status#</span> <span>#:away_score#</span>
+                <div class="rt-games-data__starttime">#:game_timeh#</div>
+                <div class="hr"></div>
+                <span class="rt-games-data__score">#:home_score#</span> <span class="rt-status-badge #=rt_status_badge#">#=rt_game_status#</span> <span class="rt-games-data__score">#:away_score#</span>
             </div>
             <div class="rt-games-data rt-list-away">
-                <span>#:away_team#</span>
+                <div class="rt-list_teamamblem"><img src="#:away_amblem#" /></div>
+                <span class="rt-list_teamname">#:away_team#</span>
             </div>
         </div>
     </div>

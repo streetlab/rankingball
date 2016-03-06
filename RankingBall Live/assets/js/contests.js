@@ -111,7 +111,7 @@ app.Contests = (function () {
         
         function homeService() {
             //$("#mv_play_contest").data("kendoMobileView").destroy();
-            app.mobileApp.navigate('views/landingVu.html', 'slide:right');
+            app.mobileApp.navigate('views/landing2Vu.html', 'slide:right');
         }
         
         var resetViewTitle = function(e,t) {

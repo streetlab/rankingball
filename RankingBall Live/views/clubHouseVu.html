@@ -1,0 +1,318 @@
+<div
+    id="clubhouse"
+    data-role="view" 
+    data-title="CLUB HOUSE" 
+    data-layout="main"
+    data-model="app.Card"
+    data-init="app.Card.langExchange"
+    data-show="app.Card.onShow"
+    data-transition="slide">
+    
+    <div data-role="header" class="rnkb-wiz">
+        <div data-role="navbar">
+            <a data-role="button" class="drawer-btn" data-align="left" data-click="app.Contests.homeService">
+                <img src="./assets/resource/btn_home.png">
+            </a>
+            <a data-role="button" class="drawer-btn" data-align="right">
+                <img src="./assets/resource/btn_help.png">
+            </a>
+            <span data-role="view-title"></span>
+        </div>
+        
+        <div class="property-mini-info">           
+            <div class="property-box-padding">
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card_tapstrip_groups">
+            <div id="tabstripClubHouse" class="card_tab_main ts">
+                <a class="ts" data-role="button" data-rel="CH" data-click="app.Card.tapStriper" data-labelnum="83">선수단</a>
+            </div>
+            <div id="tabstripSkills" class="card_tab_main">
+                <a data-role="button" data-rel="SK" data-click="app.Card.tapStriper" data-labelnum="82">스킬 보석</a>
+            </div>
+        </div>
+        <div class="group_clubhouse">
+            <div class="card_tapstrip_groups">
+                <div id="subTab-ALL" class="card_tab_sub ts">
+                    <a class="ts" data-role="button" data-rel="ALL" data-click="app.Card.tapSubStriper">ALL</a>
+                </div>
+                <div id="subTab-FW" class="card_tab_sub">
+                    <a data-role="button" data-rel="FW" data-click="app.Card.tapSubStriper">FW</a>
+                </div>
+                <div id="subTab-MF" class="card_tab_sub">
+                    <a data-role="button" data-rel="MF" data-click="app.Card.tapSubStriper">MF</a>
+                </div>
+                <div id="subTab-DF" class="card_tab_sub">
+                    <a data-role="button" data-rel="DF" data-click="app.Card.tapSubStriper">DF</a>
+                </div>
+                <div id="subTab-GK" class="card_tab_sub">
+                    <a data-role="button" data-rel="GK" data-click="app.Card.tapSubStriper">GK</a>
+                </div>
+            </div>
+        </div>
+        <div class="group_skill hide">
+            <div class="card_tapstrip_groups">
+                <div id="skillTab-ALL" class="card_tab_skill ts">
+                    <a class="ts" data-role="button" data-rel="ALL" data-click="app.Card.tapSubStriper">ALL</a>
+                </div>
+                <div id="skillTab-RED" class="card_tab_skill">
+                    <a data-role="button" data-rel="RED" data-click="app.Card.tapSubStriper">RED</a>
+                </div>
+                <div id="skillTab-BLUE" class="card_tab_skill">
+                    <a data-role="button" data-rel="BLUE" data-click="app.Card.tapSubStriper">BLUE</a>
+                </div>
+                <div id="skillTab-GREEN" class="card_tab_skill">
+                    <a data-role="button" data-rel="GREEN" data-click="app.Card.tapSubStriper">GREEN</a>
+                </div>
+            </div>
+        </div>
+        <div class="card_tapstrip_groups">
+            <div class="card_apps__length">
+                <span>0</span>/<span>200</span>
+            </div>
+            <div class="card_apps__search">
+                <form id="cardSearch">
+                    <div class="search_table">
+                        <div class="search_table__input">
+                            <input type="search" id="search" placeholder="search" required validationMessage="input nickname">
+                        </div>
+                        <div class="search_table__btn">
+                            <a data-role="button" data-align="right"><div class="search_box">S</div></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card_apps__order salarycap-box-moz-vw">
+                <a data-role="button" href="#do-popover-card" data-rel="popover"><span id="sort-player-label" data-labelnum="16">샐러리</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+            </div>
+        </div>
+        
+        <div id="do-popover-card" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-play-vw">
+                <ul>
+                    <li><a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-click="app.Card.playerListSort"><label id="orderLabelPosition" data-align="left" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelPlayer" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelSalary" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+    <div id="clubhouseDiv">
+            <div class="group_clubhouse tabDiv">
+                <ul id="card_list" class="player_card_list" data-role="listview">
+                    <li>
+                        <div class="triangle_top"></div>
+                        <div class="triangle_bottom"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_position"><div>F</div></div>
+                                <div class="listitem_rating"><div>+2</div></div>
+                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
+                                        <div class="player_card_list__table">
+                                            <div class="player_card__def">
+                                                <div class="listitem_name">Aron Ramsey</div>
+                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                                            </div>
+                                            <div class="player_card__sub">
+                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
+                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
+                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="triangle_top"></div>
+                        <div class="triangle_bottom"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_position"><div>F</div></div>
+                                <div class="listitem_rating"><div>+2</div></div>
+                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
+                                        <div class="player_card_list__table">
+                                            <div class="player_card__def">
+                                                <div class="listitem_name">Aron Ramsey</div>
+                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                                            </div>
+                                            <div class="player_card__sub">
+                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
+                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
+                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="triangle_top"></div>
+                        <div class="triangle_bottom"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_position"><div>F</div></div>
+                                <div class="listitem_rating"><div>+2</div></div>
+                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
+                                        <div class="player_card_list__table">
+                                            <div class="player_card__def">
+                                                <div class="listitem_name">Aron Ramsey</div>
+                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                                            </div>
+                                            <div class="player_card__sub">
+                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
+                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
+                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="triangle_top"></div>
+                        <div class="triangle_bottom"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_position"><div>F</div></div>
+                                <div class="listitem_rating"><div>+2</div></div>
+                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
+                                        <div class="player_card_list__table">
+                                            <div class="player_card__def">
+                                                <div class="listitem_name">Aron Ramsey</div>
+                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                                            </div>
+                                            <div class="player_card__sub">
+                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
+                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
+                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="triangle_top"></div>
+                        <div class="triangle_bottom"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_position"><div>F</div></div>
+                                <div class="listitem_rating"><div>+2</div></div>
+                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
+                                        <div class="player_card_list__table">
+                                            <div class="player_card__def">
+                                                <div class="listitem_name">Aron Ramsey</div>
+                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
+                                            </div>
+                                            <div class="player_card__sub">
+                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
+                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
+                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO CARD</span></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO CARD</span></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO CARD</span></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO CARD</span></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO CARD</span></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="group_skill tabDiv hide">
+                <ul id="skill_list" class="player_card_list" data-role="listview">
+                    <li>
+                        <div class="triangle_right"></div>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="listitem_skill"><div class="skill_box skill_02"></div></div>
+                                <div class="player_card_list__box-info2">
+                                    <div class="skill_info">
+                                        <div class="listitem_name">GREATE PUNCHING lev. C</div>
+                                        <div class="listitem_level">FW / MF / DF / GK</div>
+                                        <div class="listitem_bonus">Goalkeepr save bonus +300</div>
+                                        <div class="listitem_count"><div>4</div></div>
+                                        
+                                    </div>
+                                </div>            
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="player_card_list__box">
+                            <div class="player_card_list__box-retlative">
+                                <div class="empty_slot"><span>NO SKILL</span></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+    </div>
+
+</div>
+
+
+

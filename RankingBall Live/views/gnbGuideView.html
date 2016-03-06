@@ -1,13 +1,15 @@
 <div
     id="gnb_guide"
     data-role="view" 
-    data-title="게임방법" 
+    data-title="GUIDE" 
     data-layout="main"
-    data-transition="slide">
+    data-transition="slide"
+    data-model="app.Hambugerz"
+    data-init="app.Hambugerz.gnbDefInit">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#mv_profile" data-transition="slide:right">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -18,20 +20,97 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
-                    </span>    
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="contents-view">
-        <ul id="gnbGuide" class="inboxList">
-
-        </ul>
-    
+    <div class="gnb_contents">
+        <div class="guide_list">
+            <h3>Fantasy Premier League</h3>
+            <div data-role="collapsible" data-icon-postion="left">
+                <h4>CONTEST RULES</h4>
+                <div class="collapsed_div">
+                    <ul>
+                        <li>In each contest, participants will be assigned a fixed salary cap of $35,000 that they can use to draft their 8-player roster.</li>
+                        <li>The Player Pool will consist of all league players expected to be playing on a given game day. Any missing players will not be added to the pool once fantasy football live starts offering contests for that day. Player salaries will also not change once fantasy football live starts offering contests for that day.</li>
+                        <li>Contest results and winners will be based on the total points scored across each entrant's 8-player roster (scoring summarized below).</li>
+                        <li>Participation in each contest must be made only as specified in the Terms of Use. Failure to comply with these Terms of Use will result in disqualification and, if applicable, prize forfeiture.</li>
+                    </ul>
+                </div>
+            </div>
+            <div data-role="collapsible" data-icon-postion="left">
+                <h4>TEAM ROSTERS</h4>
+                <div class="collapsed_div">
+                    <ul>
+                        <li>Rosters will consist of 8 players and must include players from at least 2 different teams.</li>
+                        <li>The 8 roster positions are: GK, DF, DF, MF, MF, FW, FW, FREE (any non-goalie)</li>
+                    </ul> 
+                </div>
+            </div>
+            <div data-role="collapsible" data-icon-postion="left">
+                <h4>POINT SCORING</h4>
+                <div class="collapsed_div">
+                    <ul>
+                        <li>Players will accumulate points as follows:
+                            <ol>
+                                <li>Goal = +1,000 PTs</li>
+                                <li>Assist = +600 PTs</li>
+                                <li>Shot = +100 PTs</li>
+                                <li>Shot on Goal = +100 PTs</li>
+                                <li>Crosses = +50 PTs (via corner kick, open play, and set pieces)</li>
+                                <li>Fouls Conceded = -100 PTs</li>
+                                <li>Yellow Card = -100 PTs</li>
+                                <li>Red Card = -100 PTs</li>
+                                <li>Saves (GK) = +300 PTs</li>
+                                <li>Clean Sheet = +200 PTs</li>
+                                <li>Goal Allowed = -200 PTs</li>
+                                <li>Win = +500 PTs</li>
+                            </ol>
+                        </li>
+                    </ul> 
+                </div>
+            </div>
+        </div>
+        <div class="guide_list">
+            <h3>Realtime Challenge</h3>
+            <div data-role="collapsible" data-icon-postion="left">
+                <h4>Real Time Challenge?</h4>
+                <div class="collapsed_div">
+                    Real Time Challenge is a prediction game which team will make shot in upcoming next minute.<br />For example, you expect a shot by team A at 9 minute during a match, you press team A button at 8 minute before it happen.<br />You will get points if the prediction is correct.
+                </div>
+            </div>
+            <div data-role="collapsible" data-icon-postion="left">
+                <h4>How to play</h4>
+                <div class="collapsed_div">
+                    <ol>
+                        <li>Select a team you expect to make a shot next minute. If a team is selected between 8’00’’ and 8’59’’ in a match, it means that your targeted time is from 9’00’’ to 9’59’’.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_001.png" /></li>
+                        <li>Each attempt consumes a Challenge Ball which is recharged every 3 minutes. Challenge Balls are recharged no more than 3.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_002.png" class="piece" /></li>
+                        <li>
+                            Wait result. Your attempt time and team are displayed on screen. 
+                            <br /><img src="http://scv.rankingball.com/asset/fragments/htp_003.png" />
+                            <br /><span class="sub_list">① Selected team</span>
+                            <br /><span class="sub_list">② Targeted time</span>
+                            <br /><span class="sub_list">③ Cool down till next attempt</span>
+                        </li>
+                        <li>4. If your attempt was successful, you would obtain points by situation: 
+                            <br /><span class="sub_list">Goal</span> <span class="point">(+5)</span>
+                            <br /><span class="sub_list">Shot on target</span> <span class="point">(+3)</span>
+                            <br /><span class="sub_list">Shot off target</span> <span class="point">(+1)</span>
+                        </li>
+                        <li>5. Fill up 10 points and get a reward.<br /><img src="http://scv.rankingball.com/asset/fragments/htp_004.png" class="piece" /></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

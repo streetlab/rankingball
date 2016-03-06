@@ -462,7 +462,8 @@ app.Entry = (function () {
             var data = e.button.data();
             app.mobileApp.showLoading();
             setTimeout(function() {
-                var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
+                //var url = 'views/entryPlayerzView.html?pos=' + data.rel + "&slot=" + data.slot;
+                var url = 'views/entryzCVu.html?pos=' + data.rel + "&slot=" + data.slot;
                 app.mobileApp.navigate(url,'slide');    
             }, 500);
 

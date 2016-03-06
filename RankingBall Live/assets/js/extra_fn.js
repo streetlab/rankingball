@@ -15,12 +15,13 @@ contestPartList['cf'] = "";
 contestPartList['c5'] = "";
 contestPartList['cg'] = "";
 
-
-
 var contestMyPartList = [];
 contestMyPartList['cf'] = "";
 contestMyPartList['c5'] = "";
 contestMyPartList['cg'] = "";
+
+var featuredList = [];
+var rtWeekList = [];
 
 var myGames = "";
 var myEntryByContest = {}; // 엔트리별 선수 등록 정보
@@ -112,6 +113,7 @@ var initAppService = {
                                 
                 if (response.code === 0) {
                     var inits = response.data;
+                    console.log(response);
                     init_data = {
                         status: inits.serviceStatus,
                         apps: inits.APPS,
@@ -217,6 +219,7 @@ var initAppService = {
 
                },
                error: function(e) {
+                   var that = this;
                     ++globalRequestTry;
                     if(globalRequestTry > 3) {
                         app.showAlert($.langScript[laf]['noti_020'],'Notice',function() {

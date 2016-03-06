@@ -3,10 +3,11 @@ var app = (function (win) {
     'use strict';
     
     // Remote Server Used
+
+    //document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/rankingball.js?'" + timeInMs + "><"+"/script>");
+    
     var timeInMs = Date.now();
     document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/lang.js?'" + timeInMs + "><"+"/script>");
-    //document.write("<script type='text/javascript' src='http://scv.rankingball.com/asset/js/rankingball.js?'" + timeInMs + "><"+"/script>");
-
     
     // Global error handling
     var showAlert = function(message, title, callback) {
@@ -95,9 +96,10 @@ var app = (function (win) {
     
     
     var onDeviceReady = function() {
-        //StatusBar.overlaysWebView(false);        
+        //StatusBar.overlaysWebView(false); 
+        //console.log($.langScript);
         navigator.splashscreen.show();
-        
+        //console.log(JSON.stringify(navigator));
         var locLang = getlocalStorage('lang');
         if( locLang && locLang !== 'undefined' ) {
             laf = locLang;
@@ -129,9 +131,10 @@ var app = (function (win) {
         }, 2000);
         */
 
+        // Handle off-line event
+        document.addEventListener("offline", onOffline, false);
         // Handle "backbutton" event
         document.addEventListener('backbutton', onBackKeyDown, false);
-        document.addEventListener("offline", onOffline, false);
                
     };
 

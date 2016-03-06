@@ -1,0 +1,892 @@
+/* CARD */
+/* For Entry List */
+
+ul.player_card_list {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 5px 5px 0 5px;
+}
+ul.player_card_list.km-list>li {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    margin-bottom: 5px;
+    padding: 0;
+    
+    font-size: 11px;
+    color: #9b9b9b;
+    background: #fff;
+    border-radius: 0;
+    border-width: 0;
+    border-style: none;
+    box-shadow: none;
+}
+ul.player_card_list .player_card_list__box {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-retlative {
+    position: relative;
+    width: 100%;
+    height: 60px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info {
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    right: 40px;
+    z-index: 9;
+    padding-left: 95px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 {
+    /* CLUB HOUSE */
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    padding-left: 60px;
+}
+ul.player_card_list .player_card_list__box .listitem_position {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    top: 0;
+    left: 0;
+    z-index: 8;
+}
+ul.player_card_list .player_card_list__box .listitem_position > div {
+    width: 18px;
+    margin-top: 3px;
+    text-align: center;
+    font-family: "nanumgothic-bold";
+    color: #fff;
+}
+
+ul.player_card_list .player_card_list__box .listitem_rating {
+    position: absolute;
+    width: 25px;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    z-index: 8;
+}
+ul.player_card_list .player_card_list__box .listitem_rating > div {
+    width: 18px;
+    margin-top: 17px;
+    text-align: center;
+    font-family: "nanumgothic-bold";
+    color: #fff;
+}
+
+ul.player_card_list .player_card_list__box .listitem_btns {
+    position: absolute;
+    z-index: 11;
+    width: 35px;
+    height: 60px;
+    top: 0px;
+    right: 0;
+}
+ul.player_card_list .player_card_list__box .listitem_btns a {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+ul.player_card_list .player_card_list__box .listitem_btns img {
+    width: 25px;
+    height: 25px;
+    margin-top: 15px;
+}
+
+ul.player_card_list .player_card_list__box .amblem__pos {
+    width: 30px;
+    height: 60px;
+    margin-left:20px;
+}
+
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info a {
+    width: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__def {
+    width: 100%;
+    height: 18px;
+    margin-top: 10px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__def .listitem_name {
+    float: left;
+    text-align: left;
+    font-family: "nanumgothic-bold";
+    font-size: 12px;
+    color: #3c3c3c;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__def .listitem_star {
+    float: right;
+    min-width: 90px;
+    max-width: 90px;
+    text-align: left;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__def .listitem_star2 {
+    /* CLUB HOUSE */
+    float: right;
+    min-width: 90px;
+    max-width: 90px;
+    margin-right: 10px;
+    text-align: left;
+    line-height: 18px;
+}
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__def .listitem_star span {
+    display: inline-block;
+    width:14px;
+    height: 14px;
+    margin-left: 1px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__sub {
+    clear: both;
+    display: table;
+    width: 100%;
+    height: 18px;
+    margin-top: 4px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__sub .player_card__sub-color {
+    display: table-cell;
+    color: #9b9b9b;
+    font-size: 11px;
+    text-align: left;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__sub .player_card__sub-color span {
+    color: #3c3c3c;
+}
+
+.triangle_top {
+    width: 0;
+    height: 0;
+    border-top: 30px solid #c1c1c1;
+    border-right: 30px solid transparent;
+}
+.triangle_right {
+    position: absolute;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 30px solid #c1c1c1;
+    border-left: 30px solid transparent;
+}
+.triangle_bottom {
+    width: 0;
+    height: 0;
+    border-bottom: 30px solid #c1c1c1;
+    border-right: 30px solid transparent;
+}
+
+
+
+/* CARD Detail */
+
+#moadlCardInfo .km-content {
+    padding: 0 5px;
+    background-color: #d0d0d0;
+}
+#moadlCardInfo .km-header {
+    border-radius: 8px 8px 0 0;
+    background-color: #d0d0d0;
+}
+#moadlCardInfo .km-view-title {
+    font-size: 16px;
+    line-height: 45px;
+}
+#moadlCardInfo .km-navbar {
+    height: 44px;
+    border: 0;
+    background: rgba(0,0,0,0);
+}
+#moadlCardInfo .km-footer {
+    height: 45px;
+    padding: 5px;
+    border-radius: 0 0 8px 8px;
+    background-color: #d0d0d0;
+}
+#moadlCardInfo a.close_modal_win {
+    width: 24px;
+    height: 24px;
+    background: url(../resource/rts_modals/btn_close.png) 0 center no-repeat;
+    background-size: 100%;
+}
+
+#moadlCardInfo .card_face {
+    position: relative;
+    width: 280px;
+    height: 137px;
+    margin: 0 auto;
+}
+#moadlCardInfo .card_face .card_face__amblem {
+    position: absolute;
+    width: 80px;
+    height: 100%;
+    top: 0;
+    right: 10px;
+    z-index: 3;
+}
+#moadlCardInfo .card_face .card_face__amblem .card_face__amblem-bg {
+    width: 75px;
+    height: 100%;
+    margin: 0 auto;
+}
+#moadlCardInfo .card_face .card_face__featured {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    z-index: 3;
+}
+#moadlCardInfo .card_face .card_face__featured ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+#moadlCardInfo .card_face .card_face__featured li {
+    font-size: 10px;
+    line-height: 16px;
+}
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv {
+}
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_off.png) 0 center no-repeat;
+    background-size: contain;
+}
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv span.star-on {
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+#moadlCardInfo .card_face .card_face__rating-num {
+    position: absolute;
+    bottom: 14px;
+    left: 165px;
+    z-index: 4;
+    font-family: "nanumgothic-bold";
+    font-size: 26px;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #414141;
+}
+
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-item.card_player_name {
+    font-family: "nanumgothic-bold";
+    font-size: 12px;
+    color: #3c3c3c;
+}
+
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills {
+}
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills .card_skill_box {
+    display: table;
+    width: 84px;
+}
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills .card_skill_box > div {
+    display: table-cell;
+    width: 22px;
+    height: 22px;
+    background-color: #898989;
+}
+
+#moadlCardInfo .card_face .card_face__featured li.card_face__featured-amount {
+
+}
+
+#moadlCardInfo .card_face .card_face__activity {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 11px;
+    left: 142px;
+    z-index: 5;
+    padding: 2px;
+}
+#moadlCardInfo .card_face .card_face__activity a {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/club/btn_card_plus.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+#moadlCardInfo .card_face .card_face__body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: url(../resource/club/card_02_01_bg.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+
+#moadlCardInfo .card_face .card_face__body.max_rating {
+    background: url(../resource/club/card_02_01_bg_gold.png) 0 0 no-repeat;
+    background-size: 100%;
+}
+#moadlCardInfo .card_face__body-end {
+    position: absolute;
+    width: 276px;
+    height: 133px;
+    top: 2px;
+    left: 2px;
+    border-radius: 10px;
+}
+
+#moadlCardInfo .card_fnc {
+    display: table;
+    width: 100%;
+    height: 35px;
+}
+#moadlCardInfo .card_fnc .card_fnc__btns {
+    display: table-cell;
+}
+#moadlCardInfo .card_fnc .card_fnc__btns.btn_def {
+    width: 90px;
+    height: 35px;
+}
+#moadlCardInfo .card_fnc .card_fnc__btns.btn_center {
+    width: 100px;
+    height: 35px;
+    padding: 0 5px;
+}
+#moadlCardInfo .card_fnc a {
+    width: 100%;
+    height: 100%;
+}
+#moadlCardInfo .card_fnc .card_btn__act {
+    width: 100%;
+    height: 100%;
+    padding-top: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: "nanumgothic-bold";
+    font-size: 13px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #b50019;
+}
+
+
+.bg_by_rating__0 {
+    background-color: #cecece;
+}
+.bg_by_rating__1 {
+    background-color: #fff;
+}
+.bg_by_rating__2 {
+    background-color: #2e42a6;
+}
+.bg_by_rating__3 {
+    background-color: #116b3c;
+}
+.bg_by_rating__4 {
+    background-color: #731871;
+}
+.bg_by_rating__5 {
+    background-color: #ed6322;
+}
+.bg_by_rating__6 {
+    background-color: #e5e1bb;
+}
+
+
+#moadlCardInfo .tapstrip-group {
+    display: table;
+    width: 280px;
+    margin: 0 auto;
+    background-color: #d0d0d0;
+}
+#moadlCardInfo .tapstrip-group .tabstrip-moz {
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    text-align: center;
+    border-bottom: #d0d0d0;
+}
+#moadlCardInfo .tapstrip-group .tabstrip-moz.ts {
+    border-bottom: 2px solid #f26522;
+}
+#moadlCardInfo .tapstrip-group .tabstrip-moz a {
+    padding: .6em 0 .4em 0;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: "nanumgothic-bold";
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+    color: #9b9b9b;
+}
+#moadlCardInfo .tapstrip-group .tabstrip-moz.ts a {
+    color: #3c3c3c;
+}
+
+.card_box {
+    height: 100%;
+    background-color: #d0d0d0;
+}
+.card_box .card_box__scroller {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.card_box .card_box__body h4 {
+    display: block;
+    font-size: 11px;
+    font-weight: normal;
+    color: #3c3c3c;
+    margin: 0;
+    padding: 10px 0 5px 10px;
+}
+.card_box .card_box__body table {
+    width: 100%;
+}
+.card_box .card_box__body th {
+    font-weight: normal;
+    font-size: 10px;
+    color: #fff;
+    background-color: #8c8c8c;
+    padding: 5px 0;
+    text-align: center;
+}
+.card_box .card_box__body td {
+    font-size: 10px;
+    color: #3c3c3c;
+    padding: 5px 0;
+    text-align: center;
+    background-color: #e9e9e9;
+}
+.card_box .likeH4 {
+    padding-left: 10px;
+    text-align: left;
+}
+.card_box .card_skill__info {
+    width: 100%;
+    min-height: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+}
+.card_box .card_skill__info .card_skill__info-item {
+    float: left;
+    font-size: 11px;
+    font-weight: 900;
+    color: #3c3c3c;
+}
+.card_box .card_skill__info .card_skill__info-rate {
+    float: right;
+    font-size: 11px;
+    font-weight: 900;
+    color: #f26522;
+}
+
+
+.card_tapstrip_groups {
+    display: table;
+    width: 100%;
+    background: #3c3c3c;
+}
+.card_tapstrip_groups .card_tab_main {
+    display: table-cell;
+    width: 50%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    border-bottom: 2px solid #3c3c3c;
+}
+.card_tapstrip_groups .card_tab_main a
+{
+    padding: .6em 0 .4em 0;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #9b9b9b;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+.card_tapstrip_groups .card_tab_main.ts
+{
+    border-bottom: 2px solid #8ccc3e;
+}
+.card_tapstrip_groups .card_tab_main.ts a {
+    color: #fff;   
+}
+.card_tapstrip_groups .card_tab_sub {
+    display: table-cell;
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #2a2a2a;
+}
+.card_tapstrip_groups .card_tab_sub a
+{
+    padding: .6em 0 .4em 0;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9b9b9b;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+.card_tapstrip_groups .card_tab_sub.ts
+{
+    border-bottom: 2px solid #8ccc3e;
+}
+.card_tapstrip_groups .card_tab_sub.ts a {
+    color: #fff;   
+}
+
+.card_tapstrip_groups .card_tab_skill {
+    display: table-cell;
+    width: 20%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #2a2a2a;
+}
+.card_tapstrip_groups .card_tab_skill a
+{
+    padding: .6em 0 .4em 0;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9b9b9b;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+.card_tapstrip_groups .card_tab_skill.ts
+{
+    border-bottom: 2px solid #8ccc3e;
+}
+.card_tapstrip_groups .card_tab_skill.ts a {
+    color: #fff;   
+}
+
+.card_tapstrip_groups .card_apps__length {
+    display: table-cell;
+    width: 55px;
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+    color: #fff;
+    text-align: center;
+}
+.card_tapstrip_groups .card_apps__order {
+    display: table-cell;
+    width: 80px;
+    margin: 0;
+    padding: 0;
+}
+.card_tapstrip_groups .card_apps__search {
+    display: table-cell;
+    margin: 0;
+    padding: 4px 0;
+    font-size: 10px;
+}
+.card_tapstrip_groups .card_apps__search .search_table {
+    display: table;
+    width: 100%;
+    border: 1px solid #fff;
+    border-radius: 3px;
+}
+.card_tapstrip_groups .card_apps__search .search_table .search_table__input {
+    display: table-cell;
+}
+.card_tapstrip_groups .card_apps__search .search_table .search_table__btn {
+    display: table-cell;
+    width: 36px;
+    vertical-align: middle;
+    background-color: #fff;
+}
+.card_tapstrip_groups .card_apps__search .search_table .search_table__btn a {
+    margin: 0;
+    padding: 0;
+}
+.card_tapstrip_groups .card_apps__search input {
+    width: 100%;
+    padding: 4px 3px;
+    border: 0;
+}
+.card_tapstrip_groups .card_apps__search .search_box {
+    width: 36px;
+    height: 100%;
+    border-radius: 3px;
+    background-color: #3c3c3c;
+    line-height: 23px;
+    text-indent: 999999px;
+    background: #3c3c3c url(../resource/common/btn_search.png) center center no-repeat;
+    background-size: 17px;
+}
+.card_tapstrip_groups .salarycap-box-moz-vw {
+    font-size: 12px;
+    text-align: right;
+    padding-right: .8em;
+    color: #3180a4;
+}
+.card_tapstrip_groups .salarycap-box-moz-vw a {
+    color: #3180a4;
+}
+.card_tapstrip_groups .salarycap-box-moz-vw span.bg-box {
+    display: inline-block;
+    text-indent: -99999px;
+    width: 12px;
+    height: 8px;
+}
+.card_tapstrip_groups .salarycap-box-moz-vw span.bg-box.ic-triangle-n-on {
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+}
+.card_tapstrip_groups.salarycap-box-moz-vw span.bg-box.ic-triangle-n {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;   
+}
+.card_tapstrip_groups .salarycap-box-moz-vw span.bg-box.ic-triangle-n-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+}
+.card_tapstrip_groups .salarycap-box-moz-vw span.bg-box.ic-triangle-s {
+    background: url(../resource/ic_triangle_off.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+.card_tapstrip_groups .salarycap-box-moz-vw span.bg-box.ic-triangle-s-on
+{
+    background: url(../resource/ic_triangle_on.png) 0 center no-repeat;
+    background-size: 12px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+}
+
+
+
+
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 a {
+    width: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def {
+    width: 100%;
+    height: 18px;
+    margin-top: 10px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_name {
+    float: left;
+    text-align: left;
+    font-family: "nanumgothic-bold";
+    font-size: 12px;
+    color: #3c3c3c;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_star {
+    /* CLUB HOUSE */
+    float: right;
+    min-width: 90px;
+    max-width: 90px;
+    margin-right: 10px;
+    text-align: left;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_star span {
+    display: inline-block;
+    width:14px;
+    height: 14px;
+    margin-left: 1px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+ul.player_card_list .player_card_list__box .player_card_list__box-retlative .listitem_skill {
+    width: 60px;
+    height: 60px;
+    padding: 5px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-retlative .listitem_skill .skill_box {
+    width: 100%;
+    height: 100%;
+}
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info {
+      margin-top: 10px;
+}
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info .listitem_name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #3c3c3c;
+    line-height: 13px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info .listitem_level {
+    font-size: 10px;
+    color: #8ccc3e;
+    line-height: 14px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info .listitem_bonus {
+    font-size: 11px;
+    color: #489fc7;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info .listitem_count {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .skill_info .listitem_count > div {
+    color: #3c3c3c;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub {
+    clear: both;
+    display: table;
+    width: 100%;
+    height: 18px;
+    margin-top: 4px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub .player_card__sub-color {
+    display: table-cell;
+    color: #9b9b9b;
+    font-size: 11px;
+    text-align: left;
+    line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub .player_card__sub-color span {
+    color: #3c3c3c;
+}
+
+.empty_slot {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    background: url(../resource/common/no_card_bg.png) 0 center no-repeat;
+    background-size: cover;
+}
+.empty_slot span {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    color: #e9e9e9;
+    border-top: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9;
+    line-height: 62px;
+}
+
+
+/* Skill Box */
+.skill_02 {
+    background: url(../resource/skill/blue_gem_002.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+/* Amblems */
+
+.amblem__8678 {
+    background: url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_7007384.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__9850 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_342012.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__10261 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4873.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8197 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4876.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8650 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4878.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8456 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4861.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__10260 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4862.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8466 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4869.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8472 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4864.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__10003 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_5615021.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__10194 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_1265333.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__9825 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4871.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__10252 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4879.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8668 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4867.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__9817 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_758242.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8659 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_94356.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8654 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4865.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8455 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_4870.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__9826 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_342002.png) 0 center no-repeat;
+    background-size: contain;
+}
+.amblem__8586 {
+    background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_5187.png) 0 center no-repeat;
+    background-size: contain;
+}

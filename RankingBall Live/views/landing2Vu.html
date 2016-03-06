@@ -1,0 +1,227 @@
+<div 
+    id="landing-menu2" 
+    data-role="view"
+    data-model="app.ObjControl"
+    data-init="app.ObjControl.init"
+    data-show="app.ObjControl.decoVu"
+    data-layout="main" 
+    data-stretch="true">
+    
+    <div class="landing_box">
+        <div class="custom_navbar custom_box_deco">
+            <div class="navbar_title title_deco">FANTASY FOOTBALL LIVE</div>
+        </div>
+        
+        <div class="custom_body">
+            <div class="main_boxs custom_box_shadow">
+                <div id="touchDFS" data-bind="click: clickMenuBox" class="main_box_deco box_with_dfs ">
+                    <div id="box-touchDFS" class="main_box__touch"></div>
+                    <div class="main_box__contents">
+                        <h3>2015-16 Fantasy Premier League</h3>
+                        <div class="box_slider">
+                            <div id='dfsSlider' class='swipe'>
+                                <div id="dfsSliderList" class='swipe-wrap'>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swipe_control swipe_btn_left hide"><a data-role="button" data-rel="prev" data-click="app.ObjControl.dfsSwipe"><div class="btn_arrow_left"></div></a></div>
+                <div class="swipe_control swipe_btn_right hide"><a data-role="button" data-rel="next" data-click="app.ObjControl.dfsSwipe"><div class="btn_arrow_right"></div></a></div>
+            </div>
+            <div class="main_boxs custom_box_shadow">
+                <div id="touchRT" data-bind="click: clickMenuBox" class="main_box_deco box_with_rt">
+                    <div id="box-touchRT" class="main_box__touch"></div>
+                    <div class="main_box__contents">
+                        <h3>REAL TIME<br />CHALLENGE</h3>
+                        <div id="rtScheduler" class="scheduler">
+                            <div class="scheduler__datetime">
+                                <span class="scheduler__datetime-date">02.23</span> <span class="scheduler__datetime-time">23:45</span>
+                            </div>
+                            <div class="scheduler__teams">
+                                <div class="scheduler__team-amblem amblem__8678"></div>
+                                <div class="scheduler__team-vs">VS</div>
+                                <div class="scheduler__team-amblem amblem__9850"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main_boxs custom_box_shadow">
+                <div id="touchCH" data-bind="click: clickMenuBox" class="main_box_deco box_with_clubhouse">
+                    <div id="box-touchCH" class="main_box__touch"></div>
+                    <div class="main_box__contents">
+                        <h3>CLUB HOUSE</h3>
+                        <div class="player_card">
+                            <div id="player_card__001" class="player_card__box">
+                                <ul>
+                                    <li class="player_name">Aaron Ramsey</li>
+                                    <li>Aresnal FC(MF)</li>
+                                    <li>19.00 FPPG</li>
+                                    <li>
+                                        <table cellpading="0" cellspacing="0">
+                                            <tr>
+                                                <td>G</td>
+                                                <td>GA</td>
+                                                <td>SHO</td>
+                                                <td>SOG</td>
+                                                <td>CR</td>
+                                                <td>SAV</td>
+                                                <td>SAVCK</td>
+                                                <td>FC</td>
+                                                <td>FS</td>
+                                                <td>YC</td>
+                                                <td>RC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>12</td>
+                                                <td>05</td>
+                                                <td>08</td>
+                                                <td>02</td>
+                                                <td>07</td>
+                                                <td>00</td>
+                                                <td>00</td>
+                                                <td>10</td>
+                                                <td>15</td>
+                                                <td>00</td>
+                                                <td>02</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="player_card__002" class="player_card__box hide">
+                                <ul>
+                                    <li class="player_name">Harry Edward Kane</li>
+                                    <li>Tottenham Hotspur(FW)</li>
+                                    <li>21.15 FPPG</li>
+                                    <li>
+                                        <table cellpading="0" cellspacing="0">
+                                            <tr>
+                                                <td>G</td>
+                                                <td>GA</td>
+                                                <td>SHO</td>
+                                                <td>SOG</td>
+                                                <td>CR</td>
+                                                <td>SAV</td>
+                                                <td>SAVCK</td>
+                                                <td>FC</td>
+                                                <td>FS</td>
+                                                <td>YC</td>
+                                                <td>RC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>21</td>
+                                                <td>12</td>
+                                                <td>05</td>
+                                                <td>09</td>
+                                                <td>11</td>
+                                                <td>00</td>
+                                                <td>00</td>
+                                                <td>21</td>
+                                                <td>15</td>
+                                                <td>10</td>
+                                                <td>05</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div id="player_card__003" class="player_card__box hide">
+                                <ul>
+                                    <li class="player_name">David de Gea</li>
+                                    <li>Manchester United(GK)</li>
+                                    <li>23.09 FPPG</li>
+                                    <li>
+                                        <table cellpading="0" cellspacing="0">
+                                            <tr>
+                                                <td>G</td>
+                                                <td>GA</td>
+                                                <td>SHO</td>
+                                                <td>SOG</td>
+                                                <td>CR</td>
+                                                <td>SAV</td>
+                                                <td>SAVCK</td>
+                                                <td>FC</td>
+                                                <td>FS</td>
+                                                <td>YC</td>
+                                                <td>RC</td>
+                                            </tr>
+                                            <tr>
+                                                <td>21</td>
+                                                <td>18</td>
+                                                <td>12</td>
+                                                <td>07</td>
+                                                <td>05</td>
+                                                <td>09</td>
+                                                <td>12</td>
+                                                <td>08</td>
+                                                <td>04</td>
+                                                <td>11</td>
+                                                <td>02</td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="player_vu">
+                            <div id="player_card__bg" class="player_vu__slot with_player_bg_001"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="static_menus">
+            <div class="static_menus__boxs">
+                <div class="static_menus__box box_lr_padding">
+                    <div id="box-touchRNK" class="menu_box_deco">
+                        <a data-role="button" data-rel="touchRNK" data-click="app.ObjControl.clickStaticMenuBox">
+                            <div class="box_btn with_ranking"></div>
+                            <div class="box_str">RANKING</div>
+                        </a>
+                    </div>
+                    <div class="menu_box_deco-shadow">
+                        <div class="menu_box_deco-shadowon"></div>
+                    </div>
+                </div>
+                <div class="static_menus__box box_lr_padding">
+                    <div id="box-touchRC" class="menu_box_deco">
+                        <a data-role="button" data-rel="touchRC" data-click="app.ObjControl.clickStaticMenuBox">
+                            <div class="box_btn with_record"></div>
+                            <div class="box_str">RECORD</div>
+                        </a>
+                    </div>
+                    <div class="menu_box_deco-shadow">
+                        <div class="menu_box_deco-shadowon"></div>
+                    </div>
+                </div>
+                <div class="static_menus__box box_lr_padding">
+                    <div id="box-touchPF" class="menu_box_deco">
+                        <a data-role="button" data-rel="touchPF" data-click="app.ObjControl.clickStaticMenuBox">
+                            <div class="box_btn with_profile"></div>
+                            <div class="box_str">PROFILE</div>
+                        </a>
+                    </div>
+                    <div class="menu_box_deco-shadow">
+                        <div class="menu_box_deco-shadowon"></div>
+                    </div>
+                </div>
+                <div class="static_menus__box box_lr_padding">
+                    <div id="box-touchSO" class="menu_box_deco">
+                        <a data-role="button" data-rel="touchSO" data-click="app.ObjControl.clickStaticMenuBox">
+                            <div class="box_btn with_shop"></div>
+                            <div class="box_str">SHOP</div>
+                        </a>
+                    </div>
+                    <div class="menu_box_deco-shadow">
+                        <div class="menu_box_deco-shadowon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

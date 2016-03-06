@@ -5,7 +5,7 @@
   "AppIdentifier": "com.stlb.ffl",
   "DisplayName": "Fantasy Football Live",
   "Author": "streetlab",
-  "Description": "DFS Global Service",
+  "Description": "Fantasy Football Global Service",
   "BundleVersion": "1.1.4",
   "AndroidVersionCode": "114",
   "iOSDeviceFamily": [

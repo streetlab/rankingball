@@ -177,6 +177,11 @@ app.Playerz = (function () {
                 app.showError("잘못된 선수 정보보요청입니다.");
             }
             */
+            $("#moadlCardInfo").data("kendoMobileModalView").open();
+            
+            setTimeout(function() {
+                $("#moadlCardInfo").data("kendoMobileModalView").close();
+            },300000);
         }
 
         function playerAddInfo2(e) {
@@ -1441,6 +1446,15 @@ app.Playerz = (function () {
             }
         }
         
+        
+        /* Modal Close */
+        function closeModal(e)
+        {
+            var data = e.button.data();
+            var element = $('#' + data.rel );
+            element.data("kendoMobileModalView").close();
+        }
+        
         return {
             init: init,
             init4update: init4update,
@@ -1467,7 +1481,8 @@ app.Playerz = (function () {
             tempCheckup: tempCheckup,
             playerSlot: playerSlot,
             playerAddInfo: playerAddInfo,
-            playerAddInfo2: playerAddInfo2
+            playerAddInfo2: playerAddInfo2,
+            closeModaler:closeModal
         };
     }());
 

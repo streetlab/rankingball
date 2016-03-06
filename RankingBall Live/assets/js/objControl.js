@@ -9,70 +9,257 @@ app.ObjControl = (function () {
     var $blocks;
     
     var objModel = (function () {
-         
+        
+        var swiper;
+        var swipe_num = 0;
+        var swipe_position = 0;
+    
+        /* Page Init - Only First time */
         function init() {
             
-            //setTimeout(setMenuAnimate,500);
-            //setMenuAnimate();
+            var dWidth = parseInt($(window).width()) - 10;
+            var dHeight = parseInt($(window).height()) - 148;
+            var vHeight = dHeight / 3;
+            var sWidth = dWidth - 90;
 
-            //setTimeout(setMenuDecoration,700);
-
-            //$('#m_profile').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', setMenuDecoration);
-            
-            $('.animBlock').kendoTouch({
-                tap: handleTouchEvent,
-                touchstart: handleTouchEvent,
-                touchend: handleTouchEvent,
-                doubletap: handleTouchEvent,
-                hold: handleTouchEvent,
-                dragstart: handleTouchEvent,
-                dragend: handleTouchEvent
-            });
+            $('.main_boxs').width(dWidth).height(vHeight);
+            $('.swipe_box').width(sWidth);
         }
-     
-        function setMenuAnimate() {
-            $blocks = $('.animBlocks.notViewed');
-            $blocks.each(function(i, elem) {
-                if( $(this).hasClass('notViewed') ) {
-                    //$(this).addClass('animated bounceOutLeft');
+        
+        /* Page Init - When Page display */
+        function initShow()
+        {
+            setTimeout(function() {
+                console.log("Landing View initializing");
+                fncRenderMain.init();
+            }, 500);
+        }
+        
+        /* Contents Display & Animation Control */
+        var fncRenderMain = {
+            _loopRTScheduler: "",
+            _loopRTIndex: 0,
+            _rtCount: 0,
+            _loopCHScheduler: "",
+            _clubHouseCount: 1,
+            init: function() {
+                var that = this;
+                that.updateDFS();
+                that.updateRT();
+                that.updateCH();
+                //console.log(featuredList);
+                //console.log(rtWeekList);
+            },
+            updateDFS: function()
+            {
+                console.log(featuredList);
+                var fList = Object.keys(featuredList).length;
+                if(fList > 0) {
+                    swipe_num = fList - 1;
+                    var dfsHtml = "";
+                    $('#dfsSliderList').empty();
+                    for(var i=0;i<fList;i++) {
+                        dfsHtml = '<div class="swipe_boxs"><div class="swipe_box">' +
+                                    '<div class="swipe_box__title">' + featuredList[i].contestName + '</div>' +
+                                    '<div class="hr"></div><div class="swipe_box__summary">' +
+                                    '<div class="swipe_box__summary-item">Entries<span>' + featuredList[i].totalEntry + '/' + featuredList[i].maxEntry + '</span></div>' +
+                                    '<div class="swipe_box__summary-item">Entryfee<span>' + featuredList[i].entryFee + 'G</span></div>' +
+                                    '<div class="swipe_box__summary-item">Prizes<span>' + featuredList[i].totalReward + 'G</span></div>' +
+                                    '<div class="swipe_box__summary-item">Start<span>' + featuredList[i].timeRew + '</span></div>' +
+                                    '</div></div></div>';
+                        $('#dfsSliderList').append(dfsHtml);
+                    }
+                    
+                    
+                    $('.swipe_control').removeClass('hide');
+                    swiper = new Swipe(document.getElementById('dfsSlider'), 
+                    {
+                        startSlide: 0,
+                        speed: 400,
+                        auto: 5000,
+                        continuous: true,
+                        disableScroll: false,
+                        stopPropagation: true,
+                        callback: function(index, elem) {},
+                        transitionEnd: function(index, elem) {
+                            swipe_position = index;
+                        }
+                    });
                 }
-                //isScrolledIntoView($(this));
-                //setTimeout(isScrolledIntoView($(this)),1500);
-            });
-        }
-        
-        function setMenuDecoration() {
-            var menuGlu = $('.touch-filter');
-            menuGlu.each(function(i, elem) {
-                var deco = '<div class="masker mask_' + $(this).attr('data-rel') + '"></div>';
-                $(this).append(deco);
-            });
-        }
-        
-        function isScrolledIntoView(elem) {
-            //var docViewTop = $(window).scrollTop();
-            //var docViewBottom = docViewTop + $(window).height();
-            //var elemOffset = 0;
-            
-            if(elem.data('offset') !== undefined) {
-                elemOffset = elem.data('offset');
+            },
+            updateRT: function()
+            {
+                var that = this;
+                that._rtCount = Object.keys(rtWeekList).length;
+                if(that._rtCount > 0) {
+                    if(!that._loopRTScheduler) {
+                        that._loopRTScheduler = setInterval(function() {
+                            //console.log("rt loop count : " + that._loopRTIndex);
+                            that.rtCycle();
+                        }, 5000);
+                    }
+                }
+            },
+            rtCycle: function()
+            {
+                var that = this;
+                var rtHtml = '<div class="scheduler__datetime"><span class="scheduler__datetime-date">' + rtWeekList[that._loopRTIndex].game_sd + '</span> ' +
+                             '<span class="scheduler__datetime-time">' + rtWeekList[that._loopRTIndex].game_sh + '</span></div><div class="scheduler__teams">' +
+                             '<div class="scheduler__team-amblem amblem__' + rtWeekList[that._loopRTIndex].home_code + '"></div><div class="scheduler__team-vs">VS</div>' +
+                             '<div class="scheduler__team-amblem amblem__' + rtWeekList[that._loopRTIndex].away_code + '"></div></div>';
+                
+                $('#rtScheduler').fadeOut(1500, function() {
+                    $(this).html(rtHtml).fadeIn(2000);
+                });
+                
+                that._loopRTIndex++;
+                //console.log(that._loopRTIndex + " : " + that._rtCount);
+                if(that._loopRTIndex >= that._rtCount) {
+                    that._loopRTIndex = 0;
+                }
+            },
+            updateCH: function()
+            {
+                var that = this;
+
+                if(!that._loopCHScheduler) {
+                    that._loopCHScheduler = setInterval(function() {
+                        that.clubCycle();
+                    }, 6000);
+                }
+            },
+            clubCycle: function()
+            {
+                var that = this;
+                
+                var fEl = $('#player_card__00' + that._clubHouseCount);
+                var fBEl = "with_player_bg_00" + that._clubHouseCount;
+                var bEl = $('#player_card__001');
+                var bBEl = "with_player_bg_001";
+                
+                if(parseInt(that._clubHouseCount) < 3) {
+                    bEl = $('#player_card__00' + ( parseInt(that._clubHouseCount) + 1) );
+                    bBEl = "with_player_bg_00" + ( parseInt(that._clubHouseCount) + 1);
+                }
+                
+          
+                fEl.addClass('hide');
+                bEl.removeClass('hide');
+                $('#player_card__bg').removeClass(fBEl).addClass(bBEl);
+
+                
+                that._clubHouseCount += 1;
+                if(that._clubHouseCount > 3) {
+                    that._clubHouseCount = 1;
+                }
+            },
+            clearBar: function() {
+                var that = this;
+                window.clearInterval(that._loopRTScheduler);
+                that._loopRTScheduler = "";
+                window.clearInterval(that._loopCHScheduler);
+                that._loopCHScheduler = "";
+                console.log(swiper);
+                if(swiper !== undefined) {
+                    swiper.stop();
+                    swiper = function(){};
+                    //swiper.kill();                    
+                }
+
+            },
+            objSize: function(obj)
+            {
+                var size = 0, key;
+                for(key in obj) {
+                    if(obj.hasOwnProperty(key)) size++;
+                }
+                return size;
             }
+        };
+        
+        /* Main menu touch effect */
+        var touchNmove = {
+            touchEffect: function(el)
+            {
+                var that = this;
+                $('#box-' + el).addClass('custom_box_touch_events');
+                setTimeout(function() {
+                    that.pageSlide(el);
+                    $('#box-' + el).removeClass('custom_box_touch_events');
+                }, 100);
+            },
+            pageSlide: function(m)
+            {
+                var vu = "";
+                app.mobileApp.showLoading();
+                console.log(m);
+                switch(m) {
+                    case 'touchDFS':
+                        vu = "views/playView.html";
+                        break;
+                    case 'touchRT':
+                        vu = "views/playRTListVu.html";
+                        break;
+                    case 'touchCH':
+                        vu = "views/clubHouseVu.html";
+                        break;
+                    case 'touchRNK':
+                        vu = "views/rankingView.html";
+                        break;
+                    case 'touchRC':
+                        vu = "views/recordView.html";
+                        break;
+                    case 'touchPF':
+                        vu = "views/profileView.html";
+                        break;
+                    case 'touchSO':
+                        vu = "views/shopVu.html";
+                        break;
+                }
+                
+               if( vu === "" ) {
+                    app.showAlert($.langScript[laf]['noti_045'],'Notice');
+                } else {
+                    fncRenderMain.clearBar();
+                    setTimeout(function() {
             
-            $(elem).removeClass('notViewed').addClass('viewed');
+                        app.mobileApp.navigate(vu, 'slide:left');
+                        app.mobileApp.hideLoading();   
+                    },500);
+                }
+            }
+        };
+        
+        /* menu touch effect & move */
+        function clickMenuBox(e)
+        {
+            var element_id = e.currentTarget.id;
+            touchNmove.touchEffect(element_id);
         }
         
-        function handleTouchEvent(e) {
-            
-            var te = e.event.type;
-            var el_id = e.touch.currentTarget.id;
-            if(te === "touchstart") {
-                $('#' + el_id + ' .touch-filter').addClass('box-touch-oh');
+        function clickStaticMenuBox(e)
+        {
+            var data = e.button.data();
+            touchNmove.touchEffect(data.rel);
+        }
+        
+        /* DFS summary list swipe button control  */
+        function dfsSwipe(e) 
+        {
+            var data = e.button.data();
+
+            if(data.rel === "prev") {
+                swipe_position = (swipe_position === 0) ? swipe_num : swipe_position - 1;
             } else {
-                $('#' + el_id).find('.touch-filter').removeClass('box-touch-oh');
+                swipe_position = (swipe_position === swipe_num) ? 0 : swipe_position + 1;
             }
+            swiper.slide(swipe_position, 300);
         }
         
-        function launchPlay() {
+        
+        /* Old version */
+        function launchPlay() 
+        {
            if( uu_data.memSeq === "" ) {
                 app.showAlert($.langScript[laf]['noti_020'],'Notice',function() {
                     navigator.app.exitApp();
@@ -82,30 +269,9 @@ app.ObjControl = (function () {
                 setupPlayerOnLeague();
             }
         }
-        
-        function launchRanking() {
-            app.mobileApp.navigate('views/rankingView.html', 'slide');
-        }
-        
-        function launchRecord() {
-            app.mobileApp.navigate('views/recordView.html', 'slide');
-        }
-        
-        function launchShop() {
-            app.showAlert($.enScript.alert_rtPurchaseBeta, "Notice");
-            //app.mobileApp.navigate('views/shopView.html', 'slide');
-        }
-        
-        function launchProfile() {
-            app.mobileApp.navigate('views/profileView.html', 'slide');
-        }
-        
-        function launchRT() {
-            app.mobileApp.navigate('views/playRTListVu.html', 'slide');
-        }
-
-        
-        function setupPlayerOnLeague() {
+                
+        function setupPlayerOnLeague() 
+        {
             
             var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","position":15,"organ":1}';
             var url = init_data.auth + "?callback=?";
@@ -241,7 +407,7 @@ app.ObjControl = (function () {
              
                         
             setTimeout(function() {
-                app.mobileApp.navigate('views/playView.html', 'slide:left');
+                app.mobileApp.navigate('views/landing2Vu.html', 'slide:left');
                 app.mobileApp.hideLoading();   
             },500);
         }
@@ -396,13 +562,12 @@ app.ObjControl = (function () {
         
         return {
             init: init,
+            decoVu: initShow,
             launchPlay: launchPlay,
-            launchRanking: launchRanking,
-            launchRecord: launchRecord,
-            launchShop: launchShop,
-            launchProfile: launchProfile,
-            launchRT: launchRT,
-            reloadContest: reloadContest
+            reloadContest: reloadContest,
+            dfsSwipe: dfsSwipe,
+            clickMenuBox: clickMenuBox,
+            clickStaticMenuBox: clickStaticMenuBox
         };
     }());
 

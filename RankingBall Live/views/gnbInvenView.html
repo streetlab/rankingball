@@ -1,13 +1,15 @@
 <div
     id="gnb_inven"
     data-role="view" 
-    data-title="보관함" 
+    data-title="INVENTORY" 
     data-layout="main"
-    data-transition="slide">
+    data-transition="slide"
+    data-model="app.Hambugerz"
+    data-init="app.Hambugerz.gnbDefInit">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
-            <a data-role="button" class="drawer-btn" data-align="left" href="#landing-menu" data-transition="slide:right">
+            <a data-role="button" class="drawer-btn" data-align="left" href="#mv_profile" data-transition="slide:right">
                 <img src="./assets/resource/btn_home.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -18,20 +20,52 @@
         
         <div class="property-mini-info">
             <div class="property-box-padding">
-                <div id="my-ruby" class="property-box bg-ruby">
-                    <span id="amount-ruby" class="amount_mini_ruby">0</span>
-                    <span class="proper-add-btn">
-                        <img src="./assets/resource/btn_plus.png">
-                    </span>    
+                <div class="nothing_used">
+                    FANTASY FOOTBALL LIVE
+                </div>
+            </div>
+            
+            <div class="property-box-padding">
+                <div class="property-box bg-ruby">
+                    <span class="amount_mini_ruby">0</span>
+                    <a data-role="button" data-align="right" data-click="app.ObjControl.launchShop"><img src="./assets/resource/btn_plus.png"></a>
                 </div>
             </div>
         </div>
     </div>
     
-    <div class="contents-view">
+    <div class="gnb_contents">
         <ul id="gnbInven" class="inboxList">
-
+            <li>
+                <div class="inboxList-face">
+                    <div class="inboxList-group">
+                        <a data-role="button" data-rel="1001" data-mol="moadl_inven" data-click="app.Hambugerz.modalOpen">
+                            <div class="inboxList-title">You have to win the game</div>
+                            <div class="inboxList-summ"><span></span></div>
+                        </a>
+                    </div>
+                    <div class="inboxList-group wbtn">02.27</div>
+                </div>
+            </li>
         </ul>
     
     </div>
+</div>
+
+
+<div data-role="modalview" id="moadl_inven" data-modal="false" class="gnb_modaless" style="width:100%;height:100%;margin-left:1px;padding:0;border:0;">
+    <div data-role="header">
+        <div data-role="navbar">
+            INVENTORY
+            <a data-align="right" data-role="button" data-rel="moadl_inven" data-click="app.Hambugerz.modalClose" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="guide_box">
+        <div class="guide_box__body">
+            <div class="guide_box__scroller">
+    
+            </div>
+        </div>
+    </div>
+    <div data-role="footer"></div>
 </div>
