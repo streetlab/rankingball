@@ -30,7 +30,6 @@ app.ObjControl = (function () {
         function initShow()
         {
             setTimeout(function() {
-                console.log("Landing View initializing");
                 fncRenderMain.init();
             }, 500);
         }
@@ -52,7 +51,6 @@ app.ObjControl = (function () {
             },
             updateDFS: function()
             {
-                console.log(featuredList);
                 var fList = Object.keys(featuredList).length;
                 if(fList > 0) {
                     swipe_num = fList - 1;
@@ -159,7 +157,6 @@ app.ObjControl = (function () {
                 that._loopRTScheduler = "";
                 window.clearInterval(that._loopCHScheduler);
                 that._loopCHScheduler = "";
-                console.log(swiper);
                 if(swiper !== undefined) {
                     swiper.stop();
                     swiper = function(){};
@@ -192,7 +189,6 @@ app.ObjControl = (function () {
             {
                 var vu = "";
                 app.mobileApp.showLoading();
-                console.log(m);
                 switch(m) {
                     case 'touchDFS':
                         vu = "views/playView.html";
@@ -255,6 +251,11 @@ app.ObjControl = (function () {
             }
             swiper.slide(swipe_position, 300);
         }
+        
+        
+        
+        
+        
         
         
         /* Old version */
@@ -482,7 +483,8 @@ app.ObjControl = (function () {
                         contestListData  = contestListData.sort(function(a, b) {
                             return (b.rewardValue - a.rewardValue);
                         });
-                        
+
+                        console.log(playerOnLeague);
                         resetContestList(killView, moveto);
                     }
                     else
@@ -550,12 +552,18 @@ app.ObjControl = (function () {
             
             setTimeout(function() {
                 app.mobileApp.hideLoading();   
-                //app.mobileApp.navigate(m, 'slide');
-                app.mobileApp.navigate('views/playView.html', 'slide');
+                app.mobileApp.navigate(m, 'slide');
+                //app.mobileApp.navigate('views/playView.html?', 'slide');
+                //$("#po_entry_registration").data("kendoMobileView").destroy();
+                //$('#po_entry_players').data("kendoMobileView").destroy();
+                $("#po_entry_registration").remove();
+                //$("#po_entry_players").remove();
+                /*
                 if(v) {
                     $(v).data("kendoMobileView").destroy();
                     $(v).remove();
                 }
+                */
                 
             },500);
         }

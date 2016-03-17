@@ -13,10 +13,18 @@ app.Shop = (function () {
         storePackageData['card'] = [];
         storePackageData['skill'] = [];
         storePackageData['opt'] = [];
+        storePackageData['reco'] = [];
         
         var goodsCode = "";
-        var goodsBundle = "";
+        var goodsBundle = 0;
         var goodsPrice = 0;
+        var goodsType = 0;
+        var goodsCategory = 0;
+        
+        var swiper;
+        var swipe_num = 0;
+        var swipe_position = 0;
+
         
         function init() 
         {
@@ -56,7 +64,7 @@ app.Shop = (function () {
             goodsData: function() {
                 var that = this;
                 var category = 0;
-                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"cateogry":' + category + '}';
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"category":' + category + '}';
                 var url = init_data.auth + "?callback=?";
                 
                 $.ajax({
@@ -76,7 +84,7 @@ app.Shop = (function () {
                             $.each(response.data, function(i, data) {
                                 if(data.category === 1) {
                                     storePackageData['pack'].push(data);
-                                    that.appendPackageList();
+                                    
                                 } else if(data.category === 2) {
                                     storePackageData['card'].push(data);
                                 } else if(data.category === 3) {
@@ -84,7 +92,13 @@ app.Shop = (function () {
                                 } else if(data.category === 4) {
                                     storePackageData['opt'].push(data);
                                 }
+                                
+                                if(data.recommend === 1) {
+                                    storePackageData['reco'].push(data);
+                                }
                             });
+                            
+                            that.appendPackageList();
                         }
                     },
                     error: function(e) {
@@ -96,7 +110,7 @@ app.Shop = (function () {
             appendPackageList: function()
             {
                 $("#shopItems").kendoMobileListView({
-                    dataSource: storePackageData['pack'],
+                    dataSource: storePackageData['reco'],
                     template: $("#goodsListTemplate").html()
                 });
             }
@@ -263,13 +277,16 @@ app.Shop = (function () {
         {
             observableView();
             var param = e.view.params;
-            goodsDetail.parseParam(parseInt(param.pid),parseInt(param.category));
+            console.log(param);
+            goodsBundle = 0;
+            goodsCategory = parseInt(param.category);
+            goodsDetail.parseParam(parseInt(param.pid), goodsCategory);
         }
         
         var goodsDetail = {
-            parseParam: function(id,category) {
+            parseParam: function(id) {
                 var that = this;
-                switch(category) {
+                switch(goodsCategory) {
                     case 1:
                         that.parseMeta($.grep(storePackageData['pack'], function(a){ return a.productFK === id; }));
                         break;
@@ -292,6 +309,7 @@ app.Shop = (function () {
                     $('#goodsImg').attr('src',imgSrc);
                     $('.goods_title').html(data[0].productName);
                     $('#goodsPrice').html(data[0].priceDesc);
+                    $('#goodsDesc').html(data[0].productDesc);
                     if(data[0].component !== undefined) {
                         $.each(data[0].component, function(i, v) {
                             $('#goodsOptions').append('<li>' + v.componentName + '</li>');
@@ -299,8 +317,9 @@ app.Shop = (function () {
                     }
                     
                     goodsCode = data[0].productCode;
-                    goodsBundle = data[0].bundle;
+                    //goodsBundle = data[0].bundle;
                     goodsPrice = parseInt(data[0].price);
+                    goodsType = data[0].itemType;
                 }
             }
         };
@@ -311,6 +330,8 @@ app.Shop = (function () {
                 console.log("None Product code");
                 return false;
             }
+            
+            if(goodsType === 2 || goodsType === 6 || goodsType === 8) {
 /*            
             navigator.notification.confirm('Do you want to buy these products?', function (confirmed) {
                 if (confirmed === true || confirmed === 1) {
@@ -318,17 +339,47 @@ app.Shop = (function () {
                 }
             }, 'Notice', 'Cancel', 'Purchase');
 */
-            if(uu_data.cash >= goodsPrice) {
-                productPurchaseProcess.requestPurchase(goodsCode, goodsBundle);
+                if(uu_data.cash >= goodsPrice) {
+                    productPurchaseProcess.requestPurchase(goodsCode);
+                    //productPurchaseProcess.purchaseSuccess(sampleData);
+                    //productPurchaseProcess.purchaseGuide(1);
+                } else {
+                    app.showAlert("You don't have enough gold to purchase.","Notice");
+                }
             } else {
-                app.showAlert("You don't have enough gold to purchase.","Notice");
+                app.showAlert("This item cannot be purchased in the free version.", "Notice");
+                //productPurchaseProcess.requestPurchase(goodsCode);
             }
         }
         
+        function purchaseClose()
+        {
+            observableView();
+            $('#moadl_purchaseEffect').data("kendoMobileModalView").close();
+            $('.swipe_control').addClass('hide');
+            
+            //$('#goodsSlider').fadeOut();
+            //$('#noneSlider').fadeOut();
+            
+            if(goodsBundle === 2) {
+                console.log(swiper);
+                if(swiper !== undefined) {
+                    
+                    swiper.stop();
+                    swiper = function(){};
+                    $('#purchasedCardList').empty();
+                }
+            } else {
+                $('#purchasedCardPack').empty();
+            }
+            
+            return2List();
+        }
+        
         var productPurchaseProcess = {
-            requestPurchase: function(gcode, gbundle) {
+            requestPurchase: function(gcode) {
                 var that = this;
-                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"productCode":"' + gcode + '","bundle":"' + gbundle + '","token":"0"}';
+                var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"productCode":"' + gcode + '"}';
                 var url = init_data.auth + "?callback=?";
                 
                 app.mobileApp.showLoading();
@@ -347,29 +398,136 @@ app.Shop = (function () {
                     success: function(response) {
                         console.log(response);
                         if (response.code === 0) {
+                            var data = response.data;
                             
+                            //if(data.itemType === 2 || data.itemType === 6 || data.itemType === 8) {
+                            goodsBundle = data.bundle;
+                            if(data.bundle === 1 || data.bundle === 2) {
+                                that.purchaseSuccess(data.item,data.bundle);
+                            } else {
+                                that.purchaseGuide(1);
+                            }
 
                         } else {
-                            
+                            that.purchaseGuide(0);
                         }
-                        that.purchaseResult();
+                        
                     },
                     error: function(e) {
+                        app.mobileApp.hideLoading();
                         console.log("error - setupPlayerOnLeague : " + JSON.stringify(e));
-                    },
-                    complete: function() {
-                         app.mobileApp.hideLoading();
                     }
                 });
             },
-            purchaseResult: function() {
-                
+            purchaseGuide: function(r) {
+                var message = [];
+                message[0] = "An error has occurred in the purchasing process.";
+                message[1] = "The purchase request has been processed successfully.\nPurchased items can be found in the mailbox.";
+                app.showAlert(message[r], "Notice",purchaseClose);
+            },
+            purchaseSuccess: function(data, bundle) {
+                var that = this;
+                var purchaseItems = "";
+                var pack = "";
+                var emblem = "";
                 $('.purchase_box__card').css({'height': $(window).height() + 'px'});
-                $('#moadl_purchaseEffect').data("kendoMobileModalView").open();
+                
+                
+
+                if(bundle === 1) {
+                    console.log(bundle);
+                    $('#noneSlider').css({'visibility':'visible'});
+                    $('.swipe_control').addClass('hide');
+                    $('#purchasedCardPack').empty();
+                    $('#moadl_purchaseEffect').data("kendoMobileModalView").open();
+                
+                    pack = (data.itemClass === 6) ? 'gold_pack' : '';
+                    emblem = "amblem__" + data.team;
+                    purchaseItems = '<div class="swipe_boxs"><div class="card_pack"><div class="card_pack_pos"><div class="card_pack__label"><div class="playercard"><div class="playercard__lv">+0</div>' +
+                        '<div class="playercard__no">' + data.shirtNumber + '</div></div><div class="playercard_name">' + data.itemName + '</div></div><div class="card_pack__husks ' + pack + '"></div>' +
+                        '<div class="card_pack__stat"><div class="playercard__grade">';
+                    for(var i = 1;i<7;i++) {
+                        purchaseItems += (i <= data.itemClass) ? '<span class="star-on">*</span>' : '<span>*</span>';
+                    }
+                    
+                    purchaseItems += '</div><div class="playercard__emblem '+ emblem + '"></div></div><div class="card_pack__back card_grade_0"><div class="card_pack_pattern"></div></div></div></div></div>';
+                    $('#purchasedCardPack').append(purchaseItems);
+                    $('#noneSlider').fadeIn(500);
+                    that.purchaseResult();
+                } else {
+                    console.log("package : " + bundle);
+                    $('#noneSlider').css({'visibility':'hidden'});
+                    $('#moadl_purchaseEffect').data("kendoMobileModalView").open();
+                    //$('#purchasedCardList').empty();
+                                        
+                    swipe_num = (Object.keys(data).length) - 1;
+
+                    setTimeout(function() {
+                        
+                        $.each(data, function(i,v) {
+                            pack = (v.itemClass === 6) ? 'gold_pack' : '';
+                            emblem = "amblem__" + v.team;
+                            purchaseItems = '<div class="swipe_boxs"><div class="card_pack"><div class="card_pack_pos"><div class="card_pack__label"><div class="playercard"><div class="playercard__lv">+0</div>' +
+                                '<div class="playercard__no">' + v.shirtNumber + '</div></div><div class="playercard_name">' + v.itemName + '</div></div><div class="card_pack__husks ' + pack + '"></div>' +
+                                '<div class="card_pack__stat"><div class="playercard__grade">';
+                            for(var i = 1;i<7;i++) {
+                                purchaseItems += (i <= v.itemClass) ? '<span class="star-on">*</span>' : '<span>*</span>';
+                            }
+                            
+                            purchaseItems += '</div><div class="playercard__emblem '+ emblem + '"></div></div><div class="card_pack__back card_grade_0"><div class="card_pack_pattern"></div></div></div></div></div>';
+                            $('#purchasedCardList').append(purchaseItems);
+                            
+                        });
+                        
+                        app.mobileApp.hideLoading();
+                        
+                        swiper = new Swipe(document.getElementById('goodsSlider'), 
+                        {
+                            startSlide: 0,
+                            speed: 400,
+                            auto: 5000,
+                            continuous: false,
+                            disableScroll: false,
+                            stopPropagation: true,
+                            callback: function(index, elem) {},
+                            transitionEnd: function(index, elem) {
+                                swipe_position = index;
+                                if(index === swipe_num) {
+                                    swiper.stop();
+                                    $('.swipe_control').addClass('hide');
+                                }
+                            }
+                        });
+                        $('.swipe_control').removeClass('hide');
+                        //$('#goodsSlider').fadeIn(500);
+                    },500);
+                    //that.purchaseResult();
+                }
+            },
+            purchaseResult: function() {
+                setTimeout(function() {
+                    app.mobileApp.hideLoading();
+                    //$('#moadl_purchaseEffect').data("kendoMobileModalView").open();
+                },500);
             }
         };
         
-                
+        function swipeItems(e) 
+        {
+            var data = e.button.data();
+            
+            if(data.rel === "prev") {
+                if(swipe_position === 0) {
+                    return false;
+                }
+                swipe_position = (swipe_position === 0) ? swipe_num : swipe_position - 1;
+            } else {
+                swipe_position = (swipe_position === swipe_num) ? 0 : swipe_position + 1;
+            }
+            swiper.slide(swipe_position, 300);
+        }        
+        
+        
         function buyItems(e)
         {
             var data = e.button.data();
@@ -526,6 +684,11 @@ app.Shop = (function () {
             
         }
         
+        function warn()
+        {
+            app.showAlert("Item purchase are not available in free version.\n(Player Card purchase is available)", "Notice");
+        }
+        
         var bizPurchaseRuleCheck = function(price, pid) 
         {
             app.mobileApp.showLoading();
@@ -579,7 +742,10 @@ app.Shop = (function () {
         
         function return2List()
         {
-            app.mobileApp.navigate('#:back', 'slide');
+            console.log("back");
+            kendo.unbind($("#shop_vu"));
+            app.mobileApp.navigate('#shop_main', 'slide');
+            //app.mobileApp.navigate('views/landing2Vu.html', 'slide');
         }
 
         return {
@@ -593,7 +759,10 @@ app.Shop = (function () {
             purchasGoods: purchasGoods,
             staticMenu: staticMenu,
             return2List: return2List,
-            backToMenu: backToMenu
+            backToMenu: backToMenu,
+            purchaseClose: purchaseClose,
+            swipeItems: swipeItems,
+            warn: warn
         };
     }());
     return shopProcess;

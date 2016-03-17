@@ -5,7 +5,7 @@
     data-layout="main"
     data-transition="slide"
     data-model="app.Hambugerz"
-    data-init="app.Hambugerz.gnbDefInit">
+    data-init="app.Hambugerz.gnbMailbox">
     
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
@@ -36,28 +36,11 @@
     </div>
     
     <div class="gnb_contents footer_remain">
-        <ul id="gnbMail" class="inboxList">
-            <li>
-                <div class="inboxList-face">
-                    <div class="inboxList-group wimg">
-                    </div>
-                    <div class="inboxList-group">
-                        <a data-role="button" data-rel="1001" data-mol="moadl_mail" data-click="app.Hambugerz.modalOpen">
-                            <div class="inboxList-title">You have to win the game</div>
-                        </a>
-                    </div>
-                    <div class="inboxList-group wbtn">
-                        <a data-role="button" data-rel="1001" data-click="app.Hambugerz.modalOpen">
-                            <div class="attach_down">Receive</div>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <ul id="gnbMail" class="inboxList" data-role="listview"></ul>
     </div>
 
     <div data-role="footer" class="gnb_footer">
-        <a data-role="button" data-rel="1001" data-mol="moadl_mail" data-click="app.Hambugerz.modalOpen">
+        <a data-role="button" data-rel="1001" data-mol="moadl_mail" data-click="app.Hambugerz.mailReceviceAll">
             <div class="static_menus__boxs">Receive All</div>
         </a>
     </div>
@@ -80,3 +63,27 @@
     </div>
     <div data-role="footer"></div>
 </div>
+
+
+
+<script id="gnbMailListTemplate" type="text/x-kendo-template">
+    #
+        img_src = init_data.path + imagePath + imageName;
+    #
+    <div class="inboxList-face2">
+        <div class="inboxList-group wimg"><img src="#=img_src#" /></div>
+        <div class="inboxList-group">
+            <a data-role="button" data-rel="#:mailSeq#" data-mol="moadl_mail">
+                <div class="inboxList-title">#:mail_title#</div>
+                <div class="inboxList-summ">
+                    <span>#:mail_desc#</span> <span></span>
+                </div>
+            </a>
+        </div>
+        <div class="inboxList-group wbtn">
+            <a data-role="button" data-rel="#:mailSeq#" data-fk="#:itemFK#" data-click="app.Hambugerz.mailRecevice">
+                <div class="attach_down">Receive</div>
+            </a>
+        </div>
+    </div>
+</script>

@@ -96,10 +96,7 @@ var app = (function (win) {
     
     
     var onDeviceReady = function() {
-        //StatusBar.overlaysWebView(false); 
-        //console.log($.langScript);
         navigator.splashscreen.show();
-        //console.log(JSON.stringify(navigator));
         var locLang = getlocalStorage('lang');
         if( locLang && locLang !== 'undefined' ) {
             laf = locLang;
@@ -112,7 +109,6 @@ var app = (function (win) {
         laf = "en";
         langExchange.exchangeLanguage(laf);
 
-        
         StatusBar.hide();
         
         var locUID = getlocalStorage('push_wiz');
@@ -125,11 +121,6 @@ var app = (function (win) {
         init_apps.deviceID = device.uuid;
         initAppService.initAppVersion();
         
-        /*
-        setTimeout(function() {
-            navigator.splashscreen.hide();    
-        }, 2000);
-        */
 
         // Handle off-line event
         document.addEventListener("offline", onOffline, false);

@@ -1,11 +1,11 @@
 <div
-    id="po_entry_players"
+    id="po_entry_update_players"
     data-role="view" 
-    data-title="Players"
-    data-layout="main"
+    data-title="선수 선택하기"
+    data-layout="dfs_main"
     data-model="app.Playerz"
-    data-init="app.Playerz.init"
-    data-show="app.Playerz.vwParam"
+    data-init="app.Playerz.init4update"
+    data-show="app.Playerz.vwParam4update"
     data-transition="slide">
 
     <div data-role="header" class="rnkb-wiz">
@@ -38,29 +38,29 @@
             
             <div class="salarycap-box">
                 <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
-                <div id="gae_salarycap_p" class="salarycap-gage">
+                <div id="gae_salarycap_update_p" class="salarycap-gage">
                     <p></p>
                     <div>
                         <p></p>
                     </div>
                 </div>
-                <div class="salarycap-overflow hide"></div>
+                <div class="salarycap-update-overflow"></div>
             </div>
             
             <div class="salarycap-box-padding">
                 <div class="salarycap-box-moz-vw">   
-                    <a data-role="button" href="#do-popover-pos" data-rel="popover"><span id="sort-player-label" data-labelnum="16">샐러리</span> <span id="sort-player-ico" class="bg-box ic-triangle-s-on"></span></a>
+                    <a data-role="button" href="#do-popover-pos2" data-rel="popover"><span id="sort-player-label2" data-labelnum="16">샐러리</span> <span id="sort-player-ico2" class="bg-box ic-triangle-s-on"></span></a>
                 </div>
             </div>
         </div>
         
-        <div id="do-popover-pos" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
-            <div data-role="view" id="popover-play-vw">
+        <div id="do-popover-pos2" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
+            <div data-role="view" id="popover-play-vw2">
                 <ul>
-                    <li><a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-orderby="desc" data-click="app.Playerz.sortPlayercard"><label id="orderLabelPosition" data-align="left" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-s"></span></a></li>
-                    <li><a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard"><label id="orderLabelPlayer" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-s"></span></a></li>
-                    <li><a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-s"></span></a></li>
-                    <li><a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard"><label id="orderLabelSalary" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-s-on"></span></a></li>
+                    <li><a id="orderByPosition2" data-role="button" data-rel="off" data-val="1" data-orderby="desc" data-click="app.Playerz.sortPlayercard2"><label id="orderLabelPosition2" data-align="left" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-s"></span></a></li>
+                    <li><a id="orderByPlayer2" data-role="button" data-rel="off" data-val="2" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard2"><label id="orderLabelPlayer2" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-s"></span></a></li>
+                    <li><a id="orderByFPPG2" data-role="button" data-rel="off" data-val="3" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard2"><label id="orderLabelFPPG2" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-s"></span></a></li>
+                    <li><a id="orderBySalary2" data-role="button" data-rel="on" data-val="4" data-orderby="desc" data-align="right" data-click="app.Playerz.sortPlayercard2"><label id="orderLabelSalary2" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-s-on"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -68,59 +68,59 @@
     </div>
 
     <div id="players-box">
-        <ul id="players_list" class="player_card_list" data-role="listview"></ul>
-        <div id="playercardsMoreBnt" class="load_more"><a data-role="button" data-click="app.Playerz.loadMoreList">Load More</a></div>
+        <ul id="players_list4update" class="player_card_list" data-role="listview"></ul>
+        <div id="playercardsMoreBnt2" class="load_more"><a data-role="button" data-click="app.Playerz.loadMoreList2">Load More</a></div>
     </div>
 </div>
 
-<div data-role="modalview" id="moadlCardInfo" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
+<div data-role="modalview" id="moadlCardInfo2" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
     <div data-role="header">
         <div data-role="navbar">
             Player Card
-            <a data-align="right" data-role="button" data-rel="moadlCardInfo" data-click="app.Playerz.closeModaler" class="close_modal_win"></a>
-            <a data-align="left" data-role="button" data-click="app.Playerz.addPlayercard" class="add_player"></a>
+            <a data-align="right" data-role="button" data-rel="moadlCardInfo2" data-click="app.Playerz.closeModaler" class="close_modal_win"></a>
+            <a data-align="left" data-role="button" data-click="app.Playerz.addPlayercard2" class="add_player"></a>
         </div>
         <div class="card_face">
             <div class="card_face__table">
                 <div class="card_face__tablecell card_face__amblem">
-                    <div id="m-cardAmblem" class="card_face__amblem-bg"></div>
-                    <span id="m-player-info-team"></span>
+                    <div id="mu-cardAmblem" class="card_face__amblem-bg"></div>
+                    <span id="mu-player-info-team"></span>
                 </div>
                 <div class="card_face__tablecell card_face__data">
-                    <div id="m-player-info-name" class="card_face__player"></div>
+                    <div id="mu-player-info-name" class="card_face__player"></div>
                     <div class="card_data__table">
                         <div class="card_data__tablecell player_info">
-                            <span id="m-player-info-position" class="player_position"></span> No. <span id="m-player-info-number"></span>
+                            <span id="mu-player-info-position" class="player_position"></span> No. <span id="mu-player-info-number"></span>
                         </div>
                         <div class="card_data__tablecell player_fppg">
                             FPPG
-                            <div id="m-player-info-fppg" class="print_no">0</div>
+                            <div id="mu-player-info-fppg" class="print_no">0</div>
                         </div>
                         <div class="card_data__tablecell player_salary">
                             Salary
-                            <div id="m-player-info-salary" class="print_no">$0</div>
+                            <div id="mu-player-info-salary" class="print_no">$0</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="tapstrip-group-c">
-            <div id="m-tabstripGameRecord" class="tabstrip-moz">
-                <a data-role="button" data-rel="m-log" data-click="app.Playerz.tapStriper">Game Log</a>
+            <div id="mu-tabstripGameRecord" class="tabstrip-moz">
+                <a data-role="button" data-rel="m-log2" data-click="app.Playerz.tapStriper">Game Log</a>
             </div>
-            <div id="m-tabstripCard" class="tabstrip-moz ts">
-                <a data-rel="m-card" data-role="button" data-click="app.Playerz.tapStriper">Card</a>
+            <div id="mu-tabstripCard" class="tabstrip-moz ts">
+                <a data-rel="m-card2" data-role="button" data-click="app.Playerz.tapStriper">Card</a>
             </div>
         </div>
 
     </div>
-    <div id="mPlayerCardBox" class="card_box">
+    <div class="card_box">
         <div class="card_box__body">
             <div class="card_box__scroller">
-                <div id="m-playerCardRecord" class="hide">
+                <div id="mu-playerCardRecord" class="hide">
                     <div class="feature_label">Seasonal record</div>
                     <div class="feature_table">
-                        <table id="m_LOG" cellpadding="0" cellspacing="0">
+                        <table id="m2_LOG" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th>MP</th>
                                 <th>MIN</th>
@@ -131,13 +131,13 @@
                                 <th>PAS%</th>
                             </tr>
                             <tr>
-                                <td id="m_MP">00</td>
-                                <td id="m_MIN">00</td>
-                                <td id="m_G">00</td>
-                                <td id="m_GA">00</td>
-                                <td id="m_SHO">00</td>
-                                <td id="m_SOG">00</td>
-                                <td id="m_PAS">00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
                             </tr>
                             <tr>
                                 <th>TA</th>
@@ -149,11 +149,11 @@
                                 <th></th>
                             </tr>
                             <tr>
-                                <td id="m_TA">00</td>
-                                <td id="m_FC">00</td>
-                                <td id="m_FS">00</td>
-                                <td id="m_YC">00</td>
-                                <td id="m_RC">00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
+                                <td>00</td>
                                 <td></td>
                                 <td></td>
                             </tr>
@@ -161,7 +161,7 @@
                     </div>
                     <div class="feature_label">2014~2015 <span>Recent 5 match</span></div>
                     <div class="feature_table">
-                        <table id="m_RECENT" cellpadding="0" cellspacing="0">
+                        <table id="m2_RECENT" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td colspan="11" class="likeH4 hide">11.22 VS Man Utd</td>
                             </tr>
@@ -195,12 +195,12 @@
                     </div>
                 </div>
 
-                <div id="m-playerCardFeature">
+                <div id="mu-playerCardFeature">
                     <div class="feature_label">Level</div>
                     <div class="level_box">
                         <div class="display_table">
                             <div class="display_tablecell level_effect">
-                                <div id="m-playercard-star" class="star_lv">
+                                <div id="mu-playercard-star" class="star_lv">
                                     <span>*</span>
                                     <span>*</span>
                                     <span>*</span>
@@ -209,12 +209,12 @@
                                     <span>*</span>
                                 </div>
                                 <div class="effect_lv">
-                                    Discount Rate <span id="m-playercard-effect">0%</span>
+                                    Discount Rate <span id="mu-playercard-effect">0%</span>
                                 </div>
                             </div>
                             <div class="display_tablecell discount_effect">
-                                <span id="m-playercard-old" class="hide">$0</span>
-                                <div id="m-playercard-discount">$0</div>
+                                <span id="mu-playercard-old" class="hide">$0</span>
+                                <div id="mu-playercard-discount">$0</div>
                             </div>
                         </div>
                     </div>
@@ -223,7 +223,7 @@
                         <div class="skill_count">Max <span>3</span></div>
                     </div>
                     <div class="skill_box">
-                        <ul id="m-playerCardSkills">
+                        <ul id="mu-playerCardSkills">
                             <li class="hide">
                                 <div class="display_table">
                                     <div class="display_tablecell skill_ico"><img src="./assets/resource/card/skill_goal.png" /></div>
@@ -237,7 +237,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <div id="m-playercardAddSkill" class="skill_add_btn"><a data-role="button" data-click="app.Card.addSkill">Add Skill +</a></div>
+                        <div id="mu-playercardAddSkill" class="skill_add_btn"><a data-role="button" data-click="app.Card.addSkill">Add Skill +</a></div>
                     </div>
                     
                 </div>
@@ -253,17 +253,10 @@
 </div>
 
 
-<script id="playerListTemplate" type="text/x-kendo-template">
+<script id="playerListTemplate2" type="text/x-kendo-template">
     #
         //salaryLimit
-        
-        tmpSalary = 0;
-        if(playerSlot[tmpReqSlot] !== undefined && playerSlot[tmpReqSlot] !== "") {
-            tmpSalary = salaryLimit + slotSalary;        
-        } else {
-            tmpSalary = salaryLimit;
-        }
-        //tmpSalary = (parseInt(slotSalary) === 0) ? salaryLimit : parseInt(salaryLimit + slotSalary);
+        tmpSalary = (parseInt(slotSalary) === 0) ? salaryLimit : parseInt(salaryLimit + slotSalary);
         if(tmpSalary >= salary) { 
             salaryColor = "";
         } else {
@@ -277,16 +270,13 @@
             entryBtn = "app.Playerz.overPlayer";
         } else {
             entryStatus = "";
-    
             if(playerSlot[tmpReqSlot] !== undefined && playerSlot[tmpReqSlot] !== "") {
                 entryImg = "common/btn_change.png";
             } else {
                 entryImg = "card/btn_plus.png";
             }
-    
-            
             controlClass = "addPlayer";
-            entryBtn = "app.Playerz.addPlayer";
+            entryBtn = "app.Playerz.addPlayer4Up";
         }
         
         positionTag = posCode.slice(0,1);
@@ -324,7 +314,7 @@
     
                 <div class="player_card_list__table">
                     <div class="player_card_list__td-info">
-                        <a data-role="button" data-rel="#:playerID#" data-val="" data-click="app.Playerz.playerAddInfo">
+                        <a data-role="button" data-rel="#:playerID#" data-val="" data-click="app.Playerz.playerAddInfo2">
                             <div class="player_card__def">
                                 <div class="listitem_name">#:playerName#</div>
                                 <div class="listitem_star card_lev">#=stars#</div>
@@ -337,7 +327,7 @@
                         </a>
                     </div>
                     <div class="player_card_list__td-addbtn">
-                        <a data-role="button" data-salary="#:salary#" data-limit="#:salaryLimit#" data-tmp="#:tmpSalary#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a>
+                        <a data-role="button" data-salary="#:salary#" data-tmp="#:slotSalary#" data-tmp2="#:salaryLimit#" data-rel="#:playerID#" data-status="#:entryStatus#" class="#:controlClass#" data-click="#:entryBtn#"><img id="entry-#:playerID#" src="./assets/resource/#:entryImg#"></a>
                     </div>
                 </div> 
             </div>            

@@ -49,39 +49,33 @@
     
     <div id="contest-bar">
             <div id="tab_upcomming" class="tabDiv">
-
                 <div class="contest-match-list">
                     <div class="contest-match-group">
-                        
                         <ul class="contest-inboxList">
                             <li>
                                 <a id="accoList_cgt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>Featured</span> (<span id="cmath-cnt-f">1</span>) <span id="acco_cgt1" class="collapse-btn"></span></a>
                                 <div id="cgt_list1">
-                                    <ul id="cgt1" class="collapseInboxList"></ul>
+                                    <ul id="cgt1" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_cgt2" class="btn-match-lead" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt2"><span>50 /50</span> (<span id="cmath-cnt-5">1</span>) <span id="acco_cgt2" class="collapse-btn"></span></a>
                                 <div id="cgt_list2">
-                                    <ul id="cgt2" class="collapseInboxList"></ul>
+                                    <ul id="cgt2" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_cgt3" class="btn-match-lead" data-role="button" data-click="app.Contests.contestAccordon" data-rel="cgt3"><span>Rank match</span> (<span id="cmath-cnt-g">1</span>) <span id="acco_cgt3" class="collapse-btn"></span></a>
                                 <div id="cgt_list3">
-                                    <ul id="cgt3" class="collapseInboxList"></ul>
+                                    <ul id="cgt3" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
-                            
                         </ul>
-
                     </div>
                 </div>
- 
             </div>
 
-            <div id="tab_live" class="tabDiv hide">
-                
+            <div id="tab_live" class="tabDiv hide" data-role="scroller">
                 <div class="contest-match-list">
                     <div class="contest-match-group">
                         
@@ -89,27 +83,25 @@
                             <li>
                                 <a id="accoList_gt1" class="btn-match-lead esp" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt1"><img src="./assets/resource/ic_hot.png" class="badge_hot" /><span>Featured</span> (<span id="math-cnt-f">1</span>) <span id="acco_gt1" class="collapse-btn"></span></a>
                                 <div id="gt_list1">
-                                    <ul id="gt1" class="collapseInboxList"></ul>
+                                    <ul id="gt1" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_gt2" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt2"><span>50 /50</span> (<span id="math-cnt-5">1</span>) <span id="acco_gt2" class="collapse-btn"></span></a>
                                 <div id="gt_list2">
-                                    <ul id="gt2" class="collapseInboxList"></ul>
+                                    <ul id="gt2" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
                             <li>
                                 <a id="accoList_gt3" class="btn-match-lead" data-role="button" data-click="app.Contests.customAccordon" data-rel="gt3"><span>Rank match</span> (<span id="math-cnt-g">1</span>) <span id="acco_gt3" class="collapse-btn"></span></a>
                                 <div id="gt_list3">
-                                    <ul id="gt3" class="collapseInboxList"></ul>
+                                    <ul id="gt3" class="collapseInboxList" data-role="listview"></ul>
                                 </div>
                             </li>
                             
                         </ul>
-     
                     </div>
                 </div>
-                
             </div>
     </div>
 
@@ -212,7 +204,7 @@
         # var btnClass, btnLabel;
         if(contestStatus < 3) {
             btnClass = "myContest collapseInboxList-btn";
-            btnLabel = "JOIN";
+            btnLabel = "EDIT";
         } else {
             btnClass = "myContest collapseInboxList-off-btn";
             btnLabel = "CLOSED";

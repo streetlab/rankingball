@@ -8,6 +8,10 @@ var autoLogin = false;
 var globalRequestTry = 0;
 var salaryLimit = 0;
 var slotSalary = 0;
+var playerSlot = {};
+var tmpReqSlot = "";
+
+var editMatch = 0;
 
 var contestListData = ""; // Total Game List
 var contestPartList = [];
@@ -70,7 +74,7 @@ var initAppService = {
     initAppVersion: function() {
         var that = this;                        
         if (window.navigator.simulator === true) {
-            that._app_version = "1.1.4";
+            that._app_version = "1.1.5";
             that.ajaxVersionCheck(that._app_version);
         } else {
             that.pluginGetVersion();
@@ -113,7 +117,6 @@ var initAppService = {
                                 
                 if (response.code === 0) {
                     var inits = response.data;
-                    console.log(response);
                     init_data = {
                         status: inits.serviceStatus,
                         apps: inits.APPS,

@@ -166,12 +166,14 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
 ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__sub .player_card__sub-color {
     display: table-cell;
     color: #9b9b9b;
-    font-size: 11px;
+    font-size: 10px;
     text-align: left;
     line-height: 18px;
 }
 ul.player_card_list .player_card_list__box .player_card_list__box-info .player_card__sub .player_card__sub-color span {
+    font-size: 11px;
     color: #3c3c3c;
+    overflow: hidden;
 }
 
 .triangle_top {
@@ -199,191 +201,172 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
 
 /* CARD Detail */
 
-#moadlCardInfo .km-content {
-    padding: 0 5px;
-    background-color: #d0d0d0;
+.player_card_box .km-content {
+    width: 100%;
+    border-top: 0;
+    border-right: 2px solid #fff;
+    border-bottom: 0;
+    border-left: 2px solid #fff;
+    background-color: #e9e9e9;
 }
-#moadlCardInfo .km-header {
-    border-radius: 8px 8px 0 0;
-    background-color: #d0d0d0;
+.player_card_box .km-header {
+    border-radius: 6px 6px 0 0;
+    border-top: 2px solid #fff;
+    border-right: 2px solid #fff;
+    border-bottom: 0;
+    border-left: 2px solid #fff;
+    
+    background: -webkit-gradient(linear, 180deg, color-stop(0, 2A2A2A), color-stop(80%, 121212), color-stop(100%, 121212));/* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(180deg, #2A2A2A 0, #121212 80%, #121212 100%);/* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(180deg, #2A2A2A 0, #121212 80%, #121212 100%);/* Opera 11.10+ */
+    background: linear-gradient(180deg, #2A2A2A 0, #121212 80%, #121212 100%);/* W3C */
+    
 }
-#moadlCardInfo .km-view-title {
+.player_card_box .km-view-title {
     font-size: 16px;
+    font-weight: 600;
+    color: #fff;
     line-height: 45px;
 }
-#moadlCardInfo .km-navbar {
+.player_card_box .km-navbar {
     height: 44px;
     border: 0;
     background: rgba(0,0,0,0);
 }
-#moadlCardInfo .km-footer {
-    height: 45px;
-    padding: 5px;
-    border-radius: 0 0 8px 8px;
+.player_card_box .km-footer {
+    height: 40px;
+    border-top: 0;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-radius: 0 0 6px 6px;
     background-color: #d0d0d0;
 }
-#moadlCardInfo a.close_modal_win {
+.player_card_box a.close_modal_win {
     width: 24px;
     height: 24px;
-    background: url(../resource/rts_modals/btn_close.png) 0 center no-repeat;
+    background: url(../resource/card/btn_close.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.player_card_box a.add_player {
+    width: 24px;
+    height: 24px;
+    background: url(../resource/card/btn_plus.png) 0 center no-repeat;
     background-size: 100%;
 }
 
-#moadlCardInfo .card_face {
+.player_card_box .card_face {
     position: relative;
-    width: 280px;
-    height: 137px;
-    margin: 0 auto;
-}
-#moadlCardInfo .card_face .card_face__amblem {
-    position: absolute;
-    width: 80px;
-    height: 100%;
-    top: 0;
-    right: 10px;
-    z-index: 3;
-}
-#moadlCardInfo .card_face .card_face__amblem .card_face__amblem-bg {
-    width: 75px;
-    height: 100%;
-    margin: 0 auto;
-}
-#moadlCardInfo .card_face .card_face__featured {
-    position: absolute;
-    top: 10px;
-    left: 15px;
-    z-index: 3;
-}
-#moadlCardInfo .card_face .card_face__featured ul {
+    width: 100%;
     margin: 0;
     padding: 0;
-    list-style: none;
 }
-#moadlCardInfo .card_face .card_face__featured li {
-    font-size: 10px;
-    line-height: 16px;
-}
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv {
-}
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv span {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    text-indent: 999999px;
-    background: url(../resource/club/star_off.png) 0 center no-repeat;
-    background-size: contain;
-}
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-lv span.star-on {
-    background: url(../resource/club/star_on.png) 0 center no-repeat;
-    background-size: contain;
-}
-#moadlCardInfo .card_face .card_face__rating-num {
-    position: absolute;
-    bottom: 14px;
-    left: 165px;
-    z-index: 4;
-    font-family: "nanumgothic-bold";
-    font-size: 26px;
-    color: #fff;
-    -webkit-text-fill-color: #fff;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #414141;
-}
-
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-item.card_player_name {
-    font-family: "nanumgothic-bold";
-    font-size: 12px;
-    color: #3c3c3c;
-}
-
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills {
-}
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills .card_skill_box {
+.player_card_box .card_face .card_face__table {
     display: table;
-    width: 84px;
+    width: 100%;
+    height: 70px;
+    margin-bottom: 3px;
 }
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-skills .card_skill_box > div {
+.player_card_box .card_face .card_face__table .card_face__tablecell {
     display: table-cell;
-    width: 22px;
-    height: 22px;
-    background-color: #898989;
 }
-
-#moadlCardInfo .card_face .card_face__featured li.card_face__featured-amount {
-
+.player_card_box .card_face .card_face__table .card_face__tablecell.card_face__amblem {
+    width: 70px;
+    height: 70px;
+    font-size: 11px;
+    color: #fff;
+    text-align: center;
 }
-
-#moadlCardInfo .card_face .card_face__activity {
-    position: absolute;
+.player_card_box .card_face .card_face__table .card_face__tablecell.card_face__amblem span {
+    overflow: hidden;
+}
+.player_card_box .card_face .card_face__table .card_face__tablecell .card_face__amblem-bg {
     width: 50px;
     height: 50px;
-    top: 11px;
-    left: 142px;
-    z-index: 5;
-    padding: 2px;
+    margin: 0 auto;
 }
-#moadlCardInfo .card_face .card_face__activity a {
+.player_card_box .card_face .card_face__table .card_face__tablecell.card_face__data {
+    vertical-align: top;
+}
+.player_card_box .card_face .card_face__table .card_face__player {
     width: 100%;
-    height: 100%;
-    background: url(../resource/club/btn_card_plus.png) 0 0 no-repeat;
-    background-size: 100%;
+    height: 35px;
+    font-size: 14px;
+    line-height: 30px;
+    font-weight: 600;
+    color: #fff;
 }
-#moadlCardInfo .card_face .card_face__body {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background: url(../resource/club/card_02_01_bg.png) 0 0 no-repeat;
-    background-size: 100%;
+.player_card_box .card_face .card_face__table .card_face__player span {
+    padding: 3px;
+    color: #000;
+    text-transform: uppercase;
+    border-radius: 50%;
+    background-color: #fff;
 }
-
-#moadlCardInfo .card_face .card_face__body.max_rating {
-    background: url(../resource/club/card_02_01_bg_gold.png) 0 0 no-repeat;
-    background-size: 100%;
-}
-#moadlCardInfo .card_face__body-end {
-    position: absolute;
-    width: 276px;
-    height: 133px;
-    top: 2px;
-    left: 2px;
-    border-radius: 10px;
-}
-
-#moadlCardInfo .card_fnc {
+.player_card_box .card_face .card_face__table .card_data__table {
     display: table;
     width: 100%;
     height: 35px;
 }
-#moadlCardInfo .card_fnc .card_fnc__btns {
+.player_card_box .card_face .card_face__table .card_data__table .card_data__tablecell {
     display: table-cell;
 }
-#moadlCardInfo .card_fnc .card_fnc__btns.btn_def {
-    width: 90px;
-    height: 35px;
-}
-#moadlCardInfo .card_fnc .card_fnc__btns.btn_center {
-    width: 100px;
-    height: 35px;
-    padding: 0 5px;
-}
-#moadlCardInfo .card_fnc a {
-    width: 100%;
-    height: 100%;
-}
-#moadlCardInfo .card_fnc .card_btn__act {
-    width: 100%;
-    height: 100%;
-    padding-top: 10px;
+.player_card_box .card_face .card_face__table .card_data__table .card_data__tablecell.player_fppg {
+    font-size: 10px;
+    color: #9b9b9b;
     text-align: center;
-    vertical-align: middle;
-    font-family: "nanumgothic-bold";
-    font-size: 13px;
+    width: 50px;
+}
+.player_card_box .card_face .card_face__table .card_data__table .card_data__tablecell.player_salary {
+    font-size: 10px;
+    color: #9b9b9b;
+    text-align: center;
+    width: 70px;
+    }
+.player_card_box .card_face .card_face__table .card_data__table .player_info {
+    font-size: 12px;
     color: #fff;
-    border-radius: 5px;
-    background-color: #b50019;
+}
+.player_card_box .card_face .card_face__table .card_data__table .player_info .player_position {
+    padding: 2px 3px;
+    text-transform: uppercase;
+    border-radius: 2px;
+    background-color: #73b226;
+}
+.player_card_box .card_face .card_face__table .card_data__table .card_data__tablecell .print_no {
+    font-size: 13px;
+    font-weight: 600;
+    color: #73b226;
+}
+.player_card_box .tapstrip-group-c {
+    display: table;
+    width: 100%;
+    height: 38px;
+    background-color: #2a2a2a;
+}
+.player_card_box .tapstrip-group-c .tabstrip-moz {
+    display: table-cell;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    text-align: center;
+    border-bottom: #2a2a2a;
+}
+.player_card_box .tapstrip-group-c .tabstrip-moz.ts {
+    border-bottom: 2px solid #73b226;
+}
+.player_card_box .tapstrip-group-c .tabstrip-moz a {
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 13px;
+    color: #9b9b9b;
+    line-height: 28px;
+    border: 0;
+    text-align: center;
+}
+.player_card_box .tapstrip-group-c .tabstrip-moz.ts a {
+    color: #fff;
 }
 
 
@@ -410,99 +393,446 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
 }
 
 
-#moadlCardInfo .tapstrip-group {
-    display: table;
-    width: 280px;
-    margin: 0 auto;
-    background-color: #d0d0d0;
-}
-#moadlCardInfo .tapstrip-group .tabstrip-moz {
-    display: table-cell;
-    margin: 0;
-    padding: 0;
-    width: 50%;
-    text-align: center;
-    border-bottom: #d0d0d0;
-}
-#moadlCardInfo .tapstrip-group .tabstrip-moz.ts {
-    border-bottom: 2px solid #f26522;
-}
-#moadlCardInfo .tapstrip-group .tabstrip-moz a {
-    padding: .6em 0 .4em 0;
-    text-decoration: none;
-    font-size: 12px;
-    font-family: "nanumgothic-bold";
-    border: 0;
-    text-align: center;
-    vertical-align: middle;
-    color: #9b9b9b;
-}
-#moadlCardInfo .tapstrip-group .tabstrip-moz.ts a {
-    color: #3c3c3c;
-}
 
-.card_box {
+.player_card_box .card_box {
     height: 100%;
-    background-color: #d0d0d0;
+    /*background-color: #d0d0d0;*/
 }
-.card_box .card_box__scroller {
+.player_card_box .card_box .card_box__body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.player_card_box .card_box .card_box__scroller {
     overflow-x: hidden;
     overflow-y: scroll;
 }
-.card_box .card_box__body h4 {
-    display: block;
-    font-size: 11px;
-    font-weight: normal;
-    color: #3c3c3c;
+.player_card_box .card_box .card_box__body .feature_label {
+    width: 100%;
+    height: 26px;
     margin: 0;
-    padding: 10px 0 5px 10px;
+    padding-left: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #fff;
+    line-height: 26px;
+    background-color: #646464;
 }
-.card_box .card_box__body table {
+.player_card_box .card_box .card_box__body .feature_table {
+    padding: 0 5px;
+}    
+.player_card_box .card_box .card_box__body .feature_label .skill_count {
+    float: right;
+    padding-right: 5px;
+    font-size: 11px;
+    color: #9b9b9b;
+}
+.player_card_box .card_box .card_box__body .feature_label .skill_count span {
+    color: #fff;
+}
+.player_card_box .card_box .card_box__body .level_box {
+    width: 100%;
+    padding: 10px 15px;
+    background-color: #000;
+}
+.player_card_box .card_box .card_box__body .display_table {
+    display: table;
     width: 100%;
 }
-.card_box .card_box__body th {
+.player_card_box .card_box .card_box__body .display_table .display_tablecell {
+    display: table-cell;
+}
+
+.player_card_box .card_box .card_box__body .level_box .level_effect {
+    font-size: 10px;
+    color: #9b9b9b;
+}
+.player_card_box .card_box .card_box__body .level_box .level_effect .star_lv span {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    text-indent: 999999px;
+    background: url(../resource/card/star_off.png) 0 center no-repeat;
+    background-size: contain;
+}
+.player_card_box .card_box .card_box__body .level_box .level_effect .star_lv .star-on {
+    background: url(../resource/card/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+.player_card_box .card_box .card_box__body .level_box .level_effect .effect_lv {
+    padding-top: 5px;
+}
+
+.player_card_box .card_box .card_box__body .level_box .level_effect .effect_lv span {
+    color: #fff;
+}
+.player_card_box .card_box .card_box__body .level_box .discount_effect {
+    text-align: right;
+    vertical-align: bottom;
+}
+.player_card_box .card_box .card_box__body .level_box .discount_effect span {
+    font-size: 10px;
+    color: #9b9b9b;
+    text-decoration: line-through;
+}
+.player_card_box .card_box .card_box__body .level_box .discount_effect div {
+    font-size: 13px;
+    font-weight: 800;
+    color: #8ccc3e;
+}
+
+.player_card_box .card_box .card_box__body .skill_box ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.player_card_box .card_box .card_box__body .skill_box li {
+    width: 100%;
+    height: 50px;
+    padding: 5px;
+    background-color: #fff;
+    border-bottom: 1px solid #cacaca;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_ico {
+    width: 40px;
+    height: 40px;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_ico img {
+    width: 100%;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_mark {
+    font-size: 12px;
+    line-height: 16px;
+    vertical-align: top;
+    padding: 5px 5px;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_mark .mark_title {
+    color: #73b226;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_mark .mark_no {
+    color: #3c3c3c;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_btn {
+    width: 30px;
+    height: 40px;
+    padding: 2px;
+    vertical-align: top;
+}
+.player_card_box .card_box .card_box__body .skill_box .skill_btn a {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: url(../resource/card/btn_minus.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.player_card_box .card_fnc {
+    display: table;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 6px 6px;
+    background-color: #fff;
+}
+.player_card_box .card_fnc .btn_left {
+    display: table-cell;
+    width: 50%;
+    height: 38px;
+    padding: 0 1px 0 0;
+}
+.player_card_box .card_fnc .btn_right {
+    display: table-cell;
+    width: 50%;
+    height: 38px;
+    padding: 0 0 0 1px;
+}
+.player_card_box .card_fnc a {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    width: 100%;
+    height: 38px;
+    margin: 0;
+    font-size: 13px;
+    color: #fff;
+    background-color: #2a2a2a;
+}
+.player_card_box .card_fnc .btn_left a {
+    border-radius: 0 0 0 6px;
+}
+.player_card_box .card_fnc .btn_right a {
+    border-radius: 0 0 6px 0;
+}
+
+/* Game Log */
+.player_card_box .card_box .card_box__body table {
+    width: 100%;
+}
+.player_card_box .card_box .card_box__body th {
     font-weight: normal;
     font-size: 10px;
-    color: #fff;
-    background-color: #8c8c8c;
-    padding: 5px 0;
-    text-align: center;
-}
-.card_box .card_box__body td {
-    font-size: 10px;
-    color: #3c3c3c;
-    padding: 5px 0;
-    text-align: center;
+    color: #646464;
     background-color: #e9e9e9;
+    padding: 5px 0;
+    text-align: center;
 }
-.card_box .likeH4 {
-    padding-left: 10px;
+.player_card_box .card_box .card_box__body td {
+    font-size: 10px;
+    color: #646464;
+    padding: 5px 0;
+    text-align: center;
+    background-color: #fff;
+}
+.player_card_box .card_box .card_box__body td.likeH4 {
+    padding-left: 5px;
+    font-size: 12px;
     text-align: left;
 }
-.card_box .card_skill__info {
+.player_card_box .card_box .card_skill__info {
     width: 100%;
     min-height: 30px;
     padding: 10px;
     border-radius: 5px;
     background-color: #e9e9e9;
 }
-.card_box .card_skill__info .card_skill__info-item {
+.player_card_box .card_box .card_skill__info .card_skill__info-item {
     float: left;
     font-size: 11px;
     font-weight: 900;
     color: #3c3c3c;
 }
-.card_box .card_skill__info .card_skill__info-rate {
+.player_card_box .card_box .card_skill__info .card_skill__info-rate {
     float: right;
     font-size: 11px;
     font-weight: 900;
     color: #f26522;
 }
+.player_card_box .card_box .skill_add_btn {
+/*
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 15px;
+*/
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    width: 100px;
+    margin-left: -50px;
+}
+.player_card_box .card_box .skill_add_btn a {
+    width: 100%;
+    padding: 5px 15px;
+    font-size: 13px;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #73b226;
+}
+
+
+#modalPlayerCardCompose .km-content,
+#modalPlayerCardEnhance .km-content {
+    background-color: #2a2a2a;
+}
+
+.player_card_box .activate_box {
+    height: 100%;
+    background-color: #2a2a2a;
+    overflow-x: hidden;
+}
+.player_card_box .activate_box .activate_box__body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 10px 5px 0 5px;
+}
+.player_card_box .activate_box .outer {
+    display: table;
+    width: 100%;
+}
+.player_card_box .activate_box .outer .inset_box {
+    display: table-cell;
+}
+.player_card_box .activate_box .outer .inset_box.master {
+    width: 44%;
+    border-radius: 3px;
+    border: 1px solid #000;
+    background-color: #333;
+}
+.player_card_box .activate_box .outer .inset_box.arrow {
+    width: 12%;
+    height: 100%;
+    background: url(../resource/card/ic_arrow.png) center center no-repeat;
+    background-size: 55%;
+}
+.player_card_box .activate_box .outer .inset_box.fedding {
+    width: 44%;
+    border-radius: 3px;
+    border: 1px solid #000;
+    background-color: #333;
+}
+.player_card_box .activate_box .inset_box__label {
+    height: 24px;
+    padding-top: 8px;
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    background-color: #212121;
+}
+.player_card_box .activate_box .inset_box__mastercard {
+    padding: 15px;
+}
+.player_card_box .activate_box .inset_box__mastercard .master_box {
+    width: 100%;
+    height: 100%;
+    padding: 0 32%;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    background-color: #293021;
+}
+.player_card_box .activate_box .inset_box__mastercard .master_box a.add_btn_playercard {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/card/btn_plus_02.png) center center no-repeat;
+    background-size: 100%;
+}
+.player_card_box .activate_box .inset_box__feedingcard {
+    padding: 6px 0 0 0;
+}
+.player_card_box .activate_box .feddings {
+    display: table;
+    width: 100%;
+}
+.player_card_box .activate_box .feddings .fedding_box__left {
+    display: table-cell;
+    width: 50%;
+    padding: 0 3px 6px 6px;
+    vertical-align: top;
+}
+.player_card_box .activate_box .feddings .fedding_box__right {
+    display: table-cell;
+    width: 50%;
+    padding: 0 6px 6px 3px;
+    vertical-align: top;
+}
+.player_card_box .activate_box .feddings .ehance_rate {
+    width: 100%;
+    height: 20px;
+    font-size: 11px;
+    color: #fff;
+}
+.player_card_box .activate_box .feddings .feeding_box_inner {
+    width: 100%;
+    height: 100%;
+    padding: 0 25%;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 3px;
+    border: 1px solid #fff;
+    background-color: #293021;
+}
+.player_card_box .activate_box .feddings a.add_btn_playercard {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/card/btn_plus_02.png) center center no-repeat;
+    background-size: 100%;
+}
+.player_card_box .km-footer.activate_footer {
+    height: 118px;
+    border-top: 0;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    border-left: 2px solid #fff;
+    border-radius: 0 0 6px 6px;
+    /* background-color: #2a2a2a; */
+}
+.player_card_box .activate_footer .active_fnc {
+    height: 44px;
+    padding: 5px 5px 7px 5px;
+    border-radius: 0 0 6px 6px;
+    background-color: #2a2a2a;
+}
+.player_card_box .activate_footer .active_fnc a {
+    width: 100%;
+    height: 100%;
+    background-color: #73b226;
+    font-size: 14px;
+    color: #fff;
+    line-height: 32px;
+    border-radius: 3px;
+}
+.player_card_box .activate_footer .active_data ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.player_card_box .activate_footer .active_data li {
+    display: table;
+    width: 100%;
+    height: 35px;
+    border-right: 1px solid #999;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #999;
+    background-color: #fff;
+}
+.player_card_box .activate_footer .active_data .active_label {
+    display: table-cell;
+    padding-left: 10px;
+    font-size: 14px;
+    color: #333;
+    line-height: 35px;
+    text-align: left;
+}
+.player_card_box .activate_footer .active_data .active_val {
+    display: table-cell;
+    padding-right: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #73b226;
+    line-height: 35px;
+    text-align: right;
+}
+.player_card_box .activate_box .activate_guide {
+    width: 100%;
+    margin-top: 5px;
+    padding: 5px 0;
+}
+.player_card_box .activate_box .activate_guide .activate_guide_box {
+    font-size: 11px;
+    color: #73b226;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: #3c3c3c;
+}
+.player_card_box .activate_box .activate_guide .activate_guide_box .activate_guide_alert {
+    width: 14px;
+    height: 14px;
+    margin: 0 auto;
+    background: url(../resource/card/ic_assistor.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.player_card_box .activate_box .inset_box__mastercard .inner_mastercard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.player_card_box .activate_box .inset_box__feedingcard .inner_feedingcard {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
 
 
 .card_tapstrip_groups {
     display: table;
     width: 100%;
+    min-height: 33px;
     background: #3c3c3c;
 }
 .card_tapstrip_groups .card_tab_main {
@@ -542,7 +872,7 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
 }
 .card_tapstrip_groups .card_tab_sub a
 {
-    padding: .6em 0 .4em 0;
+    padding: 0.9em .6em .5em 0.6em;
     text-decoration: none;
     font-size: 12px;
     font-weight: 500;
@@ -556,6 +886,34 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     border-bottom: 2px solid #8ccc3e;
 }
 .card_tapstrip_groups .card_tab_sub.ts a {
+    color: #fff;   
+}
+
+.card_tapstrip_groups .card_tab_added {
+    display: table-cell;
+    width: 25%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background-color: #2a2a2a;
+    border-bottom: 2px solid #2a2a2a;
+}
+.card_tapstrip_groups .card_tab_added a
+{
+    padding: .6em 0 .4em 0;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9b9b9b;
+    border: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+.card_tapstrip_groups .card_tab_added.ts
+{
+    border-bottom: 2px solid #8ccc3e;
+}
+.card_tapstrip_groups .card_tab_added.ts a {
     color: #fff;   
 }
 
@@ -595,6 +953,7 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     font-size: 10px;
     color: #fff;
     text-align: center;
+    vertical-align: middle;
 }
 .card_tapstrip_groups .card_apps__order {
     display: table-cell;
@@ -647,6 +1006,7 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     text-align: right;
     padding-right: .8em;
     color: #3180a4;
+    vertical-align: middle;
 }
 .card_tapstrip_groups .salarycap-box-moz-vw a {
     color: #3180a4;
@@ -692,7 +1052,7 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
 
 
 
-ul.player_card_list .player_card_list__box .player_card_list__box-info2 a {
+ul.player_card_list li a {
     width: 100%;
 }
 ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def {
@@ -703,10 +1063,14 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_
 ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_name {
     float: left;
     text-align: left;
-    font-family: "nanumgothic-bold";
     font-size: 12px;
+    font-weight: 600;
     color: #3c3c3c;
     line-height: 18px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_name span {
+    font-size: 11px;
+    color: #666;
 }
 ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__def .listitem_star {
     /* CLUB HOUSE */
@@ -778,9 +1142,136 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_
     text-align: left;
     line-height: 18px;
 }
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub .player_card__sub-color.list_fppg {
+    width: 70px;
+    text-align: left;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub .player_card__sub-color.list_salary {
+    width: 90px;
+    text-align: left;
+}
+
 ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_card__sub .player_card__sub-color span {
     color: #3c3c3c;
 }
+
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 {
+    /* CLUB HOUSE */
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    padding-top: 5px;
+    padding-left: 60px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table {
+    display: table;
+    width: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-info {
+    display: table-cell;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-btn {
+    display: table-cell;
+    width: 40px;
+    padding: 0 5px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-btn a {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/card/btn_plus.png) 0 center no-repeat;
+    background-size: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-addbtn {
+    display: table-cell;
+    width: 40px;
+    padding: 10px 5px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-addbtn a {
+    width: 100%;
+    height: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card_list__table .player_card_list__td-addbtn img {
+    width: 100%;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__def {
+    display: table;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    text-align: left;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub {
+    display: table;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;    
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__def .listitem_name {
+    display: table-cell;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__def .listitem_star {
+    /* CLUB HOUSE */
+    display: table-cell;
+    width: 75px;
+    text-align: left;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__def .listitem_star span {
+    display: inline-block;
+    width:12px;
+    height: 12px;
+    margin-left: 1px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub .player_card__sub-color {
+    display: table-cell;
+    color: #9b9b9b;
+    font-size: 11px;
+    text-align: left;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub .player_card__sub-color.list_fppg {
+    width: 50px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub .player_card__sub-color.list_salary {
+    width: 55px;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub .player_card__sub-color span {
+    color: #3c3c3c;
+}
+ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_card__sub .player_card__sub-color span.warning {
+    color: #ff0000;
+}
+#modalPlayerCardList .km-footer.limited_footer {
+    height: 6px;
+    background-color: #d0d0d0;
+}
+#modalCardInfo .km-footer {
+    height: 6px;
+    background-color: #d0d0d0;
+}
+#modalCardInfo2 .km-footer {
+    height: 6px;
+    background-color: #d0d0d0;
+}
+
+
+
+.load_more {
+    width: 100px;
+    margin: 10px auto;
+    padding: 8px 15px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid #8ccc3e;
+}
+
 
 .empty_slot {
     width: 100%;
@@ -807,6 +1298,517 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_
     background: url(../resource/skill/blue_gem_002.png) 0 center no-repeat;
     background-size: contain;
 }
+
+
+
+
+/* CARD Layout */
+.card_pack_cols {
+    width: 65px;
+    height: 97px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.card_pack_activate {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.card_pack_activate .card_pack_pos {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.card_pack_activate .card_pack_pos .card_pack__label {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard {
+    display: table;
+    width: 95%;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard .playercard__lv {
+    display: table-cell;
+    font-size: 12px;
+    color: #fff;
+    -webkit-text-stroke: 1px black;
+    text-align: right;
+    vertical-align: bottom;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard .playercard__no {
+    display: table-cell;
+    width: 25px;
+    height: 25px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: center;
+    background: url(../resource/club/bg_t-shirt.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard_name {
+    clear: both;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    /* -webkit-text-stroke: 1px rgba(0,0,0,.5); */
+    text-shadow: 0 1px 3px rgba(0,0,0,1);
+}
+.card_pack_activate .card_pack_pos .card_pack__husks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: url(../resource/club/card_bg.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_activate .card_pack_pos .card_pack__husks.gold_pack {
+    background: url(../resource/club/card_bg_gold.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    padding: 13% 10%;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__emblem {
+    width: 90%;
+    height: 60%;
+    margin: 3% auto;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade span {
+    display: inline-block;
+    width: 11px;
+    height: 11px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_off.png) 0 center no-repeat;
+    background-size: contain;
+}
+.res_str {
+    padding: 3px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(236, 230, 127, 1);
+    text-align: center;
+}
+
+.card_pack_activate .card_pack_pos .card_pack__label .playercard2 {
+    display: table;
+    width: 95%;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard2 .playercard__lv {
+    display: table-cell;
+    font-size: 9px;
+    color: #fff;
+    -webkit-text-stroke: 1px black;
+    text-align: right;
+    vertical-align: bottom;
+}
+.card_pack_activate .card_pack_pos .card_pack__label .playercard2 .playercard__no {
+    display: table-cell;
+    width: 20px;
+    height: 20px;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    background: url(../resource/club/bg_t-shirt.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_cols .card_pack_activate .card_pack_pos .card_pack__label .playercard_name {
+    clear: both;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #fff;
+    /* -webkit-text-stroke: 1px rgba(0,0,0,.5); */
+    text-shadow: 0 1px 3px rgba(0,0,0,1);
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade span.star-on {
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade2 {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade2 span {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    text-indent: 999999px;
+    background: url(../resource/club/star_off.png) 0 center no-repeat;
+    background-size: contain;
+}
+.card_pack_activate .card_pack_pos .card_pack__stat .playercard__grade2 span.star-on {
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+
+.card_pack_activate .card_pack_pos .card_pack__back {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 99%;
+    height: 98%;
+    z-index: 1;
+    border-radius: 8px;
+}
+.card_pack_cols .card_pack__back {
+    position: absolute;
+    top: 4px;
+    left: 1px;
+    width: 96%;
+    height: 94%;
+    z-index: 1;
+    border-radius: 8px;
+}
+.card_pack_activate .card_pack_pos .card_pack__back .card_pack_pattern {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/club/waves.png) 0 0;
+    opacity: 0.5;    
+}
+
+
+/* CARD Layout 4 Victim */
+.card_pack_victim {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.card_pack_victim .card_pack_pos {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.card_pack_victim .card_pack_pos .card_pack__label {
+    position: absolute;
+    bottom: 8%;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+}
+.card_pack_victim .card_pack_pos .card_pack__label .playercard {
+    display: none;
+    /* display: table; */
+    width: 95%;
+}
+.card_pack_victim .card_pack_pos .card_pack__label .playercard .playercard__lv {
+    display: table-cell;
+    font-size: 8px;
+    color: #fff;
+    -webkit-text-stroke: 1px black;
+    text-align: right;
+    vertical-align: bottom;
+}
+.card_pack_victim .card_pack_pos .card_pack__label .playercard .playercard__no {
+    display: table-cell;
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: center;
+    background: url(../resource/club/bg_t-shirt.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_victim .card_pack_pos .card_pack__label .playercard_name {
+    clear: both;
+    text-align: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: #fff;
+    /* -webkit-text-stroke: 1px rgba(0,0,0,.5); */
+    text-shadow: 0 1px 3px rgba(0,0,0,1);
+}
+.card_pack_victim .card_pack_pos .card_pack__husks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: url(../resource/club/card_bg.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_victim .card_pack_pos .card_pack__husks.gold_pack {
+    background: url(../resource/club/card_bg_gold.png) 0 center no-repeat;
+    background-size: 100%;
+}
+.card_pack_victim .card_pack_pos .card_pack__stat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    padding: 5% 8%;
+}
+.card_pack_victim .card_pack_pos .card_pack__stat .playercard__grade {
+    display: table;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+.card_pack_victim .card_pack_pos .card_pack__stat .playercard__emblem {
+    width: 90%;
+    height: 60%;
+    margin: 0 auto;
+}
+.card_pack_victim .card_pack_pos .card_pack__stat .playercard__grade span {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    width: 6px;
+    height: 6px;
+    line-height: 0;
+    text-indent: 999999px;
+    background: url(../resource/club/star_off.png) 0 center no-repeat;
+    background-size: contain;
+}
+.card_pack_victim .card_pack_pos .card_pack__stat .playercard__grade span.star-on {
+    background: url(../resource/club/star_on.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+.card_pack_victim .card_pack_pos .card_pack__back {
+    position: absolute;
+    top: 1px;
+    left: 0;
+    width: 100%;
+    height: 98%;
+    z-index: 1;
+    border-radius: 8px;
+}
+.card_pack_victim .card_pack_pos .card_pack__back .card_pack_pattern {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/club/waves.png) 0 0;
+    opacity: 0.5;    
+}
+
+
+
+#modal_enhanceDramatic .km-content {
+    /*background: rgba(0,0,0,1);*/
+    width: 100%;
+    height: 100%;
+    background: url(../resource/common/card_bg.png) 0 center no-repeat;
+    background-size: 100%;
+}
+#modal_enhanceDramatic .km-header {
+    height: 32px;
+}
+#modal_enhanceDramatic .km-view-title {
+    height: 32px;
+    border-radius: 8px 8px 0 0;
+    background: rgba(0,0,0,0.7);
+}
+#modal_enhanceDramatic .km-navbar {
+    border: 0;
+    background: rgba(0,0,0,0);
+}
+#modal_enhanceDramatic .km-footer {
+    height: 15px;
+    border-radius: 0 0 8px 8px;
+    background: rgba(0,0,0,0.7);
+}
+.card_dramatic {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.card_dramatic .card_dramatic_box {
+    position: relative;
+    width: 100%;
+}
+
+.card_back_resource {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/common/card_bg.png) 0 center no-repeat;
+    background-size: 100%;
+}
+
+.card_pack_str {
+    display: none;
+    position: absolute;
+    width: 220px;
+    height: 65px;
+    top: 5%;
+    left: 50%;
+    margin-left: -110px;
+    font-size: 22px;
+    text-align: center;
+    color: #fff;
+}
+
+.card_pack_str2 {
+    display: none;
+    position: absolute;
+    width: 220px;
+    height: 65px;
+    top: 10%;
+    left: 50%;
+    margin-left: -110px;
+    font-size: 22px;
+    text-align: center;
+    color: #fff;
+}
+
+.card_pack_subject {
+    width: 100%;
+    height: 100%;
+}
+.card_pack_str .card_pack_subject.do_success {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/card/enhancement_success.png) 0 0 no-repeat;
+    background-size: cover;
+}
+.card_pack_str .card_pack_subject.do_failure {
+    width: 105%;
+    height: 100%;
+    background: url(../resource/card/enhancement_failure.png) 0 0 no-repeat;
+    background-size: cover;
+}
+.card_pack_str2 .card_pack_subject.do_success {
+    width: 100%;
+    height: 100%;
+    background: url(../resource/card/composition_success.png) 0 center no-repeat;
+    background-size: contain;
+}
+
+
+.card_pack_born {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    color: #fff;
+    background: rgba(0,0,0,.9) url(../resource/card/effec.png) 0 center no-repeat;
+    background-size: 100%;
+}
+
+.card_pack_oul2 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 186px;
+    top: 17%;
+}
+.card_pack_oul3 {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 124px;
+    top: 56%;
+    text-align: center;
+}
+
+.card_pack_oul4 {
+    display: none;
+    position: absolute;
+    width: 120px;
+    height: 186px;
+    top: 50%;
+    left: 50%;
+    margin-top: -93px;
+    margin-left: -60px;
+}
+
+.card_enhanced {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    overflow: hidden;
+}
+.card_enhanced .background_effect {
+
+    background: url(../resource/card/effect02.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+    animation: animatedEnhance 0.5s steps(10) infinite;   
+}
+@keyframes animatedEnhance {
+    100% { background-position: -320px 0;}
+}
+@keyframes animatedEnhance {
+    100% { background-position: -320px 0px;}
+}
+
+#modal_composeDramatic .km-content {
+    /*background: rgba(0,0,0,1);*/
+    width: 100%;
+    height: 100%;
+    background: url(../resource/common/card_bg.png) 0 center no-repeat;
+    background-size: 100%;
+}
+#modal_composeDramatic .km-header {
+    height: 32px;
+}
+#modal_composeDramatic .km-view-title {
+    height: 32px;
+    border-radius: 8px 8px 0 0;
+    background: rgba(0,0,0,0.7);
+}
+#modal_composeDramatic .km-navbar {
+    border: 0;
+    background: rgba(0,0,0,0);
+}
+#modal_composeDramatic .km-footer {
+    height: 15px;
+    border-radius: 0 0 8px 8px;
+    background: rgba(0,0,0,0.7);
+}
+
+#moadlCardInfo  .km-footer {
+    height: 15px;
+    border-radius: 0 0 8px 8px;
+    background-color: #e9e9e9;
+}
+#moadlCardInfo2  .km-footer {
+    height: 15px;
+    border-radius: 0 0 8px 8px;
+    background-color: #e9e9e9;
+}
+
+
 
 /* Amblems */
 
@@ -889,4 +1891,26 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info2 .player_
 .amblem__8586 {
     background:  url(http://scv.rankingball.com/asset/contents/dfs_soccer/EPL_5187.png) 0 center no-repeat;
     background-size: contain;
+}
+
+.bordercolor_by_rating__0 {
+    border-bottom-color: #cecece;
+}
+.bordercolor_by_rating__1 {
+    border-bottom-color: #fff;
+}
+.bordercolor_by_rating__2 {
+    border-bottom-color: #2e42a6;
+}
+.bordercolor_by_rating__3 {
+    border-bottom-color: #116b3c;
+}
+.bordercolor_by_rating__4 {
+    border-bottom-color: #731871;
+}
+.bordercolor_by_rating__5 {
+    border-bottom-color: #ed6322;
+}
+.bordercolor_by_rating__6 {
+    border-bottom-color: #e5e1bb;
 }

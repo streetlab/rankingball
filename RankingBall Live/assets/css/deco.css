@@ -2241,8 +2241,16 @@ ul.collapseRTList .rt-non {
 }
 
 
+#gnb_mail .km-content, 
+#gnb_inven .km-content,
+#gnb_notice .km-content,
+#gnb_guide .km-content {
+    background-color: #e9e9e9;
+    /*background-color: #999;*/
+}
+
 .gnb_contents {
-    padding: 10px 5px;
+    padding: 0 5px;
     background-color: #e9e9e9;
 }
 .gnb_contents ul.inboxList {
@@ -2253,8 +2261,9 @@ ul.collapseRTList .rt-non {
 }
 .gnb_contents ul.inboxList li {
     font-size: 12px;
-    margin-top: 10px;
-    padding: 6px 5px 0 8px;
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 3px;
 }
 .gnb_contents ul.inboxList .inboxList-face {
     display: table;
@@ -2262,16 +2271,21 @@ ul.collapseRTList .rt-non {
     height: 40px;
     line-height: 40px;
     vertical-align: middle;
-    background-color: #fff;
-    border-radius: 3px;
 }
-.gnb_contents ul.inboxList .inboxList-face .inboxList-group {
+.gnb_contents ul.inboxList .inboxList-face2 {
+    display: table;
+    width: 100%;
+    height: 50px;
+}
+.gnb_contents ul.inboxList .inboxList-group {
     display: table-cell;
+    vertical-align: middle;
 }
-.gnb_contents ul.inboxList .inboxList-face .inboxList-group .inboxList-title {
+.gnb_contents ul.inboxList .inboxList-group .inboxList-title {
     font-size: 12px;
     font-weight: 600;
     color: #3c3c3c;
+    text-align: left;
     word-break: break-all;
     display: -webkit-box;
     overflow: hidden;
@@ -2280,17 +2294,21 @@ ul.collapseRTList .rt-non {
     -webkit-box-orient: vertical;
     line-height: 24px;
 }
-.gnb_contents ul.inboxList .inboxList-face .inboxList-group .inboxList-summ {
+.gnb_contents ul.inboxList .inboxList-group .inboxList-summ {
     text-align: left;
     padding-bottom: 4px;
 }
-.gnb_contents ul.inboxList .inboxList-face .inboxList-group .inboxList-summ span {
+.gnb_contents ul.inboxList .inboxList-group .inboxList-summ span {
     font-size: 11px;
     color: #939393;
 }
 
 .wimg {
-    width: 50px;
+    width: 55px;
+    line-height: 0;
+}
+.wimg img {
+    width: 50px
 }
 .wday {
     width: 35px;

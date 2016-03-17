@@ -410,10 +410,13 @@ app.playRTS = (function () {
                     }
                     
                     var id = window.setInterval(function() {}, 0);
+                    window.clearInterval(id);
+                    /*
                     while (id--) {
                         console.log("window interval: " + id);
                         window.clearInterval(id); // will do nothing if no timeout with id is present
                     }
+                    */
                     app.mobileApp.hideLoading();
                     //SRLive.removeWidget("widgets");
                     /*
@@ -567,24 +570,28 @@ app.playRTS = (function () {
             $('.sc_menus').removeClass('swipeNav');
             $('.livescore').empty();
             
-            SRLive.addWidget("widgets.lmts",{
-                "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": param.matchId, "showTitle": false, "container": ".wc-widget.wc-10"
-            });
-            SRLive.addWidget("widgets.matchcommentary",{
-              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
-            });
-            SRLive.addWidget("widgets.matchlineups",{
-              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-12"
-            });
-            SRLive.addWidget("widgets.matchstats",{
-              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-13"
-            });
-            SRLive.addWidget("widgets.matchhead2head",{
-              "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-14"
-            });
-            SRLive.addWidget("widgets.livetable",{
-              "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
-            });
+            if(typeof SRLive !== 'undefined') {
+                SRLive.addWidget("widgets.lmts",{
+                    "height": vuHeight, "showScoreboard": false, "showMomentum": true, "showPitch": true, "showSidebar": false, "showGoalscorers": false, "sidebarLayout": "dynamic", "collapse_enabled": false, "collapse_startCollapsed": false, "matchId": param.matchId, "showTitle": false, "container": ".wc-widget.wc-10"
+                });
+                SRLive.addWidget("widgets.matchcommentary",{
+                  "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-11"
+                });
+                SRLive.addWidget("widgets.matchlineups",{
+                  "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-12"
+                });
+                SRLive.addWidget("widgets.matchstats",{
+                  "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-13"
+                });
+                SRLive.addWidget("widgets.matchhead2head",{
+                  "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-14"
+                });
+                SRLive.addWidget("widgets.livetable",{
+                  "tournamentId": false, "enableFeedPolling": true, "promotionLegend": true, "respondToSetMatchFocus": true, "matchId": param.matchId, "height": vuHeight, "showTitle": false, "container": ".wc-widget.wc-15"
+                });
+            }
+            
+
             
             
             var groupObj = $.grep(rtRowData[param.group], function(e){ return e.match_id === param.matchId; });
@@ -1086,7 +1093,7 @@ app.playRTS = (function () {
                         
                         setlocalStorage('lastMatch','');
                         setlocalStorage('lastFlow','');
-                        console.log(predictionTimer);
+                        //console.log(predictionTimer);
                         that.initUX();                        
                     }                     
                  }, 1000);
@@ -1164,6 +1171,7 @@ app.playRTS = (function () {
                     that.myPointBar(preData);
 
                 } else {
+                    $('#predictionResultTime2').html(preData.round);
                     $(".rt_result_box__success").addClass('hide');
                     $(".rt_result_box__fail").removeClass('hide');
                 }

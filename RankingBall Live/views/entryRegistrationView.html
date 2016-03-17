@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="salarycap-position">
+        <div class="salarycap-position linear_bg">
             <div class="salarycap-box">
                 <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
                 <div id="gae_salarycap" class="salarycap-gage">
@@ -45,141 +45,169 @@
                 </div>
                 <div class="salarycap-overflow hide"></div>
             </div>
-            <div class="salarycap-box-padding">
-            </div>
         </div>
     </div>
-
-    <div id="entry-box" class="entry-box-all">
-            <div class="position-layout">
-                <ul class="position-type">
-                    <li>
-                        <ol class="fw">
-                            <li>
-                                <div class="player-box-jersey">
+    <div id="entryOutline" class="entry_outline">
+        <div id="entry-box" class="entry-box-all">
+                <div class="position-layout">
+                    <ul class="position-type">
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__fw">
+                                    
                                     <a data-role="button" data-rel="1" data-slot="slot1" data-click="app.Entry.setPlayerEntry">
-                                        <div class="fw-ico">
-                                            <p><img class="btn-slots" id="img-slot1" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img fw-bg">
+                                                <div id="img-slot1" class="slot_btn fw-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_f" id="player-slot1">FW</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot1">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-f" id="player-slot1">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__fw">
+                                    
                                     <a data-role="button" data-rel="1" data-slot="slot2" data-click="app.Entry.setPlayerEntry">
-                                        <div class="fw-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot2" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img fw-bg">
+                                                <div id="img-slot2" class="slot_btn fw-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_f" id="player-slot2">FW</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot2">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+                                    
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-f" id="player-slot2">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="mf">
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="2" data-slot="slot3" data-click="app.Entry.setPlayerEntry">
-                                        <div class="mf-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot3" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mf-bg">
+                                                <div id="img-slot3" class="slot_btn mf-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_m" id="player-slot3">MF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot3">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-m" id="player-slot3">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="15" data-slot="slot4" data-click="app.Entry.setPlayerEntry">
-                                        <div class="mf-ico  choice-off dmf-ico">
-                                            <p><img class="btn-slots2" id="img-slot4" src="./assets/resource/btn_player_plus_02.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mflex-bg">
+                                                <div id="img-slot4" class="slot_btn mf-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_m" id="player-slot4">FLEX</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot4">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span id="player-slot4">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="2" data-slot="slot5" data-click="app.Entry.setPlayerEntry">
-                                        <div class="mf-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot5" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mf-bg">
+                                                <div id="img-slot5" class="slot_btn mf-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_m" id="player-slot5">MF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot5">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-m" id="player-slot5">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="df">
-
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__df">
+                                    
                                     <a data-role="button" data-rel="4" data-slot="slot6" data-click="app.Entry.setPlayerEntry">
-                                        <div class="df-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot6" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img df-bg">
+                                                <div id="img-slot6" class="slot_btn df-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_d" id="player-slot6">DF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot6">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-d" id="player-slot6">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__df">
+                                    
                                     <a data-role="button" data-rel="4" data-slot="slot7" data-click="app.Entry.setPlayerEntry">
-                                        <div class="df-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot7" src="./assets/resource/btn_player_plus.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img df-bg">
+                                                <div id="img-slot7" class="slot_btn df-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_d" id="player-slot7">DF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot7">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="player-slots-d" id="player-slot7">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="gk">
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__gk">
                                     <a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry">
-                                        <div class="gk-ico choice-off">
-                                            <p><img class="btn-slots" id="img-slot8" src="./assets/resource/btn_player_plus_02.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img gk-bg">
+                                                <div id="img-slot8" class="slot_btn gk-ico player_plus"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots slot_pn_g" id="player-slot8">GK</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots slot_ps" id="player-salary-slot8">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span id="player-slot8">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                </ul>
+                             </div>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="entry-control-box">
+            <div class="control-box">
+                <a class="btn-close" data-role="button" data-click="app.Entry.allClear" data-labelnum="64">초기화</a>
             </div>
-            <img src="./assets/resource/bg_soccer_field.png" width="100%">
-    </div>
-
-    <div class="entry-control-box">
-        <div class="control-box">
-            <a class="btn-close" data-role="button" data-click="app.Entry.allClear" data-labelnum="64">초기화</a>
-        </div>
-        <div class="control-box">
-            <a id="entryRegBtn" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.regEntry" data-labelnum="23">엔트리 등록 완료</a>
+            <div class="control-box">
+                <a id="entryRegBtn" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.regEntry" data-labelnum="23">엔트리 등록 완료</a>
+            </div>
         </div>
     </div>
-
 </div>
 
 

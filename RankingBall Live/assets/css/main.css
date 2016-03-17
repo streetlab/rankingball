@@ -1382,7 +1382,6 @@ a.rnkb-rt img {
     border-radius: 3px;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-face .collapseInboxList-group {
-    width: 100%;
     display: table-cell;
     vertical-align: middle;
 }
@@ -1409,7 +1408,7 @@ a.rnkb-rt img {
     padding: .2em 0 0 .2em;
 }
 .contest-match-list ul.collapseInboxList .btns {
-
+    width: 40px;
 }
 .contest-match-list ul.collapseInboxList .collapseInboxList-title {
     font-size: 12px;
@@ -2736,14 +2735,25 @@ span.ic-end {
 .salarycap-position {
     width: 100%;
     background-color: #3c3c3c;
+
+}
+.salarycap-position.linear_bg{
+    background: -moz-linear-gradient(180deg, #2A2A2A 0, #003a19 100%);/* FF3.6+ */
+    background: -webkit-gradient(linear, 180deg, color-stop(0, 2A2A2A), color-stop(100%, 003a19));/* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(180deg, #2A2A2A 0, #003a19 100%);/* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(180deg, #2A2A2A 0, #003a19 100%);/* Opera 11.10+ */
+    background: -ms-linear-gradient(180deg, #2A2A2A 0, #003a19 100%);/* IE10+ */
+    background: linear-gradient(180deg, #2A2A2A 0, #003a19 100%);/* W3C */
 }
 .salarycap-position .salarycap-box {
-    padding: .6em .5em .4em .5em;
+    position: relative;
+    width: 100%;
+    padding: .6em .5em .8em .5em;
 }
 .salarycap-position .salarycap-box h4 {
     margin: 0;
     padding-bottom: 0.1em;
-    font-size: 0.8em;
+    font-size: 10px;
     color: #81c132;
 }
 .salarycap-position .salarycap-box-padding {
@@ -2841,9 +2851,13 @@ span.ic-end {
     background-color: #ff0000;
 }
 .salarycap-overflow, .salarycap-update-overflow {
-    padding: 2px 0;
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    z-index: 3;
     font-size: 10px;
     color: #fff;
+    text-align: right;
 }
 
 /* Entry Surface */
@@ -2854,10 +2868,18 @@ span.ic-end {
     background-color: #3c3c3c;
 }
 
+.entry_outline {
+    position: relative;
+    width: 100%;
+    background-color: #003a19;
+}
+
 .entry-box-all {
     position: relative;
     width: 100%;
     overflow: hidden;
+    background: url(../resource/entry/bg_soccer_field.png) 0 center no-repeat;
+    background-size: 100% 100%;
 }
 .entry-box-all .position-layout {
     position: absolute;
@@ -2880,6 +2902,197 @@ span.ic-end {
     height: 25%;
 }
 
+.entry-box-all .position-layout .position_box {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+.entry-box-all .position-layout .position_box .position_box__fw {
+    display: table-cell;
+    width: 50%;
+    height: 100%;
+    vertical-align: middle;
+}
+.entry-box-all .position-layout .position_box .position_box__fw .player_box {
+    position: relative;
+    width: 100px;
+    height: 100%;
+    font-size: 12px;
+}
+.entry-box-all .position-layout .position_box .position_box__fw .player_box .player_box_img {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+.entry-box-all .position-layout .position_box .position_box__fw .player_box .player_box_img.fw-bg {
+    background: url(../resource/entry/ic_forward.png) center 0 no-repeat;
+    background-size: contain;
+}
+.entry-box-all .position-layout .position_box .position_box__fw .player_box .player_box_img .fw-ico {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+.entry-box-all .position-layout .position_box .position_box__fw .player_box .player_box_img .player_plus {
+    background: url(../resource/entry/btn_player_plus.png) center 0 no-repeat;
+    background-size: 100%;
+}
+
+
+.entry-box-all .position-layout .position_box .position_box__mf {
+    display: table-cell;
+    width: 33.333%;
+    height: 100%;
+    vertical-align: middle;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box {
+    position: relative;
+    width: 90px;
+    height: 100%;
+    font-size: 12px;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .player_box_img {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .player_box_img.mf-bg {
+    background: url(../resource/entry/ic_midfielder.png) center 0 no-repeat;
+    background-size: contain;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .player_box_img .mf-ico {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .player_box_img .player_plus {
+    background: url(../resource/entry/btn_player_plus.png) center 0 no-repeat;
+    background-size: 100%;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .player_box_img.mflex-bg {
+    background: url(../resource/entry/ic_DMF.png) center 0 no-repeat;
+    background-size: contain;
+}
+
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .mflex-bg .player_plus {
+    background: url(../resource/entry/btn_player_plus_02.png) center 0 no-repeat;
+    background-size: 100%;
+}
+
+.entry-box-all .position-layout .position_box .position_box__df {
+    display: table-cell;
+    width: 50%;
+    height: 100%;
+    vertical-align: middle;
+}
+.entry-box-all .position-layout .position_box .position_box__df .player_box {
+    position: relative;
+    width: 100px;
+    height: 100%;
+    font-size: 12px;
+}
+.entry-box-all .position-layout .position_box .position_box__df .player_box .player_box_img {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+.entry-box-all .position-layout .position_box .position_box__df .player_box .player_box_img.df-bg {
+    background: url(../resource/entry/ic_defender.png) center 0 no-repeat;
+    background-size: contain;
+}
+.entry-box-all .position-layout .position_box .position_box__df .player_box .player_box_img .df-ico {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+.entry-box-all .position-layout .position_box .position_box__df .player_box .player_box_img .player_plus {
+    background: url(../resource/entry/btn_player_plus.png) center 0 no-repeat;
+    background-size: 100%;
+}
+
+.entry-box-all .position-layout .position_box .position_box__gk {
+    display: table-cell;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_box {
+    position: relative;
+    width: 100px;
+    height: 100%;
+    font-size: 12px;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_box .player_box_img {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_box .player_box_img.gk-bg {
+    background: url(../resource/entry/ic_goalkeeper.png) center 0 no-repeat;
+    background-size: contain;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_box .player_box_img .gk-ico {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_box .player_box_img .player_plus {
+    background: url(../resource/entry/btn_player_plus_02.png) center 0 no-repeat;
+    background-size: 100%;
+}
+
+
+.entry-box-all .position-layout .position_box .player_change {
+    background: url(../resource/entry/btn_player_change.png) center 0 no-repeat;
+    background-size: 100%;
+}
+.entry-box-all .position-layout .position_box .position_box__mf .player_box .mflex-bg .player_change {
+    background: url(../resource/entry/btn_player_change_02.png) center 0 no-repeat;
+    background-size: 100%;
+}
+.entry-box-all .position-layout .position_box .position_box__gk .player_change {
+    background: url(../resource/entry/btn_player_change_02.png) center 0 no-repeat;
+    background-size: 100%;
+}
+
+
+.entry-box-all .position-layout .position_box .player_box .player_box_str {
+    height: 20%;
+}
+.entry-box-all .position-layout .position_box .player_box .player_box_str .player-slots {
+    width: 100%;
+    height: 100%;
+    font-size: 94%;
+    color: #fff799;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #2a2329;
+}
+.entry-box-all .position-layout .position_box .player_box .player_box_str .salary-slots {
+    width: 100%;
+    height: 100%;
+    font-size: 85%;
+    color: #73b226;
+    text-align: center;
+    background-color: #000;
+}
 
 .entry-box-all .position-layout ol.fw li {
     position: relative;
@@ -2889,6 +3102,9 @@ span.ic-end {
     text-align: center;
 }
 
+
+
+/* OLD */
 
 .entry-box-all .position-layout ol.mf li {
     position: relative;
@@ -2970,20 +3186,22 @@ span.ic-end {
 }
 
 .entry-control-box {
-    display: table;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
+    display: table;
 }
 .entry-control-box .control-box {
     display: table-cell;
-    padding: 1.2em .6em;
 }
 .entry-control-box .control-box:first-child {
     width: 30%;
-    padding-right: .3em;
+    padding: 10px 5px 5px 10px;
 }
 .entry-control-box .control-box:last-child {
     width: 70%;
-    padding-left: .3em; 
+    padding: 10px 10px 5px 5px;
 }
 
 .entry-control-box .control-box a {

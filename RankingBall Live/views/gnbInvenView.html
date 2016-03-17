@@ -36,21 +36,36 @@
     
     <div class="gnb_contents">
         <ul id="gnbInven" class="inboxList">
-            <li>
-                <div class="inboxList-face">
-                    <div class="inboxList-group">
-                        <a data-role="button" data-rel="1001" data-mol="moadl_inven" data-click="app.Hambugerz.modalOpen">
-                            <div class="inboxList-title">You have to win the game</div>
-                            <div class="inboxList-summ"><span></span></div>
-                        </a>
-                    </div>
-                    <div class="inboxList-group wbtn">02.27</div>
-                </div>
-            </li>
+
         </ul>
     
     </div>
 </div>
+
+
+<script id="gnbInvenTemplate" type="text/x-kendo-template">
+    #
+        //img_src = init_data.path + imagePath + imageName;
+    #
+    <div class="inboxList-face2">
+        <div class="inboxList-group wimg"></div>
+        <div class="inboxList-group">
+            <a data-role="button" data-rel="" data-mol="moadl_mail">
+                <div class="inboxList-title"></div>
+                <div class="inboxList-summ">
+                    <span></span> <span></span>
+                </div>
+            </a>
+        </div>
+        <!--
+        <div class="inboxList-group wbtn">
+            <a data-role="button" data-rel="#:mailSeq#" data-fk="#:itemFK#" data-click="app.Hambugerz.mailRecevice">
+                <div class="attach_down">Receive</div>
+            </a>
+        </div>
+        //-->
+    </div>
+</script>
 
 
 <div data-role="modalview" id="moadl_inven" data-modal="false" class="gnb_modaless" style="width:100%;height:100%;margin-left:1px;padding:0;border:0;">

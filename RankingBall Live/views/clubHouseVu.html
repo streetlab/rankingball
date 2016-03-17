@@ -45,7 +45,7 @@
         <div class="group_clubhouse">
             <div class="card_tapstrip_groups">
                 <div id="subTab-ALL" class="card_tab_sub ts">
-                    <a class="ts" data-role="button" data-rel="ALL" data-click="app.Card.tapSubStriper">ALL</a>
+                    <a data-role="button" data-rel="ALL" data-click="app.Card.tapSubStriper">ALL</a>
                 </div>
                 <div id="subTab-FW" class="card_tab_sub">
                     <a data-role="button" data-rel="FW" data-click="app.Card.tapSubStriper">FW</a>
@@ -79,10 +79,10 @@
         </div>
         <div class="card_tapstrip_groups">
             <div class="card_apps__length">
-                <span>0</span>/<span>200</span>
+                <span id="playerCardNums">0</span>/<span>200</span>
             </div>
             <div class="card_apps__search">
-                <form id="cardSearch">
+                <form id="cardSearch" class="hide">
                     <div class="search_table">
                         <div class="search_table__input">
                             <input type="search" id="search" placeholder="search" required validationMessage="input nickname">
@@ -94,192 +94,27 @@
                 </form>
             </div>
             <div class="card_apps__order salarycap-box-moz-vw">
-                <a data-role="button" href="#do-popover-card" data-rel="popover"><span id="sort-player-label" data-labelnum="16">샐러리</span> <span id="sort-player-ico" class="bg-box ic-triangle-n-on"></span></a>
+                <a data-role="button" href="#do-popover-card" data-rel="popover"><span id="sort-player-label3" data-labelnum="16">Salary</span> <span id="sort-player-ico3" class="bg-box ic-triangle-s-on"></span></a>
             </div>
         </div>
         
         <div id="do-popover-card" data-role="popover" class="popover_div" data-popup='{ "width": "160" }'>
-            <div data-role="view" id="popover-play-vw">
+            <div data-role="view" id="popover-playcard">
                 <ul>
-                    <li><a id="orderByPosition" data-role="button" data-rel="off" data-val="1" data-order="asc" data-click="app.Card.playerListSort"><label id="orderLabelPosition" data-align="left" class="sortClass2" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><a id="orderByPlayer" data-role="button" data-rel="off" data-val="2" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelPlayer" class="sortClass2" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><a id="orderByFPPG" data-role="button" data-rel="off" data-val="3" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelFPPG" class="sortClass2">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
-                    <li><a id="orderBySalary" data-role="button" data-rel="on" data-val="4" data-order="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelSalary" class="sortClass2 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-n-on"></span></a></li>
+                    <li><a id="orderByPosition3" data-role="button" data-rel="off" data-val="1" data-orderby="asc" data-click="app.Card.playerListSort"><label id="orderLabelPosition3" data-align="left" class="sortClass3" data-labelnum="38">포지션</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByPlayer3" data-role="button" data-rel="off" data-val="2" data-orderby="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelPlayer3" class="sortClass3" data-labelnum="8">네임</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderByFPPG3" data-role="button" data-rel="off" data-val="3" data-orderby="asc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelFPPG3" class="sortClass3">FPPG</label> <span class="bg-box ic-triangle-n"></span></a></li>
+                    <li><a id="orderBySalary3" data-role="button" data-rel="on" data-val="4" data-orderby="desc" data-align="right" data-click="app.Card.playerListSort"><label id="orderLabelSalary3" class="sortClass3 sort-l" data-labelnum="16">샐러리</label> <span class="bg-box ic-triangle-s-on"></span></a></li>
                 </ul>
             </div>
         </div>
-        
+
     </div>
     
     <div id="clubhouseDiv">
             <div class="group_clubhouse tabDiv">
-                <ul id="card_list" class="player_card_list" data-role="listview">
-                    <li>
-                        <div class="triangle_top"></div>
-                        <div class="triangle_bottom"></div>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="listitem_position"><div>F</div></div>
-                                <div class="listitem_rating"><div>+2</div></div>
-                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
-                                <div class="player_card_list__box-info2">
-                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
-                                        <div class="player_card_list__table">
-                                            <div class="player_card__def">
-                                                <div class="listitem_name">Aron Ramsey</div>
-                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
-                                            </div>
-                                            <div class="player_card__sub">
-                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
-                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
-                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="triangle_top"></div>
-                        <div class="triangle_bottom"></div>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="listitem_position"><div>F</div></div>
-                                <div class="listitem_rating"><div>+2</div></div>
-                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
-                                <div class="player_card_list__box-info2">
-                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
-                                        <div class="player_card_list__table">
-                                            <div class="player_card__def">
-                                                <div class="listitem_name">Aron Ramsey</div>
-                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
-                                            </div>
-                                            <div class="player_card__sub">
-                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
-                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
-                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="triangle_top"></div>
-                        <div class="triangle_bottom"></div>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="listitem_position"><div>F</div></div>
-                                <div class="listitem_rating"><div>+2</div></div>
-                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
-                                <div class="player_card_list__box-info2">
-                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
-                                        <div class="player_card_list__table">
-                                            <div class="player_card__def">
-                                                <div class="listitem_name">Aron Ramsey</div>
-                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
-                                            </div>
-                                            <div class="player_card__sub">
-                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
-                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
-                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="triangle_top"></div>
-                        <div class="triangle_bottom"></div>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="listitem_position"><div>F</div></div>
-                                <div class="listitem_rating"><div>+2</div></div>
-                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
-                                <div class="player_card_list__box-info2">
-                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
-                                        <div class="player_card_list__table">
-                                            <div class="player_card__def">
-                                                <div class="listitem_name">Aron Ramsey</div>
-                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
-                                            </div>
-                                            <div class="player_card__sub">
-                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
-                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
-                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="triangle_top"></div>
-                        <div class="triangle_bottom"></div>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="listitem_position"><div>F</div></div>
-                                <div class="listitem_rating"><div>+2</div></div>
-                                <div class="listitem_amblem"><div class="amblem__pos amblem__9817"></div></div>
-                                <div class="player_card_list__box-info2">
-                                    <a data-role="button" data-rel="1234" data-val="" data-click="app.Card.cardInfo">
-                                        <div class="player_card_list__table">
-                                            <div class="player_card__def">
-                                                <div class="listitem_name">Aron Ramsey</div>
-                                                <div class="listitem_star card_lev"><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span><span>*</span></div>
-                                            </div>
-                                            <div class="player_card__sub">
-                                                <div class="player_card__sub-color"><span>Arsenal</span></div>
-                                                <div class="player_card__sub-color">FPPG <span>20</span></div>
-                                                <div class="player_card__sub-color">Salary <span>$2,500</span></div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>            
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="empty_slot"><span>NO CARD</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="empty_slot"><span>NO CARD</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="empty_slot"><span>NO CARD</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="empty_slot"><span>NO CARD</span></div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="player_card_list__box">
-                            <div class="player_card_list__box-retlative">
-                                <div class="empty_slot"><span>NO CARD</span></div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <ul id="playercardList" class="player_card_list" data-role="listview"></ul>
+                <div id="playercardListMoreBnt" class="load_more"><a data-role="button" data-click="app.Card.loadMoreList">Load More</a></div>
             </div>
 
             <div class="group_skill tabDiv hide">
@@ -315,4 +150,515 @@
 </div>
 
 
+<div data-role="modalview" id="modalPlayerCard" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            Player Card
+            <a data-align="right" data-role="button" data-rel="modalPlayerCard" data-click="app.Card.closeModaler" class="close_modal_win"></a>
+        </div>
+        <div class="card_face">
+            <div class="card_face__table">
+                <div class="card_face__tablecell card_face__amblem">
+                    <div id="cardAmblem" class="card_face__amblem-bg"></div>
+                    <span id="player-info-team"></span>
+                </div>
+                <div class="card_face__tablecell card_face__data">
+                    <div id="player-info-name" class="card_face__player"></div>
+                    <div class="card_data__table">
+                        <div class="card_data__tablecell player_info">
+                            <span id="player-info-position" class="player_position"></span> No. <span id="player-info-number"></span>
+                        </div>
+                        <div class="card_data__tablecell player_fppg">
+                            FPPG
+                            <div id="player-info-fppg" class="print_no">0</div>
+                        </div>
+                        <div class="card_data__tablecell player_salary">
+                            Salary
+                            <div id="player-info-salary" class="print_no">$0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tapstrip-group-c">
+            <div id="tabstripGameRecord" class="tabstrip-moz">
+                <a data-role="button" data-rel="m-log" data-click="app.Card.tapStriper">Game Log</a>
+            </div>
+            <div id="tabstripCard" class="tabstrip-moz ts">
+                <a data-rel="m-card" data-role="button" data-click="app.Card.tapStriper">Card</a>
+            </div>
+        </div>
 
+    </div>
+    <div class="card_box">
+        <div class="card_box__body">
+            <div class="card_box__scroller">
+                <div id="playerCardRecord" class="hide">
+                    <div class="feature_label">Seasonal record</div>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <th>MP</th>
+                            <th>MIN</th>
+                            <th>G</th>
+                            <th>GA</th>
+                            <th>SHO</th>
+                            <th>SOG</th>
+                            <th>PAS%</th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                        </tr>
+                        <tr>
+                            <th>TA</th>
+                            <th>FC</th>
+                            <th>FS</th>
+                            <th>YC</th>
+                            <th>RC</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <div class="feature_label">2014~2015 <span>Recent 5 match</span></div>
+                    <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td colspan="11" class="likeH4 hide">11.22 VS Man Utd</td>
+                        </tr>
+                        <tr>
+                            <th>G</th>
+                            <th>GA</th>
+                            <th>SHO</th>
+                            <th>SOG</th>
+                            <th>CR</th>
+                            <th>SAV</th>
+                            <th>SAVCK</th>
+                            <th>FC</th>
+                            <th>FS</th>
+                            <th>YC</th>
+                            <th>RC</th>
+                        </tr>
+                        <tr>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                            <td>00</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="playerCardFeature">
+                    <div class="feature_label">Level</div>
+                    <div class="level_box">
+                        <div class="display_table">
+                            <div class="display_tablecell level_effect">
+                                <div id="playercard-star" class="star_lv">
+                                    <span>*</span>
+                                    <span>*</span>
+                                    <span>*</span>
+                                    <span>*</span>
+                                    <span>*</span>
+                                    <span>*</span>
+                                </div>
+                                <div class="effect_lv">
+                                    Discount Rate <span id="playercard-effect">0%</span>
+                                </div>
+                            </div>
+                            <div class="display_tablecell discount_effect">
+                                <span id="playercard-old" class="hide">$0</span>
+                                <div id="playercard-discount">$0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feature_label">
+                        Skillset
+                        <div class="skill_count">Max <span>3</span></div>
+                    </div>
+                    <div class="skill_box">
+                        <ul id="playerCardSkills">
+                            <li class="hide">
+                                <div class="display_table">
+                                    <div class="display_tablecell skill_ico"><img src="./assets/resource/card/skill_goal.png" /></div>
+                                    <div class="display_tablecell skill_mark">
+                                        <span class="mark_title">Goal</span> Lv.<span class="mark_no">1</span><br />
+                                        Add point <span class="mark_no">1</span>
+                                    </div>
+                                    <div class="display_tablecell skill_btn">
+                                        <a data-role="button" data-click="app.Card.tapper"></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div id="playercardAddSkill" class="skill_add_btn"><a data-role="button" data-click="app.Card.addSkill">Add Skill +</a></div>
+                    </div>
+                    
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+    <div data-role="footer">
+        <div class="card_fnc">
+            <div class="btn_left"><a data-role="button" data-click="app.Card.cardEnhance">Enhance</a></div>
+            <div class="btn_right"><a data-role="button" data-click="app.Card.cardCompose">Compose</a></div>
+        </div>
+    </div>
+
+</div>
+
+<div data-role="modalview" id="modalPlayerCardEnhance" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            Enhance
+            <a data-align="right" data-role="button" data-rel="modalPlayerCardEnhance" data-dp="player" data-click="app.Card.closeMisc" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="activate_box">
+        <div class="activate_box__body">
+            <div id="playercarOuterBox" class="outer">
+                <div class="inset_box master">
+                    <div class="inset_box__label">Target Card</div>
+                    <div class="inset_box__mastercard">
+                        <div id="masterPlayercard">
+                            <div id="selectedPlayercard" class="inner_mastercard hide"></div>
+                            <div id="masterPlayercardBtn" class="master_box">
+                                <a data-role="button" class="add_btn_playercard" data-rel="master" data-click="app.Card.enhanceAddBtn"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inset_box arrow">
+                    
+                </div>
+                <div class="inset_box fedding">
+                    <div class="inset_box__label">Feeding Card</div>
+                    <div class="inset_box__feedingcard">
+                        <div class="feddings">
+                            <div class="fedding_box__left">
+                                <div id="feedingPlayercard0" class="feeding_box">
+                                    <div id="selectedPlayercard0" class="inner_feedingcard hide"></div>
+                                    <div id="victimsPlayercardBtn0" class="feeding_box_inner">
+                                        <a data-role="button" class="add_btn_playercard" data-rel="0" data-click="app.Card.enhanceAddBtn"></a>
+                                    </div>
+                                    
+                                </div>
+                                <div id="enhanceCard0" class="ehance_rate hide"></div>
+                            </div>
+                            <div class="fedding_box__right">
+                                <div id="feedingPlayercard1" class="feeding_box">
+                                    <div id="selectedPlayercard1" class="inner_feedingcard hide"></div>
+                                    <div id="victimsPlayercardBtn1" class="feeding_box_inner">
+                                        <a data-role="button" class="add_btn_playercard" data-rel="1" data-click="app.Card.enhanceAddBtn"></a>
+                                    </div>
+                                    
+                                </div>
+                                <div id="enhanceCard1" class="ehance_rate hide"></div>
+                            </div>
+                        </div>
+                        <div class="feddings">
+                            <div class="fedding_box__left">
+                                <div id="feedingPlayercard2" class="feeding_box">
+                                    <div id="selectedPlayercard2" class="inner_feedingcard hide"></div>
+                                    <div id="victimsPlayercardBtn2" class="feeding_box_inner">
+                                        <a data-role="button" class="add_btn_playercard" data-rel="2" data-click="app.Card.enhanceAddBtn"></a>
+                                    </div>
+                                    
+                                </div>
+                                <div id="enhanceCard2" class="ehance_rate hide"></div>
+                            </div>
+                            <div class="fedding_box__right">
+                                <div id="feedingPlayercard3" class="feeding_box">
+                                    <div id="selectedPlayercard3" class="inner_feedingcard hide"></div>
+                                    <div id="victimsPlayercardBtn3" class="feeding_box_inner">
+                                        <a data-role="button" class="add_btn_playercard" data-rel="3" data-click="app.Card.enhanceAddBtn"></a>
+                                    </div>
+                                    
+                                </div>
+                                <div id="enhanceCard3" class="ehance_rate hide"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activate_guide">
+                <div class="activate_guide_box">
+                    <div class="activate_guide_alert"></div>
+                    Enhancement requires material cards.<br />
+                    You can put maximum 4 material cards together when you enhance a player card.<br />
+                    The leftover material cards are returned after target card reaches level 5 in enhancement.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" class="activate_footer">
+        <div class="active_data">
+            <ul>
+                <li>
+                    <div class="active_label">Enhance Point</div>
+                    <div id="enhancePoint" class="active_val">0%</div>
+                </li>
+                <li>
+                    <div class="active_label">Max Enhance Fee</div>
+                    <div id="enhanceFee" class="active_val">$0</div>
+                </li>
+            </ul>
+        </div>
+        <div class="active_fnc">
+            <a data-role="button" data-click="app.Card.activeEnhance">Enhance</a>
+        </div>
+    </div>
+</div>
+
+<div data-role="modalview" id="modalPlayerCardCompose" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            Compose
+            <a data-align="right" data-role="button" data-rel="modalPlayerCardCompose" data-dp="player" data-click="app.Card.closeMisc" class="close_modal_win"></a>
+        </div>
+    </div>
+    <div class="activate_box">
+        <div class="activate_box__body">
+         <div id="playercarOuterBox" class="outer">
+                <div class="inset_box master">
+                    <div class="inset_box__label">Target Card</div>
+                    <div class="inset_box__mastercard">
+                        <div id="composeMasterPlayercard" class="compose_ins_box">
+                            <div id="selectedComposePlayercard" class="inner_mastercard hide"></div>
+                            <div id="composePlayercardBtn" class="master_box">
+                                <a data-role="button" class="add_btn_playercard" data-rel="master" data-click="app.Card.composeAddBtn"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inset_box arrow">
+                    
+                </div>
+                <div class="inset_box fedding">
+                    <div class="inset_box__label">Feeding Card</div>
+                    <div class="inset_box__mastercard">
+                        <div id="composeVictimPlayercard" class="compose_ins_box">
+                            <div id="selectedComposeVictim" class="inner_mastercard hide"></div>
+                            <div id="composeVictimBtn" class="master_box">
+                                <a data-role="button" class="add_btn_playercard" data-rel="victim" data-click="app.Card.composeAddBtn"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activate_guide">
+                <div class="activate_guide_box">
+                    <div class="activate_guide_alert"></div>
+                    A specified 5 level player card can be upgraded to next rating by composing a same rating and 5 level player card.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" class="activate_footer">
+        <div class="active_data">
+            <ul>
+                <li>
+                    <div class="active_label">Compose Point</div>
+                    <div id="composePoint" class="active_val">0%</div>
+                </li>
+                <li>
+                    <div class="active_label">Max Compose Fee</div>
+                    <div id="composePoint" class="active_val">$0</div>
+                </li>
+            </ul>
+        </div>
+        <div class="active_fnc">
+            <a data-role="button" data-click="app.Card.activeCompose">Compose</a>
+        </div>
+    </div>
+</div>
+
+<div data-role="modalview" id="modalPlayerCardList" class="player_card_box" data-modal="false" style="width:100%;height:100%;padding:20px 15px;">
+    <div data-role="header">
+        <div data-role="navbar">
+            Player Card
+            <a data-align="right" data-role="button" data-rel="modalPlayerCardList" data-dp="add" data-click="app.Card.closeMisc" class="close_modal_win"></a>
+        </div>
+        <div class="group_clubhouse">
+            <div class="card_tapstrip_groups">
+                <div id="modalTab-FW" class="card_tab_added ts">
+                    <a data-role="button" data-rel="FW" data-click="app.Card.modalTabstrip">FW</a>
+                </div>
+                <div id="modalTab-MF" class="card_tab_added">
+                    <a data-role="button" data-rel="MF" data-click="app.Card.modalTabstrip">MF</a>
+                </div>
+                <div id="modalTab-DF" class="card_tab_added">
+                    <a data-role="button" data-rel="DF" data-click="app.Card.modalTabstrip">DF</a>
+                </div>
+                <div id="modalTab-GK" class="card_tab_added">
+                    <a data-role="button" data-rel="GK" data-click="app.Card.modalTabstrip">GK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card_box">
+        <div class="card_box__body">
+            <div class="card_box__scroller">
+                <ul id="addPlayercardList" class="player_card_list" data-role="listview"></ul>
+            </div>
+        </div>
+    </div>
+    <div data-role="footer" class="limited_footer">
+    </div>
+</div>
+
+
+<script id="playerCardListTemplate" type="text/x-kendo-template">
+    #
+        emblem = "amblem__" + team;
+        positionTag = posCode.slice(0,1);
+        stars = "";
+        for(var i = 1;i<=cardClass;i++) {
+            stars += '<span>*</span>';
+        }
+        lv_bg = 'bordercolor_by_rating__' + cardLevel;        
+    #
+    <div class="triangle_top"></div>
+    <div class="triangle_bottom"></div>
+    <div class="player_card_list__box">
+        <div class="player_card_list__box-retlative">
+            <div class="listitem_position"><div>#=positionTag#</div></div>
+            <div class="listitem_rating"><div>+#:cardLevel#</div></div>
+            <div class="listitem_amblem"><div class="amblem__pos #=emblem#"></div></div>
+            <div class="player_card_list__box-info2">
+                <a data-role="button" data-rel="#:itemSeq#" data-click="app.Card.playerCard">
+                    <div class="player_card_list__table">
+                        <div class="player_card__def">
+                            <div class="listitem_name"><span>No.#:shirt_number#</span> #:playerName#</div>
+                            <div class="listitem_star card_lev">#=stars#</div>
+                        </div>
+                        <div class="player_card__sub">
+                            <div class="player_card__sub-color"><span>#:teamName#</span></div>
+                            <div class="player_card__sub-color list_fppg">FPPG <span>#:fppg#</span></div>
+                            <div class="player_card__sub-color list_salary">Salary <span>$#:kendo.toString(salary,"n0")#</span></div>
+                        </div>
+                    </div>
+                </a>
+            </div>            
+        </div>
+    </div>
+</script>
+
+<script id="addPlayerCardListTemplate" type="text/x-kendo-template">
+    #
+        emblem = "amblem__" + team;
+        positionTag = posCode.slice(0,1);
+        stars = "";
+        for(var i = 1;i<=cardClass;i++) {
+            stars += '<span>*</span>';
+        }
+        lv_bg = 'bordercolor_by_rating__' + cardLevel;
+        dc_salary = 0;
+        if(dcRatio) {
+            dc_salary = salary * (1.0 - parseFloat(dcRatio));
+        } else {
+            dc_salary = salary;
+        }
+        
+    #
+    <div class="triangle_top"></div>
+    <div class="triangle_bottom"></div>
+    <div class="player_card_list__box">
+        <div class="player_card_list__box-retlative">
+            <div class="listitem_position"><div>#=positionTag#</div></div>
+            <div class="listitem_rating"><div>+#:cardLevel#</div></div>
+            <div class="listitem_amblem"><div class="amblem__pos #=emblem#"></div></div>
+            <div class="player_card_list__box-info3">
+                <div class="player_card_list__table">
+                    <div class="player_card_list__td-info">
+                        <div class="player_card__def">
+                            <div class="listitem_name">#:playerName#</div>
+                            <div class="listitem_star card_lev">#=stars#</div>
+                        </div>
+                        <div class="player_card__sub">
+                            <div class="player_card__sub-color"><span>#:teamName#</span><br /><span>No.#:shirt_number#</span></div>
+                            <div class="player_card__sub-color list_fppg">FPPG<br /><span>#:fppg#</span></div>
+                            <div class="player_card__sub-color list_salary">Salary<br /><span>$#:kendo.toString(dc_salary,"n0")#</span></div>
+                        </div>
+                    </div>
+                    <div class="player_card_list__td-btn">
+                        <a data-role="button" data-rel="#:itemSeq#" data-click="app.Card.addOnVictim"></a>
+                    </div>
+                </div>
+                
+            </div>            
+        </div>
+    </div>
+</script>
+
+
+<div data-role="modalview" id="modal_enhanceDramatic" data-modal="false" style="width:100%;height:100%;margin-left:1px;padding:0;text-align:center;">
+    <div class="card_dramatic">
+        <div id="dramaticBox" class="card_dramatic_box">
+            
+            
+            <div id="cardPackEffectStr" class="card_pack_str">
+                <div id="ehanceResultSubject" class="card_pack_subject"></div>
+            </div>
+            <div id="cardPackEffect" class="card_pack_born"></div>
+            
+            <div id="cardPackPos" class="card_pack_oul2">
+                
+            </div>
+
+            <div id="cardPackrResult" class="card_pack_oul3">
+                
+            </div>
+            
+            
+            <div id="activateConfirmBox" class="confirm_box hide">
+                <div class="a_tag"><a data-role="button" data-rel="enhanceDramatic" data-click="app.Card.restoreCard">close</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-role="modalview" id="modal_composeDramatic" data-modal="false" style="width:100%;height:100%;margin-left:1px;padding:0;text-align:center;">
+    <div class="card_dramatic">
+        <div id="dramaticBox2Compose" class="card_dramatic_box">
+            
+            
+            <div id="cardPackEffectStr2Compose" class="card_pack_str2">
+                <div id="composeResultSubject" class="card_pack_subject do_success"></div>
+            </div>
+            <div id="cardPackEffect2Compose" class="card_pack_born"></div>
+            
+            <div id="cardPackPos2Compose" class="card_pack_oul4">
+                
+            </div>
+           
+            
+            <div id="activateConfirmBox2Compose" class="confirm_box hide">
+                <div class="a_tag"><a data-role="button" data-rel="composeDramatic" data-click="app.Card.restoreCard">close</a></div>
+            </div>
+        </div>
+    </div>
+</div>

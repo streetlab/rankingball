@@ -52,6 +52,10 @@
                 </div>
             </div>
             
+            <div class="pak_box__desc">
+                <div class="pak_desc"><span id="goodsDesc"></span></div>
+            </div>
+            
             <div class="pak_box__featured">
                 <div class="pak_label"><span class="goods_title"></span> Composition</div>
                 <ul id="goodsOptions"></ul>
@@ -101,28 +105,22 @@
 <div data-role="modalview" id="moadl_purchaseEffect" data-modal="false" data-close="onRewardModalClose" style="width:100%;height:100%;margin-left:1px;padding:0;text-align:center;">
     <div class="purchase_box">
         <div id="purchaseResultVu" class="purchase_box__card">
-            <div class="card_pack">
-                <div class="card_pack__label">
-                    <div class="playercard">
-                        <div class="playercard__lv">+6</div>
-                        <div class="playercard__no">12</div>
-                    </div>
-                    <div class="playercard_name">
-                        Aaron Ramsey
-                    </div>
+
+            <div id="goodsSlider" class='swipe'>
+                <div id="purchasedCardList" class='swipe-wrap'>
+
                 </div>
-                <div class="card_pack__husks"></div>
-                <div class="card_pack__stat">
-                    <div class="playercard__grade">
-                        <span class="star-on">*</span>
-                        <span class="star-on">*</span>
-                        <span class="star-on">*</span>
-                        <span class="star-on">*</span>
-                        <span class="star-on">*</span>
-                        <span>*</span>
-                    </div>
-                    <div class="playercard__emblem"></div>
+            </div>
+            <div id="noneSlider" class='cardpack'>
+                <div id="purchasedCardPack" class='cardpack-wrap'>
+
                 </div>
+            </div>
+            <div class="swipe_control swipe_btn_left hide"><a data-role="button" data-rel="prev" data-click="app.Shop.swipeItems"><div class="btn_arrow_left"></div></a></div>
+            <div class="swipe_control swipe_btn_right hide"><a data-role="button" data-rel="next" data-click="app.Shop.swipeItems"><div class="btn_arrow_right"></div></a></div>
+            
+            <div class="confirm_box">
+                <div class="a_tag"><a data-role="button" data-rel="moadl_purchaseEffect" data-click="app.Shop.purchaseClose">close</a></div>
             </div>
         </div>
     </div>

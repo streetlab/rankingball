@@ -267,7 +267,7 @@ app.Login = (function () {
                                 playerOnLeague.push({
                                     teamName: p.teamName,
                                     position: p.position,
-                                    fppg: p.fppg,
+                                    fppg: parseFloat(p.fppg),
                                     playerID: p.playerID,
                                     playerName: p.playerName,
                                     posDesc: p.posDesc,

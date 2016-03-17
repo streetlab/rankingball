@@ -2,15 +2,15 @@
     id="po_entry_update"
     data-role="view" 
     data-title="엔트리 수정"
-    data-layout="main"
+    data-layout="dfs_main"
     data-model="app.Entry"
     data-init="app.Entry.init"
-    data-show="app.Entry.updateBarEd"
+    data-show="app.Entry.onShowUp"
     data-transition="slide">
 
     <div data-role="header" data-reload="true" class="rnkb-wiz">
         <div data-role="navbar">
-            <a class="drawer-btn" data-align="left" data-role="button" data-click="app.Entry.returnContestPlay">
+            <a class="drawer-btn" data-align="left" data-role="button" data-rel="live" data-click="app.Entry.returnContestPlay">
                 <img src="./assets/resource/btn_back.png">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div class="salarycap-position">
+        <div class="salarycap-position linear_bg">
             <div class="salarycap-box">
                 <h4 data-labelnum="15">사용가능 샐러리 캡</h4>
                 <div id="gae_salarycap_update" class="salarycap-gage">
@@ -45,139 +45,169 @@
                 </div>
                 <div class="salarycap-update-overflow hide"></div>
             </div>
-            <div class="salarycap-box-padding">
-            </div>
         </div>
     </div>
 
-    <div id="entry-box-update" class="entry-box-all">
-            <div class="position-layout">
-                <ul class="position-type">
-                    <li>
-                        <ol class="fw">
-                            <li>
-                                <div class="player-box-jersey">
+    <div class="entry_outline">
+ 
+        <div id="entry-box" class="entry-box-all">
+                <div class="position-layout">
+                    <ul class="position-type">
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__fw">
+                                    
                                     <a data-role="button" data-rel="1" data-slot="slot1" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="fw-ico">
-                                            <p><img class="btn-slots" id="update-img-slot1" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img fw-bg">
+                                                <div id="update-img-slot1" class="ed_slot_btn fw-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_f" id="update-player-slot1">FW</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot1">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-f" id="update-player-slot1">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__fw">
+                                    
                                     <a data-role="button" data-rel="1" data-slot="slot2" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="fw-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot2" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img fw-bg">
+                                                <div id="update-img-slot2" class="ed_slot_btn fw-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_f" id="update-player-slot2">FW</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot2">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+                                    
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-f" id="update-player-slot2">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="mf">
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="2" data-slot="slot3" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="mf-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot3" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mf-bg">
+                                                <div id="update-img-slot3" class="ed_slot_btn mf-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_m" id="update-player-slot3">MF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot3">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-m" id="update-player-slot3">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="15" data-slot="slot4" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="mf-ico  choice-off dmf-ico">
-                                            <p><img class="btn-slots2" id="update-img-slot4" src="./assets/resource/btn_player_change_02.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mflex-bg">
+                                                <div id="update-img-slot4" class="ed_slot_btn mf-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_m" id="update-player-slot4">MF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot4">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span id="update-player-slot4">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__mf">
                                     <a data-role="button" data-rel="2" data-slot="slot5" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="mf-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot5" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img mf-bg">
+                                                <div id="update-img-slot5" class="ed_slot_btn mf-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_m" id="update-player-slot5">MF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot5">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-m" id="update-player-slot5">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="df">
-
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__df">
+                                    
                                     <a data-role="button" data-rel="4" data-slot="slot6" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="df-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot6" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img df-bg">
+                                                <div id="update-img-slot6" class="ed_slot_btn df-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_d" id="update-player-slot6">DF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot6">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-d" id="update-player-slot6">Player</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="player-box-jersey">
+                                <div class="position_box__df">
+                                    
                                     <a data-role="button" data-rel="4" data-slot="slot7" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="df-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot7" src="./assets/resource/btn_player_change.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img df-bg">
+                                                <div id="update-img-slot7" class="ed_slot_btn df-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_d" id="update-player-slot7">DF</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot7">$0</div>
+                                            </div>
                                         </div>
                                     </a>
+
                                 </div>
-                                <div class="player-box-player">
-                                    <span class="update-player-slots-d" id="update-player-slot7">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                    <li>
-                        <ol class="gk">
-                            <li>
-                                <div class="player-box-jersey">
+                            </div>
+                        </li>
+                        <li>
+                            <div class="position_box">
+                                <div class="position_box__gk">
                                     <a data-role="button" data-rel="8" data-slot="slot8" data-click="app.Entry.setPlayerEntry4up">
-                                        <div class="gk-ico choice-off">
-                                            <p><img class="btn-slots" id="update-img-slot8" src="./assets/resource/btn_player_change_02.png" width="100%"></p>
+                                        <div class="player_box">
+                                            <div class="player_box_img gk-bg">
+                                                <div id="update-img-slot8" class="ed_slot_btn gk-ico player_change"></div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="player-slots ed_slot_pn_g" id="update-player-slot8">GK</div>
+                                            </div>
+                                            <div class="player_box_str">
+                                                <div class="salary-slots ed_slot_ps" id="update-player-salary-slot8">$0</div>
+                                            </div>
                                         </div>
                                     </a>
                                 </div>
-                                <div class="player-box-player">
-                                    <span id="update-player-slot8">Player</span>
-                                </div>
-                            </li>
-                        </ol>
-                    </li>
-                </ul>
+                             </div>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+
+        <div class="entry-control-box">
+            <div class="control-box">
+                <a class="btn-close" data-role="button" data-click="app.Entry.allClearUpdate" data-labelnum="64">초기화</a>
             </div>
-            <img src="./assets/resource/bg_soccer_field.png" width="100%">
-    </div>
-
-    <div class="entry-control-box">
-        <div class="control-box">
-            <a class="btn-close" data-role="button" data-click="app.Entry.allClearUpdate" data-labelnum="64">초기화</a>
-        </div>
-        <div class="control-box">
-            <a id="entryUpdate" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.updateEntry" data-labelnum="65">엔트리 수정 완료</a>
+            <div class="control-box">
+                <a id="entryUpdate" class="btn-confirm disabled" data-role="button" data-rel="disabled" data-click="app.Entry.updateEntry" data-labelnum="65">엔트리 수정 완료</a>
+            </div>
         </div>
     </div>
-
 </div>

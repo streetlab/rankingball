@@ -30,15 +30,40 @@ app.Contests = (function () {
         function onShow(e) {
             
             observableView();
+            var param = e.view.params;
+                        
+            if(param.tab !== undefined && param.tab === "m") {
+                $('#panelbar').scrollTop(0);
+                matchParticipating();
+            } else {
+                matchPlay();
+            }
+            
+            //console.log(contestListData);
+            
+            
+            
             liveContestList();
-            matchPlay();
             myContestList();
 
-            var param = e.view.params;
-            if(param.tab !== undefined && param.tab === "m") {
-                matchParticipating();
-            }
+            playerSlot = {};
+            //playerOnLeague['playerSelected'] = 1;
+            //console.log(playerSlot);
+            //console.log(playerOnLeague);
         }
+        
+        /*
+        var matchList = {
+            init: function() {
+                
+            },
+            myMatchup: function() {
+                var myFeaturedMatch = JSLINQ(contestListData).Where(function(item){ return item.myEntry > 0 && item.featured === 1 });
+                var myMatchCount = JSLINQ(myFeaturedMatch.items).Count();
+            }
+        };
+        */
+        
         
         function playInit(e) {
             var param = e.view.params;
@@ -123,14 +148,14 @@ app.Contests = (function () {
             navbar.title(t);
         };
         
-       var liveContestList = function() {
+        var liveContestList = function() {
             
             var dataSource;
            
             if(contestPartList['cf'].length === 0) {
-                $('#cgt_list1').html('');
+                //$('#cgt_list1').html('');
                 $('#cmath-cnt-f').html(0);
-                $('#acco_cgt1').removeClass('ico-open');
+                $('#acco_cgt1').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
@@ -145,13 +170,13 @@ app.Contests = (function () {
                 
                 //$('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
                 $('#cmath-cnt-f').html(contestPartList['cf'].length);
-                $('#acco_cgt1').addClass('ico-open');
+                $('#acco_cgt1').addClass('ico-open').removeClass('hide');
             }
             
             if(contestPartList['c5'].length === 0) {
-                $('#cgt_list2').html('');
+                //$('#cgt_list2').html('');
                 $('#cmath-cnt-5').html(0);
-                $('#acco_cgt2').removeClass('ico-open');
+                $('#acco_cgt2').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
@@ -165,13 +190,13 @@ app.Contests = (function () {
                 
                 //$('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
                 $('#cmath-cnt-5').html(contestPartList['c5'].length);
-                $('#acco_cgt2').addClass('ico-open');
+                $('#acco_cgt2').addClass('ico-open').removeClass('hide');
             }
             
             if(contestPartList['cg'].length === 0) {
-                $('#cgt_list3').html('');
+                //$('#cgt_list3').html('');
                 $('#cmath-cnt-g').html(0);
-                $('#acco_cgt3').removeClass('ico-open');
+                $('#acco_cgt3').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
@@ -185,7 +210,7 @@ app.Contests = (function () {
                 
                 //$('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
                 $('#cmath-cnt-g').html(contestPartList['cg'].length);
-                $('#acco_cgt3').addClass('ico-open');
+                $('#acco_cgt3').addClass('ico-open').removeClass('hide');
             }
         };
         
@@ -198,6 +223,7 @@ app.Contests = (function () {
                             els_this.find('span.collapse-btn').addClass('ico-open');
                         } else {
                             els_this.find('span.collapse-btn').removeClass('ico-open');
+                            app.mobileApp.scroller().reset();
                         }
                     }
                 );
@@ -206,18 +232,17 @@ app.Contests = (function () {
         var myContestList = function() {
             
             var dataSource;
-            
             if(contestMyPartList['cf'].length === 0) {
-                $('#gt_list1').html('');
+                //$('#gt_list1').html('');
                 $('#math-cnt-f').html(0);
-                $('#acco_gt1').removeClass('ico-open');
+                $('#acco_gt1').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
                     data: contestMyPartList['cf']
                 });
                 
-                $("#gt1").empty();
+                
                 $("#gt1").kendoMobileListView({
                     dataSource: dataSource,
                     template: $("#myContestListTemplate").html()
@@ -225,13 +250,13 @@ app.Contests = (function () {
                 
                 //$('#gt_list1').html('<ul id="gt1" class="collapseInboxList">' + muContestF.arr + '</ul>');
                 $('#math-cnt-f').html(contestMyPartList['cf'].length);
-                $('#acco_gt1').addClass('ico-open');
+                $('#acco_gt1').addClass('ico-open').removeClass('hide');
             }
             
             if(contestMyPartList['c5'].length === 0) {
-                $('#gt_list2').html('');
+                //$('#gt_list2').html('');
                 $('#math-cnt-5').html(0);
-                $('#acco_gt2').removeClass('ico-open');
+                $('#acco_gt2').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
@@ -245,13 +270,13 @@ app.Contests = (function () {
                 
                 //$('#gt_list2').html('<ul id="gt2" class="collapseInboxList">' + muContest5.arr + '</ul>');
                 $('#math-cnt-5').html(contestMyPartList['c5'].length);
-                $('#acco_gt2').addClass('ico-open');
+                $('#acco_gt2').addClass('ico-open').removeClass('hide');
             }
             
             if(contestMyPartList['cg'].length === 0) {
-                $('#gt_list3').html('');
+                //$('#gt_list3').html('');
                 $('#math-cnt-g').html(0);
-                $('#acco_gt3').removeClass('ico-open');
+                $('#acco_gt3').removeClass('ico-open').addClass('hide');
             } else {
                 
                 dataSource = new kendo.data.DataSource({
@@ -265,7 +290,7 @@ app.Contests = (function () {
                 
                 //$('#gt_list3').html('<ul id="gt3" class="collapseInboxList">' + muContestG.arr + '</ul>');
                 $('#math-cnt-g').html(contestMyPartList['cg'].length);
-                $('#acco_gt3').addClass('ico-open');
+                $('#acco_gt3').addClass('ico-open').removeClass('hide');
             }
         };
                 
@@ -285,6 +310,7 @@ app.Contests = (function () {
             $('#tabstrip_live').addClass('ts');
             $('#tab_upcomming').addClass('hide');
             $('#tab_live').removeClass('hide');
+            app.mobileApp.scroller().reset();
         };
         
         var pageTransition = function() {
@@ -329,6 +355,9 @@ app.Contests = (function () {
                 }, 'Notice', [$.langScript[laf]['btn_ok'], $.langScript[laf]['btn_cancel']]);
 
             } else {
+                $.each(playerOnLeague, function(i, v) {
+                    v.playerSelected = 1;
+                });
                 app.mobileApp.navigate('views/entryRegistrationView.html?contest=' + joinMatchNo + '&fee=' + checkedData.entryFee + '&mode=reg', 'slide');
                 closeModal();
             }
@@ -449,6 +478,7 @@ app.Contests = (function () {
                             els_this.find('span.collapse-btn').addClass('ico-open');
                         } else {
                             els_this.find('span.collapse-btn').removeClass('ico-open');
+                            app.mobileApp.scroller().reset();
                         }
                     }
                 );
