@@ -1952,7 +1952,7 @@ app.Playerz = (function () {
                             } else {
                                 htmlData = '<tr><th>MP</th><th>MIN</th><th>G</th><th>GA</th><th>SHO(SOG)</th><th>PAS%</th></tr>' +
                                        '<tr><td>' + playerGameLog.MP + '</td><td>' + playerGameLog.MIN + '</td><td>' + playerGameLog.G + '</td><td>' + playerGameLog.GA + 
-                                       '</td><td>' + playerGameLog.SHO + '</td><td>' + playerGameLog.PAS + '</td></tr>';
+                                       '</td><td>' + playerGameLog.SHO + '</td><td>' + playerGameLog.PAS + '</td></tr>' +
                                        '<tr><th>FC</th><th>YC</th><th>RC</th><th></th><th></th><th></th></tr>' +
                                        '<tr><td>' + playerGameLog.FC + '</td><td>' + playerGameLog.TC + '</td><td>' + playerGameLog.RC + '</td><td></td><td></td><td></td></tr>';
                             }

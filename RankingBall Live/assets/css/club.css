@@ -723,6 +723,8 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     height: 20px;
     font-size: 11px;
     color: #fff;
+    text-align: center;
+    line-height: 20px;    
 }
 .player_card_box .activate_box .feddings .feeding_box_inner {
     width: 100%;
@@ -741,7 +743,8 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     background-size: 100%;
 }
 .player_card_box .km-footer.activate_footer {
-    height: 118px;
+    /* height: 118px; */
+    height: 82px;
     border-top: 0;
     border-right: 2px solid #fff;
     border-bottom: 2px solid #fff;
@@ -825,7 +828,10 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info .player_c
     width: 100%;
     height: 100%;
 }
-
+.player_card_box .activate_box .inset_box__feedingcard .inner_feedingcard a {
+    width: 100%;
+    height: 100%;
+}
 
 
 
@@ -1309,7 +1315,12 @@ ul.player_card_list .player_card_list__box .player_card_list__box-info3 .player_
     display: inline-block;
     margin: 0 5px;
 }
-
+.card_pack_cols.failure {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+}
+.card_pack_cols.success {
+}
 .card_pack_activate {
     width: 100%;
     height: 100%;

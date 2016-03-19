@@ -11,7 +11,7 @@
     <div data-role="header" class="rnkb-wiz">
         <div data-role="navbar">
             <a data-role="button" class="drawer-btn" data-align="left" data-click="app.Contests.homeService">
-                <img src="./assets/resource/btn_home.png">
+                <img src="./assets/resource/btn_back.png" class="km-image">
             </a>
             <a data-role="button" class="drawer-btn" data-align="right">
                 <img src="./assets/resource/btn_help.png">
@@ -358,23 +358,25 @@
                         <div class="feddings">
                             <div class="fedding_box__left">
                                 <div id="feedingPlayercard0" class="feeding_box">
-                                    <div id="selectedPlayercard0" class="inner_feedingcard hide"></div>
+                                    <div id="selectedPlayercard0" class="inner_feedingcard hide">
+                                    </div>
                                     <div id="victimsPlayercardBtn0" class="feeding_box_inner">
                                         <a data-role="button" class="add_btn_playercard" data-rel="0" data-click="app.Card.enhanceAddBtn"></a>
                                     </div>
                                     
                                 </div>
-                                <div id="enhanceCard0" class="ehance_rate hide"></div>
+                                <div id="enhanceCard0" class="ehance_rate">0%</div>
                             </div>
                             <div class="fedding_box__right">
                                 <div id="feedingPlayercard1" class="feeding_box">
-                                    <div id="selectedPlayercard1" class="inner_feedingcard hide"></div>
+                                    <div id="selectedPlayercard1" class="inner_feedingcard hide">
+                                    </div>
                                     <div id="victimsPlayercardBtn1" class="feeding_box_inner">
                                         <a data-role="button" class="add_btn_playercard" data-rel="1" data-click="app.Card.enhanceAddBtn"></a>
                                     </div>
                                     
                                 </div>
-                                <div id="enhanceCard1" class="ehance_rate hide"></div>
+                                <div id="enhanceCard1" class="ehance_rate">0%</div>
                             </div>
                         </div>
                         <div class="feddings">
@@ -386,7 +388,7 @@
                                     </div>
                                     
                                 </div>
-                                <div id="enhanceCard2" class="ehance_rate hide"></div>
+                                <div id="enhanceCard2" class="ehance_rate">0%</div>
                             </div>
                             <div class="fedding_box__right">
                                 <div id="feedingPlayercard3" class="feeding_box">
@@ -396,7 +398,7 @@
                                     </div>
                                     
                                 </div>
-                                <div id="enhanceCard3" class="ehance_rate hide"></div>
+                                <div id="enhanceCard3" class="ehance_rate">0%</div>
                             </div>
                         </div>
                     </div>
@@ -416,10 +418,12 @@
     <div data-role="footer" class="activate_footer">
         <div class="active_data">
             <ul>
+                <!--
                 <li>
                     <div class="active_label">Enhance Point</div>
                     <div id="enhancePoint" class="active_val">0%</div>
                 </li>
+                //-->
                 <li>
                     <div class="active_label">Max Enhance Fee</div>
                     <div id="enhanceFee" class="active_val">$0</div>
@@ -522,7 +526,7 @@
     <div class="card_box">
         <div class="card_box__body">
             <div class="card_box__scroller">
-                <ul id="addPlayercardList" class="player_card_list" data-role="listview"></ul>
+                <ul id="addPlayercardList" class="player_card_list" data-source="app.Card.playerCardSource" data-role="listview" data-template="addPlayerCardListTemplate"></ul>
             </div>
         </div>
     </div>

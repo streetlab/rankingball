@@ -436,15 +436,16 @@ app.Card = (function () {
                 cardPosition = 0;
                 $('#selectedPlayercard').empty().addClass('hide');
                 $('#masterPlayercardBtn').removeClass('hide');
-                $('.inner_feedingcard').empty();
-                $('.inner_feedingcard').addClass('hide');
+                //$('.inner_feedingcard').empty();
+                $('.inner_feedingcard').empty().addClass('hide');
                 $('.feeding_box_inner').removeClass('hide');
+                $('.ehance_rate').html('0%');
                 
                 var ratio = 1.5;
                 $('#modalPlayerCardEnhance').data("kendoMobileModalView").open();
                 
                 var w = $('#masterPlayercard').width();
-                $('#masterPlayercard').css({'height': w * ratio +'px'});
+                $('#masterPlayercard').css({'height': w * ratio +'px','margin-top':'15%'});
                 var ws = $('#feedingPlayercard0').width();
                 $('.feeding_box').css({'height': ws * ratio +'px'});
                 
@@ -503,8 +504,7 @@ app.Card = (function () {
                 $('#selectedComposeVictim').empty().addClass('hide');
                 $('#composeVictimBtn').removeClass('hide');
                 
-                $('.inner_feedingcard').empty();
-                $('.inner_feedingcard').addClass('hide');
+                $('.inner_feedingcard').empty().addClass('hide');
                 $('.feeding_box_inner').removeClass('hide');
                 
                 var info = JSLINQ(myCardList).Where(function(item){ return item.itemSeq === setPlayercard });
@@ -563,16 +563,16 @@ app.Card = (function () {
                 var data = "";
                 switch(addTabLast) {
                     case "FW":
-                        data = JSLINQ(activateList).Where(function(item){ return item.position === 1 });
+                        data = JSLINQ(activateList).Where(function(item){ return item.position === 1 }).OrderByDescending(function(item){ return item.salary });
                         break;
                     case "MF":
-                        data = JSLINQ(activateList).Where(function(item){ return item.position === 2 });
+                        data = JSLINQ(activateList).Where(function(item){ return item.position === 2 }).OrderByDescending(function(item){ return item.salary });
                         break;
                     case "DF":
-                        data = JSLINQ(activateList).Where(function(item){ return item.position === 4 });
+                        data = JSLINQ(activateList).Where(function(item){ return item.position === 4 }).OrderByDescending(function(item){ return item.salary });
                         break;
                     case "GK":
-                        data = JSLINQ(activateList).Where(function(item){ return item.position === 8 });
+                        data = JSLINQ(activateList).Where(function(item){ return item.position === 8 }).OrderByDescending(function(item){ return item.salary });
                         break;
                 }
                                 
@@ -581,13 +581,12 @@ app.Card = (function () {
                 that.updateList(data);
             },
             updateList: function(listData) {
+                /*
                 var dataSource = new kendo.data.DataSource({
                     data: listData.items
                 });
-                $("#addPlayercardList").kendoMobileListView({
-                    dataSource: dataSource,
-                    template: $("#addPlayerCardListTemplate").html()
-                });
+                */
+                playerCardSource.data(listData.items);
                 
                setTimeout(function() {
                     app.mobileApp.hideLoading();
@@ -595,6 +594,14 @@ app.Card = (function () {
             }
         };
         
+        var playerCardSource = new kendo.data.DataSource();
+        /*
+        //var dataSource;
+        $("#addPlayercardList").kendoMobileListView({
+            dataSource: dataSource,
+            template: $("#addPlayerCardListTemplate").html()
+        });
+        */
         /* Playercard => Select playercard to victim slot */
         function addOnVictim(e) {
             var data = e.button.data();
@@ -604,6 +611,7 @@ app.Card = (function () {
             init: function(card) {
                 var that = this;
                 if(nowActivate === "enhance") {
+                    console.log("card slot : " + cardPosition);
                     enhanceList[cardPosition] = card;
                     console.log(enhanceList);
                     that.insertCard(card);
@@ -613,8 +621,7 @@ app.Card = (function () {
                 }
             },
             insertCard: function(card) {
-                var ratio = 1.5;
-                
+                var that = this;
                 var cardSlot = $('#selectedPlayercard' + cardPosition);
                 var dispBtn = $('#victimsPlayercardBtn' + cardPosition);
                 
@@ -632,12 +639,21 @@ app.Card = (function () {
                 }
 
                 purchaseItems += '</div><div class="playercard__emblem '+ emblem + '"></div></div><div class="card_pack__back card_grade_' + info.items[0].cardLevel + '"><div class="card_pack_pattern"></div></div></div></div>';
-
-                cardSlot.append(purchaseItems).removeClass('hide');
+                
+                that.enhanceRate(info.items[0].cardClass);
+                
+                
+                var addSolotItem = '<a id="slotBtn' + cardPosition + '" data-rel="' + card + '" data-ral="' + cardPosition + '">' + purchaseItems + '</a>';
+                cardSlot.html(addSolotItem).removeClass('hide');
+                $('#slotBtn' + cardPosition).kendoMobileButton({click: function(event) {app.Card.enhanceRemoveBtn(event); return false; }});
+                
+                //cardSlot.append(purchaseItems).attr('data-re    l',card).removeClass('hide');
+                //$('#slotBtn' + cardPosition).append(purchaseItems).attr('data-rel',card);
                 dispBtn.addClass('hide');
                 
                 var defFilter = JSLINQ(activateList).Where(function(item){ return item.itemSeq !== card });
                 activateList = defFilter.items;
+                
                 $('#modalPlayerCardList').data("kendoMobileModalView").close();
             },
             insertComposeCard: function(card) {
@@ -671,8 +687,60 @@ app.Card = (function () {
                 var defFilter = JSLINQ(activateList).Where(function(item){ return item.itemSeq !== card });
                 activateList = defFilter.items;
                 $('#modalPlayerCardList').data("kendoMobileModalView").close();
+            },
+            enhanceRate: function(victimClass)
+            {
+                var rate = 0;
+                var classDiff = setPlayercardClass - victimClass;
+                switch(classDiff) {
+                    case 0:
+                        rate = 100;
+                        break;
+                    case 1:
+                        rate = 50;
+                        break;
+                    case 2:
+                        rate = 25;
+                        break;
+                    case 3:
+                        rate = 10;
+                        break;
+                    case 4:
+                        rate = 1;
+                        break;
+                    case 5:
+                        rate = 0;
+                        break;
+                    default:
+                        rate = 100;
+                }
+                
+                $('#enhanceCard' + cardPosition).html(rate + '%');
             }
         };
+        
+        
+        /* Remove to Slot */
+        function enhanceRemoveBtn(e)
+        {
+            var data = e.button.data();
+            var card = data.rel;
+            var slot = data.ral;
+            
+            var defFilter = JSLINQ(myCardList).Where(function(item){ return item.itemSeq === card });
+
+            activateList.push(defFilter.items[0]);
+
+            var arr_index = enhanceList.indexOf(card);                
+            if( arr_index >= 0 ) {
+               enhanceList.splice(arr_index, 1);
+            }
+            
+            console.log(enhanceList);
+            $('#selectedPlayercard' + slot).addClass('hide');
+            $('#victimsPlayercardBtn' + slot).removeClass('hide');
+        }
+        
         
         /* Do It! Enhance */
         function activeEnhance()
@@ -726,6 +794,18 @@ app.Card = (function () {
         
         var enhanceProceedVar = "";
         
+        function cleanArray(actual) {
+            var newArray = new Array();
+            for(var i=0; i < actual.length; i++) {
+                if(actual[i]) {
+                    this.splice(i, 1);
+                    i--;
+                }
+                i--;
+            }
+            return this;
+        }
+        
         var activateWithVictims = {
             reqEnhanceProceed: function() {
                 var that = this;
@@ -733,11 +813,17 @@ app.Card = (function () {
                 if(!setPlayercard) return false;
                 
                 $('#cardPackPos').html('');
-                var ehnaceData = enhanceList.join(',');
                 
+                var enhanceArray = [];
+                for(var i=0; i < enhanceList.length; i++) {
+                    if(enhanceList[i]) enhanceArray.push(enhanceList[i]);
+                }
+                
+                var ehnaceData = enhanceArray.join(',');
+
                 var param = '{"osType":' + init_apps.osType + ',"version":"' + init_apps.version + '","memSeq":' + uu_data.memSeq + ',"itemMain":' + setPlayercard + ',"itemSub":"' + ehnaceData + '"}';
                 var url = init_data.auth + "?callback=?";
-                
+                console.log(param);
                 //app.mobileApp.showLoading();
                 
                 $.ajax({
@@ -844,7 +930,9 @@ app.Card = (function () {
                     var info = JSLINQ(myCardList).Where(function(item){ return item.itemSeq === v.itemSub });
                     var subCard = info.items[0];
                     var subpack = (subCard.cardClass === 6) ? 'gold_pack' : '';
-                    var template = '<div class="card_pack_cols"><div class="card_pack_activate"><div class="card_pack_pos"><div class="card_pack__label"><div class="playercard2"><div class="playercard__lv">+' + subCard.cardLevel + '</div>' +
+                    
+                    
+                    var template = '<div class="card_pack_cols ' + subResult + '"><div class="card_pack_activate"><div class="card_pack_pos"><div class="card_pack__label"><div class="playercard2"><div class="playercard__lv">+' + subCard.cardLevel + '</div>' +
                         '<div class="playercard__no">' + subCard.shirt_number + '</div></div><div class="playercard_name">' + subCard.playerName + '</div></div><div class="card_pack__husks ' + subpack + '"></div>' +
                         '<div class="card_pack__stat"><div class="playercard__grade2">';
                     for(var i = 1;i<7;i++) {
@@ -1119,7 +1207,9 @@ app.Card = (function () {
             addOnVictim: addOnVictim,
             activeEnhance: activeEnhance,
             activeCompose: activeCompose,
-            restoreCard: restoreCard
+            restoreCard: restoreCard,
+            enhanceRemoveBtn: enhanceRemoveBtn,
+            playerCardSource: playerCardSource
         };
     }());
 
